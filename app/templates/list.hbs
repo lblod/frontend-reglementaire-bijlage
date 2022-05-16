@@ -1,0 +1,11 @@
+{{page-title "List"}}
+<AuButton
+  {{on 'click' (perform this.createReglement)}}
+>
+  Add Reglement
+</AuButton>
+{{#each model as |reglement|}}
+  {{#if reglement.id}}
+    <p>Reglement: {{reglement.id}} <AuLink @route="edit" @model={{reglement.id}}>Edit</AuLink></p>
+  {{/if}}
+{{/each}}

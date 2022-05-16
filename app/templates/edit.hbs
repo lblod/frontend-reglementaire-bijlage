@@ -1,0 +1,12 @@
+{{page-title "Edit"}}
+<AuButton
+  {{on 'click' (perform this.save)}}
+> 
+  Save 
+</AuButton>
+<RdfaEditorContainer
+  @profile={{this.profile}}
+  @rdfaEditorInit={{this.handleRdfaEditorInit}}
+  @typeOfWrappingDiv="besluit:BehandelingVanAgendapunt"
+  @showToggleRdfaAnnotations={{true}}
+  />
