@@ -1,41 +1,38 @@
-<AuBodyContainer @scroll={{true}} itemprop="mainContentOfPage">
-  <main id="content">
-    <AuContentHeader @titlePartOne="Vlaanderen" @titlePartTwo="is gelinkt notuleren">
-      <img
-        sizes="50vw"
-        src="/assets/images/loket-header-1600.jpg"
-        srcset="/assets/images/loket-header-320.jpg 320w, /assets/images/loket-header-1024.jpg 1024w, /assets/images/loket-header-1600.jpg 1600w"
-        alt=""
-        role="presentation"
-      >
-    </AuContentHeader>
-
-    <div class="au-o-region-large">
-      <div class="au-o-layout">
-        <AuHeading @skin="4">Kies een bestuurseenheid om mee in te loggen.</AuHeading>
-        <p class="au-u-margin-top-small au-u-margin-bottom">
-          {{#let (unique-id) as |id|}}
-            <AuLabel for={{id}}>Bestuurseenheid zoeken</AuLabel>
-            <input class="au-c-input au-c-input--block js-js-input-pattern-bound" id={{id}} placeholder="Aalst, Berchem, &hellip;" value={{this.gemeente}} autofocus oninput={{perform this.updateSearch value='target.value'}}>
-          {{/let}}
-        </p>
-
-        <MockLogin as |login|>
-          {{#if this.queryStore.isRunning}}
-            <AuLoader @padding="small" />
-          {{else}}
-            {{#if this.login.errorMessage}}
-              <AuAlert @alertIcon="alert-triangle" @alertTitle={{this.login.errorMessage}} @alertSkin="warning" />
-            {{/if}}
-            {{#each this.model as |account|}}
-              <AuButton class="au-u-flex au-u-flex--row au-u-flex--start au-c-card au-u-margin-bottom-small" @skin="secondary" @width="block"  @size="large" type="button" {{on "click" (fn login.login account.id account.gebruiker.group.id)}}>
-                {{account.gebruiker.voornaam}} {{account.gebruiker.achternaam}}
-              </AuButton>
-            {{/each}}
-            <NumberPagination @page={{this.page}} @size={{this.size}} @nbOfItems={{this.model.length}} @total={{this.model.meta.count}} @links={{this.model.meta.pagination}} />
-          {{/if}}
-        </MockLogin>
-      </div>
-    </div>
-  </main>
-</AuBodyContainer>
+<StaticPage>
+  <div class="au-o-layout au-o-region-large">
+    <MockLogin as |login|>
+      {{#if login.isLoading}}
+        <AuLoader />
+      {{else}}
+        {{#if login.errorMessage}}
+          {{login.errorMessage}}
+        {{/if}}
+        <AuHeading @skin="4" class="au-u-margin-bottom">Kies een testgebruiker</AuHeading>
+        <ul>
+          {{#each this.accounts as |account|}}
+            <li>
+              <div
+                class="au-o-box au-o-box--small au-c-card au-u-margin-bottom-small"
+              >
+                <AuButton
+                  @skin="tertiary"
+                  {{on
+                    "click"
+                    (fn login.login account.id account.user.groups.firstObject.id)
+                  }}
+                >
+                  <strong>
+                    {{account.user.firstName}}
+                    {{account.user.familyName}}
+                    -&nbsp;
+                  </strong>
+                  {{account.user.groups.firstObject.name}}
+                </AuButton>
+              </div>
+            </li>
+          {{/each}}
+        </ul>
+      {{/if}}
+    </MockLogin>
+  </div>
+</StaticPage>

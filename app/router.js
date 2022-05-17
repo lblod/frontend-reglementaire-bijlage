@@ -10,4 +10,10 @@ Router.map(function () {
   this.route('mock-login');
   this.route('list');
   this.route('edit', { path: '/:id/edit' });
+
+  this.route('legal', function () {
+    this.route('disclaimer');
+    this.route('cookiestatement');
+    this.route('accessibilitystatement');
+  });
 });

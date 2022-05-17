@@ -10,7 +10,7 @@ export default class EditRoute extends Route {
 
   async model(params) {
     const reglement = await this.store.findRecord('reglement', params.id);
-    console.log(reglement)
+    console.log(reglement);
     const containerId = (await reglement.get('document')).id;
     const documentContainer = await this.store.findRecord(
       'document-container',

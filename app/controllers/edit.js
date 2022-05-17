@@ -8,7 +8,7 @@ export default class EditController extends Controller {
   @action
   handleRdfaEditorInit(editor) {
     this.editor = editor;
-    console.log(this.model.editorDocument)
+    console.log(this.model.editorDocument);
     editor.setHtmlContent(this.model.editorDocument.content);
   }
 
@@ -27,7 +27,7 @@ export default class EditController extends Controller {
 
     const documentContainer = this.model.documentContainer;
     documentContainer.currentVersion = editorDocument;
-    console.log(documentContainer)
+    console.log(documentContainer);
     yield documentContainer.save();
   }
 }

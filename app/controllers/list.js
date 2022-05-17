@@ -20,6 +20,6 @@ export default class ListController extends Controller {
     yield documentContainer.save();
     reglement.document = documentContainer;
     yield reglement.save();
-    console.log(reglement)
+    console.log(reglement);
   }
 }
