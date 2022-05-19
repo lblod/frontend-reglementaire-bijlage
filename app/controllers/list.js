@@ -20,6 +20,17 @@ export default class ListController extends Controller {
     yield documentContainer.save();
     reglement.document = documentContainer;
     yield reglement.save();
-    console.log(reglement);
+  }
+  @task
+  *deleteReglement(id) {
+    const reglement = yield this.store.findRecord('regulatory-statement', id);
+    const documentContainer = yield reglement.document;
+    const editorDocument = yield documentContainer.currentVersion;
+    yield editorDocument.deleteRecord();
+    yield editorDocument.save();
+    yield documentContainer.deleteRecord();
+    yield documentContainer.save();
+    yield reglement.deleteRecord();
+    yield reglement.save();
   }
 }

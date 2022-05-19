@@ -6,6 +6,10 @@
 </AuButton>
 {{#each model as |reglement|}}
   {{#if reglement.id}}
-    <p>Reglement: {{reglement.id}} <AuLink @route="edit" @model={{reglement.id}}>Edit</AuLink></p>
+    <p>
+      Reglement: {{reglement.id}} 
+      <AuLink @route="edit" @model={{reglement.id}} @skin="button">Edit</AuLink>
+      <AuButton {{on 'click' (perform this.deleteReglement reglement.id)}}>Delete</AuButton>
+    </p>
   {{/if}}
 {{/each}}
