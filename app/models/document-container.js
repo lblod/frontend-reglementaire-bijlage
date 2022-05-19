@@ -5,6 +5,6 @@ export default class DocumentContainerModel extends Model {
   @belongsTo('editor-document', { inverse: null }) currentVersion;
   @belongsTo('concept', { inverse: null }) status;
   @belongsTo('editor-document-folder', { inverse: null }) folder;
-  @belongsTo('bestuurseenheid', { inverse: null }) publisher;
+  @belongsTo('administrative-unit', { inverse: null }) publisher;
   @hasMany('attachment', { inverse: 'documentContainer' }) attachments;
 }

@@ -1,17 +1,18 @@
 import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 
-export default class BestuursorgaanModel extends Model {
+export default class GoverningBodyModel extends Model {
   @attr uri;
   @attr naam;
   @attr('date') bindingEinde;
   @attr('date') bindingStart;
-  @belongsTo('bestuurseenheid', { inverse: 'bestuursorganen' }) bestuurseenheid;
-  @belongsTo('bestuursorgaan-classificatie-code', { inverse: null })
-  classificatie;
-  @belongsTo('bestuursorgaan', { inverse: 'heeftTijdsspecialisaties' })
-  isTijdsspecialisatieVan;
-  @hasMany('bestuursorgaan', { inverse: 'isTijdsspecialisatieVan' })
-  heeftTijdsspecialisaties;
+  @belongsTo('administrative-unit', { inverse: 'governing-body' })
+  adminstrativeUnit;
+  @belongsTo('administrative-unit-classification-code', { inverse: null })
+  classification;
+  @belongsTo('governing-body', { inverse: 'hasTimeSpecializations' })
+  isTimeSpecializationOf;
+  @hasMany('governing-body', { inverse: 'isTimeSpecializationOf' })
+  hasTimeSpecializations;
 
   rdfaBindings = {
     naam: 'http://www.w3.org/2004/02/skos/core#prefLabel',

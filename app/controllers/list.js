@@ -6,7 +6,7 @@ export default class ListController extends Controller {
   @service store;
   @task
   *createReglement() {
-    const reglement = this.store.createRecord('reglement');
+    const reglement = this.store.createRecord('regulatory-statement');
     const documentContainer = this.store.createRecord('document-container');
     const editorDocument = this.store.createRecord('editor-document');
     editorDocument.content = '';

@@ -1,5 +1,5 @@
 import Model, { belongsTo } from '@ember-data/model';
 
-export default class Reglement extends Model {
+export default class RegulatoryStatement extends Model {
   @belongsTo('document-container') document;
 }

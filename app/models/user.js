@@ -8,7 +8,7 @@ export default class UserModel extends Model {
   @hasMany('account', { inverse: null })
   account;
 
-  @hasMany('groups', { inverse: null })
+  @hasMany('administrative-units', { inverse: null })
   groups;
 
   get fullName() {

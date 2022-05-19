@@ -6,7 +6,7 @@ export default class ListRoute extends Route {
   @service session;
 
   async model() {
-    const reglements = await this.store.findAll('reglement');
+    const reglements = await this.store.findAll('regulatory-statement');
     return reglements;
   }
   beforeModel(transition) {
