@@ -1,0 +1,24 @@
+codelist:
+  name: Codelists management
+  details: Codelist details
+  crud:
+    new: New codelist
+    edit: Edit codelist
+    delete: Delete codelist
+    noData: No codelist
+    noValue: No value
+    labelFilter: Label
+    addValue: Add value
+    deleteValue: Delete value
+  attr:
+    label: Label
+    type: Type
+    values: Values
+    id: Id
+    types:
+      singleSelect: 'Single select'
+      multiSelect: 'Multi select'
+  landingPage:
+    subtitle: –
+    content: Information in the card that comes below the header. Content.
+    button: Go to codelists management

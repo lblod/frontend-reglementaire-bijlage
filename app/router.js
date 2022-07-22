@@ -16,4 +16,9 @@ Router.map(function () {
     this.route('cookiestatement');
     this.route('accessibilitystatement');
   });
+  this.route('codelists-management', function () {
+    this.route('new');
+    this.route('edit', { path: '/edit/:id' });
+    this.route('codelist', { path: '/:id' });
+  });
 });
