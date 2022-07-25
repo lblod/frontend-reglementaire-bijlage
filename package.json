@@ -27,6 +27,7 @@
     "@ember/test-helpers": "^2.6.0",
     "@glimmer/component": "^1.0.4",
     "@glimmer/tracking": "^1.0.4",
+    "@lblod/ember-acmidm-login": "^1.4.0",
     "@lblod/ember-rdfa-editor": "^0.57.0",
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
