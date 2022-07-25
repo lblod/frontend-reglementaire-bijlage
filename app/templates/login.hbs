@@ -1,16 +1,6 @@
-<section class="au-o-region-large">
-    <div class="au-o-layout">
-      <div class="au-o-grid au-o-grid--small">
-        <div class="au-o-grid__item au-u-3-4@small au-u-1-2@medium">
-          <AuContent @skin="large">
-            <h1>Reglementaire Bijlagen</h1>
-            <p class="au-c-heading au-c-heading--4">Een webapplicatie die helpt met het opmaken en beheren van reglementaire bijlagen.</p>
-            <p>Het aanmelden gebeurt in een pop-up; zorg dat de instellingen van uw browser correct staan indien deze niet verschijnt.</p>
-          </AuContent>
-        </div>
-        <div class="au-o-grid__item au-u-1-4@small au-u-1-2@medium au-u-text-right@medium">
-          <AcmidmLogin />
-        </div>
-      </div>
-    </div>
-</section>
+<StaticPage>
+  <div class="au-o-layout au-o-region-large">
+    <AuHeading @skin="4" class="au-u-margin-bottom">Log in met acm/idm</AuHeading>
+    <AcmidmLogin />
+  </div>
+</StaticPage>
