@@ -1,6 +1,6 @@
 /* jshint node:true */
 
-module.exports = function (/* environment */) {
+module.exports = function(/* environment */) {
   return {
     /**
      * Merges the fallback locale's translations into all other locales as a
@@ -71,7 +71,7 @@ module.exports = function (/* environment */) {
     errorOnMissingTranslations: false,
 
     /**
-     * removes empty translations from the build output.
+     * Removes empty translations from the build output.
      *
      * @property stripEmptyTranslations
      * @type {Boolean}
@@ -90,6 +90,6 @@ module.exports = function (/* environment */) {
      */
     requiresTranslation(/* key, locale */) {
       return true;
-    },
+    }
   };
 };

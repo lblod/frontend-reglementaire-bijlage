@@ -22,3 +22,23 @@ codelist:
     subtitle: –
     content: Information in the card that comes below the header. Content.
     button: Go to codelists management
+utility:
+  backToOverview: Back to overview
+  view: View
+  save: Save
+  cancel: Cancel
+  close: Close
+  confirmation:
+    title: Confirm
+    body: Are you sure?
+  required: Required
+  optional: Optional
+landingPage:
+  createReglement:
+    title: Create Regulatory Attachment
+    content: Content
+    button: Button
+  codelists:
+    title: Codelists
+    content: Content
+    button: Button
