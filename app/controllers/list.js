@@ -13,7 +13,6 @@ export default class ListController extends Controller {
     editorDocument.createdOn = new Date();
     editorDocument.updatedOn = new Date();
     editorDocument.title = 'title';
-    editorDocument.previousVersion = this.editorDocument;
     yield editorDocument.save();
 
     documentContainer.currentVersion = editorDocument;

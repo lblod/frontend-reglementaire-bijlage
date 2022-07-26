@@ -6,6 +6,7 @@ export default class ApplicationSerializer extends JSONAPISerializer.extend(
   DataTableSerializerMixin
 ) {
   keyForRelationship(key) {
+    if (key === 'currentVersion') return 'current-version';
     return key;
   }
   serializeAttribute(snapshot, json, key, attributes) {
