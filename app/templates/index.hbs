@@ -1,0 +1,58 @@
+<div class="au-c-body-container au-c-body-container--scroll">
+  <div class="au-o-box">
+    <div class="au-o-grid au-o-grid--small">
+      <div class="au-o-grid__item au-u-2-5@medium">
+        <div class="au-c-content  au-u-margin-bottom">
+          <AuHeading @skin="2">
+            {{t "utility.appName"}}
+          </AuHeading>
+          <p></p>
+        </div>
+      </div>
+    </div>
+    <ul class="au-o-grid au-o-grid--small">
+      <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+        <AuCard @flex={{true}} as |c|>
+          <c.header @badgeSkin="brand" @badgeIcon="alert-triangle">
+            <AuHeading @level="2" @skin="4">
+              {{t "landingPage.createReglement.title"}}
+            </AuHeading>
+          </c.header>
+          <c.content>
+            <p>
+              {{t "landingPage.createReglement.content"}}
+            </p>
+          </c.content>
+          <c.footer>
+            <AuLink
+              @route="list"
+              @skin="button">
+              {{t "landingPage.createReglement.button"}}
+            </AuLink>
+          </c.footer>
+        </AuCard>
+      </li>
+      <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+        <AuCard @flex={{true}} as |c|>
+          <c.header @badgeSkin="brand" @badgeIcon="alert-triangle">
+            <AuHeading @level="2" @skin="4">
+              {{t "landingPage.codelists.title"}}
+            </AuHeading>
+          </c.header>
+          <c.content>
+            <p>
+              {{t "landingPage.codelists.content"}}
+            </p>
+          </c.content>
+          <c.footer>
+            <AuLink
+              @route="codelists-management"
+              @skin="button">
+              {{t "landingPage.codelists.button"}}
+            </AuLink>
+          </c.footer>
+        </AuCard>
+      </li>
+    </ul>
+  </div>
+</div>

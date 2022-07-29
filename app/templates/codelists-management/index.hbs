@@ -1,0 +1,75 @@
+<AuDataTable
+  @content={{this.model.codelists}}
+  @fields="Label"
+  @noDataMessage={{t "codelist.crud.noData"}}
+  @size={{this.size}}
+  @page={{this.page}}
+  @sort={{this.sort}} as |s|
+>
+  <s.menu as |menu|>
+    <menu.general>
+      <AuToolbar class="au-o-box">
+        <AuToolbarGroup>
+          <AuHeading @skin="2">
+            {{t "codelist.name"}}
+          </AuHeading>
+        </AuToolbarGroup>
+        <AuToolbarGroup class="au-c-toolbar__group--center">
+          {{! Copied from the AuDataTable::TextSearch component since that doesn't support calling actions on input}}
+          <div class="au-c-data-table__search codelist-label-search">
+            <input
+              value={{this.label}}
+              placeholder={{t "codelist.crud.labelFilter"}}
+              class="au-c-input au-c-input--block"
+              {{on "input" (perform this.updateSearchFilterTask "label")}}
+            />
+            <span class="au-c-data-table__search-icon">
+              <AuIcon @icon="search" @size="large" />
+            </span>
+          </div>
+          <AuLink
+            @route="codelists-management.new"
+            @skin="button">
+            {{t "codelist.crud.new"}}
+          </AuLink>
+        </AuToolbarGroup>
+      </AuToolbar>
+    </menu.general>
+  </s.menu>
+  <s.content as |c|>
+    <c.header>
+      <AuDataTableThSortable
+        @field="label"
+        @currentSorting={{this.sort}}
+        @label={{t "codelist.attr.label"}}
+      />
+      <th>{{t "codelist.attr.id"}}</th>
+      <th>{{t "codelist.attr.type"}}</th>
+      <th></th>
+    </c.header>
+    <c.body as |codelist|>
+      <td>
+        {{codelist.label}}
+      </td>
+      <td>
+        {{codelist.id}}
+      </td>
+      <td>
+        {{#if codelist.type}}
+          {{t (concat "codelist.attr.types." codelist.type.label)}}
+        {{else}}
+          {{t "codelist.attr.types.singleSelect"}}
+        {{/if}}
+      </td>
+      <td>
+        <AuLink
+          @skin="primary"
+          @route="codelists-management.codelist"
+          @model={{codelist.id}}
+        >
+          {{t "utility.view"}}
+        </AuLink>
+      </td>
+    </c.body>
+  </s.content>
+</AuDataTable>
