@@ -25,13 +25,12 @@ module.exports = function (environment) {
       disableRedirectInitializer: true,
       providers: {
         'acmidm-oauth2': {
-          apiKey: '69069b1c-0bd0-4679-a9af-5a265c544c1c',
-          baseUrl: 'https://authenticatie-ti.vlaanderen.be/op/v1/auth',
-          scope: 'openid vo profile abb_lblod',
-          redirectUri:
-            'https://reglementairebijlagen.lblod.info/authorization/callback',
-          logoutUrl: 'https://authenticatie-ti.vlaanderen.be/op/v1/logout',
-          returnUrl: 'https://reglementairebijlagen.lblod.info/switch-login',
+          apiKey: '{{OAUTH_API_KEY}}',
+          baseUrl: '{{OAUTH_API_BASE_URL}}',
+          scope: '{{OAUTH_API_SCOPE}}',
+          redirectUri: '{{OAUTH_API_REDIRECT_URL}}',
+          logoutUrl: '{{OAUTH_API_LOGOUT_URL}}',
+          returnUrl: '{{OAUTH_API_RETURN_URL}}',
         },
       },
     },
