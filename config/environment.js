@@ -27,11 +27,11 @@ module.exports = function (environment) {
         'acmidm-oauth2': {
           apiKey: '69069b1c-0bd0-4679-a9af-5a265c544c1c',
           baseUrl: 'https://authenticatie-ti.vlaanderen.be/op/v1/auth',
-          scope: 'openid rrn vo profile abb_lblod',
+          scope: 'openid vo profile abb_lblod',
           redirectUri:
             'https://reglementairebijlagen.lblod.info/authorization/callback',
           logoutUrl: 'https://authenticatie-ti.vlaanderen.be/op/v1/logout',
-          returnUrl: 'https://reglementairebijlagen.lblod.info/switch-login', //optional
+          returnUrl: 'https://reglementairebijlagen.lblod.info/switch-login',
         },
       },
     },
