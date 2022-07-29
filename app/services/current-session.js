@@ -20,10 +20,8 @@ export default class CurrentSessionService extends Service {
       });
       this.user = await this.account.get('user');
 
-      let groupId = this.session.data.authenticated.relationships.group.data.id;
-      this.group = await this.store.findRecord('administrative-unit', groupId, {
-        include: 'classification',
-      });
+      // let groupId = this.session.data.authenticated.relationships.group.data.id;
+      // this.group = await this.store.findRecord('administrative-unit', groupId);
 
       this.roles = this.session.data.authenticated.data.attributes.roles;
     }

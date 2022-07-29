@@ -9,7 +9,10 @@ export default class EditRoute extends Route {
   profile = 'draftDecisionsProfile';
 
   async model(params) {
-    const reglement = await this.store.findRecord('regulatory-statement', params.id);
+    const reglement = await this.store.findRecord(
+      'regulatory-statement',
+      params.id
+    );
     console.log(reglement);
     const containerId = (await reglement.get('document')).id;
     const documentContainer = await this.store.findRecord(
