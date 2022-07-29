@@ -7,6 +7,7 @@ export default class ApplicationSerializer extends JSONAPISerializer.extend(
 ) {
   keyForRelationship(key) {
     if (key === 'currentVersion') return 'current-version';
+    if (key === 'previousVersion') return 'previous-version';
     return key;
   }
   serializeAttribute(snapshot, json, key, attributes) {

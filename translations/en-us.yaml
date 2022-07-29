@@ -23,6 +23,7 @@ codelist:
     content: Information in the card that comes below the header. Content.
     button: Go to codelists management
 utility:
+  appName: "Regulatory Attachments"
   backToOverview: Back to overview
   view: View
   save: Save
