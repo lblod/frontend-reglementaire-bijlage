@@ -27,6 +27,6 @@ export default class EditRoute extends Route {
     return { reglement, documentContainer, editorDocument };
   }
   beforeModel(transition) {
-    this.session.requireAuthentication(transition, 'mock-login');
+    this.session.requireAuthentication(transition, 'login');
   }
 }
