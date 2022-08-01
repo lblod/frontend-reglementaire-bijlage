@@ -1,4 +1,12 @@
 {{page-title "Edit"}}
+<AppChrome
+  @editorDocument={{this.model.editorDocument}}
+  @documentContainer={{this.model.documentContainer}}
+  @save={{hash action=(perform this.save) isRunning=this.save.isRunning}}
+  @sendToTrash={{this.toggleDeleteModal}}
+  @returnRoute="list"
+  @returnRouteText={{t 'inbox.agendapoints.return'}}
+/>
 <AuButton
   {{on 'click' (perform this.save)}}
 > 

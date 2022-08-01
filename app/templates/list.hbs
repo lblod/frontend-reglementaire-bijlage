@@ -1,27 +1,65 @@
 {{page-title "List"}}
-{{!-- <AuMainHeader @homeRoute="index" @appTitle="Reglementaire Bijlagen">
-  <AuDropdown @title="{{this.currentSession.user.firstName}} {{this.currentSession.user.familyName}} - {{this.currentSession.group.classification.label}} {{this.currentSession.group.name}}" @buttonLabel="Account settings" @alignment="right">
-    <Acmidm::Switch as |acmidm|>
-      <AuButton @loading={{acmidm.isSwitching}} class="au-c-button au-c-button--tertiary" role="menuitem" {{on "click" acmidm.switch}}>
-        <AuIcon @icon="switch" @alignment="left" />Wissel van bestuurseenheid
-      </AuButton>
-    </Acmidm::Switch>
-    <button type="button" class="au-c-button au-c-button--tertiary" role="menuitem" {{on "click" this.logout}}>
-      <AuIcon @icon="logout" @alignment="left" />Afmelden
-    </button>
-  </AuDropdown>
-</AuMainHeader> --}}
-<AuButton
-  {{on 'click' (perform this.createReglement)}}
+<AuDataTable @content={{this.model}} @isLoading={{this.isLoadingModel}} @noDataMessage={{t 'inbox.meetings.noDataMessage'}} @sort={{this.sort}} @page={{this.page}} @size={{this.size}} as |table|>
+  <table.menu as |menu|>
+    <menu.general>
+      <AuToolbar class="au-o-box" @size="large">
+        <AuToolbarGroup>
+          <AuHeading @skin="2">
+            {{t "inbox.meetings.pageTitle"}}
+          </AuHeading>
+        </AuToolbarGroup>
+        <AuToolbarGroup class="au-c-toolbar__group--center">
+          {{#unless this.readOnly}}
+            <AuButton @icon="add" @iconAlignment="left"  {{on 'click' this.startCreateReglementFlow}}>{{t "inbox.meetings.new.title"}}</AuButton>
+          {{/unless}}
+        </AuToolbarGroup>
+      </AuToolbar>
+    </menu.general>
+  </table.menu>
+  <table.content as |c|>
+    <c.header>
+      <th><span class="au-c-data-table__header-title au-c-data-table__header-title--sortable">{{t 'inbox.meetings.type'}}</span></th>
+      <AuDataTableThSortable @field="geplandeStart" @currentSorting={{this.sort}} @label={{t 'inbox.meetings.time'}} />
+    </c.header>
+    <c.body as |reglement|>
+      <td>
+        <LinkTo @route="edit" @model={{reglement.id}} class="au-c-link">{{reglement.document.currentVersion.title}}</LinkTo>
+      </td>
+      <td>{{detailed-date reglement.document.currentVersion.createdOn}}</td>
+    </c.body>
+  </table.content>
+</AuDataTable>
+<AuModal
+  @title={{t "inbox.meetings.new.title"}}
+  @modalOpen={{this.createReglementModalIsOpen}}
+  @closeModal={{this.cancelCreateReglement}}
+  as |Modal|
 >
-  Add Reglement
-</AuButton>
-{{#each model as |reglement|}}
-  {{#if reglement.id}}
-    <p>
-      Reglement: {{reglement.id}} 
-      <AuLink @route="edit" @model={{reglement.id}} @skin="button">Edit</AuLink>
-      <AuButton {{on 'click' (perform this.deleteReglement reglement.id)}}>Delete</AuButton>
-    </p>
-  {{/if}}
-{{/each}}
+  <Modal.Body>
+    <form class="au-o-flow" id="create-meeting-form" {{on "submit" (perform this.saveReglement)}}>
+      <AuLabel
+        for={{id}}
+      >
+        {{t "inbox.meetings.new.meeting.administrativeBody"}}
+      </AuLabel>
+      <AuInput @value={{this.editorDocument.title}} @width="block" id={{id}} type="text" />
+    </form>
+  </Modal.Body>
+  <Modal.Footer>
+    <AuButtonGroup>
+      {{!-- Due to a bug in Ember overriding the type of a button component with splattributes isn't possible --}}
+      {{!-- More information: https://github.com/emberjs/ember.js/issues/18232 --}}
+      {{!-- TODO: Replace this with the AuButton component once the app is updated to 3.25+ or the fix is backported to 3.24 LTS --}}
+      <button
+        class="au-c-button {{if this.saveMeetingTask.isRunning "is-loading"}}"
+        form="create-meeting-form"
+        type="submit"
+      >
+        {{t "inbox.meetings.new.save"}}
+      </button>
+      <AuButton {{on "click" this.cancelCreateReglement}} @skin="secondary">
+        {{t "inbox.meetings.new.cancel"}}
+      </AuButton>
+    </AuButtonGroup>
+  </Modal.Footer>
+</AuModal>

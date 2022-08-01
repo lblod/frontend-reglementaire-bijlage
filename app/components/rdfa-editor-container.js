@@ -70,13 +70,6 @@ export default class RdfaEditorContainerComponent extends Component {
       this.args.rdfaEditorInit(editor);
     }
     this.editor = editor;
-    editor.executeCommand(
-      'insert-component',
-      'inline-components/table-of-contents',
-      {},
-      {},
-      false
-    );
   }
 
   prefixToAttrString(prefix) {
