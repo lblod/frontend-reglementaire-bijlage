@@ -4,16 +4,7 @@ import { tracked } from '@glimmer/tracking';
 
 export default class RdfaEditorContainerComponent extends Component {
   @tracked editor;
-  plugins = [
-    'besluit-type',
-    'standard-template',
-    'besluit',
-    'roadsign-regulation',
-    'template-variable',
-    'rdfa-date',
-    'import-snippet',
-    'citaten-plugin',
-  ];
+  plugins = ['article-structure', 'rdfa-toc'];
   get editorOptions() {
     return (
       this.args.editorOptions ?? {
@@ -69,7 +60,7 @@ export default class RdfaEditorContainerComponent extends Component {
   setPrefix(element) {
     element.setAttribute(
       'prefix',
-      this.prefixToAttrString(this.documentContext.prefix)
+      'eli: http://data.europa.eu/eli/ontology# prov: http://www.w3.org/ns/prov# mandaat: http://data.vlaanderen.be/ns/mandaat# besluit: http://data.vlaanderen.be/ns/besluit# say:https://say.data.gift/ns/ dct: http://purl.org/dc/terms/ ext:http://mu.semte.ch/vocabularies/ext/'
     );
   }
 
@@ -79,6 +70,13 @@ export default class RdfaEditorContainerComponent extends Component {
       this.args.rdfaEditorInit(editor);
     }
     this.editor = editor;
+    editor.executeCommand(
+      'insert-component',
+      'inline-components/table-of-contents',
+      {},
+      {},
+      false
+    );
   }
 
   prefixToAttrString(prefix) {

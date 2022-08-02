@@ -7,7 +7,9 @@ export default class Router extends EmberRouter {
 }
 
 Router.map(function () {
+  this.route('login');
   this.route('mock-login');
+  this.route('switch-login');
   this.route('list');
   this.route('edit', { path: '/:id/edit' });
 
@@ -15,5 +17,10 @@ Router.map(function () {
     this.route('disclaimer');
     this.route('cookiestatement');
     this.route('accessibilitystatement');
+  });
+  this.route('codelists-management', function () {
+    this.route('new');
+    this.route('edit', { path: '/edit/:id' });
+    this.route('codelist', { path: '/:id' });
   });
 });

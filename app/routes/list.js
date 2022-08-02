@@ -10,6 +10,6 @@ export default class ListRoute extends Route {
     return reglements;
   }
   beforeModel(transition) {
-    this.session.requireAuthentication(transition, 'mock-login');
+    this.session.requireAuthentication(transition, 'login');
   }
 }
