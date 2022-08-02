@@ -1,8 +1,11 @@
 pipeline:
-  build-and-push:
+  release:
     image: plugins/docker
     settings:
       repo: "${CI_REPO_OWNER}/${CI_REPO_NAME}"
-      tags: latest
+      tags: "${CI_REPO_TAG##v}" # strips v from the tag
     secrets: [ docker_username, docker_password ]
+    when:
+      event: tag
+      tag: v*
 branches: master
