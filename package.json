@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "description": "Small description for frontend-reglementaire-bijlage goes here",
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lblod/frontend-reglementaire-bijlage.git"
+  },
   "license": "MIT",
   "author": "",
   "directories": {
@@ -20,7 +23,8 @@
     "lint:js:fix": "eslint . --fix",
     "start": "ember serve",
     "test": "npm-run-all lint test:*",
-    "test:ember": "ember test"
+    "test:ember": "ember test",
+    "release": "release-it"
   },
   "devDependencies": {
     "@bagaar/ember-breadcrumbs": "^3.0.0",
@@ -30,6 +34,7 @@
     "@glimmer/tracking": "^1.0.4",
     "@lblod/ember-acmidm-login": "^1.4.0",
     "@lblod/ember-rdfa-editor": "^0.60.5",
+    "@release-it-plugins/lerna-changelog": "github:release-it-plugins/lerna-changelog",
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
     "ember-auto-import": "^2.4.1",
@@ -68,6 +73,7 @@
     "prettier": "^2.5.1",
     "qunit": "^2.17.2",
     "qunit-dom": "^1.6.0",
+    "release-it": "^15.2.0",
     "sass": "^1.51.0",
     "webpack": "^5.70.0"
   },
