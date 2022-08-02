@@ -8,7 +8,7 @@ export default class EditController extends Controller {
   @action
   handleRdfaEditorInit(editor) {
     this.editor = editor;
-    if(this.model.editorDocument.content) {
+    if (this.model.editorDocument.content) {
       editor.setHtmlContent(this.model.editorDocument.content);
     } else {
       editor.executeCommand(

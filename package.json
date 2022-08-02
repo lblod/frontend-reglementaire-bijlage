@@ -85,6 +85,7 @@
     "@lblod/ember-mock-login": "^0.7.0",
     "@lblod/ember-rdfa-editor-article-structure-plugin": "^0.2.6",
     "@lblod/ember-rdfa-editor-table-of-contents-plugin": "^0.2.5",
+    "@triply/yasgui": "^4.2.26",
     "date-fns": "^2.29.1",
     "ember-inflector": "^4.0.2",
     "ember-mu-transform-helpers": "^2.1.2",
