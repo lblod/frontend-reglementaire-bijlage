@@ -1,4 +1,14 @@
 
+
+## 1.0.0-1 (2022-08-02)
+
+#### :rocket: Enhancement
+* [#4](https://github.com/lblod/frontend-reglementaire-bijlage/pull/4) Add release flow to woodpecker ([@abeforgit](https://github.com/abeforgit))
+
+#### Committers: 1
+- Arne Bertrand ([@abeforgit](https://github.com/abeforgit))
+
+
 ## 1.0.0-0 (2022-08-02)
 
 #### :rocket: Enhancement
