@@ -1,5 +1,10 @@
 
 
+## 1.0.0-beta.0 (2022-08-03)
+
+Nothing here, just re-tagging to be more consistent with other betas
+
+
 ## 1.0.0-5 (2022-08-02)
 
 
