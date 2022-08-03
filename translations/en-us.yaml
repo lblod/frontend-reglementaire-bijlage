@@ -43,3 +43,16 @@ landingPage:
     title: Codelists
     content: Content
     button: Button
+reglementList:
+  pageTitle: Regulatory Attachments
+  new: Add new
+  title: Title
+  createdOn: Created On
+  noDataMessage: No Data
+  modal:
+    title: Create new regulatory attachment
+    save: Save
+    cancel: Cancel
+reglementEdit:
+  return: Go Back
+

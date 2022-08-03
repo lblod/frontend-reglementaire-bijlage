@@ -1,16 +1,16 @@
 {{page-title "List"}}
-<AuDataTable @content={{this.model}} @isLoading={{this.isLoadingModel}} @noDataMessage={{t 'inbox.meetings.noDataMessage'}} @sort={{this.sort}} @page={{this.page}} @size={{this.size}} as |table|>
+<AuDataTable @content={{this.model}} @isLoading={{this.isLoadingModel}} @noDataMessage={{t 'reglementList.noDataMessage'}} @sort={{this.sort}} @page={{this.page}} @size={{this.size}} as |table|>
   <table.menu as |menu|>
     <menu.general>
       <AuToolbar class="au-o-box" @size="large">
         <AuToolbarGroup>
           <AuHeading @skin="2">
-            {{t "inbox.meetings.pageTitle"}}
+            {{t "reglementList.pageTitle"}}
           </AuHeading>
         </AuToolbarGroup>
         <AuToolbarGroup class="au-c-toolbar__group--center">
           {{#unless this.readOnly}}
-            <AuButton @icon="add" @iconAlignment="left"  {{on 'click' this.startCreateReglementFlow}}>{{t "inbox.meetings.new.title"}}</AuButton>
+            <AuButton @icon="add" @iconAlignment="left"  {{on 'click' this.startCreateReglementFlow}}>{{t "reglementList.new"}}</AuButton>
           {{/unless}}
         </AuToolbarGroup>
       </AuToolbar>
@@ -18,8 +18,8 @@
   </table.menu>
   <table.content as |c|>
     <c.header>
-      <th><span class="au-c-data-table__header-title au-c-data-table__header-title--sortable">{{t 'inbox.meetings.type'}}</span></th>
-      <AuDataTableThSortable @field="geplandeStart" @currentSorting={{this.sort}} @label={{t 'inbox.meetings.time'}} />
+      <th><span class="au-c-data-table__header-title au-c-data-table__header-title--sortable">{{t 'reglementList.title'}}</span></th>
+      <AuDataTableThSortable @field="geplandeStart" @currentSorting={{this.sort}} @label={{t 'reglementList.createdOn'}} />
     </c.header>
     <c.body as |reglement|>
       <td>
@@ -30,7 +30,7 @@
   </table.content>
 </AuDataTable>
 <AuModal
-  @title={{t "inbox.meetings.new.title"}}
+  @title={{t "reglementList.modal.title"}}
   @modalOpen={{this.createReglementModalIsOpen}}
   @closeModal={{this.cancelCreateReglement}}
   as |Modal|
@@ -40,7 +40,7 @@
       <AuLabel
         for={{id}}
       >
-        {{t "inbox.meetings.new.meeting.administrativeBody"}}
+        {{t "reglementList.title"}}
       </AuLabel>
       <AuInput @value={{this.editorDocument.title}} @width="block" id={{id}} type="text" />
     </form>
@@ -55,10 +55,10 @@
         form="create-meeting-form"
         type="submit"
       >
-        {{t "inbox.meetings.new.save"}}
+        {{t "reglementList.modal.save"}}
       </button>
       <AuButton {{on "click" this.cancelCreateReglement}} @skin="secondary">
-        {{t "inbox.meetings.new.cancel"}}
+        {{t "reglementList.modal.cancel"}}
       </AuButton>
     </AuButtonGroup>
   </Modal.Footer>
