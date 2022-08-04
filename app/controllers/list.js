@@ -3,8 +3,11 @@ import { task } from 'ember-concurrency';
 import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
+import DefaultQueryParamsMixin from 'ember-data-table/mixins/default-query-params';
 
-export default class ListController extends Controller {
+export default class ListController extends Controller.extend(
+  DefaultQueryParamsMixin
+) {
   @service store;
   @service session;
   @service router;
