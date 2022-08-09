@@ -91,5 +91,9 @@
     "ember-mu-transform-helpers": "^2.1.2",
     "ember-unique-id-helper-polyfill": "^1.2.0",
     "xml-formatter": "^2.6.1"
+  },
+  "volta": {
+    "node": "16.16.0",
+    "npm": "8.16.0"
   }
 }
