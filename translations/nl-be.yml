@@ -39,3 +39,5 @@ landingPage:
     title: Codelijsten
     content: Beheer codelijsten die gebruikt worden in reglementaire bijlagen
     button: Ga naar codelijsten
+sparql:
+  name: "Register reglementaire bijlagen: SPARQL endpoint"
