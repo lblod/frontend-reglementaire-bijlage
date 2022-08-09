@@ -1,5 +1,13 @@
 
 
+## 1.0.0-beta.1 (2022-08-09)
+
+#### :rocket: Enhancement
+* [#6](https://github.com/lblod/frontend-reglementaire-bijlage/pull/6) Feature/sparql endpoint ([@lagartoverde](https://github.com/lagartoverde))
+
+#### Committers: 1
+- Oscar Rodriguez Villalobos ([@lagartoverde](https://github.com/lagartoverde))
+
 ## 1.0.0-beta.0 (2022-08-03)
 
 Nothing here, just re-tagging to be more consistent with other betas
