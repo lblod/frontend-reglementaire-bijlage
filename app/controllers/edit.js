@@ -8,26 +8,35 @@ export default class EditController extends Controller {
   @action
   handleRdfaEditorInit(editor) {
     this.editor = editor;
-    console.log(this.model.editorDocument);
-    editor.setHtmlContent(this.model.editorDocument.content);
+    if (this.model.editorDocument.content) {
+      editor.setHtmlContent(this.model.editorDocument.content);
+    } else {
+      editor.executeCommand(
+        'insert-component',
+        'inline-components/table-of-contents',
+        {},
+        {},
+        false
+      );
+    }
   }
 
   @task
   *save() {
     const html = this.editor.htmlContent;
-    console.log(html);
     const editorDocument = this.store.createRecord('editor-document');
     editorDocument.content = html;
-    editorDocument.createdOn = new Date();
+    editorDocument.createdOn = this.model.editorDocument.createdOn;
     editorDocument.updatedOn = new Date();
-    editorDocument.title = '';
+    editorDocument.title = this.model.editorDocument.title;
     editorDocument.previousVersion = this.model.editorDocument;
     yield editorDocument.save();
-    this._editorDocument = editorDocument;
 
     const documentContainer = this.model.documentContainer;
     documentContainer.currentVersion = editorDocument;
-    console.log(documentContainer);
     yield documentContainer.save();
+  }
+  toggleDeleteModal() {
+    console.log('delete');
   }
 }

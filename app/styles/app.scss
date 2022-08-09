@@ -5,3 +5,13 @@
 @import 'ember-rdfa-editor/a-dummy';
 
 @import "ember-power-select";
+
+
+.yasgui .controlbar {
+	justify-content: flex-end;
+	margin-bottom: 1rem;
+}
+
+.yasgui .autocompleteWrapper {
+  display: none !important;
+}
