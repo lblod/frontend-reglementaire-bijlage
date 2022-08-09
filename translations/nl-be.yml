@@ -1,0 +1,41 @@
+codelist:
+  name: Beheer codelijsten
+  details: Codelijst bekijken
+  crud:
+    new: Codelijst aanmaken
+    edit: Codelijst editeren
+    delete: Codelijst verwijderen
+    noData: Er zijn geen codelijsten beschikbaar
+    noValue: Geen items
+    labelFilter: Label
+    addValue: Item toevoegen
+    deleteValue: Item verwijderen
+  attr:
+    label: Label
+    type: Type
+    values: Items
+    id: Id
+    types:
+      singleSelect: 'Single select'
+      multiSelect: 'Multi select'
+utility:
+  appName: "Reglementaire bijlagen"
+  backToOverview: Terug naar het overzicht
+  view: Bekijken
+  save: Opslaan
+  cancel: Annuleren
+  close: Afsluiten
+  confirmation:
+    title: Bevestigen
+    body: Ben je zeker?
+  required: Vereist
+  optional: Optioneel
+landingPage:
+  createReglement:
+    title: Reglementaire bijlagen
+    content: Templates van reglementaire bijlagen beheren
+    button: Ga naar reglementaire bijlagen
+  codelists:
+    title: Codelijsten
+    content: Beheer codelijsten die gebruikt worden in reglementaire bijlagen
+    button: Ga naar codelijsten
