@@ -41,3 +41,15 @@ landingPage:
     button: Ga naar codelijsten
 sparql:
   name: "Register reglementaire bijlagen: SPARQL endpoint"
+reglementList:
+  pageTitle: Reglementaire bijlagen
+  new: Aanmaken
+  title: Titel
+  createdOn: Aangemaakt op
+  noDataMessage: Geen bijlagen gevonden
+  modal:
+    title: Een nieuwe reglementaire bijlage aanmaken
+    save: Opslaan
+    cancel: Terug
+reglementEdit:
+  return: Terug naar overzicht reglementaire bijlagen
