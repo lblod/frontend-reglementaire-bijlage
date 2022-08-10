@@ -48,7 +48,7 @@
           <AuIcon @icon="bin" @alignment="left" />
           Verwijder concept
         </LinkTo>
-      {{else}}
+      {{else if this.showFileDropDown}}
       <AuDropdown @title="Bestand acties" @buttonLabel="Bestand opties" @alignment="right">
         {{#if @copyAgendapunt}}
           <AuButton {{on "click" @copyAgendapunt}} @skin="tertiary" role="menuitem">
