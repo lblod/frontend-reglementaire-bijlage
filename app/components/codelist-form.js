@@ -12,6 +12,7 @@ import {
 export default class CodelistFormComponent extends Component {
   @service router;
   @service store;
+  @service currentSession;
 
   @tracked newValue = '';
   @tracked toDelete = [];
@@ -24,6 +25,7 @@ export default class CodelistFormComponent extends Component {
 
   constructor() {
     super(...arguments);
+    console.log(this.currentSession.group.id);
     this.options = this.args.codelist.concepts;
     this.fetchCodelistTypes.perform();
   }
@@ -88,6 +90,12 @@ export default class CodelistFormComponent extends Component {
 
     if (codelist.isValid) {
       yield Promise.all(this.toDelete.map((option) => option.destroyRecord()));
+      const administrativeUnit = yield this.store.findRecord(
+        'administrative-unit',
+        this.currentSession.group.id
+      );
+      console.log(administrativeUnit)
+      codelist.publisher = administrativeUnit;
       yield codelist.save();
       yield Promise.all(this.options.map((option) => option.save()));
       this.router.transitionTo('codelists-management.codelist', codelist.id);

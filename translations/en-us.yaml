@@ -41,3 +41,15 @@ landingPage:
     button: Go to codelists
 sparql:
   name: "Regulatory statements register: SPARQL endpoint"
+reglementList:
+  pageTitle: Regulatory Attachments
+  new: Add new
+  title: Title
+  createdOn: Created On
+  noDataMessage: No Data
+  modal:
+    title: Create new regulatory attachment
+    save: Save
+    cancel: Cancel
+reglementEdit:
+  return: Go Back

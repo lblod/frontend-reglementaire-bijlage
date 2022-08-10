@@ -11,6 +11,10 @@ export default class AppChromeComponent extends Component {
     return status;
   }
 
+  get showFileDropdown() {
+    return this.args.copyAgendapunt || this.args.exportHtmlFunction || this.args.sendToTrash;
+  }
+
   @action
   updateDocumentTitle(title) {
     this.args.editorDocument.title = title;
