@@ -22,5 +22,7 @@ module.exports = function (defaults) {
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
 
+  app.import('node_modules/@triply/yasgui/build/yasgui.min.css');
+
   return app.toTree();
 };
