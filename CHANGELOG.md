@@ -1,5 +1,14 @@
 
 
+## 1.0.0-beta.2 (2022-08-10)
+
+#### :rocket: Enhancement
+* [#5](https://github.com/lblod/frontend-reglementaire-bijlage/pull/5) Feature/reglement crud redesign ([@lagartoverde](https://github.com/lagartoverde))
+
+#### Committers: 2
+- Niels V ([@nvdk](https://github.com/nvdk))
+- Oscar Rodriguez Villalobos ([@lagartoverde](https://github.com/lagartoverde))
+
 ## 1.0.0-beta.1 (2022-08-09)
 
 #### :rocket: Enhancement
