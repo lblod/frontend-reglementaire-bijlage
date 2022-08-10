@@ -7,11 +7,6 @@
   @returnRoute="list"
   @returnRouteText={{t 'reglementEdit.return'}}
 />
-<AuButton
-  {{on 'click' (perform this.save)}}
-> 
-  Save 
-</AuButton>
 <RdfaEditorContainer
   @rdfaEditorInit={{this.handleRdfaEditorInit}}
   @typeOfWrappingDiv="besluit:BehandelingVanAgendapunt"
