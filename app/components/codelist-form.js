@@ -70,10 +70,12 @@ export default class CodelistFormComponent extends Component {
   @action
   addNewValue(event) {
     event.preventDefault();
-    const codeListOption = this.store.createRecord('skosConcept');
-    codeListOption.label = this.newValue;
-    this.options.pushObject(codeListOption);
-    this.newValue = '';
+    if (this.newValue) {
+      const codeListOption = this.store.createRecord('skosConcept');
+      codeListOption.label = this.newValue;
+      this.options.pushObject(codeListOption);
+      this.newValue = '';
+    }
   }
 
   @action
@@ -94,7 +96,6 @@ export default class CodelistFormComponent extends Component {
         'administrative-unit',
         this.currentSession.group.id
       );
-      console.log(administrativeUnit)
       codelist.publisher = administrativeUnit;
       yield codelist.save();
       yield Promise.all(this.options.map((option) => option.save()));

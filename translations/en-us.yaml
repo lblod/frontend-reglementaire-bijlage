@@ -30,6 +30,7 @@ utility:
     body: Are you sure?
   required: Required
   optional: Optional
+  fieldRequired: This field is required
 landingPage:
   createReglement:
     title: Regulatory Attachments
