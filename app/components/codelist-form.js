@@ -25,7 +25,6 @@ export default class CodelistFormComponent extends Component {
 
   constructor() {
     super(...arguments);
-    console.log(this.currentSession.group.id);
     this.options = this.args.codelist.concepts;
     this.fetchCodelistTypes.perform();
   }
