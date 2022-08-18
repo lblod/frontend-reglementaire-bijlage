@@ -1,20 +1,22 @@
 {{page-title "FrontendReglementaireBijlage"}}
-<AuMainHeader @homeRoute="index" @appTitle="Reglementaire Bijlagen">
-  {{#if this.session.isAuthenticated}}
-  <AuDropdown @title="{{this.currentSession.user.firstName}} {{this.currentSession.user.familyName}} - {{this.currentSession.group.classification.label}} {{this.currentSession.group.name}}" @buttonLabel="Account settings" @alignment="right">
-    <Acmidm::Switch as |acmidm|>
-      <AuButton @loading={{acmidm.isSwitching}} class="au-c-button au-c-button--tertiary" role="menuitem" {{on "click" acmidm.switch}}>
-        <AuIcon @icon="switch" @alignment="left" />Wissel van bestuurseenheid
-      </AuButton>
-    </Acmidm::Switch>
-    <button type="button" class="au-c-button au-c-button--tertiary" role="menuitem" {{on "click" this.logout}}>
-      <AuIcon @icon="logout" @alignment="left" />Afmelden
-    </button>
-  </AuDropdown>
-  {{else}}
-      <AuLink @route="login">
-        Login
-      </AuLink>
-  {{/if}}
-</AuMainHeader>
-{{outlet}}
+<AuApp>
+  <AuMainHeader @homeRoute="index" @appTitle="Reglementaire Bijlagen">
+    {{#if this.session.isAuthenticated}}
+    <AuDropdown @title="{{this.currentSession.user.firstName}} {{this.currentSession.user.familyName}} - {{this.currentSession.group.classification.label}} {{this.currentSession.group.name}}" @buttonLabel="Account settings" @alignment="right">
+      <Acmidm::Switch as |acmidm|>
+        <AuButton @loading={{acmidm.isSwitching}} class="au-c-button au-c-button--tertiary" role="menuitem" {{on "click" acmidm.switch}}>
+          <AuIcon @icon="switch" @alignment="left" />Wissel van bestuurseenheid
+        </AuButton>
+      </Acmidm::Switch>
+      <button type="button" class="au-c-button au-c-button--tertiary" role="menuitem" {{on "click" this.logout}}>
+        <AuIcon @icon="logout" @alignment="left" />Afmelden
+      </button>
+    </AuDropdown>
+    {{else}}
+        <AuLink @route="login">
+          Login
+        </AuLink>
+    {{/if}}
+  </AuMainHeader>
+  {{outlet}}
+</AuApp>
