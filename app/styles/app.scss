@@ -15,3 +15,80 @@
 .yasgui .autocompleteWrapper {
   display: none !important;
 }
+
+// App chrome tweaks
+.au-c-app-chrome {
+  border-bottom: .1rem solid var(--au-gray-300);
+}
+
+// TOC temp styling
+div.table-of-contents {
+  padding: $au-unit-small !important;
+  margin-bottom: $au-unit-large;
+  outline: .2rem dashed var(--au-gray-300);
+  outline-offset: .2rem;
+
+  h3 {
+    margin-top: 0;
+  }
+
+  ul {
+    margin-top: $au-unit-tiny;
+    padding-left: 0;
+  }
+
+  ul ul {
+    margin-left: 0;
+  }
+
+  ul li {
+    list-style-type: none !important;
+  }
+
+  button {
+    @extend .au-c-button--link-secondary;
+    padding: 0;
+  }
+}
+
+[property="say:hasPart"] + [property="say:hasPart"] {
+  margin-top: $au-unit !important;
+}
+
+[property="say:hasPart"] {
+  [property="say:heading"] + [property="say:body"] {
+    margin-top: $au-unit-tiny !important;
+  }
+}
+
+[typeof="https://say.data.gift/ns/Title"] > [property="say:heading"] {
+  @extend .au-c-heading--3;
+
+  &:before {
+    content: 'Titel';
+  }
+}
+
+[typeof="https://say.data.gift/ns/Chapter"] > [property="say:heading"] {
+  @extend .au-c-heading--4;
+
+  &:before {
+    content: 'Hoodfstuk';
+  }
+}
+
+[typeof="https://say.data.gift/ns/Section"] > [property="say:heading"] {
+  @extend .au-c-heading--5;
+
+  &:before {
+    content: 'Afdeling';
+  }
+}
+
+[typeof="https://say.data.gift/ns/Subsection"] > [property="say:heading"] {
+  @extend .au-c-heading--6;
+
+  &:before {
+    content: 'Onderafdeling';
+  }
+}

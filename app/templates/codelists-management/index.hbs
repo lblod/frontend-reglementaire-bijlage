@@ -1,3 +1,18 @@
+<AuToolbar @size="medium" @skin="tint" @border="bottom" as |Group|>
+  <Group>
+    <ul class="au-c-list-horizontal au-c-list-horizontal--small">
+      <li class="au-c-list-horizontal__item">
+        <AuLink @linkRoute="index">
+          <AuIcon @icon="arrow-left" @alignment="left" />
+          Overzicht
+        </AuLink>
+      </li>
+      <li class="au-c-list-horizontal__item">
+        {{t "codelist.name"}}
+      </li>
+    </ul>
+  </Group>
+</AuToolbar>
 <AuDataTable
   @content={{this.model.codelists}}
   @fields="Label"
