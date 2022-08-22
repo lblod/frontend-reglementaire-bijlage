@@ -12,7 +12,11 @@ export default class AppChromeComponent extends Component {
   }
 
   get showFileDropdown() {
-    return this.args.copyAgendapunt || this.args.exportHtmlFunction || this.args.sendToTrash;
+    return (
+      this.args.copyAgendapunt ||
+      this.args.exportHtmlFunction ||
+      this.args.sendToTrash
+    );
   }
 
   @action
