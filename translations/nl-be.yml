@@ -30,6 +30,7 @@ utility:
     body: Ben je zeker?
   required: Vereist
   optional: Optioneel
+  fieldRequired: Dit veld is verplicht
 landingPage:
   createReglement:
     title: Reglementaire bijlagen
