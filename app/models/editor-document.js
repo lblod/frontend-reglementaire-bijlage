@@ -6,6 +6,7 @@ export default class EditorDocumentModel extends Model {
   @attr uri;
   @attr title;
   @attr content;
+  @attr templateVersion;
   @attr('string', { defaultValue: defaultContext }) context;
   @attr('datetime') createdOn;
   @attr('datetime') updatedOn;

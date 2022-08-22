@@ -90,6 +90,7 @@
     "@codemirror/lang-xml": "^0.20.0",
     "@lblod/ember-mock-login": "^0.7.0",
     "@lblod/ember-rdfa-editor-article-structure-plugin": "^0.2.6",
+    "@lblod/ember-rdfa-editor-generate-template-plugin": "file:../ember-rdfa-editor-generate-template-plugin",
     "@lblod/ember-rdfa-editor-table-of-contents-plugin": "^0.2.5",
     "@triply/yasgui": "^4.2.26",
     "date-fns": "^2.29.1",
