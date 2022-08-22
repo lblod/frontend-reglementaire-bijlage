@@ -1,10 +1,22 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
+import { inject as service } from '@ember/service';
 
 export default class RdfaEditorContainerComponent extends Component {
   @tracked editor;
-  plugins = ['article-structure', 'rdfa-toc'];
+  @service currentSession;
+
+  plugins = [
+    'article-structure',
+    'rdfa-toc',
+    {
+      name: 'insert-variable',
+      options: {
+        administrativeUnitUuid: this.currentSession.group.id,
+      },
+    },
+  ];
   get editorOptions() {
     return (
       this.args.editorOptions ?? {
