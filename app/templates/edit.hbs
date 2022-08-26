@@ -3,6 +3,7 @@
   @editorDocument={{this.model.editorDocument}}
   @documentContainer={{this.model.documentContainer}}
   @save={{hash action=(perform this.save) isRunning=this.save.isRunning}}
+  @publish={{hash action=this.publish}}
   @returnRoute="list"
   @returnRouteText={{t 'reglementEdit.return'}}
 />

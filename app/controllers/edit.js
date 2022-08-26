@@ -5,6 +5,7 @@ import { inject as service } from '@ember/service';
 
 export default class EditController extends Controller {
   @service store;
+  @service router;
   @action
   handleRdfaEditorInit(editor) {
     this.editor = editor;
@@ -19,6 +20,11 @@ export default class EditController extends Controller {
         false
       );
     }
+  }
+
+  @action
+  publish() {
+    this.router.transitionTo('publish', this.model.reglement.id);
   }
 
   @task

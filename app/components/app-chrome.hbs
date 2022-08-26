@@ -71,6 +71,9 @@
       {{#if @save}}
         <AuButton {{on "click" @save.action}} @disabled={{@save.isRunning}}>Bewaar</AuButton>
       {{/if}}
+      {{#if @publish}}
+        <AuButton {{on "click" @publish.action}}>Publish</AuButton>
+      {{/if}}
     </AuToolbarGroup>
   </AuToolbar>
   </div>
