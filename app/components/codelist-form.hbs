@@ -77,7 +77,7 @@
             @selected={{this.selectedType}}
             @onChange={{this.updateCodelistType}} as |type|
           >
-            {{t (concat "codelist.attr.types." type.label)}}
+            <span style="margin: 20px">{{t (concat "codelist.attr.types." type.label)}}</span>
           </PowerSelect>
           <br>
         </p>
