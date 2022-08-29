@@ -1,2 +1,17 @@
 {{page-title (t "codelist.crud.edit")}}
+<AuToolbar @size="medium" @skin="tint" @border="bottom" as |Group|>
+  <Group>
+    <ul class="au-c-list-horizontal au-c-list-horizontal--small">
+      <li class="au-c-list-horizontal__item">
+        <AuLink @linkRoute="codelists-management">
+          <AuIcon @icon="arrow-left" @alignment="left" />
+          Overzicht
+        </AuLink>
+      </li>
+      <li class="au-c-list-horizontal__item">
+        {{t "codelist.crud.edit"}}
+      </li>
+    </ul>
+  </Group>
+</AuToolbar>
 <CodelistForm @codelist={{this.model.codelist}}/>
