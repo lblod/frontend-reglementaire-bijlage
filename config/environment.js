@@ -34,6 +34,7 @@ module.exports = function (environment) {
         },
       },
     },
+    environmentName: '{{ENVIRONMENT_NAME}}',
   };
 
   if (environment === 'development') {
