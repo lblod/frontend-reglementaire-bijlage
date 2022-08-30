@@ -1,0 +1,19 @@
+/* ==========================================================================
+   #SHAME
+   Dirty temporary css for demo purposes.
+   Some parts will be reused, but most of them will not.
+   ========================================================================== */
+
+
+// Fix app with environment banner @TODO: rework app component
+.au-c-app--environment {
+  // Fix main container height
+  .au-c-main-container {
+    height: calc(100vh - 92px);
+  }
+
+  // Fix sidebar offset
+  .au-c-meeting-sidebar {
+    top: 14.8rem;
+  }
+}
