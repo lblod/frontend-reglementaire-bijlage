@@ -6,6 +6,7 @@
   @publish={{hash action=this.publish}}
   @returnRoute="list"
   @returnRouteText={{t 'reglementEdit.return'}}
+  @isPublished={{this.model.reglement.publishedVersion}}
 />
 <RdfaEditorContainer
   @rdfaEditorInit={{this.handleRdfaEditorInit}}

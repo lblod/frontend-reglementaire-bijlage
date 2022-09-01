@@ -1,3 +1,9 @@
 {{page-title "Publish"}}
-<h1>Publish</h1>
-<AuButton {{on "click" (perform this.createPublishedResource)}}>Publish</AuButton>
+<div {{did-insert (perform this.fetchPreview)}} style="overflow: auto">
+  <h1>Publish</h1>
+  <h2>Published Version</h2>
+  {{{this.currentVersion}}}
+  <h2>Current Version</h2>
+  {{{this.model.templateVersion}}}
+  <AuButton {{on "click" (perform this.createPublishedResource)}}>Publish</AuButton>
+</div>

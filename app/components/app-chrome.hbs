@@ -67,6 +67,14 @@
         {{/if}}
       </AuDropdown>
       {{/if}}
+      {{#if @isPublished}}
+        <AuPill
+          @skin="success"
+          @icon="eye"
+        >
+          Published
+        </AuPill>
+      {{/if}}
 
       {{#if @save}}
         <AuButton {{on "click" @save.action}} @disabled={{@save.isRunning}}>Bewaar</AuButton>
