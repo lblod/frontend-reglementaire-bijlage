@@ -1,9 +1,14 @@
 {{page-title "Publish"}}
-<div {{did-insert (perform this.fetchPreview)}} style="overflow: auto">
-  <h1>Publish</h1>
-  <h2>Published Version</h2>
-  {{{this.currentVersion}}}
-  <h2>Current Version</h2>
-  {{{this.model.templateVersion}}}
-  <AuButton {{on "click" (perform this.createPublishedResource)}}>Publish</AuButton>
+<div {{did-insert (perform this.fetchPreview)}} style="overflow: auto">  
+  <div style="display: flex;">
+    <div style="width: 600px; max-height: 500px; margin: 20px; overflow: auto;">
+      <h2 style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">Published Version</h2>
+      {{{this.currentVersion}}}
+    </div>
+    <div style="width: 600px; max-height: 500px; margin: 20px; overflow: auto;">
+      <h2 style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">Current Version</h2>
+      {{{this.model.templateVersion}}}
+    </div>
+  </div>
+  <AuButton style="margin: 10px" {{on "click" (perform this.createPublishedResource)}}>Publish</AuButton>
 </div>
