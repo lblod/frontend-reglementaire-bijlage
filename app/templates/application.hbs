@@ -1,5 +1,15 @@
-{{page-title "FrontendReglementaireBijlage"}}
-<AuApp>
+  {{page-title  
+    (concat
+        "Reglementaire Bijlagen" (if this.showEnvironment (concat ' - ' this.environmentName))
+      )
+  }}
+<AuApp class='{{if this.showEnvironment "au-c-app--environment"}}'>
+  {{#if this.showEnvironment}}
+    <EnvironmentBanner
+      @environmentName={{this.environmentName}}
+      @applicationName='Reglementaire Bijlagen'
+    />
+  {{/if}}
   <AuMainHeader @homeRoute="index" @appTitle="Reglementaire Bijlagen">
     {{#if this.session.isAuthenticated}}
     <AuDropdown @title="{{this.currentSession.user.firstName}} {{this.currentSession.user.familyName}} - {{this.currentSession.group.classification.label}} {{this.currentSession.group.name}}" @buttonLabel="Account settings" @alignment="right">
