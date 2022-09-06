@@ -1,6 +1,5 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import { action } from '@ember/object';
 import { task } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
 
@@ -35,6 +34,5 @@ export default class PublishController extends Controller {
       }
     );
     yield this.muTask.waitForMuTaskTask.perform(taskId);
-    yield this.loadNotulen.perform();
   }
 }

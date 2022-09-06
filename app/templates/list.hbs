@@ -35,17 +35,29 @@
     <c.header>
       <th><span class="au-c-data-table__header-title au-c-data-table__header-title--sortable">{{t 'reglementList.title'}}</span></th>
       <AuDataTableThSortable @field="geplandeStart" @currentSorting={{this.sort}} @label={{t 'reglementList.createdOn'}} />
+      <th></th>
     </c.header>
     <c.body as |reglement|>
       <td>
         <LinkTo @route="edit" @model={{reglement.id}} class="au-c-link">{{reglement.document.currentVersion.title}}</LinkTo>
       </td>
       <td>{{detailed-date reglement.document.currentVersion.createdOn}}</td>
+      <td>
+        <AuButton
+          @icon="bin"
+          @alert={{true}}
+          @skin="secondary"
+          @hideText={{true}}
+          {{on "click" (fn this.startRemoveReglementFlow reglement)}}
+        >
+          {{t "utility.delete"}}
+        </AuButton>
+      </td>
     </c.body>
   </table.content>
 </AuDataTable>
 <AuModal
-  @title={{t "reglementList.modal.title"}}
+  @title={{t "reglementList.createModal.title"}}
   @modalOpen={{this.createReglementModalIsOpen}}
   @closeModal={{this.cancelCreateReglement}}
   as |Modal|
@@ -62,18 +74,32 @@
   </Modal.Body>
   <Modal.Footer>
     <AuButtonGroup>
-      {{!-- Due to a bug in Ember overriding the type of a button component with splattributes isn't possible --}}
-      {{!-- More information: https://github.com/emberjs/ember.js/issues/18232 --}}
-      {{!-- TODO: Replace this with the AuButton component once the app is updated to 3.25+ or the fix is backported to 3.24 LTS --}}
       <button
-        class="au-c-button {{if this.saveMeetingTask.isRunning "is-loading"}}"
+        class="au-c-button"
         form="create-meeting-form"
         type="submit"
       >
-        {{t "reglementList.modal.save"}}
+        {{t "reglementList.createModal.save"}}
       </button>
       <AuButton {{on "click" this.cancelCreateReglement}} @skin="secondary">
-        {{t "reglementList.modal.cancel"}}
+        {{t "reglementList.createModal.cancel"}}
+      </AuButton>
+    </AuButtonGroup>
+  </Modal.Footer>
+</AuModal>
+<AuModal
+  @title={{t "reglementList.removeModal.title"}}
+  @modalOpen={{this.removeReglementModalIsOpen}}
+  @closeModal={{this.cancelRemoveReglement}}
+  as |Modal|
+>
+  <Modal.Footer>
+    <AuButtonGroup>
+      <AuButton {{on "click" (perform this.submitRemoveReglement)}} @skin="primary">
+        {{t "reglementList.removeModal.remove"}}
+      </AuButton>
+      <AuButton {{on "click" this.cancelRemoveReglement}} @skin="secondary">
+        {{t "reglementList.removeModal.cancel"}}
       </AuButton>
     </AuButtonGroup>
   </Modal.Footer>

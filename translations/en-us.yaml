@@ -48,9 +48,13 @@ reglementList:
   title: Title
   createdOn: Created On
   noDataMessage: No Data
-  modal:
+  createModal:
     title: Create new regulatory attachment
     save: Save
+    cancel: Cancel
+  removeModal:
+    title: Are you sure you want to delete this regulatory attachment?
+    remove: Remove
     cancel: Cancel
 reglementEdit:
   return: Go Back

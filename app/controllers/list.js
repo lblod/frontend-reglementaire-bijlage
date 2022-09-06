@@ -4,6 +4,7 @@ import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import DefaultQueryParamsMixin from 'ember-data-table/mixins/default-query-params';
+import { RS_DELETED_FOLDER, RS_STANDARD_FOLDER } from '../utils/constants';
 
 export default class ListController extends Controller.extend(
   DefaultQueryParamsMixin
@@ -12,11 +13,13 @@ export default class ListController extends Controller.extend(
   @service session;
   @service router;
   @service currentSession;
+  @service muTask;
 
   @tracked editorDocument;
   @tracked documentContainer;
   @tracked reglement;
   @tracked createReglementModalIsOpen;
+  @tracked removeReglementModalIsOpen;
 
   @action
   startCreateReglementFlow() {
@@ -34,6 +37,7 @@ export default class ListController extends Controller.extend(
     documentContainer.currentVersion = editorDocument;
 
     reglement.document = documentContainer;
+    reglement.folder = RS_STANDARD_FOLDER;
 
     this.createReglementModalIsOpen = true;
   }
@@ -55,6 +59,33 @@ export default class ListController extends Controller.extend(
     this.createReglementModalIsOpen = false;
     console.log('saved');
     this.router.transitionTo('edit', this.reglement.id);
+  }
+
+  @action
+  startRemoveReglementFlow(reglement) {
+    this.removeReglementModalIsOpen = true;
+    this.reglement = reglement;
+  }
+
+  @action
+  cancelRemoveReglement() {
+    this.reglement = undefined;
+    this.removeReglementModalIsOpen = false;
+  }
+
+  @task
+  *submitRemoveReglement() {
+    this.reglement.folder = RS_DELETED_FOLDER;
+    if (this.reglement.publishedVersion) {
+      yield fetch(`/invalidate/regulatory-attachment/${this.reglement.id}`, {
+        method: 'POST',
+      });
+      yield this.reglement.save();
+    } else {
+      yield this.reglement.save();
+    }
+    this.removeReglementModalIsOpen = false;
+    this.router.transitionTo('list');
   }
 
   @task

@@ -48,9 +48,13 @@ reglementList:
   title: Titel
   createdOn: Aangemaakt op
   noDataMessage: Geen bijlagen gevonden
-  modal:
+  createModal:
     title: Een nieuwe reglementaire bijlage aanmaken
     save: Opslaan
+    cancel: Terug
+  removeModal:
+    title:  Weet u zeker dat u deze reglementaire bijlage wilt verwijderen?
+    remove: Remove
     cancel: Terug
 reglementEdit:
   return: Terug naar overzicht reglementaire bijlagen
