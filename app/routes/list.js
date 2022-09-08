@@ -16,14 +16,14 @@ export default class ListRoute extends Route.extend(DataTableRouteMixin) {
   };
 
   mergeQueryOptions(params) {
-    console.log(params);
     return { sort: params.sort };
   }
-  
-  async model() {
+
+  async model(params) {
     const reglements = await this.store.query('regulatory-statement', {
       filter: { folder: RS_STANDARD_FOLDER },
       include: ['document.currentVersion'],
+      sort: params.sort,
     });
     return reglements;
   }
