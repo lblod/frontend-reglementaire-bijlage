@@ -1,7 +1,9 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
+import DataTableRouteMixin from 'ember-data-table/mixins/route';
 
-export default class ListRoute extends Route {
+export default class ListRoute extends Route.extend(DataTableRouteMixin) {
+  modelName = 'regulatory-statement';
   @service store;
   @service session;
 
@@ -12,12 +14,11 @@ export default class ListRoute extends Route {
     filter: { refreshModel: true },
   };
 
-  async model() {
-    const reglements = await this.store.query('regulatory-statement', {
-      include: ['document.currentVersion'],
-    });
-    return reglements;
+  mergeQueryOptions(params) {
+    console.log(params);
+    return { sort: params.sort };
   }
+
   beforeModel(transition) {
     this.session.requireAuthentication(transition, 'login');
   }

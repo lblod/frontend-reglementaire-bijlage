@@ -34,7 +34,7 @@
   <table.content as |c|>
     <c.header>
       <th><span class="au-c-data-table__header-title au-c-data-table__header-title--sortable">{{t 'reglementList.title'}}</span></th>
-      <AuDataTableThSortable @field="geplandeStart" @currentSorting={{this.sort}} @label={{t 'reglementList.createdOn'}} />
+      <AuDataTableThSortable @field="document.currentVersion.createdOn" @currentSorting={{this.sort}} @label={{t 'reglementList.createdOn'}} />
     </c.header>
     <c.body as |reglement|>
       <td>
