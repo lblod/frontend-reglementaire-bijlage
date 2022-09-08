@@ -35,7 +35,7 @@
     "@lblod/ember-acmidm-login": "^1.4.0",
     "@lblod/ember-environment-banner": "^0.1.1",
     "@lblod/ember-rdfa-editor": "^0.62.1",
-    "@lblod/ember-rdfa-editor-article-structure-plugin": "github:lblod/ember-rdfa-editor-article-structure-plugin#chore/bump-editor-version",
+    "@lblod/ember-rdfa-editor-article-structure-plugin": "^0.2.9",
     "@release-it-plugins/lerna-changelog": "github:release-it-plugins/lerna-changelog",
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
