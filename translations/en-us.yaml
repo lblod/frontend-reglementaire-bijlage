@@ -10,6 +10,7 @@ codelist:
     labelFilter: Label
     addValue: Add value
     deleteValue: Delete value
+    editModal: Edit value
   attr:
     label: Label
     type: Type
