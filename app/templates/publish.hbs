@@ -10,5 +10,12 @@
       {{{this.model.templateVersion}}}
     </div>
   </div>
-  <AuButton style="margin: 10px" {{on "click" (perform this.createPublishedResource)}}>Publish</AuButton>
+  <AuButton 
+    style="margin: 10px" 
+    @loading={{this.createPublishedResource.isRunning}} 
+    @disabled={{this.createPublishedResource.isRunning}} 
+    {{on "click" (perform this.createPublishedResource)}}
+  >
+    Publish
+  </AuButton>
 </div>

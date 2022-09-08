@@ -17,6 +17,7 @@ export default class PublishController extends Controller {
 
   @task
   *fetchPreview() {
+    this.currentVersion = '';
     const id = this.model.id;
     const response = yield fetch(`/preview/regulatory-attachment/${id}`);
     const json = yield response.json();
@@ -34,5 +35,6 @@ export default class PublishController extends Controller {
       }
     );
     yield this.muTask.waitForMuTaskTask.perform(taskId);
+    this.fetchPreview.perform();
   }
 }
