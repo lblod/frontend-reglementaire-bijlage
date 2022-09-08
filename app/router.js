@@ -12,6 +12,7 @@ Router.map(function () {
   this.route('switch-login');
   this.route('list');
   this.route('edit', { path: '/:id/edit' });
+  this.route('publish', { path: '/:id/publish' });
 
   this.route('legal', function () {
     this.route('disclaimer');
@@ -24,4 +25,5 @@ Router.map(function () {
     this.route('codelist', { path: '/:id' });
   });
   this.route('sparql');
+  
 });

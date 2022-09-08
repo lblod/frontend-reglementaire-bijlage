@@ -1,5 +1,6 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
+import { RS_STANDARD_FOLDER } from '../utils/constants';
 import DataTableRouteMixin from 'ember-data-table/mixins/route';
 
 export default class ListRoute extends Route.extend(DataTableRouteMixin) {
@@ -15,8 +16,16 @@ export default class ListRoute extends Route.extend(DataTableRouteMixin) {
   };
 
   mergeQueryOptions(params) {
-    console.log(params);
     return { sort: params.sort };
+  }
+
+  async model(params) {
+    const reglements = await this.store.query('regulatory-statement', {
+      filter: { folder: RS_STANDARD_FOLDER },
+      include: ['document.currentVersion'],
+      sort: params.sort,
+    });
+    return reglements;
   }
 
   beforeModel(transition) {

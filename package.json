@@ -29,6 +29,7 @@
   "devDependencies": {
     "@bagaar/ember-breadcrumbs": "^3.0.0",
     "@ember/optional-features": "^2.0.0",
+    "@ember/render-modifiers": "^2.0.4",
     "@ember/test-helpers": "^2.6.0",
     "@glimmer/component": "^1.0.4",
     "@glimmer/tracking": "^1.0.4",
@@ -92,6 +93,7 @@
     "@codemirror/lang-xml": "^0.20.0",
     "@lblod/ember-mock-login": "^0.7.0",
     "@lblod/ember-rdfa-editor-article-structure-plugin": "^0.2.8",
+    "@lblod/ember-rdfa-editor-generate-template-plugin": "^0.1.2",
     "@lblod/ember-rdfa-editor-table-of-contents-plugin": "^0.2.5",
     "@triply/yasgui": "^4.2.26",
     "date-fns": "^2.29.1",

@@ -4,7 +4,7 @@ import { tracked } from '@glimmer/tracking';
 
 export default class RdfaEditorContainerComponent extends Component {
   @tracked editor;
-  plugins = ['article-structure', 'rdfa-toc'];
+  plugins = ['article-structure', 'rdfa-toc', 'generate-template'];
   get editorOptions() {
     return (
       this.args.editorOptions ?? {
