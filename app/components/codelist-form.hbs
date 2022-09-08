@@ -77,7 +77,7 @@
             @selected={{this.selectedType}}
             @onChange={{this.updateCodelistType}} as |type|
           >
-            {{t (concat "codelist.attr.types." type.label)}}
+            <span style="margin: 20px">{{t (concat "codelist.attr.types." type.label)}}</span>
           </PowerSelect>
           <br>
         </p>
@@ -112,6 +112,14 @@
                 </td>
                 <td class="w-px au-u-padding-right-small">
                   <AuButton
+                    @icon="pencil"
+                    @skin="secondary"
+                    @hideText={{true}}
+                    {{on "click" (fn this.startEditProcess option)}}
+                  >
+                    {{t "utility.edit"}}
+                  </AuButton>
+                  <AuButton
                     @icon="bin"
                     @alert={{true}}
                     @skin="secondary"
@@ -120,6 +128,7 @@
                   >
                     {{t "utility.delete"}}
                   </AuButton>
+                  
                 </td>
               </c.body>
               <tfoot>
@@ -173,4 +182,34 @@
       </AuButtonGroup>
     </AuToolbarGroup>
   </AuToolbar>
+  <AuModal
+    @title={{t "codelist.crud.editModal"}}
+    @modalOpen={{this.editModalOpen}}
+    @closeModal={{this.endEditProcess}}
+    as |Modal|
+  >
+    <Modal.Body>
+      <AuInput
+        id="values"
+        required="required"
+        @value={{this.editValue}}
+        @width="block"
+        {{on
+          "input"
+          this.updateEditValue
+        }}
+      />
+
+    </Modal.Body>
+    <Modal.Footer>
+      <AuButtonGroup>
+        <AuButton {{on "click" this.submitEditModal}}>
+          {{t "utility.save"}}
+        </AuButton>
+        <AuButton {{on "click" this.endEditProcess}} @skin="secondary">
+          {{t "utility.cancel"}}
+        </AuButton>
+      </AuButtonGroup>
+    </Modal.Footer>
+  </AuModal>
 {{/let}}

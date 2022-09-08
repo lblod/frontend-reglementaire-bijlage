@@ -21,6 +21,10 @@ export default class CodelistFormComponent extends Component {
   @tracked codelistTypes;
   @tracked selectedType;
 
+  @tracked editModalOpen = false;
+  @tracked editValue;
+  @tracked editingOption;
+
   CodelistValidations = CodelistValidations;
 
   constructor() {
@@ -31,6 +35,33 @@ export default class CodelistFormComponent extends Component {
 
   get isSaving() {
     return this.editCodelistTask.isRunning;
+  }
+
+  @action
+  startEditProcess(option) {
+    this.editModalOpen = true;
+    this.editValue = option.label;
+    this.editingOption = option;
+  }
+
+  @action
+  endEditProcess() {
+    this.editModalOpen = false;
+    this.editValue = undefined;
+    this.editingOption = undefined;
+  }
+
+  @action
+  submitEditModal() {
+    this.editModalOpen = false;
+    this.editingOption.label = this.editValue;
+    this.editValue = undefined;
+    this.editingOption = undefined;
+  }
+
+  @action
+  updateEditValue(e) {
+    this.editValue = e.target.value;
   }
 
   @task
