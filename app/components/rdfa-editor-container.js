@@ -8,6 +8,7 @@ export default class RdfaEditorContainerComponent extends Component {
   plugins = [
     'article-structure',
     { name: 'rdfa-toc', options: { config: TABLE_OF_CONTENTS_CONFIG } },
+    'generate-template'
   ];
   get editorOptions() {
     return (

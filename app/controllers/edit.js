@@ -6,6 +6,7 @@ import { TABLE_OF_CONTENTS_CONFIG } from '../utils/constants';
 
 export default class EditController extends Controller {
   @service store;
+  @service router;
   @action
   handleRdfaEditorInit(editor) {
     this.editor = editor;
@@ -27,11 +28,21 @@ export default class EditController extends Controller {
     }
   }
 
+  @action
+  publish() {
+    this.router.transitionTo('publish', this.model.reglement.id);
+  }
+
   @task
   *save() {
     const html = this.editor.htmlContent;
+    const templateVersion = this.editor.executeCommand(
+      'generateTemplate',
+      this.editor
+    );
     const editorDocument = this.store.createRecord('editor-document');
     editorDocument.content = html;
+    editorDocument.templateVersion = templateVersion;
     editorDocument.createdOn = this.model.editorDocument.createdOn;
     editorDocument.updatedOn = new Date();
     editorDocument.title = this.model.editorDocument.title;
