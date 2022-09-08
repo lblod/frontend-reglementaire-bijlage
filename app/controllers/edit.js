@@ -2,6 +2,7 @@ import Controller from '@ember/controller';
 import { action } from '@ember/object';
 import { task } from 'ember-concurrency';
 import { inject as service } from '@ember/service';
+import { TABLE_OF_CONTENTS_CONFIG } from '../utils/constants';
 
 export default class EditController extends Controller {
   @service store;
@@ -14,7 +15,7 @@ export default class EditController extends Controller {
       editor.executeCommand(
         'insert-component',
         'inline-components/table-of-contents',
-        {},
+        { config: TABLE_OF_CONTENTS_CONFIG },
         {},
         false
       );
