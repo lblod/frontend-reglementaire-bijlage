@@ -13,7 +13,7 @@ export default class RdfaEditorContainerComponent extends Component {
     {
       name: 'insert-variable',
       options: {
-        administrativeUnitUuid: this.currentSession.group.id,
+        publisher: this.currentSession.group.uri,
       },
     },
   ];
