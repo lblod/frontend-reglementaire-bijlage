@@ -73,17 +73,17 @@
       <p>
         <AuDataTable
           @content={{this.options}}
-          @noDataMessage={{t 'codelist.crud.noValue'}}
+          @noDataMessage={{t 'codelist.crud.noOptions'}}
           as |s|
         >
           <s.content as |c|>
             <c.header>
               <th class='data-table__header-title'>
-                {{t 'codelist.attr.values'}}
+                {{t 'codelist.attr.options'}}
               </th>
               <th>
                 <span class='au-u-hidden-visually'>
-                  {{t 'codelist.crud.deleteValue'}}
+                  {{t 'codelist.crud.deleteOption'}}
                 </span>
               </th>
             </c.header>
@@ -118,11 +118,11 @@
               <tr>
                 <td class='w-px au-u-padding-right-small'>
                   <AuButton {{on "click" this.startNewOptionProcess}}>
-                    {{t 'codelist.crud.addValue'}}
+                    {{t 'codelist.crud.addOption'}}
                   </AuButton>
                   <CodelistOptionForm
                     @modalOpen={{this.newModalOpen}}
-                    @title={{t 'codelist.crud.editModal'}}
+                    @title={{t 'codelist.crud.addOption'}}
                     @codelistOption={{this.newOption}}
                     @onCancel={{this.endNewOptionProcess}}
                     @onSubmit={{this.submitNewOptionProcess}}
@@ -153,7 +153,7 @@
   </AuToolbar>
   <CodelistOptionForm
     @modalOpen={{this.editModalOpen}}
-    @title={{t 'codelist.crud.editModal'}}
+    @title={{t 'codelist.crud.editOption'}}
     @codelistOption={{this.editOption}}
     @onCancel={{this.endEditOptionProcess}}
     @onSubmit={{this.endEditOptionProcess}}

@@ -10,14 +10,14 @@
   >
     <Modal.Body>
       {{#let codelistOption.error.label as |isInvalid|}}
-        <AuLabel @error={{isInvalid}} for='values'>
-          {{t 'codelist.attr.label'}}&nbsp;
+        <AuLabel @error={{isInvalid}} for='value'>
+          {{t 'codelist.attr.option.value'}}&nbsp;
           <AuPill>
             {{t 'utility.required'}}
           </AuPill>
         </AuLabel>
         <AuInput
-          id='values'
+          id='value'
           required='required'
           @value={{codelistOption.label}}
           @width='block'

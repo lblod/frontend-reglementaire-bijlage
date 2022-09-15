@@ -6,15 +6,17 @@ codelist:
     edit: Codelijst editeren
     delete: Codelijst verwijderen
     noData: Er zijn geen codelijsten beschikbaar
-    noValue: Geen items
+    noOptions: Geen items
     labelFilter: Label
-    addValue: Item toevoegen
-    deleteValue: Item verwijderen
-    editModal: Item editeren
+    addOption: Item toevoegen
+    deleteOption: Item verwijderen
+    editOption: Item wijzigen
   attr:
     label: Label
     type: Type
-    values: Items
+    options: "Items"
+    option:
+      value: Waarde
     id: Id
     types:
       singleSelect: 'Single select'
@@ -25,6 +27,8 @@ utility:
   view: Bekijken
   save: Opslaan
   cancel: Annuleren
+  edit: Pas aan
+  delete: Verwijder
   close: Afsluiten
   confirmation:
     title: Bevestigen
