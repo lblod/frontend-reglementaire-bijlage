@@ -1,19 +1,12 @@
-{{#let
-  (changeset
-    @codelist this.CodelistValidations
-  ) as |codelist|
-}}
+{{#let (changeset @codelist this.CodelistValidations) as |codelist|}}
   <BreadcrumbsItem as |linkClass|>
     {{#if @codelist.isNew}}
-      <LinkTo
-        @route="codelists-management.new"
-        class={{linkClass}}
-      >
-        {{t "codelist.crud.new"}}
+      <LinkTo @route='codelists-management.new' class={{linkClass}}>
+        {{t 'codelist.crud.new'}}
       </LinkTo>
     {{else}}
       <LinkTo
-        @route="codelists-management.edit"
+        @route='codelists-management.edit'
         @model={{@codelist.id}}
         class={{linkClass}}
       >
@@ -22,194 +15,147 @@
     {{/if}}
   </BreadcrumbsItem>
 
-  <AuToolbar @border="bottom" @size="large">
+  <AuToolbar @border='bottom' @size='large'>
     <AuToolbarGroup>
-      <AuHeading @skin="2">
+      <AuHeading @skin='2'>
         {{#if @codelist.isNew}}
-          {{t "codelist.crud.new"}}
+          {{t 'codelist.crud.new'}}
         {{else}}
-          {{t "codelist.crud.edit"}}
+          {{t 'codelist.crud.edit'}}
         {{/if}}
       </AuHeading>
     </AuToolbarGroup>
   </AuToolbar>
 
-  <div class="au-c-body-container au-c-body-container--scroll">
+  <div class='au-c-body-container au-c-body-container--scroll'>
     <div>
-        {{#let codelist.error.label as |isInvalid|}}
-          <p class="au-o-box au-u-padding-bottom-none">
-            <AuLabel @error={{isInvalid}} for="label">
-              {{t "codelist.attr.label"}}&nbsp;
-              <AuPill>
-                {{t "utility.required"}}
-              </AuPill>
-            </AuLabel>
-            <AuInput
-              @error={{isInvalid}}
-              @width="block"
-              id="label"
-              required="required"
-              @value={{codelist.label}}
-              {{on
-                "input"
-                (fn
-                  this.setCodelistValue
-                  codelist
-                  "label"
-                )
-              }}
-            />
-            {{#if isInvalid}}
-              <AuHelpText>
-                {{t "utility.fieldRequired"}}
-              </AuHelpText>
-            {{/if}}
-          </p>
-        {{/let}}
-        <p class="au-o-box au-u-padding-bottom-none">
-          <AuLabel for="label">
-            {{t "codelist.attr.type"}}&nbsp;
+      {{#let codelist.error.label as |isInvalid|}}
+        <p class='au-o-box au-u-padding-bottom-none'>
+          <AuLabel @error={{isInvalid}} for='label'>
+            {{t 'codelist.attr.label'}}&nbsp;
+            <AuPill>
+              {{t 'utility.required'}}
+            </AuPill>
           </AuLabel>
-          <PowerSelect
-            @allowClear={{false}}
-            @searchEnabled={{false}}
-            @options={{this.codelistTypes}}
-            @selected={{this.selectedType}}
-            @onChange={{this.updateCodelistType}} as |type|
-          >
-            <span style="margin: 20px">{{t (concat "codelist.attr.types." type.label)}}</span>
-          </PowerSelect>
-          <br>
+          <AuInput
+            @error={{isInvalid}}
+            @width='block'
+            id='label'
+            required='required'
+            @value={{codelist.label}}
+            {{on 'input' (fn this.setCodelistValue codelist 'label')}}
+          />
+          {{#if isInvalid}}
+            <AuHelpText>
+              {{t 'utility.fieldRequired'}}
+            </AuHelpText>
+          {{/if}}
         </p>
-        <p>
-          <form
-            class="au-c-form"
-            id="add-concept-form"
-            novalidate
-            {{on "submit" this.addNewValue}}
-          >
-          <AuDataTable
-            @content={{this.options}}
-            @noDataMessage={{t "codelist.crud.noValue"}}
-            as |s|
-          >
-            <s.content as |c|>
-              <c.header>
-                <th class="data-table__header-title">
-                  {{t "codelist.attr.values"}}
-                </th>
-                <th>
-                  <span class="au-u-hidden-visually">
-                    {{t "codelist.crud.deleteValue"}}
-                  </span>
-                </th>
-              </c.header>
-              <c.body as |option|>
-                <td>
-                  <p class="max-w-prose">
-                    {{option.label}}
-                  </p>
-                </td>
-                <td class="w-px au-u-padding-right-small">
-                  <AuButton
-                    @icon="pencil"
-                    @skin="secondary"
-                    @hideText={{true}}
-                    {{on "click" (fn this.startEditProcess option)}}
-                  >
-                    {{t "utility.edit"}}
+      {{/let}}
+      <p class='au-o-box au-u-padding-bottom-none'>
+        <AuLabel for='label'>
+          {{t 'codelist.attr.type'}}&nbsp;
+        </AuLabel>
+        <PowerSelect
+          @allowClear={{false}}
+          @searchEnabled={{false}}
+          @options={{this.codelistTypes}}
+          @selected={{this.selectedType}}
+          @onChange={{this.updateCodelistType}}
+          as |type|
+        >
+          <span style='margin: 20px'>{{t
+              (concat 'codelist.attr.types.' type.label)
+            }}</span>
+        </PowerSelect>
+        <br />
+      </p>
+      <p>
+        <AuDataTable
+          @content={{this.options}}
+          @noDataMessage={{t 'codelist.crud.noValue'}}
+          as |s|
+        >
+          <s.content as |c|>
+            <c.header>
+              <th class='data-table__header-title'>
+                {{t 'codelist.attr.values'}}
+              </th>
+              <th>
+                <span class='au-u-hidden-visually'>
+                  {{t 'codelist.crud.deleteValue'}}
+                </span>
+              </th>
+            </c.header>
+            <c.body as |option|>
+              <td>
+                <p class='max-w-prose'>
+                  {{option.label}}
+                </p>
+              </td>
+              <td class='w-px au-u-padding-right-small'>
+                <AuButton
+                  @icon='pencil'
+                  @skin='secondary'
+                  @hideText={{true}}
+                  {{on 'click' (fn this.startEditOptionProcess option)}}
+                >
+                  {{t 'utility.edit'}}
+                </AuButton>
+                <AuButton
+                  @icon='bin'
+                  @alert={{true}}
+                  @skin='secondary'
+                  @hideText={{true}}
+                  {{on 'click' (fn this.removeOption option)}}
+                >
+                  {{t 'utility.delete'}}
+                </AuButton>
+
+              </td>
+            </c.body>
+            <tfoot>
+              <tr>
+                <td class='w-px au-u-padding-right-small'>
+                  <AuButton {{on "click" this.startNewOptionProcess}}>
+                    {{t 'codelist.crud.addValue'}}
                   </AuButton>
-                  <AuButton
-                    @icon="bin"
-                    @alert={{true}}
-                    @skin="secondary"
-                    @hideText={{true}}
-                    {{on "click" (fn this.removeOption option)}}
-                  >
-                    {{t "utility.delete"}}
-                  </AuButton>
-                  
+                  <CodelistOptionForm
+                    @modalOpen={{this.newModalOpen}}
+                    @title={{t 'codelist.crud.editModal'}}
+                    @codelistOption={{this.newOption}}
+                    @onCancel={{this.endNewOptionProcess}}
+                    @onSubmit={{this.submitNewOptionProcess}}
+                  />
                 </td>
-              </c.body>
-              <tfoot>
-                <tr>
-                  <td>
-                    <p>
-                      <AuInput
-                        id="values"
-                        required="required"
-                        @value={{this.newValue}}
-                        @width="block"
-                        {{on
-                          "input"
-                          this.updateNewValue
-                        }}
-                      />
-                    </p>
-                  </td>
-                  <td class="w-px au-u-padding-right-small">
-                    <button class="au-c-button"
-                      form="add-concept-form"
-                      type="submit"
-                    >
-                      {{t "codelist.crud.addValue"}}
-                    </button>
-                  </td>
-                </tr>
-              </tfoot>
-            </s.content>
-          </AuDataTable>
-          </form>
-        </p>
+              </tr>
+            </tfoot>
+          </s.content>
+        </AuDataTable>
+      </p>
     </div>
   </div>
 
-  <AuToolbar @border="top" @size="large">
+  <AuToolbar @border='top' @size='large'>
     <AuToolbarGroup>
       <AuButtonGroup>
         <AuButton
-          @disabled={{or codelist.isInvalid this.isSaving}}
-         {{on "click" (perform this.editCodelistTask codelist)}}
+          @disabled={{or (or codelist.isInvalid this.isSaving) (not codelist.label)}}
+          {{on 'click' (perform this.editCodelistTask codelist)}}
         >
-          {{t "utility.save"}}
+          {{t 'utility.save'}}
         </AuButton>
-        <AuButton
-          @skin='secondary'
-          {{on 'click' this.cancelEditingTask}}
-        >
-          {{t "utility.cancel"}}
+        <AuButton @skin='secondary' {{on 'click' this.cancelEditingTask}}>
+          {{t 'utility.cancel'}}
         </AuButton>
       </AuButtonGroup>
     </AuToolbarGroup>
   </AuToolbar>
-  <AuModal
-    @title={{t "codelist.crud.editModal"}}
+  <CodelistOptionForm
     @modalOpen={{this.editModalOpen}}
-    @closeModal={{this.endEditProcess}}
-    as |Modal|
-  >
-    <Modal.Body>
-      <AuInput
-        id="values"
-        required="required"
-        @value={{this.editValue}}
-        @width="block"
-        {{on
-          "input"
-          this.updateEditValue
-        }}
-      />
-
-    </Modal.Body>
-    <Modal.Footer>
-      <AuButtonGroup>
-        <AuButton {{on "click" this.submitEditModal}}>
-          {{t "utility.save"}}
-        </AuButton>
-        <AuButton {{on "click" this.endEditProcess}} @skin="secondary">
-          {{t "utility.cancel"}}
-        </AuButton>
-      </AuButtonGroup>
-    </Modal.Footer>
-  </AuModal>
+    @title={{t 'codelist.crud.editModal'}}
+    @codelistOption={{this.editOption}}
+    @onCancel={{this.endEditOptionProcess}}
+    @onSubmit={{this.endEditOptionProcess}}
+  />
 {{/let}}

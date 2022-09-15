@@ -1,0 +1,48 @@
+{{#let
+  (changeset @codelistOption this.CodelistOptionValidations)
+  as |codelistOption|
+}}
+  <AuModal
+    @title={{@title}}
+    @modalOpen={{@modalOpen}}
+    @closeModal={{@onCancel}}
+    as |Modal|
+  >
+    <Modal.Body>
+      {{#let codelistOption.error.label as |isInvalid|}}
+        <AuLabel @error={{isInvalid}} for='values'>
+          {{t 'codelist.attr.label'}}&nbsp;
+          <AuPill>
+            {{t 'utility.required'}}
+          </AuPill>
+        </AuLabel>
+        <AuInput
+          id='values'
+          required='required'
+          @value={{codelistOption.label}}
+          @width='block'
+          {{on 'input' (fn this.setCodelistOptionValue codelistOption 'label')}}
+        />
+        {{#if isInvalid}}
+          <AuHelpText>
+            {{t 'utility.fieldRequired'}}
+          </AuHelpText>
+        {{/if}}
+      {{/let}}
+
+    </Modal.Body>
+    <Modal.Footer>
+      <AuButtonGroup>
+        <AuButton
+          {{on 'click' (perform this.save codelistOption)}}
+          @disabled={{or codelistOption.isInvalid codelistOption.isPristine}}
+        >
+          {{t 'utility.save'}}
+        </AuButton>
+        <AuButton @skin='secondary' {{on 'click' @onCancel}}>
+          {{t 'utility.cancel'}}
+        </AuButton>
+      </AuButtonGroup>
+    </Modal.Footer>
+  </AuModal>
+{{/let}}
