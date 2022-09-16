@@ -30,7 +30,6 @@ export default class CodelistFormComponent extends Component {
   @action
   async didInsert() {
     this.options = await this.args.codelist.concepts;
-    console.log(this.options);
     await this.fetchCodelistTypes.perform();
   }
 
