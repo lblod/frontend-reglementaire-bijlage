@@ -10,22 +10,22 @@
   >
     <Modal.Body>
       {{#let codelistOption.error.label as |isInvalid|}}
-        <AuLabel @error={{isInvalid}} for='value'>
-          {{t 'codelist.attr.option.value'}}&nbsp;
+        <AuLabel @error={{isInvalid}} for="value">
+          {{t "codelist.attr.option.value"}}&nbsp;
           <AuPill>
-            {{t 'utility.required'}}
+            {{t "utility.required"}}
           </AuPill>
         </AuLabel>
         <AuInput
-          id='value'
-          required='required'
+          id="value"
+          required="required"
           @value={{codelistOption.label}}
-          @width='block'
-          {{on 'input' (fn this.setCodelistOptionValue codelistOption 'label')}}
+          @width="block"
+          {{on "input" (fn this.setCodelistOptionValue codelistOption "label")}}
         />
         {{#if isInvalid}}
           <AuHelpText>
-            {{t 'utility.fieldRequired'}}
+            {{t "utility.fieldRequired"}}
           </AuHelpText>
         {{/if}}
       {{/let}}
@@ -34,13 +34,13 @@
     <Modal.Footer>
       <AuButtonGroup>
         <AuButton
-          {{on 'click' (perform this.save codelistOption)}}
+          {{on "click" (perform this.save codelistOption)}}
           @disabled={{or codelistOption.isInvalid codelistOption.isPristine}}
         >
-          {{t 'utility.save'}}
+          {{t "utility.save"}}
         </AuButton>
-        <AuButton @skin='secondary' {{on 'click' @onCancel}}>
-          {{t 'utility.cancel'}}
+        <AuButton @skin="secondary" {{on "click" @onCancel}}>
+          {{t "utility.cancel"}}
         </AuButton>
       </AuButtonGroup>
     </Modal.Footer>
