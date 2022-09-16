@@ -14,16 +14,17 @@ export default class CodelistFormComponent extends Component {
   @service store;
   @service currentSession;
 
-  @tracked newValue = '';
-  @tracked toDelete = [];
-  @tracked options;
-
   @tracked codelistTypes;
   @tracked selectedType;
 
+  @tracked toDelete = [];
+  @tracked options;
+
+  @tracked newOption;
+  @tracked newModalOpen = false;
+
+  @tracked editOption;
   @tracked editModalOpen = false;
-  @tracked editValue;
-  @tracked editingOption;
 
   CodelistValidations = CodelistValidations;
 
@@ -38,30 +39,39 @@ export default class CodelistFormComponent extends Component {
   }
 
   @action
-  startEditProcess(option) {
+  startEditOptionProcess(option) {
     this.editModalOpen = true;
-    this.editValue = option.label;
-    this.editingOption = option;
+    this.editOption = option;
   }
 
   @action
-  endEditProcess() {
+  endEditOptionProcess() {
     this.editModalOpen = false;
-    this.editValue = undefined;
-    this.editingOption = undefined;
+    this.editOption = undefined;
   }
 
   @action
-  submitEditModal() {
-    this.editModalOpen = false;
-    this.editingOption.label = this.editValue;
-    this.editValue = undefined;
-    this.editingOption = undefined;
+  startNewOptionProcess() {
+    this.newModalOpen = true;
+    this.newOption = this.store.createRecord('skosConcept');
   }
 
   @action
-  updateEditValue(e) {
-    this.editValue = e.target.value;
+  submitNewOptionProcess() {
+    this.options.pushObject(this.newOption);
+    this.endNewOptionProcess();
+  }
+
+  @action
+  endNewOptionProcess() {
+    this.newModalOpen = false;
+    this.newOption = undefined;
+  }
+
+  @action
+  removeOption(option) {
+    this.options.removeObject(option);
+    this.toDelete.pushObject(option);
   }
 
   @task
@@ -90,28 +100,6 @@ export default class CodelistFormComponent extends Component {
   updateCodelistType(type) {
     this.selectedType = type;
     this.args.codelist.type = type;
-  }
-
-  @action
-  updateNewValue(event) {
-    this.newValue = event.target.value;
-  }
-
-  @action
-  addNewValue(event) {
-    event.preventDefault();
-    if (this.newValue) {
-      const codeListOption = this.store.createRecord('skosConcept');
-      codeListOption.label = this.newValue;
-      this.options.pushObject(codeListOption);
-      this.newValue = '';
-    }
-  }
-
-  @action
-  removeOption(option) {
-    this.options.removeObject(option);
-    this.toDelete.pushObject(option);
   }
 
   @dropTask
