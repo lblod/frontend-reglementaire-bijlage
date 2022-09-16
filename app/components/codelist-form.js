@@ -27,10 +27,11 @@ export default class CodelistFormComponent extends Component {
 
   CodelistValidations = CodelistValidations;
 
-  constructor() {
-    super(...arguments);
-    this.options = this.args.codelist.concepts;
-    this.fetchCodelistTypes.perform();
+  @action
+  async didInsert() {
+    this.options = await this.args.codelist.concepts;
+    console.log(this.options);
+    await this.fetchCodelistTypes.perform();
   }
 
   get isSaving() {
