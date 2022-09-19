@@ -27,7 +27,7 @@
     </AuToolbarGroup>
   </AuToolbar>
 
-  <div class="au-c-body-container au-c-body-container--scroll">
+  <div class="au-c-body-container au-c-body-container--scroll"  {{did-insert this.didInsert}}>
     <div>
       {{#let codelist.error.label as |isInvalid|}}
         <p class="au-o-box au-u-padding-bottom-none">
