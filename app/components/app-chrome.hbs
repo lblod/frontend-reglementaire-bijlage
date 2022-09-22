@@ -72,7 +72,7 @@
           @skin="success"
           @icon="eye"
         >
-          Published
+          Beschikbaar
         </AuPill>
       {{/if}}
 
@@ -80,7 +80,7 @@
         <AuButton {{on "click" @save.action}} @disabled={{@save.isRunning}}>Bewaar</AuButton>
       {{/if}}
       {{#if @publish}}
-        <AuButton {{on "click" @publish.action}}>Publish</AuButton>
+        <AuButton {{on "click" @publish.action}}>Maak Beschikbaar</AuButton>
       {{/if}}
     </AuToolbarGroup>
   </AuToolbar>

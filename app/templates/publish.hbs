@@ -1,21 +1,21 @@
 {{page-title "Publish"}}
-<div {{did-insert (perform this.fetchPreview)}} style="overflow: auto">  
+<div {{did-insert (perform this.fetchPreview)}} style="overflow: auto">
   <div style="display: flex;">
     <div style="width: 600px; max-height: 500px; margin: 20px; overflow: auto;">
-      <h2 style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">Published Version</h2>
+      <h2 style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">Live Versie</h2>
       {{{this.currentVersion}}}
     </div>
     <div style="width: 600px; max-height: 500px; margin: 20px; overflow: auto;">
-      <h2 style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">Current Version</h2>
+      <h2 style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">Nieuwe versie</h2>
       {{{this.model.templateVersion}}}
     </div>
   </div>
-  <AuButton 
-    style="margin: 10px" 
-    @loading={{this.createPublishedResource.isRunning}} 
-    @disabled={{this.createPublishedResource.isRunning}} 
+  <AuButton
+    style="margin: 10px"
+    @loading={{this.createPublishedResource.isRunning}}
+    @disabled={{this.createPublishedResource.isRunning}}
     {{on "click" (perform this.createPublishedResource)}}
   >
-    Publish
+    Maak Beschikbaar
   </AuButton>
 </div>
