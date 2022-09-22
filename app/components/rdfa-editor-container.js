@@ -2,14 +2,16 @@ import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
+import { TABLE_OF_CONTENTS_CONFIG } from '../utils/constants';
 
 export default class RdfaEditorContainerComponent extends Component {
   @tracked editor;
   @service currentSession;
-
   plugins = [
     'article-structure',
-    'rdfa-toc',
+    { name: 'rdfa-toc', options: { config: TABLE_OF_CONTENTS_CONFIG } },
+    'generate-template',
+
     {
       name: 'insert-variable',
       options: {
@@ -72,7 +74,7 @@ export default class RdfaEditorContainerComponent extends Component {
   setPrefix(element) {
     element.setAttribute(
       'prefix',
-      'eli: http://data.europa.eu/eli/ontology# prov: http://www.w3.org/ns/prov# mandaat: http://data.vlaanderen.be/ns/mandaat# besluit: http://data.vlaanderen.be/ns/besluit# say:https://say.data.gift/ns/ dct: http://purl.org/dc/terms/ ext:http://mu.semte.ch/vocabularies/ext/'
+      'eli: http://data.europa.eu/eli/ontology# prov: http://www.w3.org/ns/prov# mandaat: http://data.vlaanderen.be/ns/mandaat# besluit: http://data.vlaanderen.be/ns/besluit# say: https://say.data.gift/ns/ dct: http://purl.org/dc/terms/ ext: http://mu.semte.ch/vocabularies/ext/'
     );
   }
 

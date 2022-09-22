@@ -14,24 +14,65 @@ export default class CodelistFormComponent extends Component {
   @service store;
   @service currentSession;
 
-  @tracked newValue = '';
-  @tracked toDelete = [];
-  @tracked options;
-
   @tracked codelistTypes;
   @tracked selectedType;
 
+  @tracked toDelete = [];
+  @tracked options;
+
+  @tracked newOption;
+  @tracked newModalOpen = false;
+
+  @tracked editOption;
+  @tracked editModalOpen = false;
+
   CodelistValidations = CodelistValidations;
 
-  constructor() {
-    super(...arguments);
+  @action
+  async didInsert() {
     console.log(this.currentSession.group.id);
-    this.options = this.args.codelist.concepts;
-    this.fetchCodelistTypes.perform();
+    this.options = await this.args.codelist.concepts;
+    await this.fetchCodelistTypes.perform();
   }
 
   get isSaving() {
     return this.editCodelistTask.isRunning;
+  }
+
+  @action
+  startEditOptionProcess(option) {
+    this.editModalOpen = true;
+    this.editOption = option;
+  }
+
+  @action
+  endEditOptionProcess() {
+    this.editModalOpen = false;
+    this.editOption = undefined;
+  }
+
+  @action
+  startNewOptionProcess() {
+    this.newModalOpen = true;
+    this.newOption = this.store.createRecord('skosConcept');
+  }
+
+  @action
+  submitNewOptionProcess() {
+    this.options.pushObject(this.newOption);
+    this.endNewOptionProcess();
+  }
+
+  @action
+  endNewOptionProcess() {
+    this.newModalOpen = false;
+    this.newOption = undefined;
+  }
+
+  @action
+  removeOption(option) {
+    this.options.removeObject(option);
+    this.toDelete.pushObject(option);
   }
 
   @task
@@ -60,26 +101,6 @@ export default class CodelistFormComponent extends Component {
   updateCodelistType(type) {
     this.selectedType = type;
     this.args.codelist.type = type;
-  }
-
-  @action
-  updateNewValue(event) {
-    this.newValue = event.target.value;
-  }
-
-  @action
-  addNewValue(event) {
-    event.preventDefault();
-    const codeListOption = this.store.createRecord('skosConcept');
-    codeListOption.label = this.newValue;
-    this.options.pushObject(codeListOption);
-    this.newValue = '';
-  }
-
-  @action
-  removeOption(option) {
-    this.options.removeObject(option);
-    this.toDelete.pushObject(option);
   }
 
   @dropTask

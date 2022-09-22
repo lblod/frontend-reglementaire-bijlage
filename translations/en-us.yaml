@@ -6,14 +6,19 @@ codelist:
     edit: Edit codelist
     delete: Delete codelist
     noData: No codelists where found
-    noValue: No value
+    noOptions: No options
     labelFilter: Label
     addValue: Add value
     deleteValue: Delete value
+    addOption: Add option
+    deleteOption: Delete option
+    editOption: Edit option
   attr:
     label: Label
     type: Type
-    values: Values
+    options: "Options"
+    option:
+      value: Value
     id: Id
     types:
       singleSelect: 'Single select'
@@ -24,6 +29,8 @@ utility:
   view: View
   save: Save
   cancel: Cancel
+  edit: Edit
+  delete: Delete
   close: Close
   confirmation:
     title: Confirm
