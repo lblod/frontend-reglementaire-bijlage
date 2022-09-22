@@ -1,6 +1,22 @@
 
 
 
+
+## 1.0.0 (2022-09-22)
+
+#### :rocket: Enhancement
+* [#18](https://github.com/lblod/frontend-reglementaire-bijlage/pull/18) Add insert variable plugin ([@abeforgit](https://github.com/abeforgit))
+* [#16](https://github.com/lblod/frontend-reglementaire-bijlage/pull/16) Add more validations to codelist creation and edit workflow ([@elpoelma](https://github.com/elpoelma))
+
+#### :house: Internal
+* [#17](https://github.com/lblod/frontend-reglementaire-bijlage/pull/17) Update ember-data to 3.28 ([@elpoelma](https://github.com/elpoelma))
+* [#15](https://github.com/lblod/frontend-reglementaire-bijlage/pull/15) Update editor to 0.63.1 ([@elpoelma](https://github.com/elpoelma))
+
+#### Committers: 2
+- Arne Bertrand ([@abeforgit](https://github.com/abeforgit))
+- Elena Poelman ([@elpoelma](https://github.com/elpoelma))
+
+
 ## 1.0.0-beta.3 (2022-09-08)
 
 #### :rocket: Enhancement
