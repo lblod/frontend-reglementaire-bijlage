@@ -2,6 +2,11 @@
 
 
 
+## 1.0.1 (2022-09-22)
+
+rename "publish" to "maak beschikbaar"
+
+
 ## 1.0.0 (2022-09-22)
 
 #### :rocket: Enhancement
