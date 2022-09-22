@@ -1,15 +1,24 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
+import { inject as service } from '@ember/service';
 import { TABLE_OF_CONTENTS_CONFIG } from '../utils/constants';
 
 export default class RdfaEditorContainerComponent extends Component {
   @tracked editor;
+  @service currentSession;
   plugins = [
     'article-structure',
     { name: 'rdfa-toc', options: { config: TABLE_OF_CONTENTS_CONFIG } },
-    'generate-template'
+    'generate-template',
+    {
+      name: 'insert-variable',
+      options: {
+        publisher: this.currentSession.group.uri,
+      },
+    },
   ];
+
   get editorOptions() {
     return (
       this.args.editorOptions ?? {
