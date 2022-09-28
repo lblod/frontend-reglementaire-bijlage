@@ -57,7 +57,6 @@ export default class ListController extends Controller.extend(
     yield this.documentContainer.save();
     yield this.reglement.save();
     this.createReglementModalIsOpen = false;
-    console.log('saved');
     this.router.transitionTo('edit', this.reglement.id);
   }
 

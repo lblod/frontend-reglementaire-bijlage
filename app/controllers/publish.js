@@ -35,6 +35,6 @@ export default class PublishController extends Controller {
       }
     );
     yield this.muTask.waitForMuTaskTask.perform(taskId);
-    this.fetchPreview.perform();
+    this.router.transitionTo('edit', this.model.id);
   }
 }
