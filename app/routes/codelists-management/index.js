@@ -14,10 +14,6 @@ export default class CodelistsManagementIndexRoute extends Route {
   };
 
   async model(params) {
-    const administrativeUnit = await this.store.findRecord(
-      'administrative-unit',
-      this.currentSession.group.id
-    );
     let query = {
       sort: params.sort,
       page: {
@@ -26,7 +22,7 @@ export default class CodelistsManagementIndexRoute extends Route {
       },
       filter: {
         publisher: {
-          id: administrativeUnit.id,
+          id: this.currentSession.group.id,
         },
       },
     };
