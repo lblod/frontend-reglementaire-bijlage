@@ -80,7 +80,7 @@
         <AuButton {{on "click" @save.action}} @disabled={{@save.isRunning}}>Bewaar</AuButton>
       {{/if}}
       {{#if @publish}}
-        <AuButton {{on "click" @publish.action}}>Maak Beschikbaar</AuButton>
+        <AuButton {{on "click" @publish.action}} @disabled={{@publish.isRunning}}>Bewaar en maak beschikbaar</AuButton>
       {{/if}}
     </AuToolbarGroup>
   </AuToolbar>

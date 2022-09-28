@@ -28,8 +28,9 @@ export default class EditController extends Controller {
     }
   }
 
-  @action
-  publish() {
+  @task
+  *publish() {
+    yield this.save.perform();
     this.router.transitionTo('publish', this.model.reglement.id);
   }
 
