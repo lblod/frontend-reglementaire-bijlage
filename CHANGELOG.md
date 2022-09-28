@@ -2,6 +2,22 @@
 
 
 
+
+## 1.0.2 (2022-09-28)
+
+#### :rocket: Enhancement
+* [#19](https://github.com/lblod/frontend-reglementaire-bijlage/pull/19) Improvements on publication UX according to Jira ([@lagartoverde](https://github.com/lagartoverde))
+
+#### :bug: Bug Fix
+* [#23](https://github.com/lblod/frontend-reglementaire-bijlage/pull/23) bump insert-variable-plugin to 0.2.1 ([@nvdk](https://github.com/nvdk))
+* [#21](https://github.com/lblod/frontend-reglementaire-bijlage/pull/21) Save before going to publish ([@lagartoverde](https://github.com/lagartoverde))
+* [#20](https://github.com/lblod/frontend-reglementaire-bijlage/pull/20) add the variable plugin config ([@nvdk](https://github.com/nvdk))
+
+#### Committers: 2
+- Niels V ([@nvdk](https://github.com/nvdk))
+- Oscar Rodriguez Villalobos ([@lagartoverde](https://github.com/lagartoverde))
+
+
 ## 1.0.1 (2022-09-22)
 
 rename "publish" to "maak beschikbaar"
