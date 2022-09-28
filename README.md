@@ -2,6 +2,11 @@
 
 The frontend for the reglementaire bijlage app, which is a management interface for regulatory attachments for the Flemish government.
 
+## Configuration
+The following environment variables should be set:
+```
+- EMBER_VARIABLE_PLUGIN_ENDPOINT: the endpoint containing codelists, in the regulatory statements app this is likely just `/raw-sparql`
+```
 ## Prerequisites
 
 You will need the following things properly installed on your computer.
