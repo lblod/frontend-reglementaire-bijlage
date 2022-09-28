@@ -4,6 +4,7 @@ import { hash } from 'rsvp';
 
 export default class CodelistsManagementIndexRoute extends Route {
   @service store;
+  @service currentSession;
 
   queryParams = {
     label: { refreshModel: true },
@@ -13,16 +14,24 @@ export default class CodelistsManagementIndexRoute extends Route {
   };
 
   async model(params) {
+    const administrativeUnit = await this.store.findRecord(
+      'administrative-unit',
+      this.currentSession.group.id
+    );
     let query = {
       sort: params.sort,
       page: {
         number: params.page,
         size: params.size,
       },
+      filter: {
+        publisher: {
+          id: administrativeUnit.id,
+        },
+      },
     };
-
     if (params.label) {
-      query['filter[label]'] = params.label;
+      query.filter.label = params.label;
     }
 
     return hash({
