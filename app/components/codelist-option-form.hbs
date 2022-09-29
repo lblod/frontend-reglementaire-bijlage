@@ -6,43 +6,47 @@
     @title={{@title}}
     @modalOpen={{@modalOpen}}
     @closeModal={{@onCancel}}
+    @initialFocus="#value"
     as |Modal|
   >
-    <Modal.Body>
-      {{#let codelistOption.error.label as |isInvalid|}}
-        <AuLabel @error={{isInvalid}} for="value">
-          {{t "codelist.attr.option.value"}}&nbsp;
-          <AuPill>
-            {{t "utility.required"}}
-          </AuPill>
-        </AuLabel>
-        <AuInput
-          id="value"
-          required="required"
-          @value={{codelistOption.label}}
-          @width="block"
-          {{on "input" (fn this.setCodelistOptionValue codelistOption "label")}}
-        />
-        {{#if isInvalid}}
-          <AuHelpText>
-            {{t "utility.fieldRequired"}}
-          </AuHelpText>
-        {{/if}}
-      {{/let}}
+    <form {{on "submit" (perform this.save codelistOption)}}>
+      <Modal.Body>
+        {{#let codelistOption.error.label as |isInvalid|}}
+          <AuLabel @error={{isInvalid}} for="value">
+            {{t "codelist.attr.option.value"}}&nbsp;
+            <AuPill>
+              {{t "utility.required"}}
+            </AuPill>
+          </AuLabel>
+          <AuInput
+            id="value"
+            required="required"
+            @value={{codelistOption.label}}
+            @width="block"
+            {{on "input" (fn this.setCodelistOptionValue codelistOption "label")}}
+            {{!-- {{did-insert this.focus}} --}}
+          />
+          {{#if isInvalid}}
+            <AuHelpText>
+              {{t "utility.fieldRequired"}}
+            </AuHelpText>
+          {{/if}}
+        {{/let}}
 
-    </Modal.Body>
-    <Modal.Footer>
-      <AuButtonGroup>
-        <AuButton
-          {{on "click" (perform this.save codelistOption)}}
-          @disabled={{or codelistOption.isInvalid codelistOption.isPristine}}
-        >
-          {{t "utility.save"}}
-        </AuButton>
-        <AuButton @skin="secondary" {{on "click" @onCancel}}>
-          {{t "utility.cancel"}}
-        </AuButton>
-      </AuButtonGroup>
-    </Modal.Footer>
+      </Modal.Body>
+      <Modal.Footer>
+        <AuButtonGroup>
+          <AuButton
+            type="submit"
+            @disabled={{or codelistOption.isInvalid codelistOption.isPristine}}
+          >
+            {{t "utility.save"}}
+          </AuButton>
+          <AuButton @skin="secondary" {{on "click" @onCancel}}>
+            {{t "utility.cancel"}}
+          </AuButton>
+        </AuButtonGroup>
+      </Modal.Footer>
+    </form>
   </AuModal>
 {{/let}}
