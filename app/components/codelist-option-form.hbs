@@ -24,7 +24,6 @@
             @value={{codelistOption.label}}
             @width="block"
             {{on "input" (fn this.setCodelistOptionValue codelistOption "label")}}
-            {{!-- {{did-insert this.focus}} --}}
           />
           {{#if isInvalid}}
             <AuHelpText>
