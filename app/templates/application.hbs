@@ -1,13 +1,13 @@
   {{page-title  
     (concat
-        "Reglementaire Bijlagen" (if this.showEnvironment (concat ' - ' this.environmentName))
+        (t "utility.appName") (if this.showEnvironment (concat ' - ' this.environmentName))
       )
   }}
 <AuApp class='{{if this.showEnvironment "au-c-app--environment"}}'>
   {{#if this.showEnvironment}}
     <EnvironmentBanner
       @environmentName={{this.environmentName}}
-      @applicationName='Reglementaire Bijlagen'
+      @applicationName={{t "utility.appName"}}
     />
   {{/if}}
   <AuMainHeader @homeRoute="index" @appTitle="Reglementaire Bijlagen">
@@ -15,11 +15,11 @@
     <AuDropdown @title="{{this.currentSession.user.firstName}} {{this.currentSession.user.familyName}} - {{this.currentSession.group.classification.label}} {{this.currentSession.group.name}}" @buttonLabel="Account settings" @alignment="right">
       <Acmidm::Switch as |acmidm|>
         <AuButton @loading={{acmidm.isSwitching}} class="au-c-button au-c-button--tertiary" role="menuitem" {{on "click" acmidm.switch}}>
-          <AuIcon @icon="switch" @alignment="left" />Wissel van bestuurseenheid
+          <AuIcon @icon="switch" @alignment="left" />{{t "auth.switchUser"}}
         </AuButton>
       </Acmidm::Switch>
       <button type="button" class="au-c-button au-c-button--tertiary" role="menuitem" {{on "click" this.logout}}>
-        <AuIcon @icon="logout" @alignment="left" />Afmelden
+        <AuIcon @icon="logout" @alignment="left" />{{t "auth.logout"}}
       </button>
     </AuDropdown>
     {{else}}
