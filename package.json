@@ -41,7 +41,6 @@
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
     "ember-auto-import": "^2.4.1",
-    "ember-autofocus-modifier": "^4.0.1",
     "ember-changeset": "^4.1.0",
     "ember-changeset-validations": "^4.1.0",
     "ember-cli": "~3.28.5",
@@ -89,7 +88,7 @@
     "edition": "octane"
   },
   "dependencies": {
-    "@appuniversum/ember-appuniversum": "github:appuniversum/ember-appuniversum#feature/modal-configurable-focus-trap",
+    "@appuniversum/ember-appuniversum": "^1.8.0",
     "@codemirror/basic-setup": "^0.20.0",
     "@codemirror/lang-html": "^0.20.0",
     "@codemirror/lang-xml": "^0.20.0",
