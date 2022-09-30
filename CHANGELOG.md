@@ -3,6 +3,16 @@
 
 
 
+
+## 1.0.3 (2022-09-30)
+
+#### :rocket: Enhancement
+* [#22](https://github.com/lblod/frontend-reglementaire-bijlage/pull/22) Filter codelists on administrative unit uuid now that they are public ([@lagartoverde](https://github.com/lagartoverde))
+
+#### Committers: 1
+- Oscar Rodriguez Villalobos ([@lagartoverde](https://github.com/lagartoverde))
+
+
 ## 1.0.2 (2022-09-28)
 
 #### :rocket: Enhancement
