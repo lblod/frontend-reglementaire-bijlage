@@ -4,6 +4,7 @@ import { hash } from 'rsvp';
 
 export default class CodelistsManagementIndexRoute extends Route {
   @service store;
+  @service currentSession;
 
   queryParams = {
     label: { refreshModel: true },
@@ -19,10 +20,14 @@ export default class CodelistsManagementIndexRoute extends Route {
         number: params.page,
         size: params.size,
       },
+      filter: {
+        publisher: {
+          id: this.currentSession.group.id,
+        },
+      },
     };
-
     if (params.label) {
-      query['filter[label]'] = params.label;
+      query.filter.label = params.label;
     }
 
     return hash({
