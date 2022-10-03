@@ -22,14 +22,23 @@ codelist:
       singleSelect: 'Single select'
       multiSelect: 'Multi select'
 utility:
+  flanders: "Vlaanderen"
   appName: "Reglementaire bijlagen"
   backToOverview: Terug naar het overzicht
   view: Bekijken
   save: Opslaan
+  saveAndPublish: Bewaar en maak beschikbaar
   cancel: Annuleren
   edit: Pas aan
   delete: Verwijder
   close: Afsluiten
+  savedOn: Bewaard op
+  unsavedChanges: Wijzigingen niet bewaard
+  unsavedConcept: Concept niet bewaard
+  removeConcept: Verwijder concept
+  exportToHtml: "Exporteer als HTML"
+  toRecycleBin: "Naar prullenmand"
+  available: Beschikbaar
   confirmation:
     title: Bevestigen
     body: Ben je zeker?
@@ -62,4 +71,17 @@ reglementList:
     remove: Remove
     cancel: Terug
 reglementEdit:
+  edit: Wijzig bijlage
   return: Terug naar overzicht reglementaire bijlagen
+auth:
+  acmidm: Log in met acm/idm
+  mock:
+    selectUser: Selecteer een testgebruiker
+  switchUser: Wissel van bestuurseenheid
+  logout: Afmelden
+publishPage:
+  publish: Maak beschikbaar
+reglementaireBijlageTitel:
+  description: "Titel reglementaire bijlage"
+  placeholder: Naamloos document
+  modify: "Titel aanpassen"

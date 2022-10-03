@@ -22,14 +22,23 @@ codelist:
       singleSelect: 'Single select'
       multiSelect: 'Multi select'
 utility:
+  flanders: "Flanders"
   appName: "Regulatory Attachments"
   backToOverview: Back to overview
   view: View
   save: Save
+  saveAndPublish: Save and publish
   cancel: Cancel
   edit: Edit
   delete: Delete
   close: Close
+  savedOn: Saved on
+  unsavedChanges: Unsaved changes
+  unsavedConcept: Unsaved concept
+  removeConcept: Remove concept
+  exportToHtml: "Export to HTML"
+  toRecycleBin: "Move to recycle bin"
+  available: Available
   confirmation:
     title: Confirm
     body: Are you sure?
@@ -62,4 +71,17 @@ reglementList:
     remove: Remove
     cancel: Cancel
 reglementEdit:
+  edit: Edit attachment
   return: Go Back
+auth:
+  acmidm: Log in with acm/idm
+  mock:
+    selectUser: Choose a mock user
+  switchUser: Change administration
+  logout: Log out
+publishPage:
+  publish: Publicize
+reglementaireBijlageTitel:
+  description: "Regulatory statement title"
+  placeholder: "Untitled document"
+  modify: "Modify title"
