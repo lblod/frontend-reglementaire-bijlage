@@ -4,6 +4,20 @@
 
 
 
+
+## 1.1.0 (2022-10-03)
+
+#### :rocket: Enhancement
+* [#26](https://github.com/lblod/frontend-reglementaire-bijlage/pull/26) Improve translations and fill in missing translations ([@elpoelma](https://github.com/elpoelma))
+* [#25](https://github.com/lblod/frontend-reglementaire-bijlage/pull/25) Convert codelist creator to form and automatically focus the first input ([@elpoelma](https://github.com/elpoelma))
+
+#### :house: Internal
+* [#24](https://github.com/lblod/frontend-reglementaire-bijlage/pull/24) Bump generate-template-plugin ([@elpoelma](https://github.com/elpoelma))
+
+#### Committers: 1
+- Elena Poelman ([@elpoelma](https://github.com/elpoelma))
+
+
 ## 1.0.3 (2022-09-30)
 
 #### :rocket: Enhancement
