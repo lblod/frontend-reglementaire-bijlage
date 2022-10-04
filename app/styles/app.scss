@@ -44,10 +44,10 @@ div.table-of-contents {
     list-style-type: none !important;
   }
 
-  button {
-    @extend .au-c-button--link-secondary;
-    padding: 0;
-  }
+  // button {
+  //   @extend .au-c-button--link-secondary;
+  //   padding: 0;
+  // }
 }
 
 [property="say:hasPart"] + [property="say:hasPart"] {
