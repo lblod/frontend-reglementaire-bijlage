@@ -10,6 +10,7 @@
 />
 <RdfaEditorContainer
   @rdfaEditorInit={{this.handleRdfaEditorInit}}
-  @typeOfWrappingDiv="besluit:BehandelingVanAgendapunt"
+  @editorDocument={{this.model.editorDocument}}
+  @typeOfWrappingDiv="dossier:Stuk"
   @showToggleRdfaAnnotations={{true}}
-  />
+/>
