@@ -5,6 +5,19 @@
 
 
 
+
+## 1.1.1 (2022-10-04)
+
+#### :rocket: Enhancement
+* [#27](https://github.com/lblod/frontend-reglementaire-bijlage/pull/27) Add additional prefixes and change reglementaire bijlage uri ([@elpoelma](https://github.com/elpoelma))
+
+#### :bug: Bug Fix
+* [#28](https://github.com/lblod/frontend-reglementaire-bijlage/pull/28) Fix overflow of toc entries by bumping to the new version ([@elpoelma](https://github.com/elpoelma))
+
+#### Committers: 1
+- Elena Poelman ([@elpoelma](https://github.com/elpoelma))
+
+
 ## 1.1.0 (2022-10-03)
 
 #### :rocket: Enhancement
