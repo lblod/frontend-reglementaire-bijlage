@@ -14,7 +14,7 @@ export default class EditController extends Controller {
       editor.setHtmlContent(this.model.editorDocument.content);
     } else {
       editor.setHtmlContent(`
-        <div prefix="dct: http://purl.org/dc/terms/ ext: http://mu.semte.ch/vocabularies/ext/ say: https://say.data.gift/ns/ prov: http://www.w3.org/ns/prov#" typeof="https://say.data.gift/ns/DocumentContent">
+        <div typeof="https://say.data.gift/ns/DocumentContent">
           Insert here
         </div>`);
       editor.executeCommand(
