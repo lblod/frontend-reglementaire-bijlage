@@ -6,6 +6,15 @@
 
 
 
+
+## 1.1.2 (2022-10-05)
+
+#### :house: Internal
+* [#29](https://github.com/lblod/frontend-reglementaire-bijlage/pull/29) Upgrade insert variable plugin to 0.2.3 and article-structure plugin to 0.3.1 ([@lagartoverde](https://github.com/lagartoverde))
+
+#### Committers: 1
+- Oscar Rodriguez Villalobos ([@lagartoverde](https://github.com/lagartoverde))
+
 ## 1.1.1 (2022-10-04)
 
 #### :rocket: Enhancement
