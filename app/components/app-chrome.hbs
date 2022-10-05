@@ -14,14 +14,14 @@
         {{#if @editorDocument.updatedOn}}
         <li class="au-c-list-horizontal__item">
           <span class="au-c-app-chrome__status">
-            Bewaard op {{human-friendly-date @editorDocument.updatedOn}}
+            {{t "utility.savedOn"}} {{human-friendly-date @editorDocument.updatedOn}}
           </span>
         </li>
         {{else}}
         <li class="au-c-list-horizontal__item">
           <span class="au-c-app-chrome__status">
             <AuIcon @icon="alert-triangle" @alignment="left" />
-            Wijzigingen niet bewaard
+            {{t "utility.unsavedChanges"}}
           </span>
         </li>
         {{/if}}
@@ -34,7 +34,7 @@
       {{#if @editorDocument.isNew}}
       <AuPill @skin="warning">
         <AuIcon @icon="alert-triangle" @alignment="left" />
-        Concept niet bewaard
+        {{t "utility.unsavedConcept"}}
       </AuPill>
       {{/if}}
       <EditorDocumentTitle @title={{@editorDocument.title}} @editActive={{@editorDocument.isNew}} @onChange={{this.updateDocumentTitle}} @readOnly={{@readOnly}} />
@@ -43,7 +43,7 @@
       {{#if @editorDocument.isNew}}
         <LinkTo @route="inbox.agendapoints" class="au-c-button au-c-button--tertiary au-c-button--alert" role="menuitem">
           <AuIcon @icon="bin" @alignment="left" />
-          Verwijder concept
+          {{t "utility.removeConcept"}}
         </LinkTo>
       {{else if this.showFileDropDown}}
       <AuDropdown @title="Bestand acties" @buttonLabel="Bestand opties" @alignment="right">
@@ -56,13 +56,13 @@
         {{#if @exportHtmlFunction}}
           <AuButton {{on "click" @exportHtmlFunction}} @skin="tertiary" role="menuitem">
             <AuIcon @icon="export" @alignment="left" />
-            Exporteer als HTML
+            {{t "utility.exportToHtml"}}
           </AuButton>
         {{/if}}
         {{#if @sendToTrash}}
         <AuButton {{on "click" @sendToTrash}} @skin="tertiary" @alert="true" role="menuitem" @disabled={{this.isNotAllowedToTrash}}>
           <AuIcon @icon="bin" @alignment="left" />
-          Naar prullenmand
+          {{t "utility.toRecycleBin"}}
         </AuButton>
         {{/if}}
       </AuDropdown>
@@ -72,15 +72,15 @@
           @skin="success"
           @icon="eye"
         >
-          Beschikbaar
+          {{t "utility.available"}}
         </AuPill>
       {{/if}}
 
       {{#if @save}}
-        <AuButton {{on "click" @save.action}} @disabled={{@save.isRunning}}>Bewaar</AuButton>
+        <AuButton {{on "click" @save.action}} @disabled={{@save.isRunning}}>{{t "utility.save"}}</AuButton>
       {{/if}}
       {{#if @publish}}
-        <AuButton {{on "click" @publish.action}} @disabled={{@publish.isRunning}}>Bewaar en maak beschikbaar</AuButton>
+        <AuButton {{on "click" @publish.action}} @disabled={{@publish.isRunning}}>{{t "utility.saveAndPublish"}}</AuButton>
       {{/if}}
     </AuToolbarGroup>
   </AuToolbar>

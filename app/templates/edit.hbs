@@ -1,4 +1,4 @@
-{{page-title "Edit"}}
+{{page-title (t 'reglementEdit.edit')}}
 <AppChrome
   @editorDocument={{this.model.editorDocument}}
   @documentContainer={{this.model.documentContainer}}
@@ -10,6 +10,7 @@
 />
 <RdfaEditorContainer
   @rdfaEditorInit={{this.handleRdfaEditorInit}}
-  @typeOfWrappingDiv="besluit:BehandelingVanAgendapunt"
+  @editorDocument={{this.model.editorDocument}}
+  @typeOfWrappingDiv="lblodgn:ReglementaireBijlage"
   @showToggleRdfaAnnotations={{true}}
-  />
+/>
