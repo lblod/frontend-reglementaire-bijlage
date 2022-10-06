@@ -1,26 +1,47 @@
-{{page-title "Publish"}}
-<div {{did-insert (perform this.fetchPreview)}} style="overflow: auto">
-  <div style="display: flex;">
-    <div style="width: 600px; max-height: 500px; margin: 20px; overflow: auto;">
-      <h2 style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">Nieuwe versie</h2>
-      {{{this.model.templateVersion}}}
+{{page-title 'Publish'}}
+<AuBodyContainer @scroll="true">
+  <div class='au-o-box'>
+    <AuHeading class="au-u-margin-bottom">Tekst</AuHeading>
+    <div
+      class='au-o-grid au-o-grid--small'
+      {{did-insert (perform this.fetchPreview)}}
+    >
+      <div class='au-o-grid__item au-u-1-2@large'>
+        <AuCard @flex={{true}} as |c|>
+          <c.header>
+            <AuHeading @level='2' @skin='4'>
+              Nieuwe versie
+            </AuHeading>
+          </c.header>
+          <c.content>
+            {{{this.model.templateVersion}}}
+          </c.content>
+        </AuCard>
+      </div>
+      <div class='au-o-grid__item au-u-1-2@large'>
+        <AuCard @flex={{true}} as |c|>
+          <c.header>
+            <AuHeading @level='2' @skin='4'>
+              Beschikbare Versie
+            </AuHeading>
+          </c.header>
+          <c.content>
+            {{#if this.fetchPreview.isRunning}}
+              <AuLoader />
+            {{else}}
+              {{{this.currentVersion}}}
+            {{/if}}
+          </c.content>
+        </AuCard>
+      </div>
     </div>
-
-    <div style="width: 600px; max-height: 500px; margin: 20px; overflow: auto;">
-      <h2 style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">Beschikbare Versie</h2>
-      {{#if this.fetchPreview.isRunning}}
-        <AuLoader />
-      {{else}}
-        {{{this.currentVersion}}}
-      {{/if}}
-    </div>
+    <AuButton
+      class="au-u-margin-top"
+      @loading={{this.createPublishedResource.isRunning}}
+      @disabled={{this.createPublishedResource.isRunning}}
+      {{on "click" (perform this.createPublishedResource)}}
+    >
+      {{t "publishPage.publish"}}
+    </AuButton>
   </div>
-  <AuButton
-    style="margin: 10px"
-    @loading={{this.createPublishedResource.isRunning}}
-    @disabled={{this.createPublishedResource.isRunning}}
-    {{on "click" (perform this.createPublishedResource)}}
-  >
-    {{t "publishPage.publish"}}
-  </AuButton>
-</div>
+</AuBodyContainer>
