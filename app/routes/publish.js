@@ -14,7 +14,7 @@ export default class PublishRoute extends Route {
     const document = await reglement.get('document');
     const currentVersion = await document.get('currentVersion');
     const templateVersion = await currentVersion.get('templateVersion')
-    return { id: params.id, templateVersion };
+    return { reglement: reglement, templateVersion };
   }
   beforeModel(transition) {
     this.session.requireAuthentication(transition, 'login');

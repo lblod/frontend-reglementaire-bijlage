@@ -19,22 +19,19 @@ export default class PublishController extends Controller {
   *fetchPreview() {
     this.currentVersion = '';
     const id = this.model.id;
-    const response = yield fetch(`/preview/regulatory-attachment/${id}`);
-    const json = yield response.json();
-    this.currentVersion = json.content;
+    //const response = yield fetch(`/preview/regulatory-attachment/${id}`);
+    //const json = yield response.json();
+    this.currentVersion = 'Preview';
   }
 
   @task
   *createPublishedResource() {
     this.showPublishingModal = false;
-    const id = this.model.id;
-    const taskId = yield this.muTask.fetchTaskifiedEndpoint(
-      `/publish/regulatory-attachment/${id}`,
-      {
-        method: 'POST',
-      }
+    const publicationTask = this.store.createRecord(
+      'regulatory-attachment-publication-task'
     );
-    yield this.muTask.waitForMuTaskTask.perform(taskId);
+    publicationTask.regulatoryAttachment = this.model.reglement;
+    yield publicationTask.save();
     this.router.transitionTo('edit', this.model.id);
   }
 }
