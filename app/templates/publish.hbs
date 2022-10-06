@@ -1,7 +1,7 @@
 {{page-title 'Publish'}}
 <AuBodyContainer @scroll="true">
   <div class='au-o-box'>
-    <AuHeading class="au-u-margin-bottom">Tekst</AuHeading>
+    <AuHeading class="au-u-margin-bottom">{{t "publishPage.title"}}</AuHeading>
     <div
       class='au-o-grid au-o-grid--small'
       {{did-insert (perform this.fetchPreview)}}
@@ -10,7 +10,7 @@
         <AuCard @flex={{true}} as |c|>
           <c.header>
             <AuHeading @level='2' @skin='4'>
-              Nieuwe versie
+              {{t "publishPage.latestversion"}}
             </AuHeading>
           </c.header>
           <c.content>
@@ -22,7 +22,7 @@
         <AuCard @flex={{true}} as |c|>
           <c.header>
             <AuHeading @level='2' @skin='4'>
-              Beschikbare Versie
+              {{t "publishPage.publishedversion"}}
             </AuHeading>
           </c.header>
           <c.content>
