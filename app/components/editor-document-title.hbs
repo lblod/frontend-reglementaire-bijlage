@@ -1,19 +1,45 @@
 {{#if @readOnly}}
-  <h1 class="au-u-h3">
+  <h1 class='au-u-h3'>
     {{this.title}}
   </h1>
 {{else}}
   {{#if this.active}}
-    <div class="au-c-app-chrome__title-group au-u-flex au-u-flex--spaced-tiny">
-      {{#let (unique-id) as |id|}}
-        <AuLabel for={{id}}  class="au-u-hidden-visually">{{t "reglementaireBijlageTitel.description"}}</AuLabel>
-        <input class="au-c-input au-c-app-chrome__title-input {{if this.error "au-c-input--error"}}" placeholder={{t "reglementaireBijlageTitel.placeholder"}} id={{id}} type="text" value={{this.title}} {{on "input" this.setTitle}} />
-      {{/let}}
-      <AuButton {{on "click" this.toggleActive}} @skin="secondary" @icon="check" @hideText={{true}}>{{t "reglementaireBijlageTitel.modify"}}</AuButton>
-    </div>
+    <form {{on 'submit' this.submit}}>
+      <div
+        class='au-c-app-chrome__title-group au-u-flex au-u-flex--spaced-tiny'
+      >
+        {{#let (unique-id) as |id|}}
+          <AuLabel for={{id}} class='au-u-hidden-visually'>{{t
+              'reglementaireBijlageTitel.description'
+            }}</AuLabel>
+          <input
+            class='au-c-input au-c-app-chrome__title-input
+              {{if this.error "au-c-input--error"}}'
+            placeholder={{t 'reglementaireBijlageTitel.placeholder'}}
+            id={{id}}
+            type='text'
+            value={{this.title}}
+            {{on 'input' this.setTitle}}
+            {{did-insert this.focus}}
+          />
+        {{/let}}
+        <AuButton
+          type='submit'
+          @skin='secondary'
+          @icon='check'
+          @hideText={{true}}
+        >{{t 'reglementaireBijlageTitel.modify'}}</AuButton>
+      </div>
+    </form>
   {{else}}
-    <h1 class="au-u-h3">
-      {{this.title}} <AuButton {{on "click" this.toggleActive}} @icon="pencil" @skin="tertiary" @hideText={{true}} >titel wijzigen</AuButton>
+    <h1 class='au-u-h3'>
+      {{this.title}}
+      <AuButton
+        {{on 'click' this.toggleActive}}
+        @icon='pencil'
+        @skin='tertiary'
+        @hideText={{true}}
+      >titel wijzigen</AuButton>
     </h1>
   {{/if}}
 
