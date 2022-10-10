@@ -80,6 +80,9 @@ auth:
   switchUser: Wissel van bestuurseenheid
   logout: Afmelden
 publishPage:
+  title: Maak reglementaire bijlage sjabloon beschikbaar
+  latestversion: Laatste versie
+  publishedversion: Publieke versie
   publish: Maak beschikbaar
 reglementaireBijlageTitel:
   description: "Titel reglementaire bijlage"

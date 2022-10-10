@@ -80,6 +80,9 @@ auth:
   switchUser: Change administration
   logout: Log out
 publishPage:
+  title: Publish regulatory statement template
+  latestversion: Latest version
+  publishedversion: Published version
   publish: Publicize
 reglementaireBijlageTitel:
   description: "Regulatory statement title"
