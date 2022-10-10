@@ -30,7 +30,10 @@ export default class CodelistFormComponent extends Component {
 
   @action
   async didInsert() {
-    this.options = await this.args.codelist.concepts;
+    const concepts = (await this.args.codelist.concepts).toArray();
+    this.options = concepts.sort((a, b) =>
+      a.createdOn < b.createdOn ? 1 : -1
+    );
     await this.fetchCodelistTypes.perform();
   }
 
@@ -54,6 +57,7 @@ export default class CodelistFormComponent extends Component {
   startNewOptionProcess() {
     this.newModalOpen = true;
     this.newOption = this.store.createRecord('skosConcept');
+    this.newOption.createdOn = new Date();
   }
 
   @action
