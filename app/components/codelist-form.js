@@ -119,6 +119,7 @@ export default class CodelistFormComponent extends Component {
         this.currentSession.group.id
       );
       codelist.publisher = administrativeUnit;
+      codelist.concepts = this.options;
       yield codelist.save();
       yield Promise.all(this.options.map((option) => option.save()));
       this.router.transitionTo('codelists-management.codelist', codelist.id);
