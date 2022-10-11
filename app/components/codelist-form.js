@@ -18,7 +18,7 @@ export default class CodelistFormComponent extends Component {
   @tracked selectedType;
 
   @tracked toDelete = [];
-  @tracked options;
+  @tracked options = [];
 
   @tracked newOption;
   @tracked newModalOpen = false;
@@ -30,10 +30,22 @@ export default class CodelistFormComponent extends Component {
 
   @action
   async didInsert() {
+    console.log('did insert');
     const concepts = (await this.args.codelist.concepts).toArray();
-    this.options = concepts.sort((a, b) =>
-      a.createdOn < b.createdOn ? 1 : -1
-    );
+    this.options = concepts.sort((a, b) => {
+      if (!a.createdOn && !b.createdOn) {
+        return 0;
+      }
+      if (!a.createdOn) {
+        return -1;
+      }
+      if (!b.createdOn) {
+        return 1;
+      }
+      if (a.createdOn === b.createdOn) return 0;
+      return a.createdOn > b.createdOn ? 1 : -1;
+    });
+    console.log(this.options);
     await this.fetchCodelistTypes.perform();
   }
 
