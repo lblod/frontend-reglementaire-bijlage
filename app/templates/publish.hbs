@@ -2,10 +2,7 @@
 <AuBodyContainer @scroll="true">
   <div class='au-o-box'>
     <AuHeading class="au-u-margin-bottom">{{t "publishPage.title"}}</AuHeading>
-    <div
-      class='au-o-grid au-o-grid--small'
-      {{did-insert (perform this.fetchPreview)}}
-    >
+    <div class='au-o-grid au-o-grid--small' {{did-insert (perform this.fetchPreview)}}>
       <div class='au-o-grid__item au-u-1-2@large'>
         <AuCard @flex={{true}} as |c|>
           <c.header>
@@ -14,7 +11,9 @@
             </AuHeading>
           </c.header>
           <c.content>
-            {{{this.model.templateVersion}}}
+            <div class="say-editor rdfa-annotations rdfa-annotations-highlight rdfa-annotations-hover">
+              {{{this.model.templateVersion}}}
+            </div>
           </c.content>
         </AuCard>
       </div>
@@ -27,20 +26,18 @@
           </c.header>
           <c.content>
             {{#if this.fetchPreview.isRunning}}
-              <AuLoader />
+            <AuLoader />
             {{else}}
+            <div class="say-editor rdfa-annotations rdfa-annotations-highlight rdfa-annotations-hover">
               {{{this.currentVersion}}}
+            </div>
             {{/if}}
           </c.content>
         </AuCard>
       </div>
     </div>
-    <AuButton
-      class="au-u-margin-top"
-      @loading={{this.createPublishedResource.isRunning}}
-      @disabled={{this.createPublishedResource.isRunning}}
-      {{on "click" (perform this.createPublishedResource)}}
-    >
+    <AuButton class="au-u-margin-top" @loading={{this.createPublishedResource.isRunning}}
+      @disabled={{this.createPublishedResource.isRunning}} {{on "click" (perform this.createPublishedResource)}}>
       {{t "publishPage.publish"}}
     </AuButton>
   </div>
