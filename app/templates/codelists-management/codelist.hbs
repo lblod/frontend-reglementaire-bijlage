@@ -24,7 +24,7 @@
   </LinkTo>
 </BreadcrumbsItem>
 
-<div class="au-c-body-container au-c-body-container--scroll">
+<div class="au-c-body-container au-c-body-container--scroll"  {{did-insert this.didInsert}}>
   <AuToolbar @border="bottom" @size="large">
     <AuToolbarGroup>
       <AuHeading @skin="2">
@@ -56,7 +56,7 @@
         <AuTable>
           <:title>{{t "codelist.attr.options"}}</:title>
           <:body>
-            {{#each @model.codelist.concepts as |option|}}
+            {{#each this.options as |option|}}
               <tr>
                 <td>{{option.label}}</td>
               </tr>
