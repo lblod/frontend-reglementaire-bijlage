@@ -8,6 +8,22 @@
 
 
 
+
+## 1.2.1 (2022-10-17)
+
+#### :rocket: Enhancement
+* [#38](https://github.com/lblod/frontend-reglementaire-bijlage/pull/38) Add template-variable-plugin and disable location type variable ([@elpoelma](https://github.com/elpoelma))
+* [#35](https://github.com/lblod/frontend-reglementaire-bijlage/pull/35) Add max height to publish page cards ([@elpoelma](https://github.com/elpoelma))
+
+#### :bug: Bug Fix
+* [#36](https://github.com/lblod/frontend-reglementaire-bijlage/pull/36) Ensure document previews on publish page have correct styling. ([@elpoelma](https://github.com/elpoelma))
+
+#### :house: Internal
+* [#37](https://github.com/lblod/frontend-reglementaire-bijlage/pull/37) Cleanup of package.json ([@elpoelma](https://github.com/elpoelma))
+
+#### Committers: 1
+- Elena Poelman ([@elpoelma](https://github.com/elpoelma))
+
 ## 1.2.0 (2022-10-12)
 
 #### :rocket: Enhancement
