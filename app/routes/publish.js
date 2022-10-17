@@ -8,7 +8,7 @@ export default class PublishRoute extends Route {
     const reglement = (
       await this.store.query('regulatory-statement', {
         'filter[:id:]': params.id,
-        include: ['document.currentVersion'],
+        include: 'published-version',
       })
     ).firstObject;
     const document = await reglement.get('document');
