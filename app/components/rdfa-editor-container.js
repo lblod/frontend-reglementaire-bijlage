@@ -15,6 +15,7 @@ export default class RdfaEditorContainerComponent extends Component {
       name: 'insert-variable',
       options: {
         publisher: this.currentSession.group.uri,
+        variableTypes: ['text', 'number', 'date', 'codelist'],
       },
     },
   ];

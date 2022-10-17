@@ -27,6 +27,7 @@
     "release": "release-it"
   },
   "devDependencies": {
+    "@appuniversum/ember-appuniversum": "^1.8.0",
     "@bagaar/ember-breadcrumbs": "^3.0.0",
     "@ember/optional-features": "^2.0.0",
     "@ember/render-modifiers": "^2.0.4",
@@ -35,8 +36,12 @@
     "@glimmer/tracking": "^1.0.4",
     "@lblod/ember-acmidm-login": "^1.4.0",
     "@lblod/ember-environment-banner": "^0.1.1",
+    "@lblod/ember-mock-login": "^0.7.0",
     "@lblod/ember-rdfa-editor": "^0.63.1",
-    "@lblod/ember-rdfa-editor-insert-variable-plugin": "^0.2.3",
+    "@lblod/ember-rdfa-editor-article-structure-plugin": "^0.3.1",
+    "@lblod/ember-rdfa-editor-generate-template-plugin": "^0.1.5",
+    "@lblod/ember-rdfa-editor-table-of-contents-plugin": "^0.4.3",
+    "@lblod/ember-rdfa-editor-template-variable-plugin": "^0.9.0",
     "@release-it-plugins/lerna-changelog": "github:release-it-plugins/lerna-changelog",
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
@@ -59,12 +64,14 @@
     "ember-intl": "^5.7.2",
     "ember-load-initializers": "^2.1.2",
     "ember-maybe-import-regenerator": "^0.1.6",
+    "ember-mu-transform-helpers": "^2.1.2",
     "ember-page-title": "^6.2.2",
     "ember-power-select": "^5.0.4",
     "ember-qunit": "^5.1.5",
     "ember-resolver": "^8.0.3",
     "ember-source": "~3.28.8",
     "ember-template-lint": "^3.15.0",
+    "ember-unique-id-helper-polyfill": "^1.2.0",
     "ember-welcome-page": "^4.1.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
@@ -88,20 +95,8 @@
     "edition": "octane"
   },
   "dependencies": {
-    "@appuniversum/ember-appuniversum": "^1.8.0",
-    "@codemirror/basic-setup": "^0.20.0",
-    "@codemirror/lang-html": "^0.20.0",
-    "@codemirror/lang-xml": "^0.20.0",
-    "@lblod/ember-mock-login": "^0.7.0",
-    "@lblod/ember-rdfa-editor-article-structure-plugin": "^0.3.1",
-    "@lblod/ember-rdfa-editor-generate-template-plugin": "^0.1.5",
-    "@lblod/ember-rdfa-editor-table-of-contents-plugin": "^0.4.3",
     "@triply/yasgui": "^4.2.26",
-    "date-fns": "^2.29.1",
-    "ember-inflector": "^4.0.2",
-    "ember-mu-transform-helpers": "^2.1.2",
-    "ember-unique-id-helper-polyfill": "^1.2.0",
-    "xml-formatter": "^2.6.1"
+    "date-fns": "^2.29.1"
   },
   "volta": {
     "node": "16.16.0",
