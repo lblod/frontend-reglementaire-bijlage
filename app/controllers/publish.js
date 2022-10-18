@@ -17,20 +17,14 @@ export default class PublishController extends Controller {
 
   @task
   *fetchPreview() {
-    try {
-      this.currentVersion = '';
-      const reglement = yield this.model.reglement;
-      const publishedVersion = yield reglement.publishedVersion;
-      // const publishedVersionContent = yield publishedVersion.currentVersion;
-      console.log('PUBLISHED VERSION: ', publishedVersion);
-      // const id = this.model.id;
-    } catch (e) {
-      console.log('error');
-      console.log(e);
+    const publishedVersionContainer = yield this.model.reglement
+      .publishedVersion;
+    if (publishedVersionContainer) {
+      const publishedVersion = yield publishedVersionContainer.currentVersion;
+      const publishedVersionContent = yield publishedVersion.content;
+      const response = yield fetch(publishedVersionContent.downloadLink);
+      this.currentVersion = yield response.text();
     }
-    //const response = yield fetch(`/preview/regulatory-attachment/${id}`);
-    //const json = yield response.json();
-    this.currentVersion = 'Preview';
   }
 
   @task
@@ -41,6 +35,7 @@ export default class PublishController extends Controller {
     );
     publicationTask.regulatoryAttachment = this.model.reglement;
     yield publicationTask.save();
-    // this.router.transitionTo('edit', this.model.id);
+    this.fetchPreview.perform();
+    this.router.transitionTo('edit', this.model.reglement.id);
   }
 }
