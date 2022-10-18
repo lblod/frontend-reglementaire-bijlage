@@ -25,7 +25,6 @@ export default class ListRoute extends Route.extend(DataTableRouteMixin) {
       include: ['published-version'],
       sort: params.sort,
     });
-    console.log(reglements);
     return reglements;
   }
 

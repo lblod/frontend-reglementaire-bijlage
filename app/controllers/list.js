@@ -75,10 +75,7 @@ export default class ListController extends Controller.extend(
   @task
   *submitRemoveReglement() {
     this.reglement.folder = RS_DELETED_FOLDER;
-    console.log(this.reglement);
     const publishedVersion = yield this.reglement.publishedVersion;
-    console.log('published version');
-    console.log(publishedVersion);
     if (publishedVersion) {
       publishedVersion.validThrough = new Date();
       yield publishedVersion.save();
