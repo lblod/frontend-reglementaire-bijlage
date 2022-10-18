@@ -2,7 +2,6 @@ import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
-
 export default class PublishController extends Controller {
   @service store;
   @service router;
@@ -17,6 +16,7 @@ export default class PublishController extends Controller {
 
   @task
   *fetchPreview() {
+    this.currentVersion = '';
     const publishedVersionContainer = yield this.model.reglement
       .publishedVersion;
     if (publishedVersionContainer) {
@@ -35,7 +35,7 @@ export default class PublishController extends Controller {
     );
     publicationTask.regulatoryAttachment = this.model.reglement;
     yield publicationTask.save();
-    this.fetchPreview.perform();
+    yield this.fetchPreview.perform();
     this.router.transitionTo('edit', this.model.reglement.id);
   }
 }

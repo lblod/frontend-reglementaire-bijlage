@@ -7,10 +7,7 @@ export default class PublishRoute extends Route {
   async model(params) {
     const reglement = await this.store.findRecord(
       'regulatory-statement',
-      params.id,
-      {
-        include: 'published-version',
-      }
+      params.id
     );
     const document = await reglement.get('document');
     const currentVersion = await document.get('currentVersion');
