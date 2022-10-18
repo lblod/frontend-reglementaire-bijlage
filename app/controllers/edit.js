@@ -55,6 +55,5 @@ export default class EditController extends Controller {
     yield documentContainer.save();
   }
   toggleDeleteModal() {
-    console.log('delete');
   }
 }
