@@ -18,7 +18,7 @@ export default class CodelistFormComponent extends Component {
   @tracked selectedType;
 
   @tracked toDelete = [];
-  @tracked options;
+  @tracked options = [];
 
   @tracked newOption;
   @tracked newModalOpen = false;
@@ -30,7 +30,22 @@ export default class CodelistFormComponent extends Component {
 
   @action
   async didInsert() {
-    this.options = await this.args.codelist.concepts;
+    console.log('did insert');
+    const concepts = (await this.args.codelist.concepts).toArray();
+    this.options = concepts.sort((a, b) => {
+      if (!a.createdOn && !b.createdOn) {
+        return 0;
+      }
+      if (!a.createdOn) {
+        return -1;
+      }
+      if (!b.createdOn) {
+        return 1;
+      }
+      if (a.createdOn === b.createdOn) return 0;
+      return a.createdOn > b.createdOn ? 1 : -1;
+    });
+    console.log(this.options);
     await this.fetchCodelistTypes.perform();
   }
 
@@ -54,6 +69,7 @@ export default class CodelistFormComponent extends Component {
   startNewOptionProcess() {
     this.newModalOpen = true;
     this.newOption = this.store.createRecord('skosConcept');
+    this.newOption.createdOn = new Date();
   }
 
   @action
@@ -115,6 +131,7 @@ export default class CodelistFormComponent extends Component {
         this.currentSession.group.id
       );
       codelist.publisher = administrativeUnit;
+      codelist.concepts = this.options;
       yield codelist.save();
       yield Promise.all(this.options.map((option) => option.save()));
       this.router.transitionTo('codelists-management.codelist', codelist.id);
