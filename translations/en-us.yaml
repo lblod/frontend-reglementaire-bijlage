@@ -84,6 +84,8 @@ publishPage:
   latestversion: Latest version
   publishedversion: Published version
   publish: Publicize
+  notificationTitle: Success
+  notificationContent: Template successfully published
 reglementaireBijlageTitel:
   description: "Regulatory statement title"
   placeholder: "Untitled document"
