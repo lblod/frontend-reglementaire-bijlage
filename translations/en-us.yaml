@@ -81,6 +81,8 @@ auth:
   logout: Log out
 publishPage:
   title: Publish regulatory statement template
+  titleShort: Publish template
+  back: Back to regulatory statement
   latestversion: Latest version
   publishedversion: Published version
   publish: Publicize
