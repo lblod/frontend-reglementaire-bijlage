@@ -16,7 +16,6 @@ export default class PublishController extends Controller {
 
   @task
   *fetchPreview() {
-    console.log('FETCH PREVIEW');
     this.currentVersion = '';
     const publishedVersionContainer =
       yield this.model.reglement.publishedVersion.reload();

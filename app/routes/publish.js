@@ -5,7 +5,6 @@ export default class PublishRoute extends Route {
   @service session;
 
   async model(params) {
-    console.log('MODEL');
     const reglement = await this.store.findRecord(
       'regulatory-statement',
       params.id,
