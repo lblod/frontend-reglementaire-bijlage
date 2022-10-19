@@ -33,17 +33,17 @@ export default class CodelistFormComponent extends Component {
     console.log('did insert');
     const concepts = (await this.args.codelist.concepts).toArray();
     this.options = concepts.sort((a, b) => {
-      if (!a.createdOn && !b.createdOn) {
+      if (!a.position && !b.position) {
         return 0;
       }
-      if (!a.createdOn) {
+      if (!a.position) {
         return -1;
       }
-      if (!b.createdOn) {
+      if (!b.position) {
         return 1;
       }
-      if (a.createdOn === b.createdOn) return 0;
-      return a.createdOn > b.createdOn ? 1 : -1;
+      if (a.position === b.position) return 0;
+      return a.position > b.position ? 1 : -1;
     });
     console.log(this.options);
     await this.fetchCodelistTypes.perform();
@@ -163,6 +163,15 @@ export default class CodelistFormComponent extends Component {
         'codelists-management.codelist',
         this.args.codelist.id
       );
+    }
+  }
+
+  @action
+  sortEndAction() {
+    for (let i = 0; i < this.options.length; i++) {
+      const option = this.options[i];
+      option.position = i;
+      option.save();
     }
   }
 }

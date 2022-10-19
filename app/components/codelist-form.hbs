@@ -71,14 +71,11 @@
         <br />
       </p>
       <p>
-        <AuDataTable
-          @content={{this.options}}
-          @noDataMessage={{t "codelist.crud.noOptions"}}
-          as |s|
-        >
-          <s.content as |c|>
-            <c.header>
-              <th class="data-table__header-title">
+        <table class="au-c-data-table__table">
+          <thead>
+            <tr class="au-c-data-table__header">
+              <th class="data-table__header-title" style="width: 100px;">{{t "codelist.orderLabel"}}</th>
+              <th class="data-table__header-title" >
                 {{t "codelist.attr.options"}}
               </th>
               <th>
@@ -86,52 +83,54 @@
                   {{t "codelist.crud.deleteOption"}}
                 </span>
               </th>
-            </c.header>
-            <c.body as |option|>
-              <td>
-                <p class="max-w-prose">
-                  {{option.label}}
-                </p>
-              </td>
-              <td class="w-px au-u-padding-right-small">
-                <AuButton
-                  @icon="pencil"
-                  @skin="secondary"
-                  @hideText={{true}}
-                  {{on "click" (fn this.startEditOptionProcess option)}}
-                >
-                  {{t "utility.edit"}}
-                </AuButton>
-                <AuButton
-                  @icon="bin"
-                  @alert={{true}}
-                  @skin="secondary"
-                  @hideText={{true}}
-                  {{on "click" (fn this.removeOption option)}}
-                >
-                  {{t "utility.delete"}}
-                </AuButton>
+            </tr>
+          </thead>
+          <SortableObjects @tagName={{"tbody"}} @sortableObjectList={{this.options}} @sortEndAction={{fn this.sortEndAction}} @enableSort={{true}} @useSwap={{true}} @inPlace={{true}}>
+            {{#each this.options as |option|}}
+              <DraggableObject @content={{option}} @tagName="tr" @isSortable={{true}}>
+                <td>
+                  <AuButton @icon="drag" @skin="tertiary" @hideText={{true}} class="au-c-button--drag">
+                    Sleep
+                  </AuButton>
+                </td>
+                <td>
+                  <p class="max-w-prose">
+                    {{option.label}}
+                  </p>
+                </td>
+                <td class="w-px au-u-padding-right-small">
+                  <AuButton
+                    @icon="pencil"
+                    @skin="secondary"
+                    @hideText={{true}}
+                    {{on "click" (fn this.startEditOptionProcess option)}}
+                  >
+                    {{t "utility.edit"}}
+                  </AuButton>
+                  <AuButton
+                    @icon="bin"
+                    @alert={{true}}
+                    @skin="secondary"
+                    @hideText={{true}}
+                    {{on "click" (fn this.removeOption option)}}
+                  >
+                    {{t "utility.delete"}}
+                  </AuButton>
 
-              </td>
-            </c.body>
-            <tfoot>
+                </td>
+              </DraggableObject>
+            {{/each}}
+          </SortableObjects>
+          <tfoot>
               <tr>
                 <td class="w-px au-u-padding-right-small">
                   <AuButton {{on "click" this.startNewOptionProcess}}>
                     {{t "codelist.crud.addOption"}}
                   </AuButton>
-                  <CodelistOptionForm
-                    @modalOpen={{this.newModalOpen}}
-                    @title={{t "codelist.crud.addOption"}}
-                    @codelistOption={{this.newOption}}
-                    @onCancel={{this.endNewOptionProcess}}
-                    @onSubmit={{this.submitNewOptionProcess}}
-                  />
                 </td>
               </tr>
             </tfoot>
-          </s.content>
-        </AuDataTable>
+        </table>
       </p>
     </div>
   </div>

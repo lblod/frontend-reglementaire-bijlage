@@ -59,6 +59,7 @@
     "ember-cli-terser": "^4.0.2",
     "ember-config-helper": "^0.1.4",
     "ember-data": "~3.28.12",
+    "ember-drag-drop": "^0.9.0-beta.0",
     "ember-export-application-global": "^2.0.1",
     "ember-fetch": "^8.1.1",
     "ember-intl": "^5.7.2",
