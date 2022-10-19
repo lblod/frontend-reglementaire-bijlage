@@ -157,4 +157,11 @@
     @onCancel={{this.endEditOptionProcess}}
     @onSubmit={{this.endEditOptionProcess}}
   />
+  <CodelistOptionForm
+    @modalOpen={{this.newModalOpen}}
+    @title={{t "codelist.crud.addOption"}}
+    @codelistOption={{this.newOption}}
+    @onCancel={{this.endNewOptionProcess}}
+    @onSubmit={{this.submitNewOptionProcess}}
+  />
 {{/let}}
