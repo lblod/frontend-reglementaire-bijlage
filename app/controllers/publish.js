@@ -16,11 +16,13 @@ export default class PublishController extends Controller {
 
   @task
   *fetchPreview() {
+    console.log('FETCH PREVIEW');
     this.currentVersion = '';
-    const publishedVersionContainer = yield this.model.reglement
-      .publishedVersion;
+    const publishedVersionContainer =
+      yield this.model.reglement.publishedVersion.reload();
     if (publishedVersionContainer) {
-      const publishedVersion = yield publishedVersionContainer.currentVersion;
+      const publishedVersion =
+        yield publishedVersionContainer.currentVersion.reload();
       const publishedVersionContent = yield publishedVersion.content;
       const response = yield fetch(publishedVersionContent.downloadLink);
       this.currentVersion = yield response.text();
@@ -36,6 +38,6 @@ export default class PublishController extends Controller {
     publicationTask.regulatoryAttachment = this.model.reglement;
     yield publicationTask.save();
     yield this.fetchPreview.perform();
-    this.router.transitionTo('edit', this.model.reglement.id);
+    // this.router.transitionTo('edit', this.model.reglement.id);
   }
 }
