@@ -70,6 +70,7 @@ export default class CodelistFormComponent extends Component {
     this.newModalOpen = true;
     this.newOption = this.store.createRecord('skosConcept');
     this.newOption.createdOn = new Date();
+    this.newOption.position = this.options.length;
   }
 
   @action
