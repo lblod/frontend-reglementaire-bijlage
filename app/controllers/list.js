@@ -75,16 +75,14 @@ export default class ListController extends Controller.extend(
   @task
   *submitRemoveReglement() {
     this.reglement.folder = RS_DELETED_FOLDER;
-    if (this.reglement.publishedVersion) {
-      yield fetch(`/invalidate/regulatory-attachment/${this.reglement.id}`, {
-        method: 'POST',
-      });
-      yield this.reglement.save();
-    } else {
-      yield this.reglement.save();
+    const publishedVersion = yield this.reglement.publishedVersion;
+    if (publishedVersion) {
+      publishedVersion.validThrough = new Date();
+      yield publishedVersion.save();
     }
+    yield this.reglement.save();
     this.removeReglementModalIsOpen = false;
-    this.router.transitionTo('list');
+    this.refresh();
   }
 
   @task

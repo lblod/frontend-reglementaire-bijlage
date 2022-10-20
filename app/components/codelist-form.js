@@ -30,7 +30,6 @@ export default class CodelistFormComponent extends Component {
 
   @action
   async didInsert() {
-    console.log('did insert');
     const concepts = (await this.args.codelist.concepts).toArray();
     this.options = concepts.sort((a, b) => {
       if (!a.createdOn && !b.createdOn) {
@@ -45,7 +44,6 @@ export default class CodelistFormComponent extends Component {
       if (a.createdOn === b.createdOn) return 0;
       return a.createdOn > b.createdOn ? 1 : -1;
     });
-    console.log(this.options);
     await this.fetchCodelistTypes.perform();
   }
 

@@ -1,8 +1,7 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import { task } from 'ember-concurrency';
+import { task, timeout } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
-
 export default class PublishController extends Controller {
   @service store;
   @service router;
@@ -18,23 +17,26 @@ export default class PublishController extends Controller {
   @task
   *fetchPreview() {
     this.currentVersion = '';
-    const id = this.model.id;
-    const response = yield fetch(`/preview/regulatory-attachment/${id}`);
-    const json = yield response.json();
-    this.currentVersion = json.content;
+    const publishedVersionContainer =
+      yield this.model.reglement.publishedVersion.reload();
+    if (publishedVersionContainer) {
+      const publishedVersion =
+        yield publishedVersionContainer.currentVersion.reload();
+      const publishedVersionContent = yield publishedVersion.content;
+      const response = yield fetch(publishedVersionContent.downloadLink);
+      this.currentVersion = yield response.text();
+    }
   }
 
   @task
   *createPublishedResource() {
     this.showPublishingModal = false;
-    const id = this.model.id;
-    const taskId = yield this.muTask.fetchTaskifiedEndpoint(
-      `/publish/regulatory-attachment/${id}`,
-      {
-        method: 'POST',
-      }
+    const publicationTask = this.store.createRecord(
+      'regulatory-attachment-publication-task'
     );
-    yield this.muTask.waitForMuTaskTask.perform(taskId);
-    this.router.transitionTo('edit', this.model.id);
+    publicationTask.regulatoryAttachment = this.model.reglement;
+    yield publicationTask.save();
+    yield this.muTask.waitForMuTaskTask.perform(publicationTask.id, 100);
+    yield this.fetchPreview.perform();
   }
 }

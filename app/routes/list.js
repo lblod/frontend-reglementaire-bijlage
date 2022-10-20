@@ -22,10 +22,16 @@ export default class ListRoute extends Route.extend(DataTableRouteMixin) {
   async model(params) {
     const reglements = await this.store.query('regulatory-statement', {
       filter: { folder: RS_STANDARD_FOLDER },
-      include: ['document.currentVersion'],
+      include: 'document.current-version',
       sort: params.sort,
     });
     return reglements;
+  }
+
+  setupController(controller, model) {
+    super.setupController(controller, model);
+
+    controller.set('refresh', this.refresh.bind(this));
   }
 
   beforeModel(transition) {
