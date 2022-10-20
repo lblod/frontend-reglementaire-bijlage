@@ -12,17 +12,17 @@ export default class CodelistController extends Controller {
   async didInsert() {
     const concepts = (await this.model.codelist.concepts).toArray();
     this.options = concepts.sort((a, b) => {
-      if (!a.createdOn && !b.createdOn) {
+      if (!a.position && !b.position) {
         return 0;
       }
-      if (!a.createdOn) {
+      if (!a.position) {
         return -1;
       }
-      if (!b.createdOn) {
+      if (!b.position) {
         return 1;
       }
-      if (a.createdOn === b.createdOn) return 0;
-      return a.createdOn > b.createdOn ? 1 : -1;
+      if (a.position === b.position) return 0;
+      return a.position > b.position ? 1 : -1;
     });
   }
   @action

@@ -1,6 +1,7 @@
 codelist:
   name: Codelists management
   details: Codelist details
+  orderLabel: Order
   crud:
     new: Create codelist
     edit: Edit codelist
