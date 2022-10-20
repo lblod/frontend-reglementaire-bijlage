@@ -83,7 +83,6 @@ export default class ListController extends Controller.extend(
     yield this.reglement.save();
     this.removeReglementModalIsOpen = false;
     this.refresh();
-    // this.router.transitionTo('list');
   }
 
   @task
