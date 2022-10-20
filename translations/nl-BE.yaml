@@ -81,9 +81,13 @@ auth:
   logout: Afmelden
 publishPage:
   title: Maak reglementaire bijlage sjabloon beschikbaar
+  titleShort: Sjabloon beschikbaar maken
+  back: Terug naar reglementaire bijlage
   latestversion: Laatste versie
   publishedversion: Publieke versie
   publish: Maak beschikbaar
+  notificationTitle: Geslaagd
+  notificationContent: Sjabloon beschikbaar gemaakt
 reglementaireBijlageTitel:
   description: "Titel reglementaire bijlage"
   placeholder: Naamloos document

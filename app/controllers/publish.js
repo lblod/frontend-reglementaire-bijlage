@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import { task, timeout } from 'ember-concurrency';
+import { task } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
 export default class PublishController extends Controller {
   @service store;
@@ -8,6 +8,9 @@ export default class PublishController extends Controller {
   @service session;
   @service currentSession;
   @service muTask;
+  @service toaster;
+  @service intl;
+
   @tracked currentVersion;
 
   constructor() {
@@ -38,5 +41,12 @@ export default class PublishController extends Controller {
     yield publicationTask.save();
     yield this.muTask.waitForMuTaskTask.perform(publicationTask.id, 100);
     yield this.fetchPreview.perform();
+    this.toaster.success(
+      this.intl.t('publishPage.notificationContent'),
+      this.intl.t('publishPage.notificationTitle'),
+      {
+        timeOut: 3000,
+      }
+    );
   }
 }

@@ -1,5 +1,21 @@
 {{page-title 'Publish'}}
+<AuToolbar @size="small" class="au-u-padding-bottom-none" as |Group|>
+  <Group>
+    <ul class="au-c-list-horizontal au-c-list-horizontal--small">
+      <li class="au-c-list-horizontal__item">
+        <AuLink @linkRoute="edit" @model={{model.reglement.id}} >
+          <AuIcon @icon="arrow-left" @alignment="left" />
+          {{t "publishPage.back"}}
+        </AuLink>
+      </li>
+      <li class="au-c-list-horizontal__item">
+        {{t "publishPage.titleShort"}}
+      </li>
+    </ul>
+  </Group>
+</AuToolbar>
 <AuBodyContainer @scroll="true">
+  <AuToaster @position="top" />
   <div class='au-o-box'>
     <AuHeading class="au-u-margin-bottom">{{t "publishPage.title"}}</AuHeading>
     <div class='au-o-grid au-o-grid--small' {{did-insert (perform this.fetchPreview)}}>
