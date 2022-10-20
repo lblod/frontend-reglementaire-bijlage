@@ -9,6 +9,20 @@
 
 
 
+
+## 2.0.0 (2022-10-20)
+
+#### :rocket: Enhancement
+* [#43](https://github.com/lblod/frontend-reglementaire-bijlage/pull/43) Navigation of publish page and addition of `published` notification ([@elpoelma](https://github.com/elpoelma))
+* [#40](https://github.com/lblod/frontend-reglementaire-bijlage/pull/40) Sort codelists on position ([@lagartoverde](https://github.com/lagartoverde))
+* [#39](https://github.com/lblod/frontend-reglementaire-bijlage/pull/39) Support for json api compliant publisher ([@elpoelma](https://github.com/elpoelma))
+* [#41](https://github.com/lblod/frontend-reglementaire-bijlage/pull/41) Refresh data when a regulatory statement has been removed or published ([@elpoelma](https://github.com/elpoelma))
+
+#### Committers: 3
+- Elena Poelman ([@elpoelma](https://github.com/elpoelma))
+- Oscar Rodriguez Villalobos ([@lagartoverde](https://github.com/lagartoverde))
+- [@usrtim](https://github.com/usrtim)
+
 ## 1.2.1 (2022-10-17)
 
 #### :rocket: Enhancement
