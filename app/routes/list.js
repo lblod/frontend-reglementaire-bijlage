@@ -28,6 +28,12 @@ export default class ListRoute extends Route.extend(DataTableRouteMixin) {
     return reglements;
   }
 
+  setupController(controller, model) {
+    super.setupController(controller, model);
+
+    controller.set('refresh', this.refresh.bind(this));
+  }
+
   beforeModel(transition) {
     this.session.requireAuthentication(transition, 'login');
   }

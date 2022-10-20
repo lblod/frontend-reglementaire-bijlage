@@ -1,7 +1,7 @@
 import Service from '@ember/service';
 import { task, timeout } from 'ember-concurrency';
 
-const TASK_ENDPOINT = '/publication-tasks';
+const TASK_ENDPOINT = '/regulatory-attachment-publication-tasks';
 export const TASK_STATUS_FAILURE =
   'http://lblod.data.gift/besluit-publicatie-melding-statuses/failure';
 export const TASK_STATUS_CREATED =
