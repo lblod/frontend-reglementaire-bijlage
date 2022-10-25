@@ -59,6 +59,7 @@
         @label={{t "codelist.attr.label"}}
       />
       <th>{{t "codelist.attr.id"}}</th>
+      <th>{{t "codelist.attr.createdOn"}}</th>
       <th>{{t "codelist.attr.type"}}</th>
       <th></th>
     </c.header>
@@ -68,6 +69,13 @@
       </td>
       <td>
         {{codelist.id}}
+      </td>
+      <td>
+        {{#if codelist.type.createdOn}}
+          {{codelist.type.createdOn}}
+        {{else}}
+          {{t "codelist.attr.notFound"}}
+        {{/if}}
       </td>
       <td>
         {{#if codelist.type}}

@@ -24,7 +24,7 @@ export default class ListController extends Controller.extend(
   @tracked reglement;
   @tracked createReglementModalIsOpen;
   @tracked removeReglementModalIsOpen;
-  sort = '-document.current-version.updated-on';
+  sort = '-document.current-version.created-on';
 
   @action
   startCreateReglementFlow() {

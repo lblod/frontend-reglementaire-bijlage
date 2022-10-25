@@ -23,7 +23,8 @@ export default class ListRoute extends Route.extend(DataTableRouteMixin) {
   async model(params) {
     const reglements = await this.store.query('regulatory-statement', {
       filter: { folder: RS_STANDARD_FOLDER },
-      include: 'document.current-version',
+      include:
+        'document.current-version,published-version.current-version.content',
       sort: params.sort,
       page: {
         number: params.page,

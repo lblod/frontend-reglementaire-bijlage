@@ -15,6 +15,8 @@ codelist:
   attr:
     label: Label
     type: Type
+    createdOn: Created On
+    notFound: N/A
     options: "Options"
     option:
       value: Value
@@ -63,6 +65,8 @@ reglementList:
   title: Title
   createdOn: Created On
   updatedOn: Updated On
+  notFound: N/A
+  publishDate: Publish Date
   noDataMessage: No Data
   createModal:
     title: Create new regulatory attachment
