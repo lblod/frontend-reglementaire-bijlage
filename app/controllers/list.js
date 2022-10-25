@@ -3,6 +3,7 @@ import { task } from 'ember-concurrency';
 import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
+// eslint-disable-next-line ember/no-mixins
 import DefaultQueryParamsMixin from 'ember-data-table/mixins/default-query-params';
 import { RS_DELETED_FOLDER, RS_STANDARD_FOLDER } from '../utils/constants';
 
@@ -15,11 +16,15 @@ export default class ListController extends Controller.extend(
   @service currentSession;
   @service muTask;
 
+  @tracked page = 0;
+  @tracked size = 20;
+  @tracked debounceTime = 2000;
   @tracked editorDocument;
   @tracked documentContainer;
   @tracked reglement;
   @tracked createReglementModalIsOpen;
   @tracked removeReglementModalIsOpen;
+  sort = '-document.current-version.updated-on';
 
   @action
   startCreateReglementFlow() {

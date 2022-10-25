@@ -14,7 +14,13 @@
     </ul>
   </Group>
 </AuToolbar>
-<AuDataTable @content={{this.model}} @isLoading={{this.isLoadingModel}} @noDataMessage={{t 'reglementList.noDataMessage'}} @sort={{this.sort}} @page={{this.page}} @size={{this.size}} as |table|>
+<AuDataTable
+  @content={{this.model}}
+  @isLoading={{this.isLoadingModel}}
+  @noDataMessage={{t 'reglementList.noDataMessage'}}
+  @sort={{this.sort}}
+  @page={{this.page}}
+  @size={{this.size}} as |table|>
   <table.menu as |menu|>
     <menu.general>
       <AuToolbar class="au-o-box" @size="large">
@@ -33,8 +39,9 @@
   </table.menu>
   <table.content as |c|>
     <c.header>
-      <th><span class="au-c-data-table__header-title au-c-data-table__header-title--sortable">{{t 'reglementList.title'}}</span></th>
+      <AuDataTableThSortable @field="document.currentVersion.title" @currentSorting={{this.sort}} @label={{t 'reglementList.title'}} />
       <AuDataTableThSortable @field="document.currentVersion.createdOn" @currentSorting={{this.sort}} @label={{t 'reglementList.createdOn'}} />
+      <AuDataTableThSortable @field="document.currentVersion.updatedOn" @currentSorting={{this.sort}} @label={{t 'reglementList.updatedOn'}} />
       <th></th>
     </c.header>
     <c.body as |reglement|>
@@ -42,6 +49,7 @@
         <LinkTo @route="edit" @model={{reglement.id}} class="au-c-link">{{reglement.document.currentVersion.title}}</LinkTo>
       </td>
       <td>{{detailed-date reglement.document.currentVersion.createdOn}}</td>
+      <td>{{detailed-date reglement.document.currentVersion.updatedOn}}</td>
       <td>
         <AuButton
           @icon="bin"

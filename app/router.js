@@ -25,5 +25,4 @@ Router.map(function () {
     this.route('codelist', { path: '/:id' });
   });
   this.route('sparql');
-  
 });

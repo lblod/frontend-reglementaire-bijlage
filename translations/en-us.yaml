@@ -62,6 +62,7 @@ reglementList:
   new: Add new
   title: Title
   createdOn: Created On
+  updatedOn: Updated On
   noDataMessage: No Data
   createModal:
     title: Create new regulatory attachment

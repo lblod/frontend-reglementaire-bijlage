@@ -1,6 +1,7 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 import { RS_STANDARD_FOLDER } from '../utils/constants';
+// eslint-disable-next-line ember/no-mixins
 import DataTableRouteMixin from 'ember-data-table/mixins/route';
 
 export default class ListRoute extends Route.extend(DataTableRouteMixin) {
@@ -24,6 +25,10 @@ export default class ListRoute extends Route.extend(DataTableRouteMixin) {
       filter: { folder: RS_STANDARD_FOLDER },
       include: 'document.current-version',
       sort: params.sort,
+      page: {
+        number: params.page,
+        size: params.size,
+      },
     });
     return reglements;
   }

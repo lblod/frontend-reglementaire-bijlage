@@ -61,6 +61,7 @@ reglementList:
   new: Aanmaken
   title: Titel
   createdOn: Aangemaakt op
+  updatedOn: Bijgewerkt op
   noDataMessage: Geen bijlagen gevonden
   createModal:
     title: Een nieuwe reglementaire bijlage aanmaken
