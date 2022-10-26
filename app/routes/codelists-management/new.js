@@ -7,7 +7,9 @@ export default class CodelistsManagementNewRoute extends Route {
 
   model() {
     return hash({
-      newCodelist: this.store.createRecord('code-list'),
+      newCodelist: this.store.createRecord('code-list', {
+        createdOn: new Date(),
+      }),
     });
   }
 }

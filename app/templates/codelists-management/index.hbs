@@ -71,8 +71,8 @@
         {{codelist.id}}
       </td>
       <td>
-        {{#if codelist.type.createdOn}}
-          {{codelist.type.createdOn}}
+        {{#if codelist.createdOn}}
+          {{detailed-date codelist.createdOn}}
         {{else}}
           {{t "codelist.attr.notFound"}}
         {{/if}}
