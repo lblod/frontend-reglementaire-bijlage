@@ -1,10 +1,8 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 import { RS_STANDARD_FOLDER } from '../utils/constants';
-// eslint-disable-next-line ember/no-mixins
-import DataTableRouteMixin from 'ember-data-table/mixins/route';
 
-export default class ListRoute extends Route.extend(DataTableRouteMixin) {
+export default class ListRoute extends Route {
   modelName = 'regulatory-statement';
   @service store;
   @service session;

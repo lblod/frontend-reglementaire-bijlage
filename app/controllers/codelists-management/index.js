@@ -6,9 +6,9 @@ export default class CodelistsManagementIndexController extends Controller {
   queryParams = ['page', 'size', 'label', 'sort'];
 
   @tracked page = 0;
-  @tracked size = 30;
+  @tracked size = 20;
   @tracked label = '';
-  @tracked sort = 'label';
+  @tracked sort = '-created-on';
 
   @restartableTask
   *updateSearchFilterTask(queryParamProperty, event) {
