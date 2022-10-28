@@ -33,7 +33,7 @@ export default class ListRoute extends Route {
     };
 
     if (params.title) {
-      options.filter.title = params.title;
+      options['filter[document][current-version][title]'] = params.title;
     }
 
     return await this.store.query('regulatory-statement', options);
