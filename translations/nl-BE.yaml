@@ -15,7 +15,7 @@ codelist:
     label: Label
     type: Type
     createdOn: Aangemaakt op
-    notFound: N/A
+    notFound: n.v.t.
     options: "Items"
     option:
       value: Waarde
@@ -64,8 +64,8 @@ reglementList:
   title: Titel
   createdOn: Aangemaakt op
   updatedOn: Bijgewerkt op
-  notFound: N/A
-  publishDate: Publicatie datum
+  notFound: n.v.t.
+  publishDate: Beschikbaar gemaakt op
   noDataMessage: Geen bijlagen gevonden
   createModal:
     title: Een nieuwe reglementaire bijlage aanmaken
