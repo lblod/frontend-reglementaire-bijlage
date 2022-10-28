@@ -3,6 +3,7 @@ import { task } from 'ember-concurrency';
 import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
+import { restartableTask, timeout } from 'ember-concurrency';
 import { RS_DELETED_FOLDER, RS_STANDARD_FOLDER } from '../utils/constants';
 
 export default class ListController extends Controller {
@@ -14,6 +15,7 @@ export default class ListController extends Controller {
 
   @tracked page = 0;
   @tracked size = 20;
+  @tracked title = '';
   @tracked debounceTime = 2000;
   @tracked editorDocument;
   @tracked documentContainer;
@@ -102,5 +104,17 @@ export default class ListController extends Controller {
   @action
   logout() {
     this.session.invalidate();
+  }
+
+  @restartableTask
+  *updateSearchFilterTask(queryParamProperty, event) {
+    yield timeout(300);
+
+    this[queryParamProperty] = event.target.value.trim();
+    this.resetPagination();
+  }
+
+  resetPagination() {
+    this.page = 0;
   }
 }

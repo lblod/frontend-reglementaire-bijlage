@@ -3,11 +3,11 @@ import { inject as service } from '@ember/service';
 import { RS_STANDARD_FOLDER } from '../utils/constants';
 
 export default class ListRoute extends Route {
-  modelName = 'regulatory-statement';
   @service store;
   @service session;
 
   queryParams = {
+    title: { refreshModel: true },
     page: { refreshModel: true },
     size: { refreshModel: true },
     sort: { refreshModel: true },
@@ -19,8 +19,10 @@ export default class ListRoute extends Route {
   }
 
   async model(params) {
-    const reglements = await this.store.query('regulatory-statement', {
-      filter: { folder: RS_STANDARD_FOLDER },
+    const options = {
+      filter: {
+        folder: RS_STANDARD_FOLDER,
+      },
       include:
         'document.current-version,published-version.current-version.content',
       sort: params.sort,
@@ -28,8 +30,13 @@ export default class ListRoute extends Route {
         number: params.page,
         size: params.size,
       },
-    });
-    return reglements;
+    };
+
+    if (params.title) {
+      options.filter.title = params.title;
+    }
+
+    return await this.store.query('regulatory-statement', options);
   }
 
   setupController(controller, model) {

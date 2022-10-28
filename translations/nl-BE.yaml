@@ -67,6 +67,8 @@ reglementList:
   notFound: n.v.t.
   publishDate: Beschikbaar gemaakt op
   noDataMessage: Geen bijlagen gevonden
+  crud:
+    labelFilter: Label
   createModal:
     title: Een nieuwe reglementaire bijlage aanmaken
     save: Opslaan

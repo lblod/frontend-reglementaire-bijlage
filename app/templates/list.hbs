@@ -30,6 +30,17 @@
           </AuHeading>
         </AuToolbarGroup>
         <AuToolbarGroup class="au-c-toolbar__group--center">
+          <div class="au-c-data-table__search codelist-label-search">
+            <input
+              value={{this.title}}
+              placeholder={{t "reglementList.crud.labelFilter"}}
+              class="au-c-input au-c-input--block"
+              {{on "input" (perform this.updateSearchFilterTask "title")}}
+            />
+            <span class="au-c-data-table__search-icon">
+              <AuIcon @icon="search" @size="large" />
+            </span>
+          </div>
           {{#unless this.readOnly}}
             <AuButton @icon="add" @iconAlignment="left"  {{on 'click' this.startCreateReglementFlow}}>{{t "reglementList.new"}}</AuButton>
           {{/unless}}

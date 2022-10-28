@@ -68,6 +68,8 @@ reglementList:
   notFound: N/A
   publishDate: Published on
   noDataMessage: No Data
+  crud:
+    labelFilter: Label
   createModal:
     title: Create new regulatory attachment
     save: Save
