@@ -7,4 +7,8 @@ export default class DocumentContainerModel extends Model {
   @belongsTo('editor-document-folder', { inverse: null }) folder;
   @belongsTo('administrative-unit', { inverse: null }) publisher;
   @hasMany('attachment', { inverse: 'documentContainer' }) attachments;
+  @belongsTo('published-regulatory-attachment-container', {
+    inverse: 'derivedFrom',
+  })
+  publishedVersion;
 }

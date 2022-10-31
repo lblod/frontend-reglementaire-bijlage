@@ -56,10 +56,11 @@
       <AuDataTableThSortable @field="document.currentVersion.title" @currentSorting={{this.sort}} @label={{t 'reglementList.publishDate'}} />
       <th></th>
     </c.header>
-    <c.body as |reglement|>
+    <c.body as |documentContainer|>
       <td>
-        <LinkTo @route="edit" @model={{reglement.id}} class="au-c-link">{{reglement.document.currentVersion.title}}</LinkTo>
+        <LinkTo @route="edit" @model={{documentContainer.id}} class="au-c-link">{{documentContainer.currentVersion.title}}</LinkTo>
       </td>
+<<<<<<< Updated upstream
       <td>{{detailed-date reglement.document.currentVersion.createdOn}}</td>
       <td>{{detailed-date reglement.document.currentVersion.updatedOn}}</td>
       <td>
@@ -75,7 +76,7 @@
           @alert={{true}}
           @skin="secondary"
           @hideText={{true}}
-          {{on "click" (fn this.startRemoveReglementFlow reglement)}}
+          {{on "click" (fn this.startRemoveReglementFlow documentContainer)}}
         >
           {{t "utility.delete"}}
         </AuButton>
