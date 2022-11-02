@@ -21,7 +21,7 @@ export default class ListController extends Controller {
   @tracked documentContainer;
   @tracked createReglementModalIsOpen;
   @tracked removeReglementModalIsOpen;
-  sort = '-document.current-version.created-on';
+  sort = '-current-version.created-on';
 
   @action
   startCreateReglementFlow() {
