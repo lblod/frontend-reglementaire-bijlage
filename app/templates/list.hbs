@@ -53,7 +53,7 @@
       <AuDataTableThSortable @field="currentVersion.title" @currentSorting={{this.sort}} @label={{t 'reglementList.title'}} />
       <AuDataTableThSortable @field="currentVersion.createdOn" @currentSorting={{this.sort}} @label={{t 'reglementList.createdOn'}} />
       <AuDataTableThSortable @field="currentVersion.updatedOn" @currentSorting={{this.sort}} @label={{t 'reglementList.updatedOn'}} />
-      <AuDataTableThSortable @field="currentVersion.title" @currentSorting={{this.sort}} @label={{t 'reglementList.publishDate'}} />
+      <AuDataTableThSortable @field="publishedVersion.currentVersion.created" @currentSorting={{this.sort}} @label={{t 'reglementList.publishDate'}} />
       <th></th>
     </c.header>
     <c.body as |documentContainer|>
