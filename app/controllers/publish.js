@@ -21,12 +21,11 @@ export default class PublishController extends Controller {
   *fetchPreview() {
     this.currentVersion = '';
     const publishedVersionContainer =
-      yield this.model.reglement.publishedVersion.reload();
+      yield this.model.container.publishedVersion.reload();
     if (publishedVersionContainer) {
       const publishedVersion =
         yield publishedVersionContainer.currentVersion.reload();
-      const publishedVersionContent = yield publishedVersion.content;
-      const response = yield fetch(publishedVersionContent.downloadLink);
+      const response = yield fetch(publishedVersion.downloadLink);
       this.currentVersion = yield response.text();
     }
   }
@@ -37,7 +36,7 @@ export default class PublishController extends Controller {
     const publicationTask = this.store.createRecord(
       'regulatory-attachment-publication-task'
     );
-    publicationTask.regulatoryAttachment = this.model.reglement;
+    publicationTask.documentContainer = this.model.container;
     yield publicationTask.save();
     yield this.muTask.waitForMuTaskTask.perform(publicationTask.id, 100);
     yield this.fetchPreview.perform();

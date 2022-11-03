@@ -50,21 +50,21 @@
   </table.menu>
   <table.content as |c|>
     <c.header>
-      <AuDataTableThSortable @field="document.currentVersion.title" @currentSorting={{this.sort}} @label={{t 'reglementList.title'}} />
-      <AuDataTableThSortable @field="document.currentVersion.createdOn" @currentSorting={{this.sort}} @label={{t 'reglementList.createdOn'}} />
-      <AuDataTableThSortable @field="document.currentVersion.updatedOn" @currentSorting={{this.sort}} @label={{t 'reglementList.updatedOn'}} />
-      <AuDataTableThSortable @field="document.currentVersion.title" @currentSorting={{this.sort}} @label={{t 'reglementList.publishDate'}} />
+      <AuDataTableThSortable @field="currentVersion.title" @currentSorting={{this.sort}} @label={{t 'reglementList.title'}} />
+      <AuDataTableThSortable @field="currentVersion.createdOn" @currentSorting={{this.sort}} @label={{t 'reglementList.createdOn'}} />
+      <AuDataTableThSortable @field="currentVersion.updatedOn" @currentSorting={{this.sort}} @label={{t 'reglementList.updatedOn'}} />
+      <AuDataTableThSortable @field="publishedVersion.currentVersion.created" @currentSorting={{this.sort}} @label={{t 'reglementList.publishDate'}} />
       <th></th>
     </c.header>
-    <c.body as |reglement|>
+    <c.body as |documentContainer|>
       <td>
-        <LinkTo @route="edit" @model={{reglement.id}} class="au-c-link">{{reglement.document.currentVersion.title}}</LinkTo>
+        <LinkTo @route="edit" @model={{documentContainer.id}} class="au-c-link">{{documentContainer.currentVersion.title}}</LinkTo>
       </td>
-      <td>{{detailed-date reglement.document.currentVersion.createdOn}}</td>
-      <td>{{detailed-date reglement.document.currentVersion.updatedOn}}</td>
+      <td>{{detailed-date documentContainer.currentVersion.createdOn}}</td>
+      <td>{{detailed-date documentContainer.currentVersion.updatedOn}}</td>
       <td>
-        {{#if reglement.publishedVersion.currentVersion.content.created}}
-          {{ detailed-date reglement.publishedVersion.currentVersion.content.created }}
+        {{#if documentContainer.publishedVersion.currentVersion.created}}
+          {{ detailed-date documentContainer.publishedVersion.currentVersion.created }}
         {{else}}
           {{t "reglementList.notFound"}}
         {{/if}}
@@ -75,7 +75,7 @@
           @alert={{true}}
           @skin="secondary"
           @hideText={{true}}
-          {{on "click" (fn this.startRemoveReglementFlow reglement)}}
+          {{on "click" (fn this.startRemoveReglementFlow documentContainer)}}
         >
           {{t "utility.delete"}}
         </AuButton>

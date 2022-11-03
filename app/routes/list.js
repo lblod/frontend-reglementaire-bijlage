@@ -21,10 +21,10 @@ export default class ListRoute extends Route {
   async model(params) {
     const options = {
       filter: {
-        folder: RS_STANDARD_FOLDER,
+        folder: {
+          id: RS_STANDARD_FOLDER,
+        },
       },
-      include:
-        'document.current-version,published-version.current-version.content',
       sort: params.sort,
       page: {
         number: params.page,
@@ -33,10 +33,10 @@ export default class ListRoute extends Route {
     };
 
     if (params.title) {
-      options['filter[document][current-version][title]'] = params.title;
+      options['filter[current-version][title]'] = params.title;
     }
 
-    return await this.store.query('regulatory-statement', options);
+    return await this.store.query('document-container', options);
   }
 
   setupController(controller, model) {

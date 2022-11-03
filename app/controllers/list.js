@@ -19,14 +19,12 @@ export default class ListController extends Controller {
   @tracked debounceTime = 2000;
   @tracked editorDocument;
   @tracked documentContainer;
-  @tracked reglement;
   @tracked createReglementModalIsOpen;
   @tracked removeReglementModalIsOpen;
-  sort = '-document.current-version.created-on';
+  sort = '-current-version.created-on';
 
   @action
   startCreateReglementFlow() {
-    const reglement = this.store.createRecord('regulatory-statement');
     const documentContainer = this.store.createRecord('document-container');
     const editorDocument = this.store.createRecord('editor-document');
     editorDocument.content = '';
@@ -35,12 +33,8 @@ export default class ListController extends Controller {
     editorDocument.title = '';
     this.editorDocument = editorDocument;
     this.documentContainer = documentContainer;
-    this.reglement = reglement;
 
     documentContainer.currentVersion = editorDocument;
-
-    reglement.document = documentContainer;
-    reglement.folder = RS_STANDARD_FOLDER;
 
     this.createReglementModalIsOpen = true;
   }
@@ -49,7 +43,6 @@ export default class ListController extends Controller {
   cancelCreateReglement() {
     this.editorDocument = undefined;
     this.documentContainer = undefined;
-    this.reglement = undefined;
     this.createReglementModalIsOpen = false;
   }
 
@@ -57,48 +50,43 @@ export default class ListController extends Controller {
   *saveReglement(event) {
     event.preventDefault();
     yield this.editorDocument.save();
+    const folder = yield this.store.findRecord(
+      'editor-document-folder',
+      RS_STANDARD_FOLDER
+    );
+    this.documentContainer.folder = folder;
     yield this.documentContainer.save();
-    yield this.reglement.save();
     this.createReglementModalIsOpen = false;
-    this.router.transitionTo('edit', this.reglement.id);
+    this.router.transitionTo('edit', this.documentContainer.id);
   }
 
   @action
-  startRemoveReglementFlow(reglement) {
+  startRemoveReglementFlow(documentContainer) {
     this.removeReglementModalIsOpen = true;
-    this.reglement = reglement;
+    this.documentContainer = documentContainer;
   }
 
   @action
   cancelRemoveReglement() {
-    this.reglement = undefined;
+    this.editorDocument = undefined;
     this.removeReglementModalIsOpen = false;
   }
 
   @task
   *submitRemoveReglement() {
-    this.reglement.folder = RS_DELETED_FOLDER;
-    const publishedVersion = yield this.reglement.publishedVersion;
+    this.documentContainer.folder = RS_DELETED_FOLDER;
+    const editorDocument = yield this.documentContainer.currentVersion;
+    const publishedVersion = yield editorDocument.publishedVersion;
     if (publishedVersion) {
       publishedVersion.validThrough = new Date();
       yield publishedVersion.save();
     }
-    yield this.reglement.save();
     this.removeReglementModalIsOpen = false;
-    this.refresh();
-  }
-
-  @task
-  *deleteReglement(id) {
-    const reglement = yield this.store.findRecord('regulatory-statement', id);
-    const documentContainer = yield reglement.document;
-    const editorDocument = yield documentContainer.currentVersion;
     yield editorDocument.deleteRecord();
     yield editorDocument.save();
-    yield documentContainer.deleteRecord();
-    yield documentContainer.save();
-    yield reglement.deleteRecord();
-    yield reglement.save();
+    yield this.documentContainer.deleteRecord();
+    yield this.documentContainer.save();
+    this.refresh();
   }
 
   @action
