@@ -10,6 +10,21 @@
 
 
 
+
+## 3.0.0 (2022-11-03)
+
+#### :rocket: Enhancement
+* [#44](https://github.com/lblod/frontend-reglementaire-bijlage/pull/44) GN-3766 - The overview page of frontend-rb should be sorted by default ([@usrtim](https://github.com/usrtim))
+* [#45](https://github.com/lblod/frontend-reglementaire-bijlage/pull/45) Feature/new rdfa model ([@lagartoverde](https://github.com/lagartoverde))
+
+#### :bug: Bug Fix
+* [#32](https://github.com/lblod/frontend-reglementaire-bijlage/pull/32) Save document title after editing it ([@elpoelma](https://github.com/elpoelma))
+
+#### Committers: 3
+- Elena Poelman ([@elpoelma](https://github.com/elpoelma))
+- Oscar Rodriguez Villalobos ([@lagartoverde](https://github.com/lagartoverde))
+- [@usrtim](https://github.com/usrtim)
+
 ## 2.0.0 (2022-10-20)
 
 #### :rocket: Enhancement
