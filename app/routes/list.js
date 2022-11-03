@@ -1,14 +1,13 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 import { RS_STANDARD_FOLDER } from '../utils/constants';
-import DataTableRouteMixin from 'ember-data-table/mixins/route';
 
-export default class ListRoute extends Route.extend(DataTableRouteMixin) {
-  modelName = 'regulatory-statement';
+export default class ListRoute extends Route {
   @service store;
   @service session;
 
   queryParams = {
+    title: { refreshModel: true },
     page: { refreshModel: true },
     size: { refreshModel: true },
     sort: { refreshModel: true },
@@ -20,12 +19,24 @@ export default class ListRoute extends Route.extend(DataTableRouteMixin) {
   }
 
   async model(params) {
-    const reglements = await this.store.query('regulatory-statement', {
-      filter: { folder: RS_STANDARD_FOLDER },
-      include: 'document.current-version',
+    const options = {
+      filter: {
+        folder: {
+          id: RS_STANDARD_FOLDER,
+        },
+      },
       sort: params.sort,
-    });
-    return reglements;
+      page: {
+        number: params.page,
+        size: params.size,
+      },
+    };
+
+    if (params.title) {
+      options['filter[current-version][title]'] = params.title;
+    }
+
+    return await this.store.query('document-container', options);
   }
 
   setupController(controller, model) {

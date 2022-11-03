@@ -59,6 +59,11 @@
         @label={{t "codelist.attr.label"}}
       />
       <th>{{t "codelist.attr.id"}}</th>
+      <AuDataTableThSortable
+        @field="createdOn"
+        @currentSorting={{this.sort}}
+        @label={{t "codelist.attr.createdOn"}}
+      />
       <th>{{t "codelist.attr.type"}}</th>
       <th></th>
     </c.header>
@@ -68,6 +73,13 @@
       </td>
       <td>
         {{codelist.id}}
+      </td>
+      <td>
+        {{#if codelist.createdOn}}
+          {{detailed-date codelist.createdOn}}
+        {{else}}
+          {{t "codelist.attr.notFound"}}
+        {{/if}}
       </td>
       <td>
         {{#if codelist.type}}

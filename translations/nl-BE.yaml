@@ -14,6 +14,8 @@ codelist:
   attr:
     label: Label
     type: Type
+    createdOn: Aangemaakt op
+    notFound: n.v.t.
     options: "Items"
     option:
       value: Waarde
@@ -61,7 +63,12 @@ reglementList:
   new: Aanmaken
   title: Titel
   createdOn: Aangemaakt op
+  updatedOn: Bijgewerkt op
+  notFound: n.v.t.
+  publishDate: Beschikbaar gemaakt op
   noDataMessage: Geen bijlagen gevonden
+  crud:
+    labelFilter: Label
   createModal:
     title: Een nieuwe reglementaire bijlage aanmaken
     save: Opslaan

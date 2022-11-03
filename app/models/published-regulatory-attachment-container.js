@@ -1,6 +1,6 @@
-import Model, { attr, belongsTo } from '@ember-data/model';
+import Model, { belongsTo } from '@ember-data/model';
 
 export default class PublishedRegulatoryAttachmentContainer extends Model {
-  @attr validThrough;
   @belongsTo('published-regulatory-attachment') currentVersion;
+  @belongsTo('document-container') derivedFrom;
 }

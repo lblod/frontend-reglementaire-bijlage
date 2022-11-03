@@ -16,6 +16,10 @@ export default class EditorDocumentModel extends Model {
   nextVersion;
   @belongsTo('document-container', { inverse: 'revisions' })
   documentContainer;
+  @belongsTo('published-regulatory-attachment', {
+    inverse: 'derivedFrom',
+  })
+  publishedVersion;
 
   get htmlSafeContent() {
     return htmlSafe(this.content);

@@ -14,7 +14,13 @@
     </ul>
   </Group>
 </AuToolbar>
-<AuDataTable @content={{this.model}} @isLoading={{this.isLoadingModel}} @noDataMessage={{t 'reglementList.noDataMessage'}} @sort={{this.sort}} @page={{this.page}} @size={{this.size}} as |table|>
+<AuDataTable
+  @content={{this.model}}
+  @isLoading={{this.isLoadingModel}}
+  @noDataMessage={{t 'reglementList.noDataMessage'}}
+  @sort={{this.sort}}
+  @page={{this.page}}
+  @size={{this.size}} as |table|>
   <table.menu as |menu|>
     <menu.general>
       <AuToolbar class="au-o-box" @size="large">
@@ -24,6 +30,17 @@
           </AuHeading>
         </AuToolbarGroup>
         <AuToolbarGroup class="au-c-toolbar__group--center">
+          <div class="au-c-data-table__search codelist-label-search">
+            <input
+              value={{this.title}}
+              placeholder={{t "reglementList.crud.labelFilter"}}
+              class="au-c-input au-c-input--block"
+              {{on "input" (perform this.updateSearchFilterTask "title")}}
+            />
+            <span class="au-c-data-table__search-icon">
+              <AuIcon @icon="search" @size="large" />
+            </span>
+          </div>
           {{#unless this.readOnly}}
             <AuButton @icon="add" @iconAlignment="left"  {{on 'click' this.startCreateReglementFlow}}>{{t "reglementList.new"}}</AuButton>
           {{/unless}}
@@ -33,22 +50,32 @@
   </table.menu>
   <table.content as |c|>
     <c.header>
-      <th><span class="au-c-data-table__header-title au-c-data-table__header-title--sortable">{{t 'reglementList.title'}}</span></th>
-      <AuDataTableThSortable @field="document.currentVersion.createdOn" @currentSorting={{this.sort}} @label={{t 'reglementList.createdOn'}} />
+      <AuDataTableThSortable @field="currentVersion.title" @currentSorting={{this.sort}} @label={{t 'reglementList.title'}} />
+      <AuDataTableThSortable @field="currentVersion.createdOn" @currentSorting={{this.sort}} @label={{t 'reglementList.createdOn'}} />
+      <AuDataTableThSortable @field="currentVersion.updatedOn" @currentSorting={{this.sort}} @label={{t 'reglementList.updatedOn'}} />
+      <AuDataTableThSortable @field="publishedVersion.currentVersion.created" @currentSorting={{this.sort}} @label={{t 'reglementList.publishDate'}} />
       <th></th>
     </c.header>
-    <c.body as |reglement|>
+    <c.body as |documentContainer|>
       <td>
-        <LinkTo @route="edit" @model={{reglement.id}} class="au-c-link">{{reglement.document.currentVersion.title}}</LinkTo>
+        <LinkTo @route="edit" @model={{documentContainer.id}} class="au-c-link">{{documentContainer.currentVersion.title}}</LinkTo>
       </td>
-      <td>{{detailed-date reglement.document.currentVersion.createdOn}}</td>
+      <td>{{detailed-date documentContainer.currentVersion.createdOn}}</td>
+      <td>{{detailed-date documentContainer.currentVersion.updatedOn}}</td>
+      <td>
+        {{#if documentContainer.publishedVersion.currentVersion.created}}
+          {{ detailed-date documentContainer.publishedVersion.currentVersion.created }}
+        {{else}}
+          {{t "reglementList.notFound"}}
+        {{/if}}
+      </td>
       <td>
         <AuButton
           @icon="bin"
           @alert={{true}}
           @skin="secondary"
           @hideText={{true}}
-          {{on "click" (fn this.startRemoveReglementFlow reglement)}}
+          {{on "click" (fn this.startRemoveReglementFlow documentContainer)}}
         >
           {{t "utility.delete"}}
         </AuButton>

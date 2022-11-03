@@ -36,13 +36,12 @@ module.exports = function (environment) {
     },
     environmentName: '{{ENVIRONMENT_NAME}}',
     insertVariablePlugin: {
-      endpoint: '{{VARIABLE_PLUGIN_ENDPOINT}}'
-    }
+      endpoint: '{{VARIABLE_PLUGIN_ENDPOINT}}',
+    },
   };
 
-
   if (environment === 'development') {
-    ENV.insertVariablePlugin.endpoint =  '/raw-sparql';
+    ENV.insertVariablePlugin.endpoint = '/raw-sparql';
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
