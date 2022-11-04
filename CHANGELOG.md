@@ -11,6 +11,16 @@
 
 
 
+
+## 3.0.1 (2022-11-04)
+
+#### :house: Internal
+* [#47](https://github.com/lblod/frontend-reglementaire-bijlage/pull/47) bump template variable plugin and adapt the config ([@lagartoverde](https://github.com/lagartoverde))
+* [#46](https://github.com/lblod/frontend-reglementaire-bijlage/pull/46) bump article structure plugin ([@lagartoverde](https://github.com/lagartoverde))
+
+#### Committers: 1
+- Oscar Rodriguez Villalobos ([@lagartoverde](https://github.com/lagartoverde))
+
 ## 3.0.0 (2022-11-03)
 
 #### :rocket: Enhancement
