@@ -3,22 +3,29 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 import { TABLE_OF_CONTENTS_CONFIG } from '../utils/constants';
+import { getOwner } from '@ember/application';
 
 export default class RdfaEditorContainerComponent extends Component {
   @tracked editor;
   @service currentSession;
-  plugins = [
-    'article-structure',
-    { name: 'rdfa-toc', options: { config: TABLE_OF_CONTENTS_CONFIG } },
-    'generate-template',
-    {
-      name: 'insert-variable',
-      options: {
-        publisher: this.currentSession.group.uri,
-        variableTypes: ['text', 'number', 'date', 'codelist'],
+
+  constructor() {
+    super(...arguments);
+    const config = getOwner(this).resolveRegistration('config:environment');
+    this.plugins = [
+      'article-structure',
+      { name: 'rdfa-toc', options: { config: TABLE_OF_CONTENTS_CONFIG } },
+      'generate-template',
+      {
+        name: 'insert-variable',
+        options: {
+          publisher: this.currentSession.group.uri,
+          defaultEndpoint: config.insertVariablePlugin.endpoint,
+          variableTypes: ['text', 'number', 'date', 'codelist'],
+        },
       },
-    },
-  ];
+    ];
+  }
 
   get editorOptions() {
     return (
