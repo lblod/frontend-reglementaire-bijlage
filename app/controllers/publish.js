@@ -47,5 +47,6 @@ export default class PublishController extends Controller {
         timeOut: 3000,
       }
     );
+    this.router.transitionTo('edit', this.model.container.id);
   }
 }

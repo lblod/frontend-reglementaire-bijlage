@@ -10,6 +10,7 @@
       @applicationName={{t "utility.appName"}}
     />
   {{/if}}
+  <AuToaster @position="top" />
   <AuMainHeader @homeRoute="index" @appTitle="Reglementaire Bijlagen">
     {{#if this.session.isAuthenticated}}
     <AuDropdown @title="{{this.currentSession.user.firstName}} {{this.currentSession.user.familyName}} - {{this.currentSession.group.classification.label}} {{this.currentSession.group.name}}" @buttonLabel="Account settings" @alignment="right">
