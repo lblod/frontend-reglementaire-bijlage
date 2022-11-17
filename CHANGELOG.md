@@ -12,6 +12,15 @@
 
 
 
+
+## 3.0.2 (2022-11-17)
+
+#### :rocket: Enhancement
+* [#48](https://github.com/lblod/frontend-reglementaire-bijlage/pull/48) Go back to edit on publication ([@lagartoverde](https://github.com/lagartoverde))
+
+#### Committers: 1
+- Oscar Rodriguez Villalobos ([@lagartoverde](https://github.com/lagartoverde))
+
 ## 3.0.1 (2022-11-04)
 
 #### :house: Internal
