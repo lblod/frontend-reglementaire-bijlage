@@ -99,3 +99,5 @@ reglementaireBijlageTitel:
   description: "Titel reglementaire bijlage"
   placeholder: Naamloos document
   modify: "Titel aanpassen"
+behandelingVanAgendapunten:
+  confirmLeaveWithoutSaving: Bent u zeker dat u deze pagina wilt verlaten zonder uw wijzigingen op te slaan?

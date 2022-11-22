@@ -3,10 +3,14 @@ import { action } from '@ember/object';
 import { task } from 'ember-concurrency';
 import { inject as service } from '@ember/service';
 import { TABLE_OF_CONTENTS_CONFIG } from '../utils/constants';
+import { tracked } from '@glimmer/tracking';
 
 export default class EditController extends Controller {
   @service store;
   @service router;
+  @tracked editor;
+  @tracked _editorDocument;
+
   @action
   handleRdfaEditorInit(editor) {
     this.editor = editor;
@@ -26,6 +30,10 @@ export default class EditController extends Controller {
         editor.rangeFactory.fromInElement(editor.modelRoot, 0, 0)
       );
     }
+  }
+
+  get dirty() {
+    return this._editorDocument.content !== this.editor.htmlContent;
   }
 
   @task
@@ -53,5 +61,7 @@ export default class EditController extends Controller {
     const documentContainer = this.model.documentContainer;
     documentContainer.currentVersion = editorDocument;
     yield documentContainer.save();
+
+    this._editorDocument = editorDocument;
   }
 }
