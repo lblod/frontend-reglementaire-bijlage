@@ -81,6 +81,7 @@ reglementList:
 reglementEdit:
   edit: Edit attachment
   return: Go Back
+  confirmLeaveWithoutSaving: Are you sure you would like to leave this page without saving your changes?
 auth:
   acmidm: Log in with acm/idm
   mock:
@@ -100,5 +101,3 @@ reglementaireBijlageTitel:
   description: "Regulatory statement title"
   placeholder: "Untitled document"
   modify: "Modify title"
-behandelingVanAgendapunten:
-  confirmLeaveWithoutSaving: Bent u zeker dat u deze pagina wilt verlaten zonder uw wijzigingen op te slaan?
