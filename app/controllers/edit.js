@@ -33,7 +33,11 @@ export default class EditController extends Controller {
   }
 
   get dirty() {
-    return this._editorDocument.content !== this.editor.htmlContent;
+    return this.editorDocument.content !== this.editor.htmlContent;
+  }
+
+  get editorDocument() {
+    return this._editorDocument || this.model.editorDocument;
   }
 
   @task
@@ -57,11 +61,10 @@ export default class EditController extends Controller {
     editorDocument.title = this.model.editorDocument.title;
     editorDocument.previousVersion = this.model.editorDocument;
     yield editorDocument.save();
+    this._editorDocument = editorDocument;
 
     const documentContainer = this.model.documentContainer;
     documentContainer.currentVersion = editorDocument;
     yield documentContainer.save();
-
-    this._editorDocument = editorDocument;
   }
 }

@@ -23,4 +23,10 @@ export default class EditRoute extends Route {
   beforeModel(transition) {
     this.session.requireAuthentication(transition, 'login');
   }
+
+  setupController(controller, model) {
+    super.setupController(controller, model);
+
+    controller.set('_editorDocument', '');
+  }
 }
