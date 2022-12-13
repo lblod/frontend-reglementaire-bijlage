@@ -85,7 +85,6 @@ auth:
   acmidm: Log in with acm/idm
   mock:
     selectUser: Choose a mock user
-  switchUser: Change administration
   logout: Log out
 publishPage:
   title: Publish regulatory statement template

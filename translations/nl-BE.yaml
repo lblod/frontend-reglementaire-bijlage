@@ -84,7 +84,6 @@ auth:
   acmidm: Log in met acm/idm
   mock:
     selectUser: Selecteer een testgebruiker
-  switchUser: Wissel van bestuurseenheid
   logout: Afmelden
 publishPage:
   title: Maak reglementaire bijlage sjabloon beschikbaar
