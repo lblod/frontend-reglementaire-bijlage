@@ -12,6 +12,25 @@
 
 
 
+
+## 3.1.0 (2022-12-19)
+
+#### :rocket: Enhancement
+* [#50](https://github.com/lblod/frontend-reglementaire-bijlage/pull/50)   Add a prompt when a user tries to leave a page with a document that has changes without saving ([@usrtim](https://github.com/usrtim))
+* [#48](https://github.com/lblod/frontend-reglementaire-bijlage/pull/48) Go back to edit on publication ([@lagartoverde](https://github.com/lagartoverde))
+
+#### :bug: Bug Fix
+* [#51](https://github.com/lblod/frontend-reglementaire-bijlage/pull/51) Remove switch organization functionality ([@elpoelma](https://github.com/elpoelma))
+
+#### :house: Internal
+* [#49](https://github.com/lblod/frontend-reglementaire-bijlage/pull/49) update template variable plugin to 1.0.1 ([@lagartoverde](https://github.com/lagartoverde))
+
+#### Committers: 3
+- Elena Poelman ([@elpoelma](https://github.com/elpoelma))
+- Oscar Rodriguez Villalobos ([@lagartoverde](https://github.com/lagartoverde))
+- [@usrtim](https://github.com/usrtim)
+
+
 ## 3.0.1 (2022-11-04)
 
 #### :house: Internal
