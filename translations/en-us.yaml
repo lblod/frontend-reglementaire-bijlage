@@ -81,6 +81,7 @@ reglementList:
 reglementEdit:
   edit: Edit attachment
   return: Go Back
+  confirmLeaveWithoutSaving: Are you sure you would like to leave this page without saving your changes?
 auth:
   acmidm: Log in with acm/idm
   mock:
