@@ -13,6 +13,11 @@
 
 
 
+## 3.1.1 (2022-12-19)
+
+fix spelling: use publish instead of publicize
+
+
 ## 3.1.0 (2022-12-19)
 
 #### :rocket: Enhancement
