@@ -13,5 +13,7 @@
   @editorDocument={{this.model.editorDocument}}
   @typeOfWrappingDiv="lblodgn:ReglementaireBijlage"
   @showToggleRdfaAnnotations={{true}}
+  @busy={{or this.save.isRunning}}
+  @busyText={{t 'reglementEdit.saving'}}
 />
 <ConfirmRouteLeave @enabled={{this.dirty}} @message={{t "reglementEdit.confirmLeaveWithoutSaving"}}/>
