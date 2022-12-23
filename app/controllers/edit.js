@@ -14,8 +14,8 @@ export default class EditController extends Controller {
   @action
   handleRdfaEditorInit(editor) {
     this.editor = editor;
-    if (this.model.editorDocument.content) {
-      editor.setHtmlContent(this.model.editorDocument.content);
+    if (this.editorDocument.content) {
+      editor.setHtmlContent(this.editorDocument.content);
     } else {
       editor.setHtmlContent(`
         <div typeof="https://say.data.gift/ns/DocumentContent">
@@ -61,10 +61,10 @@ export default class EditController extends Controller {
     editorDocument.title = this.model.editorDocument.title;
     editorDocument.previousVersion = this.model.editorDocument;
     yield editorDocument.save();
-    this._editorDocument = editorDocument;
 
     const documentContainer = this.model.documentContainer;
     documentContainer.currentVersion = editorDocument;
     yield documentContainer.save();
+    this._editorDocument = editorDocument;
   }
 }

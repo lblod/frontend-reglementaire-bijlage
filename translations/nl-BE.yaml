@@ -80,6 +80,7 @@ reglementList:
 reglementEdit:
   edit: Wijzig bijlage
   return: Terug naar overzicht reglementaire bijlagen
+  saving: Bezig met opslaan
   confirmLeaveWithoutSaving: Bent u zeker dat u deze pagina wilt verlaten zonder uw wijzigingen op te slaan?
 auth:
   acmidm: Log in met acm/idm

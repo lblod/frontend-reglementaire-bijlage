@@ -4,6 +4,7 @@ import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 import { TABLE_OF_CONTENTS_CONFIG } from '../utils/constants';
 import { getOwner } from '@ember/application';
+import { htmlSafe } from '@ember/template';
 
 export default class RdfaEditorContainerComponent extends Component {
   @tracked editor;

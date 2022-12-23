@@ -97,7 +97,8 @@
   },
   "dependencies": {
     "@triply/yasgui": "^4.2.26",
-    "date-fns": "^2.29.1"
+    "date-fns": "^2.29.1",
+    "ember-cli-string-helpers": "^6.1.0"
   },
   "volta": {
     "node": "16.16.0",
