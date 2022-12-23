@@ -1,6 +1,6 @@
 {{page-title (t 'reglementEdit.edit')}}
 <AppChrome
-  @editorDocument={{this.model.editorDocument}}
+  @editorDocument={{this.editorDocument}}
   @documentContainer={{this.model.documentContainer}}
   @save={{hash action=(perform this.save) isRunning=this.save.isRunning}}
   @publish={{hash action=(perform this.publish) isRunning=this.save.isRunning}}
@@ -10,7 +10,7 @@
 />
 <RdfaEditorContainer
   @rdfaEditorInit={{this.handleRdfaEditorInit}}
-  @editorDocument={{this.model.editorDocument}}
+  @editorDocument={{this.editorDocument}}
   @typeOfWrappingDiv="lblodgn:ReglementaireBijlage"
   @showToggleRdfaAnnotations={{true}}
   @busy={{or this.save.isRunning}}
