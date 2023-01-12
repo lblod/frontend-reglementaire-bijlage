@@ -13,6 +13,15 @@
 
 
 
+
+## 3.1.2 (2023-01-12)
+
+#### :rocket: Enhancement
+* [#53](https://github.com/lblod/frontend-reglementaire-bijlage/pull/53) Add saving animation to reglement edit ([@lagartoverde](https://github.com/lagartoverde))
+
+#### Committers: 1
+- Oscar Rodriguez Villalobos ([@lagartoverde](https://github.com/lagartoverde))
+
 ## 3.1.1 (2022-12-19)
 
 fix spelling: use publish instead of publicize
