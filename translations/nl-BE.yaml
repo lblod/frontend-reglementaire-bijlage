@@ -1,6 +1,7 @@
 codelist:
   name: Beheer codelijsten
   details: Codelijst bekijken
+  orderLabel: Volgorde
   crud:
     new: Codelijst aanmaken
     edit: Codelijst editeren
