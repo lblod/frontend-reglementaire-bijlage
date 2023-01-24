@@ -24,12 +24,12 @@
   <table.menu as |menu|>
     <menu.general>
       <AuToolbar class="au-o-box" @size="large">
-        <AuToolbarGroup>
+        <AuToolbar::Group>
           <AuHeading @skin="2">
             {{t "reglementList.pageTitle"}}
           </AuHeading>
-        </AuToolbarGroup>
-        <AuToolbarGroup class="au-c-toolbar__group--center">
+        </AuToolbar::Group>
+        <AuToolbar::Group class="au-c-toolbar__group--center">
           <div class="au-c-data-table__search codelist-label-search">
             <input
               value={{this.title}}
@@ -44,7 +44,7 @@
           {{#unless this.readOnly}}
             <AuButton @icon="add" @iconAlignment="left"  {{on 'click' this.startCreateReglementFlow}}>{{t "reglementList.new"}}</AuButton>
           {{/unless}}
-        </AuToolbarGroup>
+        </AuToolbar::Group>
       </AuToolbar>
     </menu.general>
   </table.menu>
