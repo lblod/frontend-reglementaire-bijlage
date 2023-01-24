@@ -16,7 +16,7 @@
   </BreadcrumbsItem>
 
   <AuToolbar @border="bottom" @size="large">
-    <AuToolbarGroup>
+    <AuToolbar::Group>
       <AuHeading @skin="2">
         {{#if @codelist.isNew}}
           {{t "codelist.crud.new"}}
@@ -24,7 +24,7 @@
           {{t "codelist.crud.edit"}}
         {{/if}}
       </AuHeading>
-    </AuToolbarGroup>
+    </AuToolbar::Group>
   </AuToolbar>
 
   <div class="au-c-body-container au-c-body-container--scroll"  {{did-insert this.didInsert}}>
@@ -136,7 +136,7 @@
   </div>
 
   <AuToolbar @border="top" @size="large">
-    <AuToolbarGroup>
+    <AuToolbar::Group>
       <AuButtonGroup>
         <AuButton
           @disabled={{or (or codelist.isInvalid this.isSaving) (not codelist.label)}}
@@ -148,7 +148,7 @@
           {{t "utility.cancel"}}
         </AuButton>
       </AuButtonGroup>
-    </AuToolbarGroup>
+    </AuToolbar::Group>
   </AuToolbar>
   <CodelistOptionForm
     @modalOpen={{this.editModalOpen}}
