@@ -15,5 +15,9 @@
   @showToggleRdfaAnnotations={{true}}
   @busy={{or this.save.isRunning}}
   @busyText={{t 'reglementEdit.saving'}}
+  @schema={{this.schema}}
+  @widgets={{this.widgets}}
+  @nodeViews={{this.nodeViews}}
+  @plugins={{this.plugins}}
 />
 <ConfirmRouteLeave @enabled={{this.dirty}} @message={{t "reglementEdit.confirmLeaveWithoutSaving"}}/>

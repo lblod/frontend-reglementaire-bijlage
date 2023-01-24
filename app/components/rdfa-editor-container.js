@@ -1,31 +1,24 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
-import { inject as service } from '@ember/service';
-import { TABLE_OF_CONTENTS_CONFIG } from '../utils/constants';
-import { getOwner } from '@ember/application';
-import { htmlSafe } from '@ember/template';
 
 export default class RdfaEditorContainerComponent extends Component {
   @tracked editor;
-  @service currentSession;
 
-  constructor() {
-    super(...arguments);
-    const config = getOwner(this).resolveRegistration('config:environment');
-    this.plugins = [
-      'article-structure',
-      { name: 'rdfa-toc', options: { config: TABLE_OF_CONTENTS_CONFIG } },
-      'generate-template',
-      {
-        name: 'insert-variable',
-        options: {
-          publisher: this.currentSession.group.uri,
-          defaultEndpoint: config.insertVariablePlugin.endpoint,
-          variableTypes: ['text', 'number', 'date', 'codelist'],
-        },
-      },
-    ];
+  get plugins() {
+    return this.args.plugins || [];
+  }
+
+  get widgets() {
+    return this.args.widgets || [];
+  }
+
+  get schema() {
+    return this.args.schema;
+  }
+
+  get nodeViews() {
+    return this.args.nodeViews;
   }
 
   get editorOptions() {
