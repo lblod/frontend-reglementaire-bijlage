@@ -24,12 +24,12 @@
   <s.menu as |menu|>
     <menu.general>
       <AuToolbar class="au-o-box">
-        <AuToolbarGroup>
+        <AuToolbar::Group>
           <AuHeading @skin="2">
             {{t "codelist.name"}}
           </AuHeading>
-        </AuToolbarGroup>
-        <AuToolbarGroup class="au-c-toolbar__group--center">
+        </AuToolbar::Group>
+        <AuToolbar::Group class="au-c-toolbar__group--center">
           {{! Copied from the AuDataTable::TextSearch component since that doesn't support calling actions on input}}
           <div class="au-c-data-table__search codelist-label-search">
             <input
@@ -47,7 +47,7 @@
             @skin="button">
             {{t "codelist.crud.new"}}
           </AuLink>
-        </AuToolbarGroup>
+        </AuToolbar::Group>
       </AuToolbar>
     </menu.general>
   </s.menu>

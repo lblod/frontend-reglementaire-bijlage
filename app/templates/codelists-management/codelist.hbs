@@ -26,11 +26,11 @@
 
 <div class="au-c-body-container au-c-body-container--scroll"  {{did-insert this.didInsert}}>
   <AuToolbar @border="bottom" @size="large">
-    <AuToolbarGroup>
+    <AuToolbar::Group>
       <AuHeading @skin="2">
         {{t "codelist.details"}}
       </AuHeading>
-    </AuToolbarGroup>
+    </AuToolbar::Group>
   </AuToolbar>
   <div class="au-o-box">
     <div class="au-o-grid au-o-grid--small">
@@ -71,7 +71,7 @@
 </div>
 
 <AuToolbar @size="large" @border="top">
-  <AuToolbarGroup>
+  <AuToolbar::Group>
     <AuLink
       @skin="button"
       @route="codelists-management.edit"
@@ -117,5 +117,5 @@
         </AuButton>
       </Modal.Footer>
     </AuModal>
-  </AuToolbarGroup>
+  </AuToolbar::Group>
 </AuToolbar>

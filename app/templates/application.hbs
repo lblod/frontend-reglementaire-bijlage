@@ -11,7 +11,7 @@
     />
   {{/if}}
   <AuToaster @position="top" />
-  <AuMainHeader @homeRoute="index" @appTitle="Reglementaire Bijlagen">
+  <AuMainHeader @homeRoute="index" @appTitle={{t "utility.appName"}}>
     {{#if this.session.isAuthenticated}}
     <AuDropdown @title="{{this.currentSession.user.firstName}} {{this.currentSession.user.familyName}} - {{this.currentSession.group.classification.label}} {{this.currentSession.group.name}}" @buttonLabel="Account settings" @alignment="right">
       <button type="button" class="au-c-button au-c-button--tertiary" role="menuitem" {{on "click" this.logout}}>
