@@ -170,7 +170,6 @@ export default class EditController extends Controller {
   *save() {
     const html = this.editor.htmlContent;
     const templateVersion = generateTemplate(this.editor);
-    console.log('TEMPLATE VERSION: ', templateVersion);
     const editorDocument = this.store.createRecord('editor-document');
     editorDocument.content = html;
     editorDocument.templateVersion = templateVersion;
