@@ -52,6 +52,7 @@ import {
 import { invisible_rdfa } from '@lblod/ember-rdfa-editor/nodes/inline-rdfa';
 import { insertVariableWidget } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin';
 import { getOwner } from '@ember/application';
+import { generateTemplate } from '../utils/generate-template';
 export default class EditController extends Controller {
   @service store;
   @service router;
@@ -168,13 +169,11 @@ export default class EditController extends Controller {
   @task
   *save() {
     const html = this.editor.htmlContent;
-    // const templateVersion = this.editor.executeCommand(
-    //   'generateTemplate',
-    //   this.editor
-    // ); //TODO generate the template using a function
+    const templateVersion = generateTemplate(this.editor);
+    console.log('TEMPLATE VERSION: ', templateVersion);
     const editorDocument = this.store.createRecord('editor-document');
     editorDocument.content = html;
-    editorDocument.templateVersion = html;
+    editorDocument.templateVersion = templateVersion;
     editorDocument.createdOn = this.model.editorDocument.createdOn;
     editorDocument.updatedOn = new Date();
     editorDocument.title = this.model.editorDocument.title;
