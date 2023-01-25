@@ -14,6 +14,18 @@
 
 
 
+
+## 4.0.0 (2023-01-25)
+
+#### :rocket: Enhancement
+* [#57](https://github.com/lblod/frontend-reglementaire-bijlage/pull/57) Add prosemirror support ([@elpoelma](https://github.com/elpoelma))
+
+#### :house: Internal
+* [#56](https://github.com/lblod/frontend-reglementaire-bijlage/pull/56) Update ember-appuniversum to 2.2.0 ([@elpoelma](https://github.com/elpoelma))
+
+#### Committers: 1
+- Elena Poelman ([@elpoelma](https://github.com/elpoelma))
+
 ## 3.1.2 (2023-01-12)
 
 #### :rocket: Enhancement
