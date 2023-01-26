@@ -5,6 +5,7 @@ import { action } from '@ember/object';
 export default class AppChromeComponent extends Component {
   @service currentSession;
   @service features;
+  @service intl;
 
   get documentStatus() {
     const status = this.args.documentContainer?.get('status');
