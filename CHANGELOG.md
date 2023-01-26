@@ -16,6 +16,20 @@
 
 
 
+
+## 5.0.0 (2023-01-26)
+
+#### :house: Internal
+* [#60](https://github.com/lblod/frontend-reglementaire-bijlage/pull/60) Update editor to 1.0.0 and plugins to 1.0.0-beta.8 ([@elpoelma](https://github.com/elpoelma))
+
+#### Bug
+
+* Update human-friendly date to accept a specific locale
+
+#### Committers: 1
+- Elena Poelman ([@elpoelma](https://github.com/elpoelma))
+
+
 ## 4.0.1 (2023-01-25)
 
 #### :bug: Bug Fix
