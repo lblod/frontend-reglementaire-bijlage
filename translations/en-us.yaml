@@ -1,22 +1,21 @@
 codelist:
   name: Codelists management
   details: Codelist details
-  orderLabel: Order
+  order-label: Order
   crud:
     new: Create codelist
     edit: Edit codelist
     delete: Delete codelist
-    noData: No codelists where found
-    noOptions: No options
-    labelFilter: Label
-    addOption: Add option
-    deleteOption: Delete option
-    editOption: Edit option
+    no-data: No codelists where found
+    label-filter: Label
+    add-option: Add option
+    delete-option: Delete option
+    edit-option: Edit option
   attr:
     label: Label
     type: Type
-    createdOn: Created On
-    notFound: N/A
+    created-on: Created On
+    not-found: N/A
     options: "Options"
     option:
       value: Value
@@ -26,30 +25,30 @@ codelist:
       multiSelect: 'Multi select'
 utility:
   flanders: "Flanders"
-  appName: "Regulatory Attachments"
-  backToOverview: Back to overview
+  app-name: "Regulatory Attachments"
+  back-to-overview: Back to overview
   view: View
   save: Save
-  saveAndPublish: Save and publish
+  save-and-publish: Save and publish
   cancel: Cancel
   edit: Edit
   delete: Delete
   close: Close
-  savedOn: Saved on
-  unsavedChanges: Unsaved changes
-  unsavedConcept: Unsaved concept
-  removeConcept: Remove concept
-  exportToHtml: "Export to HTML"
-  toRecycleBin: "Move to recycle bin"
+  saved-on: Saved on
+  unsaved-changes: Unsaved changes
+  unsaved-concept: Unsaved concept
+  remove-concept: Remove concept
+  export-to-html: "Export to HTML"
+  to-recycle-bin: "Move to recycle bin"
   available: Available
   confirmation:
     title: Confirm
     body: Are you sure?
   required: Required
   optional: Optional
-  fieldRequired: This field is required
-landingPage:
-  createReglement:
+  field-required: This field is required
+landing-page:
+  create-reglement:
     title: Regulatory Attachments
     content: Manage templates of regulatory attachments
     button: Go to regulatory attachments
@@ -59,45 +58,45 @@ landingPage:
     button: Go to codelists
 sparql:
   name: "Regulatory statements register: SPARQL endpoint"
-reglementList:
-  pageTitle: Regulatory Attachments
+reglement-list:
+  page-title: Regulatory Attachments
   new: Add new
   title: Title
-  createdOn: Created On
-  updatedOn: Updated On
-  notFound: N/A
-  publishDate: Published on
-  noDataMessage: No Data
+  created-on: Created On
+  updated-on: Updated On
+  not-found: N/A
+  publish-date: Published on
+  no-data-message: No Data
   crud:
-    labelFilter: Label
-  createModal:
+    label-filter: Label
+  create-modal:
     title: Create new regulatory attachment
     save: Save
     cancel: Cancel
-  removeModal:
+  remove-modal:
     title: Are you sure you want to delete this regulatory attachment?
     remove: Remove
     cancel: Cancel
-reglementEdit:
+reglement-edit:
   edit: Edit attachment
   return: Go Back
   saving: Saving
-  confirmLeaveWithoutSaving: Are you sure you would like to leave this page without saving your changes?
+  confirm-leave-without-saving: Are you sure you would like to leave this page without saving your changes?
 auth:
   acmidm: Log in with acm/idm
   mock:
-    selectUser: Choose a mock user
+    select-user: Choose a mock user
   logout: Log out
-publishPage:
+publish-page:
   title: Publish regulatory statement template
-  titleShort: Publish template
+  title-short: Publish template
   back: Back to regulatory statement
   latestversion: Latest version
   publishedversion: Published version
   publish: Publish
-  notificationTitle: Success
-  notificationContent: Template successfully published
-reglementaireBijlageTitel:
+  notification-title: Success
+  notification-content: Template successfully published
+reglementaire-bijlage-titel:
   description: "Regulatory statement title"
   placeholder: "Untitled document"
   modify: "Modify title"

@@ -1,17 +1,17 @@
   {{page-title  
     (concat
-        (t "utility.appName") (if this.showEnvironment (concat ' - ' this.environmentName))
+        (t "utility.app-name") (if this.showEnvironment (concat ' - ' this.environmentName))
       )
   }}
 <AuApp class='{{if this.showEnvironment "au-c-app--environment"}}'>
   {{#if this.showEnvironment}}
     <EnvironmentBanner
       @environmentName={{this.environmentName}}
-      @applicationName={{t "utility.appName"}}
+      @applicationName={{t "utility.app-name"}}
     />
   {{/if}}
   <AuToaster @position="top" />
-  <AuMainHeader @homeRoute="index" @appTitle={{t "utility.appName"}}>
+  <AuMainHeader @homeRoute="index" @appTitle={{t "utility.app-name"}}>
     {{#if this.session.isAuthenticated}}
     <AuDropdown @title="{{this.currentSession.user.firstName}} {{this.currentSession.user.familyName}} - {{this.currentSession.group.classification.label}} {{this.currentSession.group.name}}" @buttonLabel="Account settings" @alignment="right">
       <button type="button" class="au-c-button au-c-button--tertiary" role="menuitem" {{on "click" this.logout}}>
