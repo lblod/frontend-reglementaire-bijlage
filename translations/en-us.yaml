@@ -85,6 +85,7 @@ reglementEdit:
   confirmLeaveWithoutSaving: Are you sure you would like to leave this page without saving your changes?
 auth:
   acmidm: Log in with acm/idm
+  login: Log in
   mock:
     selectUser: Choose a mock user
   logout: Log out
