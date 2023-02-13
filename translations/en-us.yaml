@@ -101,3 +101,10 @@ reglementaire-bijlage-titel:
   description: "Regulatory statement title"
   placeholder: "Untitled document"
   modify: "Modify title"
+static-page:
+  official-website: reglementaire-bijlage.vlaanderen.be is an official website of the Flemish government
+  published-by: Published by
+  agentschap-binnenlands-bestuur: Agentschap Binnenlands Bestuur
+  disclaimer: Disclaimer
+  cookie-policy: Cookie Policy
+  accesibility-statement: Accesibility Statement
