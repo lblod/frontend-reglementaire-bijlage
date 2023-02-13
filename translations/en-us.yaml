@@ -83,6 +83,7 @@ reglement-edit:
   saving: Saving
   confirm-leave-without-saving: Are you sure you would like to leave this page without saving your changes?
 auth:
+  login: Login
   acmidm: Log in with acm/idm
   mock:
     select-user: Choose a mock user
@@ -100,3 +101,10 @@ reglementaire-bijlage-titel:
   description: "Regulatory statement title"
   placeholder: "Untitled document"
   modify: "Modify title"
+static-page:
+  official-website: reglementaire-bijlage.vlaanderen.be is an official website of the Flemish government
+  published-by: Published by
+  agentschap-binnenlands-bestuur: Agentschap Binnenlands Bestuur
+  disclaimer: Disclaimer
+  cookie-policy: Cookie Policy
+  accesibility-statement: Accessibility Statement

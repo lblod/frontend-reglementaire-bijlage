@@ -75,7 +75,7 @@ reglement-list:
     cancel: Terug
   remove-modal:
     title:  Weet u zeker dat u deze reglementaire bijlage wilt verwijderen?
-    remove: Remove
+    remove: Bijlage verwijderen
     cancel: Terug
 reglement-edit:
   edit: Wijzig bijlage
@@ -83,6 +83,7 @@ reglement-edit:
   saving: Bezig met opslaan
   confirm-leave-without-saving: Bent u zeker dat u deze pagina wilt verlaten zonder uw wijzigingen op te slaan?
 auth:
+  login: Login
   acmidm: Log in met acm/idm
   mock:
     select-user: Selecteer een testgebruiker
@@ -100,3 +101,10 @@ reglementaire-bijlage-titel:
   description: "Titel reglementaire bijlage"
   placeholder: Naamloos document
   modify: "Titel aanpassen"
+static-page:
+  official-website: reglementaire-bijlage.vlaanderen.be is een officiële website van de Vlaamse overheid
+  published-by: Uitgegeven door
+  agentschap-binnenlands-bestuur: Agentschap Binnenlands Bestuur
+  disclaimer: Disclaimer
+  cookie-policy: Cookieverklaring
+  accesibility-statement: Toegankelijkheidsverklaring

@@ -1,3 +1,4 @@
+{{!-- template-lint-disable table-groups  --}}
 {{#let (changeset @codelist this.CodelistValidations) as |codelist|}}
   <BreadcrumbsItem as |linkClass|>
     {{#if @codelist.isNew}}
@@ -64,7 +65,7 @@
           @onChange={{this.updateCodelistType}}
           as |type|
         >
-          <span style="margin: 20px">{{t
+          <span class="codelist-type-select-option">{{t
               (concat "codelist.attr.types." type.label)
             }}</span>
         </PowerSelect>
@@ -74,7 +75,7 @@
         <table class="au-c-data-table__table">
           <thead>
             <tr class="au-c-data-table__header">
-              <th class="data-table__header-title" style="width: 100px;">{{t "codelist.order-label"}}</th>
+              <th class="data-table__header-title codelist-order-header">{{t "codelist.order-label"}}</th>
               <th class="data-table__header-title" >
                 {{t "codelist.attr.options"}}
               </th>
@@ -89,9 +90,7 @@
             {{#each this.options as |option|}}
               <DraggableObject @content={{option}} @tagName="tr" @isSortable={{true}}>
                 <td>
-                  <AuButton @icon="drag" @skin="tertiary" @hideText={{true}} class="au-c-button--drag">
-                    Sleep
-                  </AuButton>
+                  <AuButton @icon="drag" @skin="tertiary" @hideText={{true}} class="au-c-button--drag"></AuButton>
                 </td>
                 <td>
                   <p class="max-w-prose">

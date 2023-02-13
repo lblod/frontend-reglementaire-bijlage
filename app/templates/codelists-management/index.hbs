@@ -35,6 +35,7 @@
             <input
               value={{this.label}}
               placeholder={{t "codelist.crud.label-filter"}}
+              aria-label={{t "codelist.crud.label-filter"}}
               class="au-c-input au-c-input--block"
               {{on "input" (perform this.updateSearchFilterTask "label")}}
             />

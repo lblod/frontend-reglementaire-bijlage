@@ -32,6 +32,7 @@
         <AuToolbar::Group class="au-c-toolbar__group--center">
           <div class="au-c-data-table__search codelist-label-search">
             <input
+              aria-label={{t "reglementList.crud.labelFilter"}}
               value={{this.title}}
               placeholder={{t "reglement-list.crud.label-filter"}}
               class="au-c-input au-c-input--block"
@@ -91,12 +92,10 @@
 >
   <Modal.Body>
     <form class="au-o-flow" id="create-meeting-form" {{on "submit" (perform this.saveReglement)}}>
-      <AuLabel
-        for={{id}}
-      >
+      <AuLabel for="reglementList-title">
         {{t "reglement-list.title"}}
       </AuLabel>
-      <AuInput @value={{this.editorDocument.title}} @width="block" id={{id}} type="text" />
+      <AuInput @value={{this.editorDocument.title}} @width="block" id="reglementList-title" type="text" />
     </form>
   </Modal.Body>
   <Modal.Footer>
