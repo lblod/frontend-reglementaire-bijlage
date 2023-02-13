@@ -75,7 +75,7 @@ reglement-list:
     cancel: Terug
   remove-modal:
     title:  Weet u zeker dat u deze reglementaire bijlage wilt verwijderen?
-    remove: Remove
+    remove: Bijlage verwijderen
     cancel: Terug
 reglement-edit:
   edit: Wijzig bijlage
