@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 import { RS_STANDARD_FOLDER } from '../utils/constants';
 
 export default class ListRoute extends Route {

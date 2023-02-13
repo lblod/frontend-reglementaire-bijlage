@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
 import { task } from 'ember-concurrency';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 import { TABLE_OF_CONTENTS_CONFIG } from '../utils/constants';
 import { tracked } from '@glimmer/tracking';
 import { Schema } from '@lblod/ember-rdfa-editor';
