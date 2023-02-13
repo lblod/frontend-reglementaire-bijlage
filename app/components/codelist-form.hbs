@@ -47,7 +47,7 @@
           />
           {{#if isInvalid}}
             <AuHelpText>
-              {{t "utility.fieldRequired"}}
+              {{t "utility.field-required"}}
             </AuHelpText>
           {{/if}}
         </p>
@@ -74,13 +74,13 @@
         <table class="au-c-data-table__table">
           <thead>
             <tr class="au-c-data-table__header">
-              <th class="data-table__header-title codelist-order-header">{{t "codelist.orderLabel"}}</th>
+              <th class="data-table__header-title codelist-order-header">{{t "codelist.order-label"}}</th>
               <th class="data-table__header-title" >
                 {{t "codelist.attr.options"}}
               </th>
               <th>
                 <span class="au-u-hidden-visually">
-                  {{t "codelist.crud.deleteOption"}}
+                  {{t "codelist.crud.delete-option"}}
                 </span>
               </th>
             </tr>
@@ -123,7 +123,7 @@
               <tr>
                 <td class="w-px au-u-padding-right-small">
                   <AuButton {{on "click" this.startNewOptionProcess}}>
-                    {{t "codelist.crud.addOption"}}
+                    {{t "codelist.crud.add-option"}}
                   </AuButton>
                 </td>
               </tr>
@@ -150,14 +150,14 @@
   </AuToolbar>
   <CodelistOptionForm
     @modalOpen={{this.editModalOpen}}
-    @title={{t "codelist.crud.editOption"}}
+    @title={{t "codelist.crud.edit-option"}}
     @codelistOption={{this.editOption}}
     @onCancel={{this.endEditOptionProcess}}
     @onSubmit={{this.endEditOptionProcess}}
   />
   <CodelistOptionForm
     @modalOpen={{this.newModalOpen}}
-    @title={{t "codelist.crud.addOption"}}
+    @title={{t "codelist.crud.add-option"}}
     @codelistOption={{this.newOption}}
     @onCancel={{this.endNewOptionProcess}}
     @onSubmit={{this.submitNewOptionProcess}}

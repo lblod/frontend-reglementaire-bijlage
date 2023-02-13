@@ -4,7 +4,7 @@
       <li class="au-c-list-horizontal__item">
         <AuLink @route="index">
           <AuIcon @icon="arrow-left" @alignment="left" />
-          {{t "utility.backToOverview"}}
+          {{t "utility.back-to-overview"}}
         </AuLink>
       </li>
       <li class="au-c-list-horizontal__item">
@@ -34,8 +34,8 @@
           <div class="au-c-data-table__search codelist-label-search">
             <input
               value={{this.label}}
-              aria-label={{t "codelist.crud.labelFilter"}}
-              placeholder={{t "codelist.crud.labelFilter"}}
+              placeholder={{t "codelist.crud.label-filter"}}
+              aria-label={{t "codelist.crud.label-filter"}}
               class="au-c-input au-c-input--block"
               {{on "input" (perform this.updateSearchFilterTask "label")}}
             />
@@ -63,7 +63,7 @@
       <AuDataTableThSortable
         @field="createdOn"
         @currentSorting={{this.sort}}
-        @label={{t "codelist.attr.createdOn"}}
+        @label={{t "codelist.attr.created-on"}}
       />
       <th>{{t "codelist.attr.type"}}</th>
       <th></th>
@@ -79,7 +79,7 @@
         {{#if codelist.createdOn}}
           {{detailed-date codelist.createdOn}}
         {{else}}
-          {{t "codelist.attr.notFound"}}
+          {{t "codelist.attr.not-found"}}
         {{/if}}
       </td>
       <td>

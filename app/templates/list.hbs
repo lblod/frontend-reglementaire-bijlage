@@ -1,15 +1,15 @@
-{{page-title (t "reglementList.pageTitle")}}
+{{page-title (t "reglement-list.page-title")}}
 <AuToolbar @size="medium" @skin="tint" @border="bottom" as |Group|>
   <Group>
     <ul class="au-c-list-horizontal au-c-list-horizontal--small">
       <li class="au-c-list-horizontal__item">
         <AuLink @route="index">
           <AuIcon @icon="arrow-left" @alignment="left" />
-          {{t "utility.backToOverview"}}
+          {{t "utility.back-to-overview"}}
         </AuLink>
       </li>
       <li class="au-c-list-horizontal__item">
-        {{t "reglementList.pageTitle"}}
+        {{t "reglement-list.page-title"}}
       </li>
     </ul>
   </Group>
@@ -17,7 +17,7 @@
 <AuDataTable
   @content={{this.model}}
   @isLoading={{this.isLoadingModel}}
-  @noDataMessage={{t 'reglementList.noDataMessage'}}
+  @noDataMessage={{t 'reglement-list.no-data-message'}}
   @sort={{this.sort}}
   @page={{this.page}}
   @size={{this.size}} as |table|>
@@ -26,7 +26,7 @@
       <AuToolbar class="au-o-box" @size="large">
         <AuToolbar::Group>
           <AuHeading @skin="2">
-            {{t "reglementList.pageTitle"}}
+            {{t "reglement-list.page-title"}}
           </AuHeading>
         </AuToolbar::Group>
         <AuToolbar::Group class="au-c-toolbar__group--center">
@@ -34,7 +34,7 @@
             <input
               aria-label={{t "reglementList.crud.labelFilter"}}
               value={{this.title}}
-              placeholder={{t "reglementList.crud.labelFilter"}}
+              placeholder={{t "reglement-list.crud.label-filter"}}
               class="au-c-input au-c-input--block"
               {{on "input" (perform this.updateSearchFilterTask "title")}}
             />
@@ -43,7 +43,7 @@
             </span>
           </div>
           {{#unless this.readOnly}}
-            <AuButton @icon="add" @iconAlignment="left"  {{on 'click' this.startCreateReglementFlow}}>{{t "reglementList.new"}}</AuButton>
+            <AuButton @icon="add" @iconAlignment="left"  {{on 'click' this.startCreateReglementFlow}}>{{t "reglement-list.new"}}</AuButton>
           {{/unless}}
         </AuToolbar::Group>
       </AuToolbar>
@@ -51,10 +51,10 @@
   </table.menu>
   <table.content as |c|>
     <c.header>
-      <AuDataTableThSortable @field="currentVersion.title" @currentSorting={{this.sort}} @label={{t 'reglementList.title'}} />
-      <AuDataTableThSortable @field="currentVersion.createdOn" @currentSorting={{this.sort}} @label={{t 'reglementList.createdOn'}} />
-      <AuDataTableThSortable @field="currentVersion.updatedOn" @currentSorting={{this.sort}} @label={{t 'reglementList.updatedOn'}} />
-      <AuDataTableThSortable @field="publishedVersion.currentVersion.created" @currentSorting={{this.sort}} @label={{t 'reglementList.publishDate'}} />
+      <AuDataTableThSortable @field="currentVersion.title" @currentSorting={{this.sort}} @label={{t 'reglement-list.title'}} />
+      <AuDataTableThSortable @field="currentVersion.createdOn" @currentSorting={{this.sort}} @label={{t 'reglement-list.created-on'}} />
+      <AuDataTableThSortable @field="currentVersion.updatedOn" @currentSorting={{this.sort}} @label={{t 'reglement-list.updated-on'}} />
+      <AuDataTableThSortable @field="publishedVersion.currentVersion.created" @currentSorting={{this.sort}} @label={{t 'reglement-list.publish-date'}} />
       <th></th>
     </c.header>
     <c.body as |documentContainer|>
@@ -67,7 +67,7 @@
         {{#if documentContainer.publishedVersion.currentVersion.created}}
           {{ detailed-date documentContainer.publishedVersion.currentVersion.created }}
         {{else}}
-          {{t "reglementList.notFound"}}
+          {{t "reglement-list.not-found"}}
         {{/if}}
       </td>
       <td>
@@ -85,7 +85,7 @@
   </table.content>
 </AuDataTable>
 <AuModal
-  @title={{t "reglementList.createModal.title"}}
+  @title={{t "reglement-list.create-modal.title"}}
   @modalOpen={{this.createReglementModalIsOpen}}
   @closeModal={{this.cancelCreateReglement}}
   as |Modal|
@@ -93,7 +93,7 @@
   <Modal.Body>
     <form class="au-o-flow" id="create-meeting-form" {{on "submit" (perform this.saveReglement)}}>
       <AuLabel for="reglementList-title">
-        {{t "reglementList.title"}}
+        {{t "reglement-list.title"}}
       </AuLabel>
       <AuInput @value={{this.editorDocument.title}} @width="block" id="reglementList-title" type="text" />
     </form>
@@ -105,16 +105,16 @@
         form="create-meeting-form"
         type="submit"
       >
-        {{t "reglementList.createModal.save"}}
+        {{t "reglement-list.create-modal.save"}}
       </button>
       <AuButton {{on "click" this.cancelCreateReglement}} @skin="secondary">
-        {{t "reglementList.createModal.cancel"}}
+        {{t "reglement-list.create-modal.cancel"}}
       </AuButton>
     </AuButtonGroup>
   </Modal.Footer>
 </AuModal>
 <AuModal
-  @title={{t "reglementList.removeModal.title"}}
+  @title={{t "reglement-list.remove-modal.title"}}
   @modalOpen={{this.removeReglementModalIsOpen}}
   @closeModal={{this.cancelRemoveReglement}}
   as |Modal|
@@ -122,10 +122,10 @@
   <Modal.Footer>
     <AuButtonGroup>
       <AuButton {{on "click" (perform this.submitRemoveReglement)}} @skin="primary">
-        {{t "reglementList.removeModal.remove"}}
+        {{t "reglement-list.remove-modal.remove"}}
       </AuButton>
       <AuButton {{on "click" this.cancelRemoveReglement}} @skin="secondary">
-        {{t "reglementList.removeModal.cancel"}}
+        {{t "reglement-list.remove-modal.cancel"}}
       </AuButton>
     </AuButtonGroup>
   </Modal.Footer>
