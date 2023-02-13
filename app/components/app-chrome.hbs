@@ -15,14 +15,14 @@
           {{#if @editorDocument.updatedOn}}
           <li class="au-c-list-horizontal__item">
             <span class="au-c-app-chrome__status">
-              {{t "utility.savedOn"}} {{human-friendly-date @editorDocument.updatedOn locale=this.intl.primaryLocale}}
+              {{t "utility.saved-on"}} {{human-friendly-date @editorDocument.updatedOn locale=this.intl.primaryLocale}}
             </span>
           </li>
           {{else}}
           <li class="au-c-list-horizontal__item">
             <span class="au-c-app-chrome__status">
               <AuIcon @icon="alert-triangle" @alignment="left" />
-              {{t "utility.unsavedChanges"}}
+              {{t "utility.unsaved-changes"}}
             </span>
           </li>
           {{/if}}
@@ -35,7 +35,7 @@
         {{#if @editorDocument.isNew}}
         <AuPill @skin="warning">
           <AuIcon @icon="alert-triangle" @alignment="left" />
-          {{t "utility.unsavedConcept"}}
+          {{t "utility.unsaved-concept"}}
         </AuPill>
         {{/if}}
         <EditorDocumentTitle @title={{@editorDocument.title}} @editActive={{@editorDocument.isNew}}
@@ -47,7 +47,7 @@
         <LinkTo @route="inbox.agendapoints" class="au-c-button au-c-button--tertiary au-c-button--alert"
           role="menuitem">
           <AuIcon @icon="bin" @alignment="left" />
-          {{t "utility.removeConcept"}}
+          {{t "utility.remove-concept"}}
         </LinkTo>
         {{else if this.showFileDropDown}}
         <AuDropdown @title="Bestand acties" @buttonLabel="Bestand opties" @alignment="right">
@@ -60,14 +60,14 @@
           {{#if @exportHtmlFunction}}
           <AuButton {{on "click" @exportHtmlFunction}} @skin="tertiary" role="menuitem">
             <AuIcon @icon="export" @alignment="left" />
-            {{t "utility.exportToHtml"}}
+            {{t "utility.export-to-html"}}
           </AuButton>
           {{/if}}
           {{#if @sendToTrash}}
           <AuButton {{on "click" @sendToTrash}} @skin="tertiary" @alert="true" role="menuitem"
             @disabled={{this.isNotAllowedToTrash}}>
             <AuIcon @icon="bin" @alignment="left" />
-            {{t "utility.toRecycleBin"}}
+            {{t "utility.to-recycle-bin"}}
           </AuButton>
           {{/if}}
         </AuDropdown>
@@ -82,7 +82,7 @@
         <AuButton {{on "click" @save.action}} @disabled={{@save.isRunning}}>{{t "utility.save"}}</AuButton>
         {{/if}}
         {{#if @publish}}
-        <AuButton {{on "click" @publish.action}} @disabled={{@publish.isRunning}}>{{t "utility.saveAndPublish"}}
+        <AuButton {{on "click" @publish.action}} @disabled={{@publish.isRunning}}>{{t "utility.save-and-publish"}}
         </AuButton>
         {{/if}}
       </AuToolbar::Group>

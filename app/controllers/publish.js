@@ -41,8 +41,8 @@ export default class PublishController extends Controller {
     yield this.muTask.waitForMuTaskTask.perform(publicationTask.id, 100);
     yield this.fetchPreview.perform();
     this.toaster.success(
-      this.intl.t('publishPage.notificationContent'),
-      this.intl.t('publishPage.notificationTitle'),
+      this.intl.t('publish-page.notification-content'),
+      this.intl.t('publish-page.notification-title'),
       {
         timeOut: 3000,
       }
