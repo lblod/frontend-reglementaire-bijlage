@@ -34,6 +34,7 @@
           <div class="au-c-data-table__search codelist-label-search">
             <input
               value={{this.label}}
+              aria-label={{t "codelist.crud.labelFilter"}}
               placeholder={{t "codelist.crud.labelFilter"}}
               class="au-c-input au-c-input--block"
               {{on "input" (perform this.updateSearchFilterTask "label")}}

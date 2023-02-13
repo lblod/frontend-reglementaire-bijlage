@@ -84,6 +84,7 @@ reglementEdit:
   saving: Bezig met opslaan
   confirmLeaveWithoutSaving: Bent u zeker dat u deze pagina wilt verlaten zonder uw wijzigingen op te slaan?
 auth:
+  login: Login
   acmidm: Log in met acm/idm
   mock:
     selectUser: Selecteer een testgebruiker
