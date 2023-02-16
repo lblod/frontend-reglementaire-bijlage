@@ -85,7 +85,7 @@ div.table-of-contents {
   margin: 20px;
 }
 
-.au-c-app .au-c-main-container.header-main-container {
-  flex-grow: unset;
+.au-c-app .au-c-main-container__content {
+  display: flex;
+  flex-direction: column;
 }
-
