@@ -10,12 +10,12 @@
       >
         {{#let (unique-id) as |id|}}
           <AuLabel for={{id}} class="au-u-hidden-visually">{{t
-              "reglementaireBijlageTitel.description"
+              "reglementaire-bijlage-titel.description"
             }}</AuLabel>
           <input
             class="au-c-input au-c-app-chrome__title-input
               {{if this.error "au-c-input--error"}}"
-            placeholder={{t "reglementaireBijlageTitel.placeholder"}}
+            placeholder={{t "reglementaire-bijlage-titel.placeholder"}}
             id={{id}}
             type="text"
             value={{this.title}}
@@ -28,7 +28,7 @@
           @skin="secondary"
           @icon="check"
           @hideText={{true}}
-        >{{t "reglementaireBijlageTitel.modify"}}</AuButton>
+        >{{t "reglementaire-bijlage-titel.modify"}}</AuButton>
       </div>
     </form>
   {{else}}
@@ -39,7 +39,7 @@
         @icon="pencil"
         @skin="tertiary"
         @hideText={{true}}
-      >titel wijzigen</AuButton>
+      >{{t "reglementaireBijlageTitel.modify"}}</AuButton>
     </h1>
   {{/if}}
 

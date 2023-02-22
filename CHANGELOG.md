@@ -17,6 +17,17 @@
 
 
 
+
+## 5.1.0 (2023-02-14)
+
+#### :house: Internal
+* [#61](https://github.com/lblod/frontend-reglementaire-bijlage/pull/61) Remove unused translations and convert translations to kebab-case to ensure consistency ([@elpoelma](https://github.com/elpoelma))
+* [#63](https://github.com/lblod/frontend-reglementaire-bijlage/pull/63) Update editor to 2.1.3 and plugins to 2.1.1 ([@elpoelma](https://github.com/elpoelma))
+
+#### Committers: 2
+- Elena Poelman ([@elpoelma](https://github.com/elpoelma))
+- Oscar Rodriguez Villalobos ([@lagartoverde](https://github.com/lagartoverde))
+
 ## 5.0.0 (2023-01-26)
 
 #### :house: Internal

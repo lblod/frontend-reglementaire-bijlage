@@ -1,11 +1,11 @@
-{{page-title (t 'reglementEdit.edit')}}
+{{page-title (t 'reglement-edit.edit')}}
 <AppChrome
   @editorDocument={{this.editorDocument}}
   @documentContainer={{this.model.documentContainer}}
   @save={{hash action=(perform this.save) isRunning=this.save.isRunning}}
   @publish={{hash action=(perform this.publish) isRunning=this.save.isRunning}}
   @returnRoute="list"
-  @returnRouteText={{t 'reglementEdit.return'}}
+  @returnRouteText={{t 'reglement-edit.return'}}
   @isPublished={{this.model.reglement.publishedVersion}}
 />
 <RdfaEditorContainer
@@ -14,10 +14,10 @@
   @typeOfWrappingDiv="lblodgn:ReglementaireBijlage"
   @showToggleRdfaAnnotations={{true}}
   @busy={{or this.save.isRunning}}
-  @busyText={{t 'reglementEdit.saving'}}
+  @busyText={{t 'reglement-edit.saving'}}
   @schema={{this.schema}}
   @widgets={{this.widgets}}
   @nodeViews={{this.nodeViews}}
   @plugins={{this.plugins}}
 />
-<ConfirmRouteLeave @enabled={{this.dirty}} @message={{t "reglementEdit.confirmLeaveWithoutSaving"}}/>
+<ConfirmRouteLeave @enabled={{this.dirty}} @message={{t "reglement-edit.confirm-leave-without-saving"}}/>

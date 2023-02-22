@@ -10,7 +10,7 @@ export default class AuthorizationCallbackRoute extends Route {
     this.session.prohibitAuthentication('index');
   }
 
-  async model() {
-    this.session.authenticate('authenticator:acm-idm', this.code);
+  async model(params) {
+    this.session.authenticate('authenticator:acm-idm', params.code);
   }
 }
