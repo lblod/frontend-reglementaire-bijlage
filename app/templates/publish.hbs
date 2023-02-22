@@ -1,15 +1,16 @@
-{{page-title 'Publish'}}
+{{!-- template-lint-disable no-triple-curlies  --}}
+{{page-title (t "publish-page.title-short")}}
 <AuToolbar @size="small" class="au-u-padding-bottom-none" as |Group|>
   <Group>
     <ul class="au-c-list-horizontal au-c-list-horizontal--small">
       <li class="au-c-list-horizontal__item">
-        <AuLink @route="edit" @model={{model.container.id}} >
+        <AuLink @route="edit" @model={{this.model.container.id}} >
           <AuIcon @icon="arrow-left" @alignment="left" />
-          {{t "publishPage.back"}}
+          {{t "publish-page.back"}}
         </AuLink>
       </li>
       <li class="au-c-list-horizontal__item">
-        {{t "publishPage.titleShort"}}
+        {{t "publish-page.title-short"}}
       </li>
     </ul>
   </Group>
@@ -17,13 +18,13 @@
 <AuBodyContainer @scroll="true">
   
   <div class='au-o-box'>
-    <AuHeading class="au-u-margin-bottom">{{t "publishPage.title"}}</AuHeading>
+    <AuHeading class="au-u-margin-bottom">{{t "publish-page.title"}}</AuHeading>
     <div class='au-o-grid au-o-grid--small' {{did-insert (perform this.fetchPreview)}}>
       <div class='au-o-grid__item au-u-1-2@large'>
         <AuCard @flex={{true}} as |c|>
           <c.header>
             <AuHeading @level='2' @skin='4'>
-              {{t "publishPage.latestversion"}}
+              {{t "publish-page.latestversion"}}
             </AuHeading>
           </c.header>
           <c.content>
@@ -37,7 +38,7 @@
         <AuCard @flex={{true}} as |c|>
           <c.header>
             <AuHeading @level='2' @skin='4'>
-              {{t "publishPage.publishedversion"}}
+              {{t "publish-page.publishedversion"}}
             </AuHeading>
           </c.header>
           <c.content>
@@ -54,7 +55,7 @@
     </div>
     <AuButton class="au-u-margin-top" @loading={{this.createPublishedResource.isRunning}}
       @disabled={{this.createPublishedResource.isRunning}} {{on "click" (perform this.createPublishedResource)}}>
-      {{t "publishPage.publish"}}
+      {{t "publish-page.publish"}}
     </AuButton>
   </div>
 </AuBodyContainer>

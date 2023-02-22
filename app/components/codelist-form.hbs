@@ -1,3 +1,4 @@
+{{!-- template-lint-disable table-groups  --}}
 {{#let (changeset @codelist this.CodelistValidations) as |codelist|}}
   <BreadcrumbsItem as |linkClass|>
     {{#if @codelist.isNew}}
@@ -47,7 +48,7 @@
           />
           {{#if isInvalid}}
             <AuHelpText>
-              {{t "utility.fieldRequired"}}
+              {{t "utility.field-required"}}
             </AuHelpText>
           {{/if}}
         </p>
@@ -64,7 +65,7 @@
           @onChange={{this.updateCodelistType}}
           as |type|
         >
-          <span style="margin: 20px">{{t
+          <span class="codelist-type-select-option">{{t
               (concat "codelist.attr.types." type.label)
             }}</span>
         </PowerSelect>
@@ -74,13 +75,13 @@
         <table class="au-c-data-table__table">
           <thead>
             <tr class="au-c-data-table__header">
-              <th class="data-table__header-title" style="width: 100px;">{{t "codelist.orderLabel"}}</th>
+              <th class="data-table__header-title codelist-order-header">{{t "codelist.order-label"}}</th>
               <th class="data-table__header-title" >
                 {{t "codelist.attr.options"}}
               </th>
               <th>
                 <span class="au-u-hidden-visually">
-                  {{t "codelist.crud.deleteOption"}}
+                  {{t "codelist.crud.delete-option"}}
                 </span>
               </th>
             </tr>
@@ -89,9 +90,7 @@
             {{#each this.options as |option|}}
               <DraggableObject @content={{option}} @tagName="tr" @isSortable={{true}}>
                 <td>
-                  <AuButton @icon="drag" @skin="tertiary" @hideText={{true}} class="au-c-button--drag">
-                    Sleep
-                  </AuButton>
+                  <AuButton @icon="drag" @skin="tertiary" @hideText={{true}} class="au-c-button--drag"></AuButton>
                 </td>
                 <td>
                   <p class="max-w-prose">
@@ -125,7 +124,7 @@
               <tr>
                 <td class="w-px au-u-padding-right-small">
                   <AuButton {{on "click" this.startNewOptionProcess}}>
-                    {{t "codelist.crud.addOption"}}
+                    {{t "codelist.crud.add-option"}}
                   </AuButton>
                 </td>
               </tr>
@@ -152,14 +151,14 @@
   </AuToolbar>
   <CodelistOptionForm
     @modalOpen={{this.editModalOpen}}
-    @title={{t "codelist.crud.editOption"}}
+    @title={{t "codelist.crud.edit-option"}}
     @codelistOption={{this.editOption}}
     @onCancel={{this.endEditOptionProcess}}
     @onSubmit={{this.endEditOptionProcess}}
   />
   <CodelistOptionForm
     @modalOpen={{this.newModalOpen}}
-    @title={{t "codelist.crud.addOption"}}
+    @title={{t "codelist.crud.add-option"}}
     @codelistOption={{this.newOption}}
     @onCancel={{this.endNewOptionProcess}}
     @onSubmit={{this.submitNewOptionProcess}}

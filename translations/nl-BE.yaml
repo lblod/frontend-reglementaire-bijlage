@@ -1,22 +1,21 @@
 codelist:
   name: Beheer codelijsten
   details: Codelijst bekijken
-  orderLabel: Volgorde
+  order-label: Volgorde
   crud:
     new: Codelijst aanmaken
     edit: Codelijst editeren
     delete: Codelijst verwijderen
-    noData: Er zijn geen codelijsten beschikbaar
-    noOptions: Geen items
-    labelFilter: Label
-    addOption: Item toevoegen
-    deleteOption: Item verwijderen
-    editOption: Item wijzigen
+    no-data: Er zijn geen codelijsten beschikbaar
+    label-filter: Label
+    add-option: Item toevoegen
+    delete-option: Item verwijderen
+    edit-option: Item wijzigen
   attr:
     label: Label
     type: Type
-    createdOn: Aangemaakt op
-    notFound: n.v.t.
+    created-on: Aangemaakt op
+    not-found: n.v.t.
     options: "Items"
     option:
       value: Waarde
@@ -26,30 +25,30 @@ codelist:
       multiSelect: 'Multi select'
 utility:
   flanders: "Vlaanderen"
-  appName: "Reglementaire bijlagen"
-  backToOverview: Terug naar het overzicht
+  app-name: "Reglementaire bijlagen"
+  back-to-overview: Terug naar het overzicht
   view: Bekijken
   save: Opslaan
-  saveAndPublish: Bewaar en maak beschikbaar
+  save-and-publish: Bewaar en maak beschikbaar
   cancel: Annuleren
   edit: Pas aan
   delete: Verwijder
   close: Afsluiten
-  savedOn: Bewaard op
-  unsavedChanges: Wijzigingen niet bewaard
-  unsavedConcept: Concept niet bewaard
-  removeConcept: Verwijder concept
-  exportToHtml: "Exporteer als HTML"
-  toRecycleBin: "Naar prullenmand"
+  saved-on: Bewaard op
+  unsaved-changes: Wijzigingen niet bewaard
+  unsaved-concept: Concept niet bewaard
+  remove-concept: Verwijder concept
+  export-to-html: "Exporteer als HTML"
+  to-recycle-bin: "Naar prullenmand"
   available: Beschikbaar
   confirmation:
     title: Bevestigen
     body: Ben je zeker?
   required: Vereist
   optional: Optioneel
-  fieldRequired: Dit veld is verplicht
-landingPage:
-  createReglement:
+  field-required: Dit veld is verplicht
+landing-page:
+  create-reglement:
     title: Reglementaire bijlagen
     content: Templates van reglementaire bijlagen beheren
     button: Ga naar reglementaire bijlagen
@@ -59,46 +58,54 @@ landingPage:
     button: Ga naar codelijsten
 sparql:
   name: "Register reglementaire bijlagen: SPARQL endpoint"
-reglementList:
-  pageTitle: Reglementaire bijlagen
+reglement-list:
+  page-title: Reglementaire bijlagen
   new: Aanmaken
   title: Titel
-  createdOn: Aangemaakt op
-  updatedOn: Bijgewerkt op
-  notFound: n.v.t.
-  publishDate: Beschikbaar gemaakt op
-  noDataMessage: Geen bijlagen gevonden
+  created-on: Aangemaakt op
+  updated-on: Bijgewerkt op
+  not-found: n.v.t.
+  publish-date: Beschikbaar gemaakt op
+  no-data-message: Geen bijlagen gevonden
   crud:
-    labelFilter: Label
-  createModal:
+    label-filter: Label
+  create-modal:
     title: Een nieuwe reglementaire bijlage aanmaken
     save: Opslaan
     cancel: Terug
-  removeModal:
+  remove-modal:
     title:  Weet u zeker dat u deze reglementaire bijlage wilt verwijderen?
-    remove: Remove
+    remove: Bijlage verwijderen
     cancel: Terug
-reglementEdit:
+reglement-edit:
   edit: Wijzig bijlage
   return: Terug naar overzicht reglementaire bijlagen
   saving: Bezig met opslaan
-  confirmLeaveWithoutSaving: Bent u zeker dat u deze pagina wilt verlaten zonder uw wijzigingen op te slaan?
+  confirm-leave-without-saving: Bent u zeker dat u deze pagina wilt verlaten zonder uw wijzigingen op te slaan?
 auth:
+  login: Login
   acmidm: Log in met acm/idm
   login: Meld u aan
   mock:
-    selectUser: Selecteer een testgebruiker
+    select-user: Selecteer een testgebruiker
   logout: Afmelden
-publishPage:
+publish-page:
   title: Maak reglementaire bijlage sjabloon beschikbaar
-  titleShort: Sjabloon beschikbaar maken
+  title-short: Sjabloon beschikbaar maken
   back: Terug naar reglementaire bijlage
   latestversion: Laatste versie
   publishedversion: Publieke versie
   publish: Maak beschikbaar
-  notificationTitle: Geslaagd
-  notificationContent: Sjabloon beschikbaar gemaakt
-reglementaireBijlageTitel:
+  notification-title: Geslaagd
+  notification-content: Sjabloon beschikbaar gemaakt
+reglementaire-bijlage-titel:
   description: "Titel reglementaire bijlage"
   placeholder: Naamloos document
   modify: "Titel aanpassen"
+static-page:
+  official-website: reglementaire-bijlage.vlaanderen.be is een officiële website van de Vlaamse overheid
+  published-by: Uitgegeven door
+  agentschap-binnenlands-bestuur: Agentschap Binnenlands Bestuur
+  disclaimer: Disclaimer
+  cookie-policy: Cookieverklaring
+  accesibility-statement: Toegankelijkheidsverklaring
