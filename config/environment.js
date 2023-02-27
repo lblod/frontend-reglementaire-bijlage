@@ -41,6 +41,7 @@ module.exports = function (environment) {
   };
 
   if (environment === 'development') {
+    ENV.environmentName = 'LOCAL';
     ENV.insertVariablePlugin.endpoint = '/raw-sparql';
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;

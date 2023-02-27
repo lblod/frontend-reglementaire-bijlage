@@ -83,7 +83,6 @@ reglement-edit:
   saving: Saving
   confirm-leave-without-saving: Are you sure you would like to leave this page without saving your changes?
 auth:
-  login: Login
   acmidm: Log in with acm/idm
   login: Log in
   mock:
