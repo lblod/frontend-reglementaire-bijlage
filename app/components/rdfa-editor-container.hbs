@@ -25,16 +25,30 @@
 {{else}}
   <AuBodyContainer vocab="{{this.vocab}}" {{did-insert this.setPrefix}}
        typeof="{{@typeOfWrappingDiv}}" property="{{@property}}" resource="#">
-    <Rdfa::RdfaEditor
-      class="au-c-rdfa-editor"
-      @profile={{@profile}}
-      @rdfaEditorInit={{this.rdfaEditorInit}}
-      @editorOptions={{this.editorOptions}}
-      @toolbarOptions={{this.toolbarOptions}}
-      @plugins={{this.plugins}}
-      @widgets={{this.widgets}}
-      @schema={{this.schema}}
-      @nodeViews={{this.nodeViews}}
-    />
+    <EditorContainer
+      @editorOptions={{hash
+        showRdfa='true'
+        showRdfaHighlight='true'
+        showRdfaHover='true'
+        showPaper='true'
+        showToolbarBottom=null
+      }}
+      @showRdfaBlocks={{this.editor.showRdfaBlocks}}
+    >
+      <:top>
+        {{yield to='top'}}
+      </:top>
+      <:default>
+        <Editor
+          @plugins={{@plugins}}
+          @schema={{@schema}}
+          @nodeViews={{@nodeViews}}
+          @rdfaEditorInit={{this.rdfaEditorInit}}
+        />
+      </:default>
+      <:aside>
+        {{yield to='aside'}}
+      </:aside>
+    </EditorContainer>
   </AuBodyContainer>
 {{/if}}
