@@ -4,6 +4,7 @@ import { tracked } from '@glimmer/tracking';
 
 export default class RdfaEditorContainerComponent extends Component {
   @tracked editor;
+  @tracked ready = false;
 
   get documentContext() {
     if (this.args.editorDocument) {
@@ -38,6 +39,7 @@ export default class RdfaEditorContainerComponent extends Component {
       'prefix',
       this.prefixToAttrString(this.documentContext.prefix)
     );
+    this.ready = true;
   }
 
   @action
