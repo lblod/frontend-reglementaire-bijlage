@@ -5,7 +5,7 @@ import { ELI } from '@lblod/ember-rdfa-editor-lblod-plugins/utils/constants';
 import { hasRDFaAttribute } from '@lblod/ember-rdfa-editor-lblod-plugins/utils/namespace';
 
 export const document_title = {
-  content: 'paragraph+',
+  content: 'paragraph{1}',
   inline: false,
   defining: true,
   canSplit: false,

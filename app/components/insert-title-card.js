@@ -11,7 +11,7 @@ export default class InsertTitleCardComponent extends Component {
     this.args.controller.doCommand(insertTitle(this.intl), {
       view: this.args.controller.mainEditorView,
     });
-    this.args.controller.focus();
+    //this.args.controller.focus();
   }
 
   canInsertTitle = () =>
