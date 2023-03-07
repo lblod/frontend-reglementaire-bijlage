@@ -82,6 +82,8 @@ reglement-edit:
   return: Terug naar overzicht reglementaire bijlagen
   saving: Bezig met opslaan
   confirm-leave-without-saving: Bent u zeker dat u deze pagina wilt verlaten zonder uw wijzigingen op te slaan?
+  document-title-placeholder: Geef titel op
+  insert-title: Titel document invoegen
 auth:
   login: Login
   acmidm: Log in met acm/idm
