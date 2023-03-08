@@ -4,46 +4,7 @@ import { tracked } from '@glimmer/tracking';
 
 export default class RdfaEditorContainerComponent extends Component {
   @tracked editor;
-
-  get plugins() {
-    return this.args.plugins || [];
-  }
-
-  get widgets() {
-    return this.args.widgets || [];
-  }
-
-  get schema() {
-    return this.args.schema;
-  }
-
-  get nodeViews() {
-    return this.args.nodeViews;
-  }
-
-  get editorOptions() {
-    return (
-      this.args.editorOptions ?? {
-        showToggleRdfaAnnotations: Boolean(this.args.showToggleRdfaAnnotations),
-        showInsertButton: false,
-        showRdfa: true,
-        showRdfaHighlight: true,
-        showRdfaHover: true,
-        showPaper: true,
-        showSidebar: true,
-      }
-    );
-  }
-
-  get toolbarOptions() {
-    return (
-      this.args.toolbarOptions ?? {
-        showTextStyleButtons: true,
-        showListButtons: true,
-        showIndentButtons: true,
-      }
-    );
-  }
+  @tracked ready = false;
 
   get documentContext() {
     if (this.args.editorDocument) {
@@ -78,6 +39,7 @@ export default class RdfaEditorContainerComponent extends Component {
       'prefix',
       this.prefixToAttrString(this.documentContext.prefix)
     );
+    this.ready = true;
   }
 
   @action
