@@ -3,19 +3,15 @@ import { v4 as uuid } from 'uuid';
 export default function insertTitle(intl) {
   return function (state, dispatch) {
     const { schema, selection } = state;
-    //try {
-      if (
-        !state.doc.canReplaceWith(
-          selection.$from.index(0),
-          selection.$from.index(0),
-          schema.nodes.document_title
-        )
-      ) {
-        return false;
-      }
-    /*} catch (e) {
+    if (
+      !state.doc.canReplaceWith(
+        selection.$from.index(0),
+        selection.$from.index(0),
+        schema.nodes.document_title
+      )
+    ) {
       return false;
-    }*/
+    }
 
     if (dispatch) {
       const tr = state.tr;
