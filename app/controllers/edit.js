@@ -51,13 +51,6 @@ import { getOwner } from '@ember/application';
 import { task } from 'ember-concurrency';
 import { inject as service } from '@ember/service';
 import { linkPasteHandler } from '@lblod/ember-rdfa-editor/plugins/link';
-import {
-  createInvisiblesPlugin,
-  hardBreak,
-  space,
-  paragraph as paragraphInvisible,
-  heading as headingInvisible,
-} from '@lblod/ember-rdfa-editor/plugins/invisibles';
 export default class EditController extends Controller {
   @service store;
   @service router;
@@ -174,16 +167,7 @@ export default class EditController extends Controller {
   }
 
   get plugins() {
-    return [
-      tablePlugin,
-      linkPasteHandler(this.schema.nodes.link),
-      createInvisiblesPlugin(
-        [space, hardBreak, paragraphInvisible, headingInvisible],
-        {
-          shouldShowInvisibles: false,
-        }
-      ),
-    ];
+    return [tablePlugin, linkPasteHandler(this.schema.nodes.link)];
   }
 
   @action
