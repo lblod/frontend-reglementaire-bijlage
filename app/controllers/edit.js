@@ -50,8 +50,6 @@ import { inline_rdfa } from '@lblod/ember-rdfa-editor/marks';
 import date from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/rdfa-date-plugin/nodes/date';
 import { generateTemplate } from '../utils/generate-template';
 import { getOwner } from '@ember/application';
-import { task } from 'ember-concurrency';
-import { inject as service } from '@ember/service';
 import { linkPasteHandler } from '@lblod/ember-rdfa-editor/plugins/link';
 export default class EditController extends Controller {
   @service store;

@@ -56,7 +56,7 @@
     "ember-cli-terser": "^4.0.2",
     "ember-concurrency": "^2.3.7",
     "ember-config-helper": "^0.1.4",
-    "ember-data": "~3.28.0",
+    "ember-data": "~4.8.8",
     "ember-drag-drop": "^0.9.0-beta.0",
     "ember-fetch": "^8.1.2",
     "ember-intl": "^5.7.2",
@@ -85,7 +85,7 @@
     "webpack": "^5.74.0"
   },
   "engines": {
-    "node": ">= 18"
+    "node": ">= 16"
   },
   "ember": {
     "edition": "octane"
