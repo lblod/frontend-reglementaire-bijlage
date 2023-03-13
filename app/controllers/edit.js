@@ -51,6 +51,7 @@ import { generateTemplate } from '../utils/generate-template';
 import { getOwner } from '@ember/application';
 import { task } from 'ember-concurrency';
 import { inject as service } from '@ember/service';
+import { linkPasteHandler } from '@lblod/ember-rdfa-editor/plugins/link';
 export default class EditController extends Controller {
   @service store;
   @service router;
@@ -58,6 +59,48 @@ export default class EditController extends Controller {
   @tracked _editorDocument;
   @service intl;
   @service currentSession;
+  schema = new Schema({
+    nodes: {
+      doc: {
+        content:
+          'table_of_contents? ((chapter|block)+|(title|block)+|(article|block)+)',
+      },
+      paragraph,
+
+      repaired_block,
+
+      list_item,
+      ordered_list,
+      bullet_list,
+      placeholder,
+      ...tableNodes({ tableGroup: 'block', cellContent: 'inline*' }),
+      date: date(this.config.date),
+      variable,
+      ...STRUCTURE_NODES,
+      heading,
+      blockquote,
+
+      horizontal_rule,
+      code_block,
+
+      text,
+
+      image,
+
+      hard_break,
+      block_rdfa,
+      table_of_contents: table_of_contents(this.config.tableOfContents),
+      invisible_rdfa,
+      link: link(this.config.link),
+    },
+    marks: {
+      inline_rdfa,
+      em,
+      strong,
+      underline,
+      strikethrough,
+    },
+  });
 
   get insertVariableWidgetOptions() {
     const config = getOwner(this).resolveRegistration('config:environment');
@@ -112,52 +155,6 @@ export default class EditController extends Controller {
     };
   }
 
-  get schema() {
-    return new Schema({
-      nodes: {
-        doc: {
-          content:
-            'table_of_contents? document_title? ((chapter|block)+|(title|block)+)',
-        },
-        document_title,
-        paragraph,
-
-        repaired_block,
-
-        list_item,
-        ordered_list,
-        bullet_list,
-        placeholder,
-        ...tableNodes({ tableGroup: 'block', cellContent: 'inline*' }),
-        date: date(this.config.date),
-        variable,
-        ...STRUCTURE_NODES,
-        heading,
-        blockquote,
-
-        horizontal_rule,
-        code_block,
-
-        text,
-
-        image,
-
-        hard_break,
-        block_rdfa,
-        table_of_contents: table_of_contents(this.config.tableOfContents),
-        invisible_rdfa,
-        link: link(this.config.link),
-      },
-      marks: {
-        inline_rdfa,
-        em,
-        strong,
-        underline,
-        strikethrough,
-      },
-    });
-  }
-
   get nodeViews() {
     return (controller) => {
       return {
@@ -171,7 +168,7 @@ export default class EditController extends Controller {
   }
 
   get plugins() {
-    return [tablePlugin];
+    return [tablePlugin, linkPasteHandler(this.schema.nodes.link)];
   }
 
   @action
