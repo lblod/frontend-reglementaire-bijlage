@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 import { dropTask, task } from 'ember-concurrency';
 import CodelistValidations from '../validations/codelist';
 import { tracked } from '@glimmer/tracking';

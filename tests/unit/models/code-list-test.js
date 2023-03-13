@@ -13,7 +13,7 @@ module('Unit | Model | code-list', function (hooks) {
 
     codeList.label = 'a';
 
-    assert.equal(codeList.label, 'a');
+    assert.strictEqual(codeList.label, 'a');
 
     const option = run(() =>
       this.owner.lookup('service:store').createRecord('skos-concept')
