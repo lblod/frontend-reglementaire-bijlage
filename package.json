@@ -34,7 +34,7 @@
     "@ember/test-helpers": "^2.6.0",
     "@glimmer/component": "^1.0.4",
     "@glimmer/tracking": "^1.0.4",
-    "@lblod/ember-acmidm-login": "^1.4.0",
+    "@lblod/ember-acmidm-login": "^2.0.0-beta.1",
     "@lblod/ember-environment-banner": "^0.2.0",
     "@lblod/ember-mock-login": "^0.7.0",
     "@lblod/ember-rdfa-editor": "^3.3.0",
@@ -97,7 +97,8 @@
   "dependencies": {
     "@triply/yasgui": "^4.2.26",
     "date-fns": "^2.29.1",
-    "ember-cli-string-helpers": "^6.1.0"
+    "ember-cli-string-helpers": "^6.1.0",
+    "ember-simple-auth": "^4.2.2"
   },
   "volta": {
     "node": "16.16.0",
