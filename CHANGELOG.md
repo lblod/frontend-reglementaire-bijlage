@@ -18,6 +18,23 @@
 
 
 
+
+## 6.0.0 (2023-03-13)
+
+#### :rocket: Enhancement
+* [#69](https://github.com/lblod/frontend-reglementaire-bijlage/pull/69) Add the possibility to add articles to an empty document. ([@lagartoverde](https://github.com/lagartoverde))
+
+#### :house: Internal
+* [#64](https://github.com/lblod/frontend-reglementaire-bijlage/pull/64) Upgrade ember to 4.8 lts ([@elpoelma](https://github.com/elpoelma))
+* [#62](https://github.com/lblod/frontend-reglementaire-bijlage/pull/62) Bump ember amc-idm to version 2.0.0-beta.1 ([@elpoelma](https://github.com/elpoelma))
+* [#68](https://github.com/lblod/frontend-reglementaire-bijlage/pull/68) Update editor to version 3.3.0 and plugins to version 3.0.0 ([@elpoelma](https://github.com/elpoelma))
+* [#67](https://github.com/lblod/frontend-reglementaire-bijlage/pull/67) Update ember-environment-banner to 0.2.0 ([@elpoelma](https://github.com/elpoelma))
+
+#### Committers: 3
+- Elena Poelman ([@elpoelma](https://github.com/elpoelma))
+- Oscar Rodriguez Villalobos ([@lagartoverde](https://github.com/lagartoverde))
+- [@usrtim](https://github.com/usrtim)
+
 ## 5.1.0 (2023-02-14)
 
 #### :house: Internal
