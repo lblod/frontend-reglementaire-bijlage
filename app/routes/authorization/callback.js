@@ -4,7 +4,12 @@ import { inject as service } from '@ember/service';
 export default class AuthorizationCallbackRoute extends Route {
   @service session;
 
-  queryParams = ['code'];
+  queryParams = {
+    code: {
+      refreshModel: true,
+    },
+  };
+
   beforeModel() {
     // redirect to index if already authenticated
     this.session.prohibitAuthentication('index');
