@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 
-export default function insertTitle(intl) {
+export default function insertTitle({ placeholder }) {
   return function (state, dispatch) {
     const { schema, selection } = state;
     if (
@@ -24,9 +24,7 @@ export default function insertTitle(intl) {
             'paragraph',
             null,
             schema.node('placeholder', {
-              placeholderText: intl.t(
-                'reglement-edit.document-title-placeholder'
-              ),
+              placeholderText: placeholder,
             })
           )
         )

@@ -8,14 +8,21 @@ export default class InsertTitleCardComponent extends Component {
 
   @action
   insertTitle() {
-    this.args.controller.doCommand(insertTitle(this.intl), {
-      view: this.args.controller.mainEditorView,
-    });
-    //this.args.controller.focus();
+    this.args.controller.doCommand(
+      insertTitle(this.intl.t('reglement-edit.document-title-placeholder')),
+      {
+        view: this.args.controller.mainEditorView,
+      }
+    );
+    this.args.controller.focus();
   }
 
-  canInsertTitle = () =>
-    this.args.controller.checkCommand(insertTitle(this.intl), {
-      view: this.args.controller.mainEditorView,
-    });
+  get canInsertTitle() {
+    return this.args.controller.checkCommand(
+      insertTitle(this.intl.t('reglement-edit.document-title-placeholder')),
+      {
+        view: this.args.controller.mainEditorView,
+      }
+    );
+  }
 }

@@ -63,10 +63,10 @@ export default class EditController extends Controller {
     nodes: {
       doc: {
         content:
-          'table_of_contents? ((chapter|block)+|(title|block)+|(article|block)+)',
+          'table_of_contents? document_title? ((chapter|block)+|(title|block)+|(article|block)+)',
       },
       paragraph,
-
+      document_title,
       repaired_block,
 
       list_item,
