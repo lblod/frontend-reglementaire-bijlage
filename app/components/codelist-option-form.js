@@ -6,17 +6,16 @@ import CodelistOptionValidations from '../validations/codelist-option';
 export default class CodelistOptionFormComponent extends Component {
   CodelistOptionValidations = CodelistOptionValidations;
 
-  @dropTask
-  *save(codelistOption, event) {
+  save = dropTask(async (codelistOption, event) => {
     event.preventDefault();
 
-    yield codelistOption.validate();
+    await codelistOption.validate();
 
     if (codelistOption.isValid) {
-      yield codelistOption.execute();
+      await codelistOption.execute();
       this.args.onSubmit();
     }
-  }
+  });
 
   @action
   setCodelistOptionValue(codelistOption, attributeName, event) {

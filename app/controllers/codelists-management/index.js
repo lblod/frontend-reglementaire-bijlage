@@ -10,13 +10,14 @@ export default class CodelistsManagementIndexController extends Controller {
   @tracked label = '';
   @tracked sort = '-created-on';
 
-  @restartableTask
-  *updateSearchFilterTask(queryParamProperty, event) {
-    yield timeout(300);
+  updateSearchFilterTask = restartableTask(
+    async (queryParamProperty, event) => {
+      await timeout(300);
 
-    this[queryParamProperty] = event.target.value.trim();
-    this.resetPagination();
-  }
+      this[queryParamProperty] = event.target.value.trim();
+      this.resetPagination();
+    }
+  );
 
   resetPagination() {
     this.page = 0;

@@ -46,19 +46,18 @@ export default class ListController extends Controller {
     this.createReglementModalIsOpen = false;
   }
 
-  @task
-  *saveReglement(event) {
+  saveReglement = task(async (event) => {
     event.preventDefault();
-    yield this.editorDocument.save();
-    const folder = yield this.store.findRecord(
+    await this.editorDocument.save();
+    const folder = await this.store.findRecord(
       'editor-document-folder',
       RS_STANDARD_FOLDER
     );
     this.documentContainer.folder = folder;
-    yield this.documentContainer.save();
+    await this.documentContainer.save();
     this.createReglementModalIsOpen = false;
     this.router.transitionTo('edit', this.documentContainer.id);
-  }
+  });
 
   @action
   startRemoveReglementFlow(documentContainer) {
@@ -72,35 +71,35 @@ export default class ListController extends Controller {
     this.removeReglementModalIsOpen = false;
   }
 
-  @task
-  *submitRemoveReglement() {
+  submitRemoveReglement = task(async () => {
     this.documentContainer.folder = RS_DELETED_FOLDER;
-    const editorDocument = yield this.documentContainer.currentVersion;
-    const publishedVersion = yield editorDocument.publishedVersion;
+    const editorDocument = await this.documentContainer.currentVersion;
+    const publishedVersion = await editorDocument.publishedVersion;
     if (publishedVersion) {
       publishedVersion.validThrough = new Date();
-      yield publishedVersion.save();
+      await publishedVersion.save();
     }
     this.removeReglementModalIsOpen = false;
-    yield editorDocument.deleteRecord();
-    yield editorDocument.save();
-    yield this.documentContainer.deleteRecord();
-    yield this.documentContainer.save();
+    await editorDocument.deleteRecord();
+    await editorDocument.save();
+    await this.documentContainer.deleteRecord();
+    await this.documentContainer.save();
     this.refresh();
-  }
+  });
 
   @action
   logout() {
     this.session.invalidate();
   }
 
-  @restartableTask
-  *updateSearchFilterTask(queryParamProperty, event) {
-    yield timeout(300);
+  updateSearchFilterTask = restartableTask(
+    async (queryParamProperty, event) => {
+      await timeout(300);
 
-    this[queryParamProperty] = event.target.value.trim();
-    this.resetPagination();
-  }
+      this[queryParamProperty] = event.target.value.trim();
+      this.resetPagination();
+    }
+  );
 
   resetPagination() {
     this.page = 0;
