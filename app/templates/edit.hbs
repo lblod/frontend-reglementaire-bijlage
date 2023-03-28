@@ -58,18 +58,27 @@
     {{#if this.editor}}
       <Sidebar as |Sidebar|>
         <Sidebar.Collapsible @title='Insert'>
-          <ArticleStructurePlugin::ArticleStructureCard 
+          <ArticleStructurePlugin::ArticleStructureCard
             @controller={{this.editor}}
             @options={{this.config.structures}}
           />
+          <CitationPlugin::CitationInsert
+            @controller={{this.editor}}
+            @plugin={{this.citationPlugin}}
+            @config={{this.config.citation}}
+          />
         </Sidebar.Collapsible>
-        <VariablePlugin::InsertVariableCard 
+        <VariablePlugin::InsertVariableCard
             @controller={{this.editor}}
             @options={{this.config.variable}}
           />
-        <ArticleStructurePlugin::StructureCard 
+        <ArticleStructurePlugin::StructureCard
           @controller={{this.editor}}
           @options={{this.config.structures}}
+        />
+        <CitationPlugin::CitationCard
+          @controller={{this.editor}}
+          @plugin={{this.citationPlugin}}
         />
       </Sidebar>
     {{/if}}
