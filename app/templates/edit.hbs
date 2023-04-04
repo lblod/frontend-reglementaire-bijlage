@@ -64,6 +64,10 @@
             @controller={{this.editor}}
             @options={{this.config.structures}}
           />
+          <RdfaDatePlugin::Insert
+            @controller={{this.controller}}
+            @options={{this.config.date}}
+          />
         </Sidebar.Collapsible>
         <VariablePlugin::InsertVariableCard
           @controller={{this.editor}}
