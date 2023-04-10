@@ -82,6 +82,8 @@ reglement-edit:
   return: Go Back
   saving: Saving
   confirm-leave-without-saving: Are you sure you would like to leave this page without saving your changes?
+  document-title-placeholder: Enter title
+  insert-title: Insert document title
 auth:
   acmidm: Log in with acm/idm
   login: Log in
