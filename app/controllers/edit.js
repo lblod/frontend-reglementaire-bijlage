@@ -48,6 +48,7 @@ import { code_block } from '@lblod/ember-rdfa-editor/plugins/code';
 import { image } from '@lblod/ember-rdfa-editor/plugins/image';
 import { inline_rdfa } from '@lblod/ember-rdfa-editor/marks';
 import date from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/rdfa-date-plugin/nodes/date';
+import { document_title } from '../utils/editor-nodes';
 import { generateTemplate } from '../utils/generate-template';
 import { getOwner } from '@ember/application';
 import { linkPasteHandler } from '@lblod/ember-rdfa-editor/plugins/link';
@@ -62,10 +63,10 @@ export default class EditController extends Controller {
     nodes: {
       doc: {
         content:
-          'table_of_contents? ((chapter|block)+|(title|block)+|(article|block)+)',
+          'table_of_contents? document_title? ((chapter|block)+|(title|block)+|(article|block)+)',
       },
       paragraph,
-
+      document_title,
       repaired_block,
 
       list_item,
