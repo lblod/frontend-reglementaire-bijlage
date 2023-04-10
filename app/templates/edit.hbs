@@ -71,6 +71,11 @@
           <InsertTitleCard
             @controller={{this.editor}}
           />
+          <CitationPlugin::CitationInsert
+            @controller={{this.editor}}
+            @plugin={{this.citationPlugin}}
+            @config={{this.config.citation}}
+          />
         </Sidebar.Collapsible>
         <VariablePlugin::InsertVariableCard
           @controller={{this.editor}}
@@ -79,6 +84,10 @@
         <ArticleStructurePlugin::StructureCard
           @controller={{this.editor}}
           @options={{this.config.structures}}
+        />
+        <CitationPlugin::CitationCard
+          @controller={{this.editor}}
+          @plugin={{this.citationPlugin}}
         />
         <RdfaDatePlugin::Card
           @controller={{this.editor}}

@@ -52,13 +52,18 @@ import { document_title } from '../utils/editor-nodes';
 import { generateTemplate } from '../utils/generate-template';
 import { getOwner } from '@ember/application';
 import { linkPasteHandler } from '@lblod/ember-rdfa-editor/plugins/link';
+import { citationPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/citation-plugin';
+
 export default class EditController extends Controller {
   @service store;
   @service router;
   @tracked editor;
   @tracked _editorDocument;
+  @tracked controller;
   @service intl;
   @service currentSession;
+  @tracked citationPlugin = citationPlugin(this.config.citation);
+
   schema = new Schema({
     nodes: {
       doc: {
@@ -149,6 +154,12 @@ export default class EditController extends Controller {
         variableTypes: ['text', 'number', 'date', 'codelist'],
       },
       structures: STRUCTURE_SPECS,
+      citation: {
+        type: 'nodes',
+        activeInNodeTypes(schema) {
+          return new Set([schema.nodes.doc]);
+        },
+      },
       link: {
         interactive: true,
       },
@@ -168,7 +179,11 @@ export default class EditController extends Controller {
   }
 
   get plugins() {
-    return [tablePlugin, linkPasteHandler(this.schema.nodes.link)];
+    return [
+      tablePlugin,
+      this.citationPlugin,
+      linkPasteHandler(this.schema.nodes.link),
+    ];
   }
 
   @action
