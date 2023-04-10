@@ -59,7 +59,7 @@
   <:aside>
     {{#if this.editor}}
       <Sidebar as |Sidebar|>
-        <Sidebar.Collapsible @title='Insert'>
+        <Sidebar.Collapsible @title='Insert' @expandedInitially={{true}}>
           <ArticleStructurePlugin::ArticleStructureCard
             @controller={{this.editor}}
             @options={{this.config.structures}}
