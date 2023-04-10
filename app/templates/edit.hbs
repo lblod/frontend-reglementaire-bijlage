@@ -4,14 +4,14 @@
   @documentContainer={{this.model.documentContainer}}
   @save={{hash action=(perform this.save) isRunning=this.save.isRunning}}
   @publish={{hash action=(perform this.publish) isRunning=this.save.isRunning}}
-  @returnRoute="list"
+  @returnRoute='list'
   @returnRouteText={{t 'reglement-edit.return'}}
   @isPublished={{this.model.reglement.publishedVersion}}
 />
 <RdfaEditorContainer
   @rdfaEditorInit={{this.handleRdfaEditorInit}}
   @editorDocument={{this.editorDocument}}
-  @typeOfWrappingDiv="lblodgn:ReglementaireBijlage"
+  @typeOfWrappingDiv='lblodgn:ReglementaireBijlage'
   @showToggleRdfaAnnotations={{true}}
   @busy={{or this.save.isRunning}}
   @busyText={{t 'reglement-edit.saving'}}
@@ -23,33 +23,35 @@
     {{#if this.editor}}
       <Toolbar as |Tb|>
         <Tb.Group>
-          <Plugins::History::Undo @controller={{this.editor}}/>
-          <Plugins::History::Redo @controller={{this.editor}}/>
+          <Plugins::History::Undo @controller={{this.editor}} />
+          <Plugins::History::Redo @controller={{this.editor}} />
         </Tb.Group>
         <Tb.Group>
-          <Plugins::TextStyle::Bold @controller={{this.editor}}/>
-          <Plugins::TextStyle::Italic @controller={{this.editor}}/>
-          <Plugins::TextStyle::Strikethrough @controller={{this.editor}}/>
-          <Plugins::TextStyle::Underline @controller={{this.editor}}/>
+          <Plugins::TextStyle::Bold @controller={{this.editor}} />
+          <Plugins::TextStyle::Italic @controller={{this.editor}} />
+          <Plugins::TextStyle::Strikethrough @controller={{this.editor}} />
+          <Plugins::TextStyle::Underline @controller={{this.editor}} />
         </Tb.Group>
         <Tb.Group>
-          <Plugins::List::Unordered @controller={{this.editor}}/>
-          <Plugins::List::Ordered @controller={{this.editor}}/>
-          <Plugins::Indentation::IndentationMenu @controller={{this.editor}}/>
+          <Plugins::List::Unordered @controller={{this.editor}} />
+          <Plugins::List::Ordered @controller={{this.editor}} />
+          <Plugins::Indentation::IndentationMenu @controller={{this.editor}} />
         </Tb.Group>
         <Tb.Group>
-          <Plugins::Link::LinkMenu @controller={{this.editor}}/>
+          <Plugins::Link::LinkMenu @controller={{this.editor}} />
         </Tb.Group>
         <Tb.Group>
-          <Plugins::Table::TableMenu @controller={{this.editor}}/>
+          <Plugins::Table::TableMenu @controller={{this.editor}} />
         </Tb.Group>
         <Tb.Group>
-          <Plugins::Heading::HeadingMenu @controller={{this.editor}}/>
+          <Plugins::Heading::HeadingMenu @controller={{this.editor}} />
         </Tb.Group>
-        <Tb.Spacer/>
+        <Tb.Spacer />
         <Tb.Group>
-          <TableOfContentsPlugin::ToolbarButton @controller={{this.editor}}/>
-          <Plugins::RdfaBlockRender::RdfaBlocksToggle @controller={{this.editor}}/>
+          <TableOfContentsPlugin::ToolbarButton @controller={{this.editor}} />
+          <Plugins::RdfaBlockRender::RdfaBlocksToggle
+            @controller={{this.editor}}
+          />
         </Tb.Group>
       </Toolbar>
     {{/if}}
@@ -57,10 +59,17 @@
   <:aside>
     {{#if this.editor}}
       <Sidebar as |Sidebar|>
-        <Sidebar.Collapsible @title='Insert'>
+        <Sidebar.Collapsible @title='Insert' @expandedInitially={{true}}>
           <ArticleStructurePlugin::ArticleStructureCard
             @controller={{this.editor}}
             @options={{this.config.structures}}
+          />
+          <RdfaDatePlugin::Insert
+            @controller={{this.editor}}
+            @options={{this.config.date}}
+          />
+          <InsertTitleCard
+            @controller={{this.editor}}
           />
           <CitationPlugin::CitationInsert
             @controller={{this.editor}}
@@ -69,9 +78,9 @@
           />
         </Sidebar.Collapsible>
         <VariablePlugin::InsertVariableCard
-            @controller={{this.editor}}
-            @options={{this.config.variable}}
-          />
+          @controller={{this.editor}}
+          @options={{this.config.variable}}
+        />
         <ArticleStructurePlugin::StructureCard
           @controller={{this.editor}}
           @options={{this.config.structures}}
@@ -80,8 +89,15 @@
           @controller={{this.editor}}
           @plugin={{this.citationPlugin}}
         />
+        <RdfaDatePlugin::Card
+          @controller={{this.editor}}
+          @options={{this.config.date}}
+        />
       </Sidebar>
     {{/if}}
   </:aside>
 </RdfaEditorContainer>
-<ConfirmRouteLeave @enabled={{this.dirty}} @message={{t "reglement-edit.confirm-leave-without-saving"}}/>
+<ConfirmRouteLeave
+  @enabled={{this.dirty}}
+  @message={{t 'reglement-edit.confirm-leave-without-saving'}}
+/>
