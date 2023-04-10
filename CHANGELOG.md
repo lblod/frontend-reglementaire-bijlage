@@ -19,6 +19,25 @@
 
 
 
+
+## 6.1.0 (2023-04-10)
+
+#### :rocket: Enhancement
+* [#74](https://github.com/lblod/frontend-reglementaire-bijlage/pull/74) enable citation plugin on reglementaire-bijlage ([@usrtim](https://github.com/usrtim))
+* [#70](https://github.com/lblod/frontend-reglementaire-bijlage/pull/70) Feature/insert document title ([@lagartoverde](https://github.com/lagartoverde))
+* [#72](https://github.com/lblod/frontend-reglementaire-bijlage/pull/72) GN-4188: Enable `RdfaDatePlugin` plugin ([@dkozickis](https://github.com/dkozickis))
+* [#73](https://github.com/lblod/frontend-reglementaire-bijlage/pull/73) "insert" card should be collapsible but open by default ([@usrtim](https://github.com/usrtim))
+
+#### :house: Internal
+* [#71](https://github.com/lblod/frontend-reglementaire-bijlage/pull/71) Use new ember-concurrency api ([@elpoelma](https://github.com/elpoelma))
+
+#### Committers: 4
+- Deniss Kozickis ([@dkozickis](https://github.com/dkozickis))
+- Elena Poelman ([@elpoelma](https://github.com/elpoelma))
+- Oscar Rodriguez Villalobos ([@lagartoverde](https://github.com/lagartoverde))
+- [@usrtim](https://github.com/usrtim)
+
+
 ## 6.0.0 (2023-03-13)
 
 #### :rocket: Enhancement
