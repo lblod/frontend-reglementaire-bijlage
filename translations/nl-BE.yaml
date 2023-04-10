@@ -85,8 +85,8 @@ reglement-edit:
   document-title-placeholder: Geef titel op
   insert-title: Titel document invoegen
 auth:
-  login: Login
   acmidm: Log in met acm/idm
+  login: Meld u aan
   mock:
     select-user: Selecteer een testgebruiker
   logout: Afmelden

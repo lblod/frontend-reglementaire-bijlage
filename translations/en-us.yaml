@@ -85,8 +85,8 @@ reglement-edit:
   document-title-placeholder: Enter title
   insert-title: Insert document title
 auth:
-  login: Login
   acmidm: Log in with acm/idm
+  login: Log in
   mock:
     select-user: Choose a mock user
   logout: Log out

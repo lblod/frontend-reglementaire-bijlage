@@ -9,7 +9,6 @@ export default class Router extends EmberRouter {
 Router.map(function () {
   this.route('login');
   this.route('mock-login');
-  this.route('switch-login');
   this.route('list');
   this.route('edit', { path: '/:id/edit' });
   this.route('publish', { path: '/:id/publish' });
@@ -25,4 +24,7 @@ Router.map(function () {
     this.route('codelist', { path: '/:id' });
   });
   this.route('sparql');
+  this.route('authorization', function () {
+    this.route('callback');
+  });
 });
