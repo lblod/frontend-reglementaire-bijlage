@@ -17,29 +17,27 @@ export default class PublishController extends Controller {
     super(...arguments);
   }
 
-  @task
-  *fetchPreview() {
+  fetchPreview = task(async () => {
     this.currentVersion = '';
     const publishedVersionContainer =
-      yield this.model.container.publishedVersion.reload();
+      await this.model.container.publishedVersion.reload();
     if (publishedVersionContainer) {
       const publishedVersion =
-        yield publishedVersionContainer.currentVersion.reload();
-      const response = yield fetch(publishedVersion.downloadLink);
-      this.currentVersion = yield response.text();
+        await publishedVersionContainer.currentVersion.reload();
+      const response = await fetch(publishedVersion.downloadLink);
+      this.currentVersion = await response.text();
     }
-  }
+  });
 
-  @task
-  *createPublishedResource() {
+  createPublishedResource = task(async () => {
     this.showPublishingModal = false;
     const publicationTask = this.store.createRecord(
       'regulatory-attachment-publication-task'
     );
     publicationTask.documentContainer = this.model.container;
-    yield publicationTask.save();
-    yield this.muTask.waitForMuTaskTask.perform(publicationTask.id, 100);
-    yield this.fetchPreview.perform();
+    await publicationTask.save();
+    await this.muTask.waitForMuTaskTask.perform(publicationTask.id, 100);
+    await this.fetchPreview.perform();
     this.toaster.success(
       this.intl.t('publish-page.notification-content'),
       this.intl.t('publish-page.notification-title'),
@@ -48,5 +46,5 @@ export default class PublishController extends Controller {
       }
     );
     this.router.transitionTo('edit', this.model.container.id);
-  }
+  });
 }

@@ -202,14 +202,12 @@ export default class EditController extends Controller {
     return this._editorDocument || this.model.editorDocument;
   }
 
-  @task
-  *publish() {
-    yield this.save.perform();
+  publish = task(async () => {
+    await this.save.perform();
     this.router.transitionTo('publish', this.model.documentContainer.id);
-  }
+  });
 
-  @task
-  *save() {
+  save = task(async () => {
     const html = this.editor.htmlContent;
     const templateVersion = generateTemplate(this.editor);
     const editorDocument = this.store.createRecord('editor-document');
@@ -219,11 +217,11 @@ export default class EditController extends Controller {
     editorDocument.updatedOn = new Date();
     editorDocument.title = this.model.editorDocument.title;
     editorDocument.previousVersion = this.model.editorDocument;
-    yield editorDocument.save();
+    await editorDocument.save();
 
     const documentContainer = this.model.documentContainer;
     documentContainer.currentVersion = editorDocument;
-    yield documentContainer.save();
+    await documentContainer.save();
     this._editorDocument = editorDocument;
-  }
+  });
 }
