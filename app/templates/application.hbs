@@ -3,6 +3,7 @@
     (t "utility.app-name") (if this.showEnvironment (concat ' - ' this.environmentName))
   )
 }}
+<AuModalContainer />
 <AuApp class='{{if this.showEnvironment "au-c-app--environment"}}'>
   {{#if this.showEnvironment}}
     <EnvironmentBanner
