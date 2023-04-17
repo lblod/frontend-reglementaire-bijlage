@@ -7,6 +7,9 @@ module.exports = function (defaults) {
     sassOptions: {
       extension: 'scss',
     },
+    '@appuniversum/ember-appuniversum': {
+      disableWormholeElement: true,
+    },
   });
 
   // Use `app.import` to add additional libraries to the generated
