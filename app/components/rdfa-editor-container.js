@@ -1,6 +1,9 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
+import { firefoxCursorFix } from '@lblod/ember-rdfa-editor/plugins/firefox-cursor-fix';
+import { lastKeyPressedPlugin } from '@lblod/ember-rdfa-editor/plugins/last-key-pressed';
+import { chromeHacksPlugin } from '@lblod/ember-rdfa-editor/plugins/chrome-hacks-plugin';
 
 export default class RdfaEditorContainerComponent extends Component {
   @tracked editor;
@@ -23,6 +26,15 @@ export default class RdfaEditorContainerComponent extends Component {
       typeof: '',
       vocab: '',
     };
+  }
+
+  get plugins() {
+    const plugins = this.args.plugins || [];
+    return plugins.concat(
+      firefoxCursorFix(),
+      lastKeyPressedPlugin,
+      chromeHacksPlugin()
+    );
   }
 
   get vocab() {
