@@ -31,6 +31,16 @@
           <Plugins::TextStyle::Italic @controller={{this.editor}} />
           <Plugins::TextStyle::Strikethrough @controller={{this.editor}} />
           <Plugins::TextStyle::Underline @controller={{this.editor}} />
+          <Plugins::TextStyle::Subscript @controller={{this.editor}}/>
+          <Plugins::TextStyle::Superscript @controller={{this.editor}}/>
+          <Plugins::TextStyle::Highlight
+            @controller={{this.editor}}
+            @defaultColor="#FFEA00"
+          />
+          <Plugins::TextStyle::Color
+            @controller={{this.editor}}
+            @defaultColor="#000000"
+          />
         </Tb.Group>
         <Tb.Group>
           <Plugins::List::Unordered @controller={{this.editor}} />
@@ -39,6 +49,7 @@
         </Tb.Group>
         <Tb.Group>
           <Plugins::Link::LinkMenu @controller={{this.editor}} />
+          <Plugins::Image::InsertMenu @controller={{this.editor}}/>
         </Tb.Group>
         <Tb.Group>
           <Plugins::Table::TableMenu @controller={{this.editor}} />
