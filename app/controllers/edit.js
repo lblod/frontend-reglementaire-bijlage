@@ -9,6 +9,8 @@ import {
   strikethrough,
   strong,
   underline,
+  subscript,
+  superscript,
 } from '@lblod/ember-rdfa-editor/plugins/text-style';
 import {
   block_rdfa,
@@ -53,6 +55,8 @@ import { generateTemplate } from '../utils/generate-template';
 import { getOwner } from '@ember/application';
 import { linkPasteHandler } from '@lblod/ember-rdfa-editor/plugins/link';
 import { citationPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/citation-plugin';
+import { highlight } from '@lblod/ember-rdfa-editor/plugins/highlight/marks/highlight';
+import { color } from '@lblod/ember-rdfa-editor/plugins/color/marks/color';
 
 export default class EditController extends Controller {
   @service store;
@@ -104,6 +108,10 @@ export default class EditController extends Controller {
       strong,
       underline,
       strikethrough,
+      subscript,
+      superscript,
+      highlight,
+      color,
     },
   });
 
