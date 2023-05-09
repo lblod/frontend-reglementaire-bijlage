@@ -20,6 +20,23 @@
 
 
 
+
+## 6.2.0 (2023-05-09)
+
+#### :rocket: Enhancement
+* [#78](https://github.com/lblod/frontend-reglementaire-bijlage/pull/78) activate new text plugins ([@lagartoverde](https://github.com/lagartoverde))
+
+#### :bug: Bug Fix
+* [#77](https://github.com/lblod/frontend-reglementaire-bijlage/pull/77) Add chrome and firefox hacks plugin and last key pressed plugin ([@lagartoverde](https://github.com/lagartoverde))
+* [#75](https://github.com/lblod/frontend-reglementaire-bijlage/pull/75) Fix missing translation issue ([@elpoelma](https://github.com/elpoelma))
+
+#### :house: Internal
+* [#76](https://github.com/lblod/frontend-reglementaire-bijlage/pull/76) Add au-modal-container to application template and disable deprecation warning ([@elpoelma](https://github.com/elpoelma))
+
+#### Committers: 2
+- Elena Poelman ([@elpoelma](https://github.com/elpoelma))
+- Oscar Rodriguez Villalobos ([@lagartoverde](https://github.com/lagartoverde))
+
 ## 6.1.0 (2023-04-10)
 
 #### :rocket: Enhancement
