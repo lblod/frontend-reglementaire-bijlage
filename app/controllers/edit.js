@@ -167,6 +167,7 @@ export default class EditController extends Controller {
         activeInNodeTypes(schema) {
           return new Set([schema.nodes.doc]);
         },
+        endpoint: '/codex/sparql',
       },
       link: {
         interactive: true,
