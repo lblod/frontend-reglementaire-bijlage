@@ -22,6 +22,15 @@
 
 
 
+
+## 6.3.1 (2023-05-19)
+
+#### :bug: Bug Fix
+* [#80](https://github.com/lblod/frontend-reglementaire-bijlage/pull/80) GN-4140: Endpoint config for CitationPlugin Card ([@dkozickis](https://github.com/dkozickis))
+
+#### Committers: 1
+- Deniss Kozickis ([@dkozickis](https://github.com/dkozickis))
+
 ## 6.3.0 (2023-05-18)
 
 #### :house: Internal
