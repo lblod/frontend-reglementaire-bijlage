@@ -77,7 +77,10 @@
             <tr class="au-c-data-table__header">
               <th class="data-table__header-title codelist-order-header">{{t "codelist.order-label"}}</th>
               <th class="data-table__header-title" >
-                {{t "codelist.attr.options"}}
+                {{t "codelist.attr.label"}}
+              </th>
+              <th class="data-table__header-title" >
+                {{t "codelist.attr.value"}}
               </th>
               <th>
                 <span class="au-u-hidden-visually">
@@ -95,6 +98,11 @@
                 <td>
                   <p class="max-w-prose">
                     {{option.label}}
+                  </p>
+                </td>
+                <td>
+                  <p class="max-w-prose">
+                    {{option.value}}
                   </p>
                 </td>
                 <td class="w-px au-u-padding-right-small">

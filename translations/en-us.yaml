@@ -12,13 +12,12 @@ codelist:
     delete-option: Delete option
     edit-option: Edit option
   attr:
+    value: Value
     label: Label
     type: Type
     created-on: Created On
     not-found: N/A
     options: "Options"
-    option:
-      value: Value
     id: Id
     types:
       singleSelect: 'Single select'

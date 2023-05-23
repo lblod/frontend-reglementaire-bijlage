@@ -13,12 +13,11 @@ codelist:
     edit-option: Item wijzigen
   attr:
     label: Label
+    value: Waarde
     type: Type
     created-on: Aangemaakt op
     not-found: n.v.t.
     options: "Items"
-    option:
-      value: Waarde
     id: Id
     types:
       singleSelect: 'Single select'

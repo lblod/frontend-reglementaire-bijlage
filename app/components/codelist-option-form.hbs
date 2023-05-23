@@ -12,8 +12,28 @@
     <form {{on "submit" (perform this.save codelistOption)}}>
       <Modal.Body>
         {{#let codelistOption.error.label as |isInvalid|}}
+          <AuLabel @error={{isInvalid}} for="label">
+            {{t "codelist.attr.label"}}&nbsp;
+            <AuPill>
+              {{t "utility.required"}}
+            </AuPill>
+          </AuLabel>
+          <AuInput
+            id="label"
+            required="required"
+            @value={{codelistOption.label}}
+            @width="block"
+            {{on "input" (fn this.setCodelistOptionValue codelistOption "label")}}
+          />
+          {{#if isInvalid}}
+            <AuHelpText>
+              {{t "utility.field-required"}}
+            </AuHelpText>
+          {{/if}}
+        {{/let}}
+        {{#let codelistOption.error.value as |isInvalid|}}
           <AuLabel @error={{isInvalid}} for="value">
-            {{t "codelist.attr.option.value"}}&nbsp;
+            {{t "codelist.attr.value"}}&nbsp;
             <AuPill>
               {{t "utility.required"}}
             </AuPill>
@@ -21,9 +41,9 @@
           <AuInput
             id="value"
             required="required"
-            @value={{codelistOption.label}}
+            @value={{codelistOption.value}}
             @width="block"
-            {{on "input" (fn this.setCodelistOptionValue codelistOption "label")}}
+            {{on "input" (fn this.setCodelistOptionValue codelistOption "value")}}
           />
           {{#if isInvalid}}
             <AuHelpText>
