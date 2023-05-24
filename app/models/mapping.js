@@ -5,5 +5,6 @@ export default class MappingModel extends Model {
   @attr('string') type;
   @attr uri;
   @belongsTo('code-list', { inverse: 'mappings', async: true }) codeList;
-  @belongsTo('shape', { polyMorphic: true, async: true }) expects;
+  @belongsTo('shape', { inverse: null, polyMorphic: true, async: true })
+  expects;
 }
