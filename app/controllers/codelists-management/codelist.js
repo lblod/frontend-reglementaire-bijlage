@@ -10,7 +10,7 @@ export default class CodelistController extends Controller {
 
   @action
   async didInsert() {
-    const concepts = (await this.model.codelist.concepts).toArray();
+    const concepts = (await this.model.codelist.concepts).slice();
     this.options = concepts.sort((a, b) => {
       if (!a.position && !b.position) {
         return 0;
