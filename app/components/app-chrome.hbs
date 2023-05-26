@@ -2,10 +2,20 @@
   <div class="au-c-app-chrome">
     <AuToolbar @size="small" class="au-u-padding-bottom-none">
       <AuToolbar::Group>
-        <AuLink @route={{@returnRoute}} @skin="secondary">
-          <AuIcon @icon="arrow-left" @alignment="left" />
-          {{@returnRouteText}}
-        </AuLink>
+        {{#if @returnRoute}}
+          <AuLink @route={{@returnRoute}} @skin="secondary">
+            <AuIcon @icon="arrow-left" @alignment="left" />
+            {{@returnRouteText}}
+          </AuLink>
+        {{else}}
+          <AuButton
+            @skin="link-secondary"
+            {{on "click" this.goBack}}
+          >
+            <AuIcon @icon="arrow-left" @alignment="left" />
+            {{@returnRouteText}}
+          </AuButton>
+        {{/if}}
         <span class="au-c-app-chrome__entity">{{this.currentSession.group.classificatie.label}}
           {{this.currentSession.group.naam}}</span>
       </AuToolbar::Group>

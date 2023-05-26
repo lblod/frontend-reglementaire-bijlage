@@ -27,4 +27,8 @@ Router.map(function () {
   this.route('authorization', function () {
     this.route('callback');
   });
+  this.route('snippets-management', function () {
+    this.route('edit', { path: '/edit/:id' });
+    this.route('edit-snippet', { path: '/edit-snippet/:id' });
+  });
 });

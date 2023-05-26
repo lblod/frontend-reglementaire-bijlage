@@ -1,0 +1,96 @@
+{{page-title (t "snippets.edit-snippet-list")}}
+<AuToolbar @size="medium" @skin="tint" @border="bottom" as |Group|>
+  <Group>
+    <ul class="au-c-list-horizontal au-c-list-horizontal--small">
+      <li class="au-c-list-horizontal__item">
+        <AuLink @route="index">
+          {{t "utility.back-to-overview"}}
+        </AuLink>
+      </li>
+      <li class="au-c-list-horizontal__item">
+        <AuLink @route="snippets-management">
+          {{t "snippets.manage-snippet-lists"}}
+        </AuLink>
+      </li>
+      <li class="au-c-list-horizontal__item">
+        {{t "snippets.edit-snippet-list"}}
+      </li>
+    </ul>
+  </Group>
+</AuToolbar>
+<div class="au-c-body-container au-c-body-container--scroll">
+  <div class="au-o-box">
+    <div class="au-o-grid au-o-grid--small">
+      <div class="au-o-grid__item au-u-2-5@medium">
+        <div class="au-c-content  au-u-margin-bottom">
+          <AuHeading @skin="2">
+            {{t "snippets.edit-snippet-list"}}
+          </AuHeading>
+        </div>
+      </div>
+    </div>
+    <AuFormRow>
+      <AuLabel for="label">
+        {{t "snippets.snippet-label"}}
+      </AuLabel>
+      <p class="under-label-text">
+        {{t "snippets.snippet-label-explanation"}}
+      </p>
+      <AuInput
+        @error={{this.needsTitle}}
+        id="label"
+        required="required"
+        @value={{this.model.label}}
+        {{on "input" (perform this.updateLabel)}}
+      />
+    </AuFormRow>
+    <AuDataTable
+      @content={{this.model.snippets}}
+      @noDataMessage={{t "snippets.crud.no-data"}}
+      as |s|
+    >
+      <s.content as |c|>
+        <c.header>
+          <AuDataTableThSortable
+            @field="label"
+            @currentSorting={{this.sort}}
+            @label={{t "snippets.attr.snippet"}}
+          />
+          <th></th>
+        </c.header>
+        <c.body as |snippet|>
+          <td>
+            <AuLink
+              @skin="primary"
+              @route="snippets-management.edit-snippet"
+              @model={{snippet.id}}
+            >
+              {{#if snippet.currentVersion.title}}
+                {{snippet.currentVersion.title}}
+              {{else}}
+                Unnamed
+              {{/if}}
+            </AuLink>
+          </td>
+          <td>
+            <AuButton
+              @skin="link"
+              @alert="true"
+              {{on "click" (perform this.removeSnippet snippet)}}
+            >
+              {{t "snippets.remove"}}
+            </AuButton>
+          </td>
+        </c.body>
+      </s.content>
+    </AuDataTable>
+    <AuButton
+      @icon="add"
+      @skin="secondary"
+      {{on "click" (perform this.createSnippet)}}
+      @loading={{this.createSnippet.isRunning}}
+    >
+      {{t "snippets.add-new-snippet"}}
+    </AuButton>
+  </div>
+</div>

@@ -6,6 +6,7 @@ export default class AppChromeComponent extends Component {
   @service currentSession;
   @service features;
   @service intl;
+  @service router;
 
   get documentStatus() {
     const status = this.args.documentContainer?.get('status');
@@ -33,5 +34,10 @@ export default class AppChromeComponent extends Component {
   @action
   async saveDocument() {
     await this.args.editorDocument.save();
+  }
+
+  @action
+  goBack() {
+    history.back();
   }
 }

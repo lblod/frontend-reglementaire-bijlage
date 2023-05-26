@@ -1,0 +1,74 @@
+{{page-title (t "snippets.manage-snippet-lists")}}
+<AuToolbar @size="medium" @skin="tint" @border="bottom" as |Group|>
+  <Group>
+    <ul class="au-c-list-horizontal au-c-list-horizontal--small">
+      <li class="au-c-list-horizontal__item">
+        <AuLink @route="index">
+          {{t "utility.back-to-overview"}}
+        </AuLink>
+      </li>
+      <li class="au-c-list-horizontal__item">
+        {{t "snippets.manage-snippet-lists"}}
+      </li>
+    </ul>
+  </Group>
+</AuToolbar>
+<div class="au-c-body-container au-c-body-container--scroll">
+  <AuDataTable
+    @content={{this.model}}
+    @fields="Label"
+    @noDataMessage={{t "snippets.crud.no-data"}}
+    @size={{this.size}}
+    @page={{this.page}}
+    @sort={{this.sort}} as |s|
+  >
+    <s.menu as |menu|>
+      <menu.general>
+        <AuToolbar class="au-o-box">
+          <AuToolbar::Group>
+            <AuHeading @skin="2">
+              {{t "snippets.manage-snippet-lists"}}
+            </AuHeading>
+          </AuToolbar::Group>
+          <AuToolbar::Group>
+            <AuButton
+              @skin="primary"
+              {{on "click" (perform this.createSnippetList)}}
+              @loading={{this.createSnippetList.isRunning}}
+            >
+              {{t "snippets.make-new"}}
+            </AuButton>
+          </AuToolbar::Group>
+        </AuToolbar>
+      </menu.general>
+    </s.menu>
+    <s.content as |c|>
+      <c.header>
+        <AuDataTableThSortable
+          @field="label"
+          @currentSorting={{this.sort}}
+          @label={{t "snippets.attr.label"}}
+        />
+        <th>{{t "snippets.attr.id"}}</th>
+      </c.header>
+      <c.body as |snippet|>
+        <td>
+          <AuLink
+            @skin="primary"
+            @route="snippets-management.edit"
+            @model={{snippet.id}}
+          >
+            {{#if snippet.label}}
+              {{snippet.label}}
+            {{else}}
+              Unnamed
+            {{/if}}
+          </AuLink>
+        </td>
+        <td>
+          {{snippet.id}}
+        </td>
+      </c.body>
+    </s.content>
+  </AuDataTable>
+</div>
