@@ -69,6 +69,10 @@ legal:
   accessibility-statement: Accessibility statement
   cookie-statement: Cookie statement
   disclaimer: Disclaimer
+  snippets:
+    title: Snippets
+    content: Manage snippets that are used in a regulatory attachment
+    button: Go to snippets
 sparql:
   name: "Regulatory statements register: SPARQL endpoint"
 reglement-list:
@@ -123,3 +127,18 @@ static-page:
   disclaimer: Disclaimer
   cookie-policy: Cookie Policy
   accesibility-statement: Accessibility Statement
+snippets:
+  manage-snippet-lists: Manage snippet lists
+  make-new: Create new snippet list
+  create-snippet-list: Create snippet list
+  edit-snippet-list: Edit fragment list
+  snippet-label: Snippet label
+  snippet-label-explanation: Choose a label to refer to the snippet list
+  add-new-snippet: Add new snippet
+  remove: Remove
+  crud:
+    no-data: No snippet lists where found
+  attr:
+    label: Label
+    id: Id
+    snippet: Snippet
