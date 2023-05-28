@@ -8,13 +8,12 @@ codelist:
     delete: Delete codelist
     no-data: No codelists where found
     label-filter: Label
-    add-option: Add option
+    add-option: Add an extra codelist value
     delete-option: Delete option
     edit-option: Edit option
     confirm-deletion: Confirm to delete codelist <strong>{name}</strong>
   attr:
-    value: Value
-    label: Label
+    label: Name of codelist
     type: Type
     created-on: Created On
     not-found: N/A
@@ -23,6 +22,10 @@ codelist:
     types:
       singleSelect: 'Single select'
       multiSelect: 'Multi select'
+  options:
+    label: Label
+    label-explanation: Optional shorter description
+    value: Value
 utility:
   flanders: "Flanders"
   app-name: "Regulatory Attachments"
@@ -48,6 +51,7 @@ utility:
   required: Required
   optional: Optional
   field-required: This field is required
+  type-something-placeholder: Type something...
 landing-page:
   create-reglement:
     title: Regulatory Attachments

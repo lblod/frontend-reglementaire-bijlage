@@ -8,13 +8,12 @@ codelist:
     delete: Codelijst verwijderen
     no-data: Er zijn geen codelijsten beschikbaar
     label-filter: Label
-    add-option: Item toevoegen
+    add-option: Voeg een extra optie toe
     delete-option: Item verwijderen
     edit-option: Item wijzigen
     confirm-deletion: Bevestig om codelijst <strong>{name}</strong> te verwijderen
   attr:
-    label: Label
-    value: Waarde
+    label: Naam van de codelijst
     type: Type
     created-on: Aangemaakt op
     not-found: n.v.t.
@@ -23,6 +22,10 @@ codelist:
     types:
       singleSelect: 'Single select'
       multiSelect: 'Multi select'
+  options:
+    label: Label
+    label-explanation: Optionele kortere weergave
+    value: Waarde
 utility:
   flanders: "Vlaanderen"
   app-name: "Reglementaire bijlagen"
@@ -48,6 +51,7 @@ utility:
   required: Vereist
   optional: Optioneel
   field-required: Dit veld is verplicht
+  type-something-placeholder: Type iets...
 landing-page:
   create-reglement:
     title: Reglementaire bijlagen

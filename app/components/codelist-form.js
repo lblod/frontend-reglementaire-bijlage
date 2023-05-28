@@ -20,12 +20,6 @@ export default class CodelistFormComponent extends Component {
   @tracked toDelete = [];
   @tracked options = [];
 
-  @tracked newOption;
-  @tracked newModalOpen = false;
-
-  @tracked editOption;
-  @tracked editModalOpen = false;
-
   CodelistValidations = CodelistValidations;
 
   @action
@@ -52,35 +46,8 @@ export default class CodelistFormComponent extends Component {
   }
 
   @action
-  startEditOptionProcess(option) {
-    this.editModalOpen = true;
-    this.editOption = option;
-  }
-
-  @action
-  endEditOptionProcess() {
-    this.editModalOpen = false;
-    this.editOption = undefined;
-  }
-
-  @action
-  startNewOptionProcess() {
-    this.newModalOpen = true;
-    this.newOption = this.store.createRecord('skosConcept');
-    this.newOption.createdOn = new Date();
-    this.newOption.position = this.options.length;
-  }
-
-  @action
-  submitNewOptionProcess() {
-    this.options.pushObject(this.newOption);
-    this.endNewOptionProcess();
-  }
-
-  @action
-  endNewOptionProcess() {
-    this.newModalOpen = false;
-    this.newOption = undefined;
+  addOption() {
+    this.options.pushObject(this.store.createRecord('skosConcept'));
   }
 
   @action
@@ -111,6 +78,16 @@ export default class CodelistFormComponent extends Component {
   }
 
   @action
+  setOptionValue(option, event) {
+    option.value = event.target.value;
+  }
+
+  @action
+  setOptionLabel(option, event) {
+    option.label = event.target.value;
+  }
+
+  @action
   updateCodelistType(type) {
     this.selectedType = type;
     this.args.codelist.type = type;
@@ -137,30 +114,16 @@ export default class CodelistFormComponent extends Component {
 
   @action
   cancelEditingTask() {
-    if (this.args.codelist.isNew) {
-      this.router.transitionTo('codelists-management');
-    } else {
-      for (let i = 0; i < this.options.length; i++) {
-        const option = this.options.objectAt(i);
-        if (option.isNew) {
-          option.rollbackAttributes();
-          i--;
-        }
-      }
-
-      for (let i = 0; i < this.toDelete.length; i++) {
-        const option = this.toDelete.objectAt(i);
-        if (!option.isNew) {
-          option.rollbackAttributes();
-          this.options.pushObject(option);
-        }
-      }
-
-      this.router.transitionTo(
-        'codelists-management.codelist',
-        this.args.codelist.id
-      );
+    for (let option of this.options) {
+      option.rollbackAttributes();
     }
+    this.options = [];
+    for (let option of this.toDelete) {
+      option.rollbackAttributes();
+    }
+    this.toDelete = [];
+
+    this.router.transitionTo('codelists-management');
   }
 
   @action
@@ -168,7 +131,6 @@ export default class CodelistFormComponent extends Component {
     for (let i = 0; i < this.options.length; i++) {
       const option = this.options[i];
       option.position = i;
-      option.save();
     }
   }
 }

@@ -1,13 +1,13 @@
-{{!-- template-lint-disable table-groups  --}}
+{{! template-lint-disable table-groups  }}
 {{#let (changeset @codelist this.CodelistValidations) as |codelist|}}
   <BreadcrumbsItem as |linkClass|>
     {{#if @codelist.isNew}}
-      <LinkTo @route="codelists-management.new" class={{linkClass}}>
-        {{t "codelist.crud.new"}}
+      <LinkTo @route='codelists-management.new' class={{linkClass}}>
+        {{t 'codelist.crud.new'}}
       </LinkTo>
     {{else}}
       <LinkTo
-        @route="codelists-management.edit"
+        @route='codelists-management.edit'
         @model={{@codelist.id}}
         class={{linkClass}}
       >
@@ -15,160 +15,157 @@
       </LinkTo>
     {{/if}}
   </BreadcrumbsItem>
-
-  <AuToolbar @border="bottom" @size="large">
+  <AuToolbar @border='bottom' @size='large'>
     <AuToolbar::Group>
-      <AuHeading @skin="2">
+      <AuHeading @skin='2'>
         {{#if @codelist.isNew}}
-          {{t "codelist.crud.new"}}
+          {{t 'codelist.crud.new'}}
         {{else}}
-          {{t "codelist.crud.edit"}}
+          {{t 'codelist.crud.edit'}}
         {{/if}}
       </AuHeading>
     </AuToolbar::Group>
+    <AuButtonGroup>
+      <AuButton
+        @disabled={{
+          or (or codelist.isInvalid this.isSaving) (not codelist.label)
+        }}
+        {{on 'click' (perform this.editCodelistTask codelist)}}
+      >
+        {{t 'utility.save'}}
+      </AuButton>
+      <AuButton @skin='secondary' {{on 'click' this.cancelEditingTask}}>
+        {{t 'utility.cancel'}}
+      </AuButton>
+    </AuButtonGroup>
   </AuToolbar>
 
-  <div class="au-c-body-container au-c-body-container--scroll"  {{did-insert this.didInsert}}>
-    <div>
+  <div
+    class='au-c-body-container au-c-body-container--scroll au-o-flow--large'
+    {{did-insert this.didInsert}}
+  >
+    <div class='au-u-1-2@small au-u-1-1'>
       {{#let codelist.error.label as |isInvalid|}}
-        <p class="au-o-box au-u-padding-bottom-none">
-          <AuLabel @error={{isInvalid}} for="label">
-            {{t "codelist.attr.label"}}&nbsp;
+        <p class='au-o-box au-u-padding-bottom-none'>
+          <AuLabel @error={{isInvalid}} for='codelist-name-input'>
+            {{t 'codelist.attr.label'}}&nbsp;
             <AuPill>
-              {{t "utility.required"}}
+              {{t 'utility.required'}}
             </AuPill>
           </AuLabel>
           <AuInput
             @error={{isInvalid}}
-            @width="block"
-            id="label"
-            required="required"
+            @width='block'
+            id='codelist-name-input'
+            required='required'
+            placeholder={{t 'utility.type-something-placeholder'}}
             @value={{codelist.label}}
-            {{on "input" (fn this.setCodelistValue codelist "label")}}
+            {{on 'input' (fn this.setCodelistValue codelist 'label')}}
           />
           {{#if isInvalid}}
             <AuHelpText>
-              {{t "utility.field-required"}}
+              {{t 'utility.field-required'}}
             </AuHelpText>
           {{/if}}
         </p>
       {{/let}}
-      <p class="au-o-box au-u-padding-bottom-none">
-        <AuLabel for="label">
-          {{t "codelist.attr.type"}}&nbsp;
+      <p class='au-o-box au-u-padding-bottom-none'>
+        <AuLabel for='label'>
+          {{t 'codelist.attr.type'}}&nbsp;
         </AuLabel>
         <PowerSelect
           @allowClear={{false}}
           @searchEnabled={{false}}
           @options={{this.codelistTypes}}
           @selected={{this.selectedType}}
-          @onChange={{this.updateCodelistType}}
-          as |type|
+          @onChange={{this.updateCodelistType}} as |type|
         >
-          <span class="codelist-type-select-option">{{t
-              (concat "codelist.attr.types." type.label)
-            }}</span>
+          <span class='codelist-type-select-option'>
+            {{t (concat 'codelist.attr.types.' type.label)}}
+          </span>
         </PowerSelect>
         <br />
       </p>
-      <p>
-        <table class="au-c-data-table__table">
-          <thead>
-            <tr class="au-c-data-table__header">
-              <th class="data-table__header-title codelist-order-header">{{t "codelist.order-label"}}</th>
-              <th class="data-table__header-title" >
-                {{t "codelist.attr.label"}}
-              </th>
-              <th class="data-table__header-title" >
-                {{t "codelist.attr.value"}}
-              </th>
-              <th>
-                <span class="au-u-hidden-visually">
-                  {{t "codelist.crud.delete-option"}}
-                </span>
-              </th>
-            </tr>
-          </thead>
-          <SortableObjects @tagName={{"tbody"}} @sortableObjectList={{this.options}} @sortEndAction={{this.sortEndAction}} @enableSort={{true}} @useSwap={{true}} @inPlace={{true}}>
-            {{#each this.options as |option|}}
-              <DraggableObject @content={{option}} @tagName="tr" @isSortable={{true}}>
-                <td>
-                  <AuButton @icon="drag" @skin="tertiary" @hideText={{true}} class="au-c-button--drag"></AuButton>
-                </td>
-                <td>
-                  <p class="max-w-prose">
-                    {{option.label}}
-                  </p>
-                </td>
-                <td>
-                  <p class="max-w-prose">
-                    {{option.value}}
-                  </p>
-                </td>
-                <td class="w-px au-u-padding-right-small">
-                  <AuButton
-                    @icon="pencil"
-                    @skin="secondary"
-                    @hideText={{true}}
-                    {{on "click" (fn this.startEditOptionProcess option)}}
-                  >
-                    {{t "utility.edit"}}
-                  </AuButton>
-                  <AuButton
-                    @icon="bin"
-                    @alert={{true}}
-                    @skin="secondary"
-                    @hideText={{true}}
-                    {{on "click" (fn this.removeOption option)}}
-                  >
-                    {{t "utility.delete"}}
-                  </AuButton>
-
-                </td>
-              </DraggableObject>
-            {{/each}}
-          </SortableObjects>
-          <tfoot>
-              <tr>
-                <td class="w-px au-u-padding-right-small">
-                  <AuButton {{on "click" this.startNewOptionProcess}}>
-                    {{t "codelist.crud.add-option"}}
-                  </AuButton>
-                </td>
-              </tr>
-            </tfoot>
-        </table>
-      </p>
+    </div>
+    <div>
+      <table class='au-c-data-table__table'>
+        <thead>
+          <tr class='au-c-data-table__header'>
+            <th class='data-table__header-title'></th>
+            <th class='data-table__header-title'>
+              <p>
+                {{t 'codelist.options.label'}}
+              </p>
+              <p class='au-u-muted au-u-light'>
+                {{t 'codelist.options.label-explanation'}}
+              </p>
+            </th>
+            <th class='data-table__header-title'>
+              <p>
+                {{t 'codelist.options.value'}}
+              </p>
+            </th>
+            <th>
+            </th>
+          </tr>
+        </thead>
+        <SortableObjects
+          @tagName={{'tbody'}}
+          @sortableObjectList={{this.options}}
+          @sortEndAction={{this.sortEndAction}}
+          @enableSort={{true}}
+          @useSwap={{true}}
+          @inPlace={{true}}
+        >
+          {{#each this.options as |option|}}
+            <DraggableObject
+              @content={{option}}
+              @tagName='tr'
+              @isSortable={{true}}
+              @dragHandle='.drag-icon-cell'
+            >
+              <td class="drag-icon-cell">
+                <AuButton
+                  @icon='drag'
+                  @skin='tertiary'
+                  @hideText={{true}}
+                  class='au-c-button--drag'
+                />
+              </td>
+              <td>
+                <AuInput
+                  @value={{option.label}}
+                  {{on "change" this.setOptionLabel}}
+                />
+              </td>
+              <td>
+                <AuInput
+                  @value={{option.value}}
+                  {{on "change" this.setOptionValue}}
+                />
+              </td>
+              <td>
+                <AuButton
+                  @icon='bin'
+                  @alert={{true}}
+                  @skin='secondary'
+                  @hideText={{true}}
+                  {{on 'click' (fn this.removeOption option)}}
+                >
+                  {{t 'utility.delete'}}
+                </AuButton>
+              </td>
+            </DraggableObject>
+          {{/each}}
+        </SortableObjects>
+        <tfoot>
+          <th class='au-u-padding-right-small' colspan='4'>
+            <AuButton @width='block' @icon='plus' {{on 'click' this.addOption}} @skin='secondary'>
+              {{t 'codelist.crud.add-option'}}
+            </AuButton>
+          </th>
+        </tfoot>
+      </table>
     </div>
   </div>
-
-  <AuToolbar @border="top" @size="large">
-    <AuToolbar::Group>
-      <AuButtonGroup>
-        <AuButton
-          @disabled={{or (or codelist.isInvalid this.isSaving) (not codelist.label)}}
-          {{on "click" (perform this.editCodelistTask codelist)}}
-        >
-          {{t "utility.save"}}
-        </AuButton>
-        <AuButton @skin="secondary" {{on "click" this.cancelEditingTask}}>
-          {{t "utility.cancel"}}
-        </AuButton>
-      </AuButtonGroup>
-    </AuToolbar::Group>
-  </AuToolbar>
-  <CodelistOptionForm
-    @modalOpen={{this.editModalOpen}}
-    @title={{t "codelist.crud.edit-option"}}
-    @codelistOption={{this.editOption}}
-    @onCancel={{this.endEditOptionProcess}}
-    @onSubmit={{this.endEditOptionProcess}}
-  />
-  <CodelistOptionForm
-    @modalOpen={{this.newModalOpen}}
-    @title={{t "codelist.crud.add-option"}}
-    @codelistOption={{this.newOption}}
-    @onCancel={{this.endNewOptionProcess}}
-    @onSubmit={{this.submitNewOptionProcess}}
-  />
 {{/let}}
