@@ -11,6 +11,7 @@ codelist:
     add-option: Item toevoegen
     delete-option: Item verwijderen
     edit-option: Item wijzigen
+    confirm-deletion: Bevestig om codelijst <strong>{name}</strong> te verwijderen
   attr:
     label: Label
     value: Waarde
@@ -32,6 +33,7 @@ utility:
   cancel: Annuleren
   edit: Pas aan
   delete: Verwijder
+  deleting: Aan het verwijderen...
   close: Afsluiten
   saved-on: Bewaard op
   unsaved-changes: Wijzigingen niet bewaard

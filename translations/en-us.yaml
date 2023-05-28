@@ -11,6 +11,7 @@ codelist:
     add-option: Add option
     delete-option: Delete option
     edit-option: Edit option
+    confirm-deletion: Confirm to delete codelist <strong>{name}</strong>
   attr:
     value: Value
     label: Label
@@ -32,6 +33,7 @@ utility:
   cancel: Cancel
   edit: Edit
   delete: Delete
+  deleting: deleting...
   close: Close
   saved-on: Saved on
   unsaved-changes: Unsaved changes
