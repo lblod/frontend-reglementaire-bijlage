@@ -136,6 +136,7 @@ snippets:
   snippet-label-explanation: Choose a label to refer to the snippet list
   add-new-snippet: Add new snippet
   remove: Remove
+  saved: Saved
   crud:
     no-data: No snippet lists where found
   attr:

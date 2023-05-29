@@ -14,6 +14,7 @@ export default class SnippetsManagementEditController extends Controller {
   @tracked size = 20;
   @tracked label = '';
   @tracked sort = '-created-on';
+  @tracked showSaved = false;
 
   @restartableTask
   *updateLabel(event) {
@@ -21,6 +22,8 @@ export default class SnippetsManagementEditController extends Controller {
     yield timeout(1000);
     this.model.label = value;
     yield this.model.save();
+    this.showSaved = true;
+    setTimeout(() => (this.showSaved = false), 3000);
   }
 
   @task

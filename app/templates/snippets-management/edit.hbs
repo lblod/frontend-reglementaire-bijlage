@@ -29,21 +29,35 @@
         </div>
       </div>
     </div>
-    <AuFormRow>
-      <AuLabel for="label">
-        {{t "snippets.snippet-label"}}
-      </AuLabel>
-      <p class="under-label-text">
-        {{t "snippets.snippet-label-explanation"}}
-      </p>
-      <AuInput
-        @error={{this.needsTitle}}
-        id="label"
-        required="required"
-        @value={{this.model.label}}
-        {{on "input" (perform this.updateLabel)}}
-      />
-    </AuFormRow>
+    <div class="au-u-margin-bottom">
+      <AuFormRow>
+        <AuLabel for="label">
+          {{t "snippets.snippet-label"}}
+        </AuLabel>
+        <p class="under-label-text">
+          {{t "snippets.snippet-label-explanation"}}
+        </p>
+        <div class="au-u-flex au-u-flex--vertical-center">
+          <AuInput
+            @error={{this.needsTitle}}
+            id="label"
+            required="required"
+            @value={{this.model.label}}
+            {{on "input" (perform this.updateLabel)}}
+          />
+          {{#if this.showSaved}}
+            <div class="snippets-pill-container">
+              <AuPill
+                @skin="success"
+                @icon="check"
+              >
+                {{t "snippets.saved"}}
+              </AuPill>
+            </div>
+          {{/if}}
+        </div>
+      </AuFormRow>
+    </div>
     <AuDataTable
       @content={{this.model.snippets}}
       @noDataMessage={{t "snippets.crud.no-data"}}
@@ -84,13 +98,16 @@
         </c.body>
       </s.content>
     </AuDataTable>
-    <AuButton
-      @icon="add"
-      @skin="secondary"
-      {{on "click" (perform this.createSnippet)}}
-      @loading={{this.createSnippet.isRunning}}
-    >
-      {{t "snippets.add-new-snippet"}}
-    </AuButton>
+    <div class="snippets-add-button-container">
+      <AuButton
+        @icon="add"
+        @skin="secondary"
+        @width="block"
+        {{on "click" (perform this.createSnippet)}}
+        @loading={{this.createSnippet.isRunning}}
+      >
+        {{t "snippets.add-new-snippet"}}
+      </AuButton>
+    </div>
   </div>
 </div>

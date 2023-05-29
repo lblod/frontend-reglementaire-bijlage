@@ -137,6 +137,7 @@ snippets:
   snippet-label-explanation: Kies een label om naar de fragmentenlijst te verwijzen
   add-new-snippet: Nieuw fragment toevoegen
   remove: Verwijderen
+  saved: Opgeslagen
   crud:
     no-data: No snippets where found
   attr:
