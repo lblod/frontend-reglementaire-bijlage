@@ -33,7 +33,6 @@ export default class SnippetsManagementEditController extends Controller {
     editorDocument.title = `Snippet created on ${new Date().toDateString()}`;
     documentContainer.currentVersion = editorDocument;
     yield this.model.snippets;
-    console.log(this.model.snippets.toArray());
     this.model.snippets.pushObject(documentContainer);
     yield editorDocument.save();
     yield documentContainer.save();
