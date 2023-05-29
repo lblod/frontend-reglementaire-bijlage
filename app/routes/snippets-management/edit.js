@@ -7,7 +7,6 @@ export default class SnippetsManagementEditRoute extends Route {
   async model(params) {
     let snippetList = await this.store.findRecord('snippet-list', params.id);
     await snippetList.snippets;
-    console.log(snippetList.snippets.toArray());
     return snippetList;
   }
 }

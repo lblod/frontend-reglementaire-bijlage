@@ -208,27 +208,28 @@ export default class SnippetsManagementEditSnippetController extends Controller 
   }
 
   get editorDocument() {
-    return this._editorDocument || this.model.editorDocument;
+    return this._editorDocument || this.model.currentVersion;
   }
 
   publish = task(async () => {
     await this.save.perform();
-    this.router.transitionTo('publish', this.model.documentContainer.id);
+    this.router.transitionTo('publish', this.model.id);
   });
 
   save = task(async () => {
     const html = this.editor.htmlContent;
     const templateVersion = generateTemplate(this.editor);
     const editorDocument = this.store.createRecord('editor-document');
+    const currentVersion = await this.model.currentVersion;
     editorDocument.content = html;
     editorDocument.templateVersion = templateVersion;
-    editorDocument.createdOn = this.model.editorDocument.createdOn;
+    editorDocument.createdOn = currentVersion.createdOn;
     editorDocument.updatedOn = new Date();
-    editorDocument.title = this.model.editorDocument.title;
-    editorDocument.previousVersion = this.model.editorDocument;
+    editorDocument.title = currentVersion.title;
+    editorDocument.previousVersion = currentVersion;
     await editorDocument.save();
 
-    const documentContainer = this.model.documentContainer;
+    const documentContainer = this.model;
     documentContainer.currentVersion = editorDocument;
     await documentContainer.save();
     this._editorDocument = editorDocument;
