@@ -28,4 +28,9 @@ export default class SnippetsManagementIndexController extends Controller {
     console.log(snippetList);
     this.router.transitionTo('snippets-management.edit', snippetList);
   }
+  @task
+  *removeSnippetList(snippet) {
+    snippet.deleteRecord();
+    yield snippet.save();
+  }
 }

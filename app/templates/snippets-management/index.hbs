@@ -50,6 +50,7 @@
           @label={{t "snippets.attr.label"}}
         />
         <th>{{t "snippets.attr.id"}}</th>
+        <th></th>
       </c.header>
       <c.body as |snippet|>
         <td>
@@ -67,6 +68,15 @@
         </td>
         <td>
           {{snippet.id}}
+        </td>
+        <td>
+          <AuButton
+            @skin="link"
+            @alert="true"
+            {{on "click" (perform this.removeSnippetList snippet)}}
+          >
+            {{t "snippets.remove"}}
+          </AuButton>
         </td>
       </c.body>
     </s.content>
