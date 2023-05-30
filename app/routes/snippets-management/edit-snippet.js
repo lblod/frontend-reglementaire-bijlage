@@ -13,7 +13,4 @@ export default class SnippetsManagementEditSnippetRoute extends Route {
     );
     return documentContainer;
   }
-  beforeModel(transition) {
-    this.session.requireAuthentication(transition, 'login');
-  }
 }
