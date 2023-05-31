@@ -12,6 +12,7 @@ import {
 
 import changesetList from '../utils/changeset';
 import { Changeset } from 'ember-changeset';
+import lookupValidator from 'ember-changeset-validations';
 
 export default class CodelistFormComponent extends Component {
   @service router;
@@ -47,13 +48,25 @@ export default class CodelistFormComponent extends Component {
       ['inScheme', this.args.codelist]
     );
 
-    this.changeset = Changeset(this.args.codelist, CodelistValidations);
+    this.changeset = Changeset(
+      this.args.codelist,
+      lookupValidator(CodelistValidations),
+      CodelistValidations
+    );
 
     await this.fetchCodelistTypes.perform();
   }
 
   get isSaving() {
     return this.saveChangesetTask.isRunning;
+  }
+
+  get allPristine() {
+    return this.optionsChangesetList?.isPristine && this.changeset?.isPristine;
+  }
+
+  get allValid() {
+    return this.optionsChangesetList?.isValid && this.changeset?.isValid;
   }
 
   @action
@@ -113,7 +126,8 @@ export default class CodelistFormComponent extends Component {
 
     await this.changeset.validate();
     await this.optionsChangesetList.validate();
-    if (this.changeset.isValid && this.optionsChangesetList.isValid) {
+
+    if (this.allValid) {
       const administrativeUnit = await this.store.findRecord(
         'administrative-unit',
         this.currentSession.group.id

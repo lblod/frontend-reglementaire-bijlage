@@ -1,12 +1,13 @@
 import { Changeset } from 'ember-changeset';
 import { tracked } from '@glimmer/tracking';
+import lookupValidator from 'ember-changeset-validations';
 
 /**
  * ### Usage
  * Pass a list of (the same) records, a validator for such a record and the key and value of the belongsTo parent.
  * This will automatically clean up the passed records to `new` when calling `rollback` or `remove`.
- * NOTE: the passed list of records should not contain new records (record.isNew == true).
- *       Use `new` instead, which also sets the parent for you.
+ * NOTE: - the passed list of records should not contain new records (record.isNew == true).
+ *         Use `new` instead, which also sets the parent for you.
  */
 export default function changesetList(records, validation, [key, parent]) {
   return new ChangesetList(records, validation, [key, parent]);
@@ -28,7 +29,6 @@ class ChangesetList {
   _originalRecords;
   @tracked _records = [];
   @tracked _changesets = [];
-  @tracked isValid;
   _toDelete = [];
   validation;
   key;
@@ -46,18 +46,33 @@ class ChangesetList {
     return this._changesets;
   }
 
+  createChangeset(record) {
+    return Changeset(record, lookupValidator(this.validation), this.validation);
+  }
+
   _initialize() {
     this._records = this._originalRecords;
     this._changesets = this._records.map((record) =>
-      Changeset(record, this.validation)
+      this.createChangeset(record)
     );
+  }
+
+  get isValid() {
+    return this._changesets.every((changeset) => changeset.isValid);
+  }
+
+  get isInvalid() {
+    return !this.isValid;
+  }
+
+  get isPristine() {
+    return this._changesets.every((changeset) => changeset.isPristine);
   }
 
   async validate() {
     await Promise.all(
       this._changesets.map((changeset) => changeset.validate())
     );
-    this.isValid = this._changesets.every((changeset) => changeset.isValid);
   }
 
   /**
@@ -67,7 +82,7 @@ class ChangesetList {
   new(newRecord) {
     newRecord[this.key] = this.parent;
     this._records.pushObject(newRecord);
-    let changeset = Changeset(newRecord, this.validation);
+    let changeset = this.createChangeset(newRecord);
     this._changesets.pushObject(changeset);
   }
 
