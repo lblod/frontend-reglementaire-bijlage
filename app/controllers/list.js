@@ -1,10 +1,9 @@
 import Controller from '@ember/controller';
-import { task } from 'ember-concurrency';
+import { restartableTask, task, timeout } from 'ember-concurrency';
 import { service } from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
-import { restartableTask, timeout } from 'ember-concurrency';
-import { RS_DELETED_FOLDER, RS_STANDARD_FOLDER } from '../utils/constants';
+import { RS_STANDARD_FOLDER } from '../utils/constants';
 
 export default class ListController extends Controller {
   @service store;
@@ -72,7 +71,11 @@ export default class ListController extends Controller {
   }
 
   submitRemoveReglement = task(async () => {
-    this.documentContainer.folder = RS_DELETED_FOLDER;
+    // this is currenlty a hard-delete of the container, but a soft-delete of the
+    // publishedVersion, since GN filters on the validThrough date
+    // if we'd want to soft-delete the container as well
+    // we'd likely have to use RS_DELETED_FOLDER from utils/constants
+
     const editorDocument = await this.documentContainer.currentVersion;
     const publishedVersion = await editorDocument.publishedVersion;
     if (publishedVersion) {
