@@ -33,6 +33,7 @@ utility:
   view: Bekijken
   save: Opslaan
   save-and-publish: Bewaar en maak beschikbaar
+  saving: Bezig met opslaan
   cancel: Annuleren
   edit: Pas aan
   delete: Verwijder

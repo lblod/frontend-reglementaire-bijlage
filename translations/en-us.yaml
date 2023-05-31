@@ -32,6 +32,7 @@ utility:
   back-to-overview: Back to overview
   view: View
   save: Save
+  saving: Saving...
   save-and-publish: Save and publish
   cancel: Cancel
   edit: Edit

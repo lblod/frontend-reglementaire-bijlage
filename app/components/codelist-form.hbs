@@ -26,7 +26,9 @@
   </AuToolbar::Group>
   <AuButtonGroup>
     <AuButton
-      @disabled={{or this.changeset.isInvalid this.isSaving}}
+      @disabled={{(or this.allPristine (not this.allValid))}}
+      @loading = {{this.isSaving}}
+      @loadingMessage = {{t 'utility.saving'}}
       {{on 'click' (perform this.saveChangesetTask)}}
     >
       {{t 'utility.save'}}
@@ -135,11 +137,20 @@
               />
             </td>
             <td>
-              <AuInput
-                @value={{option.value}}
-                @isError={{option.isInvalid}}
-                {{on 'change' (fn this.setOptionValue option)}}
-              />
+              {{#let option.error.value as |isInvalid|}}
+                <AuInput
+                  @error={{isInvalid}}
+                  @value={{option.value}}
+                  @isError={{option.isInvalid}}
+                  placeholder={{t 'utility.type-something-placeholder'}}
+                  {{on 'change' (fn this.setOptionValue option)}}
+                />
+                {{#if isInvalid}}
+                  <AuHelpText>
+                    {{t 'utility.field-required'}}
+                  </AuHelpText>
+                {{/if}}
+             {{/let}}
             </td>
             <td>
               <AuButton
