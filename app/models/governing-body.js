@@ -5,7 +5,7 @@ export default class GoverningBodyModel extends Model {
   @attr naam;
   @attr('date') bindingEinde;
   @attr('date') bindingStart;
-  @belongsTo('administrative-unit', { inverse: 'governing-body', async: true })
+  @belongsTo('administrative-unit', { inverse: 'governingBody', async: true })
   adminstrativeUnit;
   @belongsTo('administrative-unit-classification-code', {
     inverse: null,
