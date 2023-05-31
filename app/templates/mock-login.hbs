@@ -14,20 +14,22 @@
               <div
                 class="au-o-box au-o-box--small au-c-card au-u-margin-bottom-small"
               >
-                <AuButton
-                  @skin="tertiary"
-                  {{on
-                    "click"
-                    (fn login.login account.id account.user.groups.firstObject.id)
-                  }}
-                >
-                  <strong>
-                    {{account.user.firstName}}
-                    {{account.user.familyName}}
-                    -&nbsp;
-                  </strong>
-                  {{account.user.groups.firstObject.name}}
-                </AuButton>
+                {{#let (await (this.getGroup account)) as |group|}}
+                  <AuButton
+                    @skin="tertiary"
+                    {{on
+                      "click"
+                      (fn login.login account.id group.id)
+                    }}
+                  >
+                    <strong>
+                      {{account.user.firstName}}
+                      {{account.user.familyName}}
+                      -&nbsp;
+                    </strong>
+                    {{group.name}}
+                  </AuButton>
+                {{/let}}
               </div>
             </li>
           {{/each}}

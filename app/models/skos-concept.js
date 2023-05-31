@@ -5,6 +5,10 @@ export default class SkosConcept extends Model {
   @attr label;
   @attr('datetime') createdOn;
   @attr position;
-  @belongsTo('concept-scheme', { inverse: 'concepts', polymorphic: true })
+  @belongsTo('concept-scheme', {
+    inverse: 'concepts',
+    polymorphic: true,
+    async: true,
+  })
   inScheme;
 }

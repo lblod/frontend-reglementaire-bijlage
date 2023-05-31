@@ -5,10 +5,10 @@ export default class UserModel extends Model {
   @attr familyName;
   @attr rijksregisterNummer;
 
-  @hasMany('account', { inverse: null })
+  @hasMany('account', { inverse: null, async: true })
   account;
 
-  @hasMany('administrative-units', { inverse: null })
+  @hasMany('administrative-units', { inverse: null, async: true })
   groups;
 
   get fullName() {
