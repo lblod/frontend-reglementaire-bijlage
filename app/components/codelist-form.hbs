@@ -121,11 +121,10 @@
             @isSortable={{true}}
             @dragHandle='.drag-icon-cell'
           >
-            <td class='drag-icon-cell'>
-              <AuButton
+            <td class='drag-icon-cell' tabindex="-1">
+              <AuIcon
                 @icon='drag'
-                @skin='tertiary'
-                @hideText={{true}}
+                size='large'
                 class='au-c-button--drag'
               />
             </td>
