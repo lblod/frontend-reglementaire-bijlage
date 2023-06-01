@@ -62,9 +62,7 @@ class ChangesetList {
   }
 
   get isValid() {
-    return this._changesets.every((changeset) => {
-      changeset.isValid;
-    });
+    return this._changesets.every((changeset) => changeset.isValid);
   }
 
   get isInvalid() {
