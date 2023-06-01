@@ -1,19 +1,4 @@
 {{! template-lint-disable table-groups  }}
-<BreadcrumbsItem as |linkClass|>
-  {{#if @codelist.isNew}}
-    <LinkTo @route='codelists-management.new' class={{linkClass}}>
-      {{t 'codelist.crud.new'}}
-    </LinkTo>
-  {{else}}
-    <LinkTo
-      @route='codelists-management.edit'
-      @model={{@codelist.id}}
-      class={{linkClass}}
-    >
-      {{@codelist.label}}
-    </LinkTo>
-  {{/if}}
-</BreadcrumbsItem>
 <AuToolbar @border='bottom' @size='large'>
   <AuToolbar::Group>
     <AuHeading @skin='2'>

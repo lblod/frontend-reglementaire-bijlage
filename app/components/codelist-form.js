@@ -148,6 +148,7 @@ export default class CodelistFormComponent extends Component {
       this.allValid &&
       this.optionsChangesetList.length <= MAX_CODELIST_OPTIONS
     ) {
+      let wasNew = this.args.codelist.isNew;
       const administrativeUnit = await this.store.findRecord(
         'administrative-unit',
         this.currentSession.group.id
@@ -156,6 +157,12 @@ export default class CodelistFormComponent extends Component {
       await this.changeset.save();
       await this.optionsChangesetList.save();
       this.isEditingOptions = false;
+      if (wasNew) {
+        this.router.transitionTo(
+          'codelists-management.edit',
+          this.changeset.id
+        );
+      }
     }
   });
 
