@@ -101,7 +101,11 @@
           </th>
           {{#if this.isEditingOptions}}
             <th class='data-table__header-title'>
-              <p>{{t 'codelist.options.value'}}</p>
+              <p>{{t 'codelist.options.value'}}
+              <AuPill>
+              {{t 'utility.required'}}
+              </AuPill> 
+              </p>
             </th>
             <th></th>
           {{else}}
@@ -167,8 +171,7 @@
                 <AuButton
                   @icon='bin'
                   @alert={{true}}
-                  @skin='secondary'
-                  @hideText={{true}}
+                  @skin='naked'
                   {{on 'click' (fn this.removeOption option)}}
                 >
                   {{t 'utility.delete'}}
