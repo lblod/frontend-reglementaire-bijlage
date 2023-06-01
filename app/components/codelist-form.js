@@ -26,6 +26,8 @@ export default class CodelistFormComponent extends Component {
   @tracked changeset;
   @tracked optionsChangesetList;
 
+  @tracked isEditingOptions = false;
+
   @action
   async didInsert() {
     const concepts = (await this.args.codelist.concepts).toArray();
@@ -55,6 +57,10 @@ export default class CodelistFormComponent extends Component {
       CodelistValidations
     );
 
+    if (this.args.codelist.isNew) {
+      this.startEditingOptions();
+    }
+
     await this.fetchCodelistTypes.perform();
   }
 
@@ -74,6 +80,10 @@ export default class CodelistFormComponent extends Component {
     return this.optionsChangesetList?.changesets.length < MAX_CODELIST_OPTIONS;
   }
 
+  @action
+  startEditingOptions() {
+    this.isEditingOptions = true;
+  }
   @action
   addOption() {
     if (!this.canAddOption) return;

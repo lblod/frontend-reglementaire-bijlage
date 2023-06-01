@@ -8,6 +8,7 @@ codelist:
     delete: Delete codelist
     no-data: No codelists where found
     label-filter: Label
+    edit-table: Edit
     add-option: Add an extra codelist option
     max-options-hit: A maximum of 20 codelist options can be added
     delete-option: Delete option
