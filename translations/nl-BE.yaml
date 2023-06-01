@@ -9,6 +9,7 @@ codelist:
     no-data: Er zijn geen codelijsten beschikbaar
     label-filter: Label
     add-option: Voeg een extra optie toe
+    max-options-hit: Maximum 20 codelijst opties kunnen worden toegevoegd
     delete-option: Item verwijderen
     edit-option: Item wijzigen
     confirm-deletion: Bevestig om codelijst <strong>{name}</strong> te verwijderen

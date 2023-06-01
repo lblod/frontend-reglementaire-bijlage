@@ -14,6 +14,7 @@ import changesetList from '../utils/changeset';
 import { Changeset } from 'ember-changeset';
 import lookupValidator from 'ember-changeset-validations';
 
+const MAX_CODELIST_OPTIONS = 20;
 export default class CodelistFormComponent extends Component {
   @service router;
   @service store;
@@ -69,12 +70,18 @@ export default class CodelistFormComponent extends Component {
     return this.optionsChangesetList?.isValid && this.changeset?.isValid;
   }
 
+  get canAddOption() {
+    return this.optionsChangesetList?.changesets.length < MAX_CODELIST_OPTIONS;
+  }
+
   @action
   addOption() {
+    if (!this.canAddOption) return;
+
     this.optionsChangesetList.new(
       this.store.createRecord('skosConcept', {
         createdOn: new Date(),
-        position: this.changesetList.changesets.length,
+        position: this.optionsChangesetList.length,
       })
     );
   }
@@ -127,7 +134,10 @@ export default class CodelistFormComponent extends Component {
     await this.changeset.validate();
     await this.optionsChangesetList.validate();
 
-    if (this.allValid) {
+    if (
+      this.allValid &&
+      this.optionsChangesetList.length <= MAX_CODELIST_OPTIONS
+    ) {
       const administrativeUnit = await this.store.findRecord(
         'administrative-unit',
         this.currentSession.group.id

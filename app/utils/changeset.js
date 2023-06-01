@@ -31,19 +31,23 @@ class ChangesetList {
   @tracked _changesets = [];
   _toDelete = [];
   validation;
-  key;
-  parent;
+  parentKey;
+  parentRecord;
 
-  constructor(records, validation, [key, parent]) {
+  constructor(records, validation, [parentKey, parentRecord]) {
     this._originalRecords = records;
     this.validation = validation;
     this._initialize();
-    this.key = key;
-    this.parent = parent;
+    this.parentKey = parentKey;
+    this.parentRecord = parentRecord;
   }
 
   get changesets() {
     return this._changesets;
+  }
+
+  get length() {
+    return this._changesets.length;
   }
 
   createChangeset(record) {
@@ -58,7 +62,9 @@ class ChangesetList {
   }
 
   get isValid() {
-    return this._changesets.every((changeset) => changeset.isValid);
+    return this._changesets.every((changeset) => {
+      changeset.isValid;
+    });
   }
 
   get isInvalid() {
@@ -80,7 +86,7 @@ class ChangesetList {
    * @param {Record} newRecord
    */
   new(newRecord) {
-    newRecord[this.key] = this.parent;
+    newRecord[this.parentKey] = this.parentRecord;
     this._records.pushObject(newRecord);
     let changeset = this.createChangeset(newRecord);
     this._changesets.pushObject(changeset);
@@ -90,7 +96,7 @@ class ChangesetList {
     const index = this._changesets.findIndex((ch) => ch === changeset);
     const record = this._records[index];
     if (record.isNew) {
-      record.rollBackAttributes();
+      record.rollbackAttributes();
     } else {
       this._toDelete.push(record);
     }
@@ -117,6 +123,5 @@ class ChangesetList {
     });
     this._initialize();
     this._toDelete = [];
-    this.isValid = undefined;
   }
 }

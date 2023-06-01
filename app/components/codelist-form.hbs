@@ -172,6 +172,8 @@
             @width='block'
             @icon='plus'
             @skin='secondary'
+            @disabled={{not this.canAddOption}}
+            title={{unless this.canAddOption (t 'codelist.crud.max-options-hit') }}
             {{on 'click' this.addOption}}
           >
             {{t 'codelist.crud.add-option'}}
