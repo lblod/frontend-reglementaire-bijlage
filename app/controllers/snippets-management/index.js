@@ -25,7 +25,6 @@ export default class SnippetsManagementIndexController extends Controller {
       publisher: administrativeUnit,
     });
     yield snippetList.save();
-    console.log(snippetList);
     this.router.transitionTo('snippets-management.edit', snippetList);
   }
   @task
