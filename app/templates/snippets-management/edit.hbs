@@ -66,11 +66,7 @@
       >
         <s.content as |c|>
           <c.header>
-            <AuDataTableThSortable
-              @field="label"
-              @currentSorting={{this.sort}}
-              @label={{t "snippets.attr.snippet"}}
-            />
+            <th>{{t "snippets.attr.snippet"}}</th>
             <th></th>
           </c.header>
           <c.body as |snippet|>
