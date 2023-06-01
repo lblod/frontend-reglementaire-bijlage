@@ -155,7 +155,7 @@ export default class CodelistFormComponent extends Component {
       this.changeset.publisher = administrativeUnit;
       await this.changeset.save();
       await this.optionsChangesetList.save();
-      this.router.transitionTo('codelists-management.edit', this.changeset.id);
+      this.isEditingOptions = false;
     }
   });
 
