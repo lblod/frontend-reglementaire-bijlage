@@ -13,6 +13,7 @@ import {
 import changesetList from '../utils/changeset';
 import { Changeset } from 'ember-changeset';
 import lookupValidator from 'ember-changeset-validations';
+import { isBlank } from '../utils/strings';
 
 const MAX_CODELIST_OPTIONS = 20;
 export default class CodelistFormComponent extends Component {
@@ -136,7 +137,7 @@ export default class CodelistFormComponent extends Component {
   validateUniqueLabels() {
     const uniqueValues = new Set();
     this.optionsChangesetList.changesets.forEach((option) => {
-      if (uniqueValues.has(option.label)) {
+      if (!isBlank(option.label) && uniqueValues.has(option.label)) {
         option.addError(
           'label',
           this.intl.t('codelist.options.label-unique-error')
@@ -158,6 +159,13 @@ export default class CodelistFormComponent extends Component {
 
     await this.changeset.validate();
     await this.optionsChangesetList.validate();
+
+    // remove empty labels to avoid confusing empty or space-only labels in database
+    this.optionsChangesetList.changesets.forEach((changeset) => {
+      if (isBlank(changeset.label)) {
+        changeset.label = null;
+      }
+    });
     this.validateUniqueLabels();
 
     if (
