@@ -10,14 +10,15 @@ export default class EditorDocumentModel extends Model {
   @attr('string', { defaultValue: defaultContext }) context;
   @attr('datetime') createdOn;
   @attr('datetime') updatedOn;
-  @belongsTo('editor-document', { inverse: 'nextVersion' })
+  @belongsTo('editor-document', { inverse: 'nextVersion', async: true })
   previousVersion;
-  @belongsTo('editor-document', { inverse: 'previousVersion' })
+  @belongsTo('editor-document', { inverse: 'previousVersion', async: true })
   nextVersion;
-  @belongsTo('document-container', { inverse: 'revisions' })
+  @belongsTo('document-container', { inverse: 'revisions', async: true })
   documentContainer;
   @belongsTo('published-regulatory-attachment', {
     inverse: 'derivedFrom',
+    async: true,
   })
   publishedVersion;
 

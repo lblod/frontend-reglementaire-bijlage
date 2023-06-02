@@ -33,4 +33,9 @@ export default class MockLoginController extends Controller {
     this.municipality = value;
     this.model = await this.queryStore.perform();
   });
+
+  getGroup = async (account) => {
+    const user = await account.user;
+    return (await user.groups)[0];
+  };
 }
