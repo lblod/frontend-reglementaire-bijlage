@@ -131,10 +131,18 @@
             </td>
             {{#if this.isEditingOptions}}
               <td>
+                {{#let option.error.label as |labelError|}}
                 <AuInput
+                  @error={{labelError}}
                   @value={{option.label}}
                   {{on 'change' (fn this.setOptionLabel option)}}
                 />
+                 {{#if labelError}}
+                    <AuHelpText>
+                      {{labelError.validation}}
+                    </AuHelpText>
+                  {{/if}}
+                {{/let}}
               </td>
               <td>
                 {{#let option.error.value as |isInvalid|}}

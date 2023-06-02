@@ -27,6 +27,7 @@ codelist:
   options:
     label: Label
     label-explanation: Optionele kortere weergave
+    label-unique-error: Label moet uniek zijn
     value: Waarde
 utility:
   flanders: "Vlaanderen"

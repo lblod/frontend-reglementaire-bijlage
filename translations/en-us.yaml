@@ -27,6 +27,7 @@ codelist:
   options:
     label: Label
     label-explanation: Optional shorter description
+    label-unique-error: Label should be unique
     value: Value
 utility:
   flanders: "Flanders"

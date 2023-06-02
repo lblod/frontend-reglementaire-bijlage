@@ -19,6 +19,7 @@ export default class CodelistFormComponent extends Component {
   @service router;
   @service store;
   @service currentSession;
+  @service intl;
 
   @tracked codelistTypes;
   @tracked selectedType;
@@ -132,6 +133,20 @@ export default class CodelistFormComponent extends Component {
     option.label = event.target.value;
   }
 
+  validateUniqueLabels() {
+    const uniqueValues = new Set();
+    this.optionsChangesetList.changesets.forEach((option) => {
+      if (uniqueValues.has(option.label)) {
+        option.addError(
+          'label',
+          this.intl.t('codelist.options.label-unique-error')
+        );
+      } else {
+        uniqueValues.add(option.label);
+      }
+    });
+  }
+
   @action
   updateCodelistType(type) {
     this.selectedType = type;
@@ -143,6 +158,7 @@ export default class CodelistFormComponent extends Component {
 
     await this.changeset.validate();
     await this.optionsChangesetList.validate();
+    this.validateUniqueLabels();
 
     if (
       this.allValid &&
