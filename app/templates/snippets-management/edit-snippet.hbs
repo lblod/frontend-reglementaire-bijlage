@@ -1,10 +1,10 @@
 {{page-title (t 'reglement-edit.edit')}}
+<div {{did-insert (perform this.fetchEditorDocument)}} >
 <AppChrome
   @editorDocument={{this.editorDocument}}
-  @documentContainer={{this.model.documentContainer}}
+  @documentContainer={{this.model}}
   @save={{hash action=(perform this.save) isRunning=this.save.isRunning}}
   @returnRouteText={{t 'reglement-edit.return'}}
-  @isPublished={{this.model.reglement.publishedVersion}}
 />
 <RdfaEditorContainer
   @rdfaEditorInit={{this.handleRdfaEditorInit}}
@@ -111,3 +111,4 @@
   @enabled={{this.dirty}}
   @message={{t 'reglement-edit.confirm-leave-without-saving'}}
 />
+</div>
