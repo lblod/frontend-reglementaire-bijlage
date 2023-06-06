@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 import { service } from '@ember/service';
+import { action } from '@ember/object';
 import { restartableTask, task } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
 import { timeout } from 'ember-concurrency';
@@ -15,6 +16,8 @@ export default class SnippetsManagementEditController extends Controller {
   @tracked label = '';
   @tracked sort = '-created-on';
   @tracked showSaved = false;
+  @tracked isRemoveModalOpen = false;
+  @tracked deletingSnippet;
 
   @restartableTask
   *updateLabel(event) {
@@ -46,8 +49,21 @@ export default class SnippetsManagementEditController extends Controller {
     );
   });
 
-  removeSnippet = task(async (snippet) => {
-    this.model.snippets.removeObject(snippet);
+  removeSnippet = task(async () => {
+    this.model.snippets.removeObject(this.deletingSnippet);
     await this.model.save();
+    this.closeRemoveModal();
   });
+
+  @action
+  openRemoveModal(snippet) {
+    this.deletingSnippet = snippet;
+    this.isRemoveModalOpen = true;
+  }
+
+  @action
+  closeRemoveModal() {
+    this.deletingSnippet = null;
+    this.isRemoveModalOpen = false;
+  }
 }

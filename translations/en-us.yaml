@@ -41,6 +41,7 @@ utility:
   export-to-html: "Export to HTML"
   to-recycle-bin: "Move to recycle bin"
   available: Available
+  deleting: deleting...
   confirmation:
     title: Confirm
     body: Are you sure?
@@ -126,6 +127,10 @@ snippets:
   saved: Saved
   crud:
     no-data: No snippet lists where found
+    confirm-deletion: Confirm to delete snippet list <strong>{name}</strong>
+    confirm-deletion-snippet: Confirm to delete snippet <strong>{name}</strong>
+    delete: Delete snippet list
+    delete-snippet: Delete snippet
   attr:
     label: Label
     id: Id
