@@ -26,8 +26,7 @@ export default class SnippetsManagementEditController extends Controller {
     setTimeout(() => (this.showSaved = false), 3000);
   }
 
-  @task
-  *createSnippet() {
+  createSnippet = task(async () => {
     const documentContainer = this.store.createRecord('document-container');
     const editorDocument = this.store.createRecord('editor-document');
     editorDocument.content = '';
@@ -35,21 +34,20 @@ export default class SnippetsManagementEditController extends Controller {
     editorDocument.updatedOn = new Date();
     editorDocument.title = `Snippet created on ${new Date().toDateString()}`;
     documentContainer.currentVersion = editorDocument;
-    yield this.model.snippets;
+    await this.model.snippets;
     this.model.snippets.pushObject(documentContainer);
-    yield editorDocument.save();
-    yield documentContainer.save();
-    yield this.model.save();
+    await editorDocument.save();
+    await documentContainer.save();
+    await this.model.save();
 
     this.router.transitionTo(
       'snippets-management.edit-snippet',
       documentContainer
     );
-  }
+  });
 
-  @task
-  *removeSnippet(snippet) {
+  removeSnippet = task(async (snippet) => {
     this.model.snippets.removeObject(snippet);
-    yield this.model.save();
-  }
+    await this.model.save();
+  });
 }

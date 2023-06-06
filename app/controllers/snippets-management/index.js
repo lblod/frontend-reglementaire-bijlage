@@ -14,9 +14,8 @@ export default class SnippetsManagementIndexController extends Controller {
   @tracked label = '';
   @tracked sort = '-created-on';
 
-  @task
-  *createSnippetList() {
-    const administrativeUnit = yield this.store.findRecord(
+  createSnippetList = task(async () => {
+    const administrativeUnit = await this.store.findRecord(
       'administrative-unit',
       this.currentSession.group.id
     );
@@ -24,12 +23,12 @@ export default class SnippetsManagementIndexController extends Controller {
       createdOn: new Date(),
       publisher: administrativeUnit,
     });
-    yield snippetList.save();
+    await snippetList.save();
     this.router.transitionTo('snippets-management.edit', snippetList);
-  }
-  @task
-  *removeSnippetList(snippet) {
+  });
+
+  removeSnippetList = task(async (snippet) => {
     snippet.deleteRecord();
-    yield snippet.save();
-  }
+    await snippet.save();
+  });
 }
