@@ -139,7 +139,7 @@ snippets:
   remove: Verwijderen
   saved: Opgeslagen
   crud:
-    no-data: No snippets where found
+    no-data: Geen fragmenten gevonden
   attr:
     label: Label
     id: Id
