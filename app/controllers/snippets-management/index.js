@@ -2,6 +2,7 @@ import Controller from '@ember/controller';
 import { service } from '@ember/service';
 import { task } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
 export default class SnippetsManagementIndexController extends Controller {
   @service store;
@@ -13,6 +14,8 @@ export default class SnippetsManagementIndexController extends Controller {
   @tracked size = 20;
   @tracked label = '';
   @tracked sort = '-created-on';
+  @tracked isRemoveModalOpen = false;
+  @tracked deletingSnippetList;
 
   createSnippetList = task(async () => {
     const administrativeUnit = await this.store.findRecord(
@@ -27,8 +30,21 @@ export default class SnippetsManagementIndexController extends Controller {
     this.router.transitionTo('snippets-management.edit', snippetList);
   });
 
-  removeSnippetList = task(async (snippet) => {
-    snippet.deleteRecord();
-    await snippet.save();
+  removeSnippetList = task(async () => {
+    this.deletingSnippetList.deleteRecord();
+    await this.deletingSnippetList.save();
+    this.closeRemoveModal();
   });
+
+  @action
+  openRemoveModal(snippet) {
+    this.deletingSnippetList = snippet;
+    this.isRemoveModalOpen = true;
+  }
+
+  @action
+  closeRemoveModal() {
+    this.deletingSnippetList = null;
+    this.isRemoveModalOpen = false;
+  }
 }

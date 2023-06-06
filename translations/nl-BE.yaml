@@ -50,6 +50,7 @@ utility:
   export-to-html: "Exporteer als HTML"
   to-recycle-bin: "Naar prullenmand"
   available: Beschikbaar
+  deleting: Aan het verwijderen...
   confirmation:
     title: Bevestigen
     body: Ben je zeker?
@@ -140,6 +141,10 @@ snippets:
   saved: Opgeslagen
   crud:
     no-data: Geen fragmenten gevonden
+    confirm-deletion: Bevestig om fragmentenlijst <strong>{name}</strong> te verwijderen
+    confirm-deletion-snippet: Bevestig om fragment <strong>{name}</strong> te verwijderen
+    delete: Fragmentenlijst verwijderen
+    delete-snippet: Fragment verwijderen
   attr:
     label: Label
     id: Id
