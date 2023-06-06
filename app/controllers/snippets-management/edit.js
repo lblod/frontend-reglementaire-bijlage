@@ -17,9 +17,14 @@ export default class SnippetsManagementEditController extends Controller {
   @tracked showSaved = false;
   @tracked isRemoveModalOpen = false;
   @tracked deletingSnippet;
+  @tracked invalidLabel = false;
 
   updateLabel = restartableTask(async (event) => {
     const value = event.target.value;
+    this.invalidLabel = !value;
+    if (this.invalidLabel) {
+      return;
+    }
     await timeout(1000);
     this.model.label = value;
     await this.model.save();
