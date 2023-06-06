@@ -1,6 +1,7 @@
 import Component from '@glimmer/component';
 import { service } from '@ember/service';
 import { action } from '@ember/object';
+import { task } from 'ember-concurrency';
 
 export default class AppChromeComponent extends Component {
   @service currentSession;
@@ -21,20 +22,18 @@ export default class AppChromeComponent extends Component {
     );
   }
 
-  @action
-  updateDocumentTitle(title) {
+  updateDocumentTitle = task(async (title) => {
     this.args.editorDocument.title = title;
-  }
-
-  @action
-  async resetDocument() {
-    this.args.editorDocument.rollbackAttributes();
-  }
-
-  @action
-  async saveDocument() {
     await this.args.editorDocument.save();
-  }
+  });
+
+  resetDocument = task(async () => {
+    this.args.editorDocument.rollbackAttributes();
+  });
+
+  saveDocument = task(async () => {
+    await this.args.editorDocument.save();
+  });
 
   @action
   goBack() {

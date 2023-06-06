@@ -49,7 +49,7 @@
         </AuPill>
         {{/if}}
         <EditorDocumentTitle @title={{@editorDocument.title}} @editActive={{@editorDocument.isNew}}
-          @onChange={{this.updateDocumentTitle}} @onSubmit={{this.saveDocument}} @onCancel={{this.resetDocument}}
+          @onSubmit={{perform this.updateDocumentTitle}} @onCancel={{perform this.resetDocument}}
           @readOnly={{@readOnly}} />
       </AuToolbar::Group>
       <AuToolbar::Group>
