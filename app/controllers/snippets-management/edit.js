@@ -54,7 +54,9 @@ export default class SnippetsManagementEditController extends Controller {
 
   removeSnippet = task(async () => {
     this.model.snippets.removeObject(this.deletingSnippet);
+    this.deletingSnippet.deleteRecord();
     await this.model.save();
+    await this.deletingSnippet.save();
     this.closeRemoveModal();
   });
 
