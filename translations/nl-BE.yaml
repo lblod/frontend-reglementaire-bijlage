@@ -149,3 +149,8 @@ snippets:
     label: Label
     id: Id
     snippet: Fragment
+
+editor-document-title:
+  placeholder: Naamloos document
+  change-title: Titel wijzigen
+  title-saved: Titel opgeslagen
