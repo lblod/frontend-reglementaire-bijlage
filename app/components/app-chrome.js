@@ -31,10 +31,6 @@ export default class AppChromeComponent extends Component {
     this.args.editorDocument.rollbackAttributes();
   });
 
-  saveDocument = task(async () => {
-    await this.args.editorDocument.save();
-  });
-
   @action
   goBack() {
     history.back();
