@@ -192,10 +192,14 @@ export default class CodelistFormComponent extends Component {
 
   @action
   cancelEditingTask() {
+    this.reset();
+    this.router.transitionTo('codelists-management');
+  }
+
+  reset() {
     this.changeset.rollback();
     this.args.codelist.rollbackAttributes();
     this.optionsChangesetList.rollback();
-    this.router.transitionTo('codelists-management');
   }
 
   @action
@@ -205,5 +209,10 @@ export default class CodelistFormComponent extends Component {
       const option = options[i];
       option.position = i;
     }
+  }
+
+  willDestroy(...args) {
+    this.reset();
+    super.willDestroy(...args);
   }
 }
