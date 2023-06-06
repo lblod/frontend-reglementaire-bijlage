@@ -207,6 +207,10 @@ export default class SnippetsManagementEditSnippetController extends Controller 
     return this.editorDocument.content !== this.editor.htmlContent;
   }
 
+  fetchEditorDocument = task(async () => {
+    this._editorDocument = await this.model.currentVersion;
+  });
+
   get editorDocument() {
     return this._editorDocument || this.model.currentVersion;
   }
