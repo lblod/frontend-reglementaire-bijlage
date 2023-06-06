@@ -1,0 +1,32 @@
+<AuModal
+  @title={{t 'utility.confirmation.body'}}
+  @modalOpen={{true}}
+  @closeModal={{fn @close false}} as |Modal|
+>
+  <Modal.Body>
+    <p>
+      {{t
+        'codelist.crud.confirm-deletion'
+        name=@data.codelist.label
+        htmlSafe=true
+      }}
+    </p>
+  </Modal.Body>
+  <Modal.Footer>
+    <AuButton
+      @alert={{true}}
+      @loading={{@data.isLoading}}
+      @loadingText={{t 'utility.deleting'}}
+      {{on 'click' (fn @close true)}}
+    >
+      {{t 'codelist.crud.delete'}}
+    </AuButton>
+    <AuButton
+      @skin='secondary'
+      @disabled={{@data.isLoading}}
+      {{on 'click' (fn @close false)}}
+    >
+      {{t 'utility.cancel'}}
+    </AuButton>
+  </Modal.Footer>
+</AuModal>

@@ -2,18 +2,18 @@ import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { service } from '@ember/service';
 import { dropTask, task } from 'ember-concurrency';
-import CodelistValidations from '../validations/codelist';
-import OptionValidations from '../validations/codelist-option';
+import CodelistValidations from '../../validations/codelist';
+import OptionValidations from '../../validations/codelist-option';
 import { tracked } from '@glimmer/tracking';
 import {
   COD_SINGLE_SELECT_ID,
   COD_CONCEPT_SCHEME_ID,
-} from '../utils/constants';
+} from '../../utils/constants';
 
-import changesetList from '../utils/changeset';
+import changesetList from '../../utils/changeset';
 import { Changeset } from 'ember-changeset';
 import lookupValidator from 'ember-changeset-validations';
-import { isBlank } from '../utils/strings';
+import { isBlank } from '../../utils/strings';
 
 const MAX_CODELIST_OPTIONS = 20;
 export default class CodelistFormComponent extends Component {
