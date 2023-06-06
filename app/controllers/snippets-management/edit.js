@@ -1,9 +1,8 @@
 import Controller from '@ember/controller';
 import { service } from '@ember/service';
 import { action } from '@ember/object';
-import { restartableTask, task } from 'ember-concurrency';
+import { restartableTask, task, timeout } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
-import { timeout } from 'ember-concurrency';
 
 export default class SnippetsManagementEditController extends Controller {
   @service store;
@@ -19,15 +18,19 @@ export default class SnippetsManagementEditController extends Controller {
   @tracked isRemoveModalOpen = false;
   @tracked deletingSnippet;
 
-  @restartableTask
-  *updateLabel(event) {
+  updateLabel = restartableTask(async (event) => {
     const value = event.target.value;
-    yield timeout(1000);
+    await timeout(1000);
     this.model.label = value;
-    yield this.model.save();
+    await this.model.save();
     this.showSaved = true;
-    setTimeout(() => (this.showSaved = false), 3000);
-  }
+    this.hideSaved.perform();
+  });
+
+  hideSaved = restartableTask(async () => {
+    await timeout(3000);
+    this.showSaved = false;
+  });
 
   createSnippet = task(async () => {
     const documentContainer = this.store.createRecord('document-container');
