@@ -5,13 +5,19 @@ export default class GoverningBodyModel extends Model {
   @attr naam;
   @attr('date') bindingEinde;
   @attr('date') bindingStart;
-  @belongsTo('administrative-unit', { inverse: 'governing-body' })
+  @belongsTo('administrative-unit', { inverse: 'governingBody', async: true })
   adminstrativeUnit;
-  @belongsTo('administrative-unit-classification-code', { inverse: null })
+  @belongsTo('administrative-unit-classification-code', {
+    inverse: null,
+    async: true,
+  })
   classification;
-  @belongsTo('governing-body', { inverse: 'hasTimeSpecializations' })
+  @belongsTo('governing-body', {
+    inverse: 'hasTimeSpecializations',
+    async: true,
+  })
   isTimeSpecializationOf;
-  @hasMany('governing-body', { inverse: 'isTimeSpecializationOf' })
+  @hasMany('governing-body', { inverse: 'isTimeSpecializationOf', async: true })
   hasTimeSpecializations;
 
   rdfaBindings = {

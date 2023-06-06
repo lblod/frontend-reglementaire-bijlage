@@ -157,7 +157,7 @@ export default class EditController extends Controller {
         allowCustomFormat: true,
       },
       variable: {
-        publisher: this.currentSession.group.uri,
+        publisher: this.currentSession.group?.uri,
         defaultEndpoint: ENV.insertVariablePlugin.endpoint,
         variableTypes: ['text', 'number', 'date', 'codelist'],
       },

@@ -21,7 +21,6 @@ Router.map(function () {
   this.route('codelists-management', function () {
     this.route('new');
     this.route('edit', { path: '/edit/:id' });
-    this.route('codelist', { path: '/:id' });
   });
   this.route('sparql');
   this.route('authorization', function () {

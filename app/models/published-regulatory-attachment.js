@@ -1,7 +1,8 @@
 import Model, { attr, belongsTo } from '@ember-data/model';
 
 export default class PublishedRegulatoryAttachment extends Model {
-  @belongsTo('editor-document') derivedFrom;
+  @belongsTo('editor-document', { async: true, inverse: 'publishedVersion' })
+  derivedFrom;
   @attr validThrough;
   @attr name;
   @attr format;
