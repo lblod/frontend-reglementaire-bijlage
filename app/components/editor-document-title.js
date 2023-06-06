@@ -1,6 +1,7 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
+import { restartableTask, timeout } from 'ember-concurrency';
 
 export default class EditorDocumentTitleComponent extends Component {
   @tracked active = false;
@@ -46,6 +47,11 @@ export default class EditorDocumentTitleComponent extends Component {
     setTimeout(() => (this.showSaved = false), 30000);
     return false;
   }
+
+  hideSaved = restartableTask(async () => {
+    await timeout(3000);
+    this.showSaved = false;
+  });
 
   @action
   cancel(event) {
