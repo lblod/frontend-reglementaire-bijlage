@@ -8,31 +8,39 @@ codelist:
     delete: Delete codelist
     no-data: No codelists where found
     label-filter: Label
-    add-option: Add option
+    edit-table: Edit
+    add-option: Add an extra codelist option
+    max-options-hit: A maximum of 20 codelist options can be added
     delete-option: Delete option
     edit-option: Edit option
+    confirm-deletion: Confirm to delete codelist <strong>{name}</strong>
   attr:
-    label: Label
+    label: Name of codelist
     type: Type
     created-on: Created On
     not-found: N/A
     options: "Options"
-    option:
-      value: Value
     id: Id
     types:
       singleSelect: 'Single select'
       multiSelect: 'Multi select'
+  options:
+    label: Label
+    label-explanation: Optional shorter description
+    label-unique-error: Label should be unique
+    value: Value
 utility:
   flanders: "Flanders"
   app-name: "Regulatory Attachments"
   back-to-overview: Back to overview
   view: View
   save: Save
+  saving: Saving...
   save-and-publish: Save and publish
   cancel: Cancel
   edit: Edit
   delete: Delete
+  deleting: deleting...
   close: Close
   saved-on: Saved on
   unsaved-changes: Unsaved changes
@@ -47,6 +55,7 @@ utility:
   required: Required
   optional: Optional
   field-required: This field is required
+  type-something-placeholder: Type something...
 landing-page:
   create-reglement:
     title: Regulatory Attachments

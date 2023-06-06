@@ -1,17 +1,11 @@
 {{page-title (t "codelist.crud.edit")}}
-<AuToolbar @size="medium" @skin="tint" @border="bottom" as |Group|>
-  <Group>
-    <ul class="au-c-list-horizontal au-c-list-horizontal--small">
-      <li class="au-c-list-horizontal__item">
-        <AuLink @route="codelists-management">
-          <AuIcon @icon="arrow-left" @alignment="left" />
-          {{t "utility.back-to-overview"}}
-        </AuLink>
-      </li>
-      <li class="au-c-list-horizontal__item">
-        {{t "codelist.crud.edit"}}
-      </li>
-    </ul>
-  </Group>
-</AuToolbar>
+<BreadcrumbsItem as |linkClass|>
+    <LinkTo
+      @route='codelists-management.edit'
+      @model={{this.model.id}}
+      class={{linkClass}}
+    >
+      {{this.model.codelist.label}}
+    </LinkTo>
+</BreadcrumbsItem>
 <CodelistForm @codelist={{this.model.codelist}}/>

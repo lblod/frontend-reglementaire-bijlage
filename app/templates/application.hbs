@@ -1,32 +1,66 @@
 {{page-title
   (concat
-    (t "utility.app-name") (if this.showEnvironment (concat ' - ' this.environmentName))
+    (t 'utility.app-name')
+    (if this.showEnvironment (concat ' - ' this.environmentName))
   )
 }}
 <AuModalContainer />
-<AuApp class='{{if this.showEnvironment "au-c-app--environment"}}'>
+<AuApp class='{{if this.showEnvironment 'au-c-app--environment'}}'>
   {{#if this.showEnvironment}}
     <EnvironmentBanner
       @environmentName={{this.environmentName}}
-      @applicationName={{t "utility.app-name"}}
+      @applicationName={{t 'utility.app-name'}}
     />
   {{/if}}
-  <AuToaster @position="top" />
-  <AuMainHeader @homeRoute="index" @appTitle={{t "utility.app-name"}}>
+  <AuToaster @position='top' />
+  <AuMainHeader @homeRoute='index' @appTitle={{t 'utility.app-name'}}>
     {{#if this.session.isAuthenticated}}
-      <AuDropdown @title="{{this.currentSession.user.firstName}} {{this.currentSession.user.familyName}} - {{this.currentSession.group.classification.label}} {{this.currentSession.group.name}}" @buttonLabel="Account settings" @alignment="right">
-        <button type="button" class="au-c-button au-c-button--tertiary" role="menuitem" {{on "click" this.logout}}>
-          <AuIcon @icon="logout" @alignment="left" />{{t "auth.logout"}}
+      <AuDropdown
+        @title='{{this.currentSession.user.firstName}} {{
+          this.currentSession.user.familyName
+        }} - {{this.currentSession.group.classification.label}} {{
+          this.currentSession.group.name
+        }}'
+        @buttonLabel='Account settings'
+        @alignment='right'
+      >
+        <button
+          type='button'
+          class='au-c-button au-c-button--tertiary'
+          role='menuitem'
+          {{on 'click' this.logout}}
+        >
+          <AuIcon @icon='logout' @alignment='left' />{{t 'auth.logout'}}
         </button>
       </AuDropdown>
     {{else}}
-      <AuLink @route="login">
-        {{t "auth.login"}}
+      <AuLink @route='login'>
+        {{t 'auth.login'}}
       </AuLink>
     {{/if}}
   </AuMainHeader>
-  <AuMainContainer class="header-main-container" as |m|>
+  <AuMainContainer class='header-main-container' as |m|>
     <m.content scroll={{false}}>
+      <AuToolbar
+        @border='bottom'
+        @size='medium'
+        @skin='tint'
+        class='au-c-toolbar--breadcrumbs' as |Group|
+      >
+        <Group>
+          <BreadcrumbsContainer
+            class='au-c-breadcrumbs au-c-list-horizontal'
+            @itemClass='au-c-breadcrumbs__item au-c-list-horizontal__item'
+            @linkClass='au-c-breadcrumbs__link au-c-link'
+          >
+            <li class='au-c-list-horizontal__item'>
+              <AuLink @route='index' @icon='arrow-left' @iconAlignment='left'>
+                {{t 'utility.back-to-overview'}}
+              </AuLink>
+            </li>
+          </BreadcrumbsContainer>
+        </Group>
+      </AuToolbar>
       {{outlet}}
     </m.content>
   </AuMainContainer>
