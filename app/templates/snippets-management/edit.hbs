@@ -88,6 +88,7 @@
                 @skin="naked"
                 @icon="trash"
                 @alert="true"
+                @disabled={{this.invalidLabel}}
                 {{on "click" (fn this.openRemoveModal snippet)}}
               >
                 {{t "snippets.remove"}}
@@ -102,6 +103,7 @@
         @icon="add"
         @skin="secondary"
         @width="block"
+        @disabled={{this.invalidLabel}}
         {{on "click" (perform this.createSnippet)}}
         @loading={{this.createSnippet.isRunning}}
       >
