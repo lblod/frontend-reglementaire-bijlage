@@ -196,3 +196,8 @@
     </table>
   </div>
 </div>
+
+<Modals::ConfirmRouteLeave
+  @enabled={{not this.isPristine}}
+  @modal={{component 'modals/confirm-discard-changes'}}
+/>

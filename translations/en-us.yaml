@@ -38,6 +38,9 @@ utility:
   saving: Saving...
   save-and-publish: Save and publish
   cancel: Cancel
+  discard-changes: Discard changes
+  loading: Loading
+  ok: OK
   edit: Edit
   delete: Delete
   deleting: deleting...
@@ -45,6 +48,7 @@ utility:
   saved-on: Saved on
   unsaved-changes: Unsaved changes
   unsaved-concept: Unsaved concept
+  confirm-leave-without-saving: Are you sure you would like to leave this page without saving your changes?
   remove-concept: Remove concept
   export-to-html: "Export to HTML"
   to-recycle-bin: "Move to recycle bin"
@@ -90,7 +94,6 @@ reglement-edit:
   edit: Edit attachment
   return: Go Back
   saving: Saving
-  confirm-leave-without-saving: Are you sure you would like to leave this page without saving your changes?
   document-title-placeholder: Enter title
   insert-title: Insert document title
 auth:

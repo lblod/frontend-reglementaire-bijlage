@@ -38,6 +38,9 @@ utility:
   save-and-publish: Bewaar en maak beschikbaar
   saving: Bezig met opslaan
   cancel: Annuleren
+  discard-changes: Wijzigingen verwerpen
+  loading: Aan het laden
+  ok: Oké
   edit: Pas aan
   delete: Verwijder
   deleting: Aan het verwijderen...
@@ -45,6 +48,7 @@ utility:
   saved-on: Bewaard op
   unsaved-changes: Wijzigingen niet bewaard
   unsaved-concept: Concept niet bewaard
+  confirm-leave-without-saving: Bent u zeker dat u deze pagina wilt verlaten zonder uw wijzigingen op te slaan?
   remove-concept: Verwijder concept
   export-to-html: "Exporteer als HTML"
   to-recycle-bin: "Naar prullenmand"
@@ -90,7 +94,6 @@ reglement-edit:
   edit: Wijzig bijlage
   return: Terug naar overzicht reglementaire bijlagen
   saving: Bezig met opslaan
-  confirm-leave-without-saving: Bent u zeker dat u deze pagina wilt verlaten zonder uw wijzigingen op te slaan?
   document-title-placeholder: Geef titel op
   insert-title: Titel document invoegen
 auth:

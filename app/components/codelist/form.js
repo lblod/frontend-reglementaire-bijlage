@@ -21,6 +21,7 @@ export default class CodelistFormComponent extends Component {
   @service store;
   @service currentSession;
   @service intl;
+  @service modals;
 
   @tracked codelistTypes;
   @tracked selectedType;
@@ -192,7 +193,6 @@ export default class CodelistFormComponent extends Component {
 
   @action
   cancelEditingTask() {
-    this.reset();
     this.router.transitionTo('codelists-management');
   }
 
