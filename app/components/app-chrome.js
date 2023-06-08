@@ -1,6 +1,5 @@
 import Component from '@glimmer/component';
 import { service } from '@ember/service';
-import { action } from '@ember/object';
 import { task } from 'ember-concurrency';
 
 export default class AppChromeComponent extends Component {
@@ -30,9 +29,4 @@ export default class AppChromeComponent extends Component {
   resetDocument = task(async () => {
     this.args.editorDocument.rollbackAttributes();
   });
-
-  @action
-  goBack() {
-    history.back();
-  }
 }

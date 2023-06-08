@@ -1,4 +1,10 @@
 {{page-title (t 'reglement-edit.edit')}}
+<BreadcrumbsItem>
+  <AuLink @route= 'list' @skin="secondary">
+    <AuIcon @icon="arrow-left" @alignment="left" />
+    {{t 'reglement-edit.return'}}
+  </AuLink>
+</BreadcrumbsItem>
 {{#if this.editorDocument}}
   <AppChrome
     @editorDocument={{this.editorDocument}}

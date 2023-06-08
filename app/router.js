@@ -21,14 +21,14 @@ Router.map(function () {
   this.route('codelists-management', function () {
     this.route('new');
     this.route('edit', { path: '/edit/:id' });
-    this.route('codelist', { path: '/:id' });
   });
   this.route('sparql');
   this.route('authorization', function () {
     this.route('callback');
   });
   this.route('snippets-management', function () {
-    this.route('edit', { path: '/edit/:id' });
-    this.route('edit-snippet', { path: '/edit-snippet/:id' });
+    this.route('edit', { path: '/edit/:id' }, function () {
+      this.route('edit-snippet', { path: '/edit-snippet/:id' });
+    });
   });
 });
