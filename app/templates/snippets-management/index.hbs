@@ -1,18 +1,7 @@
 {{page-title (t "snippets.manage-snippet-lists")}}
-<AuToolbar @size="medium" @skin="tint" @border="bottom" as |Group|>
-  <Group>
-    <ul class="au-c-list-horizontal au-c-list-horizontal--small">
-      <li class="au-c-list-horizontal__item">
-        <AuLink @route="index">
-          {{t "utility.back-to-overview"}}
-        </AuLink>
-      </li>
-      <li class="au-c-list-horizontal__item">
-        {{t "snippets.manage-snippet-lists"}}
-      </li>
-    </ul>
-  </Group>
-</AuToolbar>
+<BreadcrumbsItem>
+  {{t "snippets.manage-snippet-lists"}}
+</BreadcrumbsItem>
 <div class="au-c-body-container au-c-body-container--scroll">
   <AuDataTable
     @content={{this.model}}

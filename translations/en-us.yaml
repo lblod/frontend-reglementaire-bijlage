@@ -49,7 +49,6 @@ utility:
   export-to-html: "Export to HTML"
   to-recycle-bin: "Move to recycle bin"
   available: Available
-  deleting: deleting...
   confirmation:
     title: Confirm
     body: Are you sure?
@@ -133,6 +132,7 @@ snippets:
   make-new: Create new snippet list
   create-snippet-list: Create snippet list
   edit-snippet-list: Edit snippet list
+  edit-snippet: Edit snippet
   snippet-label: Snippet label
   snippet-label-explanation: Choose a label to refer to the snippet list
   add-new-snippet: Add new snippet

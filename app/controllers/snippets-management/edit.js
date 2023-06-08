@@ -78,4 +78,8 @@ export default class SnippetsManagementEditController extends Controller {
     this.deletingSnippet = null;
     this.isRemoveModalOpen = false;
   }
+  @action
+  goBack() {
+    history.back();
+  }
 }

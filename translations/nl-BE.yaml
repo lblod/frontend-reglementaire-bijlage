@@ -50,7 +50,6 @@ utility:
   export-to-html: "Exporteer als HTML"
   to-recycle-bin: "Naar prullenmand"
   available: Beschikbaar
-  deleting: Aan het verwijderen...
   confirmation:
     title: Bevestigen
     body: Ben je zeker?
@@ -134,6 +133,7 @@ snippets:
   make-new: Maak nieuwe fragmentlijst aan
   create-snippet-list: Fragmentlijsten aanmaken
   edit-snippet-list: Fragmentenlijst bewerken
+  edit-snippet: Fragment bewerken
   snippet-label: Fragment label
   snippet-label-explanation: Kies een label om naar de fragmentenlijst te verwijzen
   add-new-snippet: Nieuw fragment toevoegen
