@@ -28,7 +28,7 @@ Router.map(function () {
   });
   this.route('snippets-management', function () {
     this.route('edit', { path: '/edit/:id' }, function () {
-      this.route('edit-snippet', { path: '/edit-snippet/:id' });
+      this.route('edit-snippet', { path: '/edit-snippet/:snippet_id' });
     });
   });
 });
