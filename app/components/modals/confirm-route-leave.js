@@ -6,8 +6,8 @@ import isLoadingRoute from '../../utils/is-loading-route';
  * Show a modal during a route transition that stops the transition if cancel is pressed.
  * @modal Modal component to pass with `{{component 'modal-component-name'}}`. Needs `@close` hook (passing a boolean) from ember-promise-modals!
  * @enabled Should the modal be shown on a transition
- * @onConfirm hook when confirmation is clicked
- * @onCancel hook when cancellation is clicked
+ * @onConfirm (optional) hook when confirmation is clicked
+ * @onCancel (optional) hook when cancellation is clicked
  */
 export default class ConfirmRouteLeaveComponent extends Component {
   @service router;
