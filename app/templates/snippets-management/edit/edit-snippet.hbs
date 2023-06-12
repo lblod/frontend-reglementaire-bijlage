@@ -13,7 +13,20 @@
   {{t "snippets.edit-snippet"}}
 </BreadcrumbsItem>
 <div {{did-insert (perform this.fetchEditorDocument)}} >
+<<<<<<< refs/remotes/origin/master:app/templates/snippets-management/edit/edit-snippet.hbs
   <AppChrome
+=======
+<AppChrome
+  @editorDocument={{this.editorDocument}}
+  @documentContainer={{this.model}}
+  @save={{hash action=(perform this.save) isRunning=this.save.isRunning}}
+  @returnRouteText={{t 'reglement-edit.return'}}
+  @dirty={{this.dirty}}
+/>
+{{#if this.editorDocument}}
+  <RdfaEditorContainer
+    @rdfaEditorInit={{this.handleRdfaEditorInit}}
+>>>>>>> improve saved changes text:app/templates/snippets-management/edit-snippet.hbs
     @editorDocument={{this.editorDocument}}
     @documentContainer={{this.model}}
     @save={{hash action=(perform this.save) isRunning=this.save.isRunning}}

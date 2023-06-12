@@ -204,7 +204,7 @@ export default class SnippetsManagementEditSnippetController extends Controller 
   }
 
   get dirty() {
-    return this.editorDocument.content !== this.editor.htmlContent;
+    return this.editorDocument.content !== this.editor?.htmlContent;
   }
 
   fetchEditorDocument = task(async () => {
