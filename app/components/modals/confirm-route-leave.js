@@ -49,6 +49,7 @@ export default class ConfirmRouteLeaveComponent extends Component {
 
   confirm(transition) {
     if (
+      !this.args.enabled ||
       this.previousTransition ||
       transition.isAborted ||
       isLoadingRoute(transition.to)
@@ -57,15 +58,13 @@ export default class ConfirmRouteLeaveComponent extends Component {
     }
     this.previousTransition = transition;
     transition.abort();
-    if (this.args.enabled) {
-      this.modals.open(this.args.modal).then((isConfirmed) => {
-        if (isConfirmed) {
-          this.onConfirm(transition);
-        } else {
-          this.onCancel(transition);
-        }
-      });
-    }
+    this.modals.open(this.args.modal).then((isConfirmed) => {
+      if (isConfirmed) {
+        this.onConfirm(transition);
+      } else {
+        this.onCancel(transition);
+      }
+    });
   }
 
   willDestroy(...args) {
