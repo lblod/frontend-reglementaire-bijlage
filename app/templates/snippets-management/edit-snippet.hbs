@@ -5,6 +5,7 @@
   @documentContainer={{this.model}}
   @save={{hash action=(perform this.save) isRunning=this.save.isRunning}}
   @returnRouteText={{t 'reglement-edit.return'}}
+  @dirty={{this.dirty}}
 />
 {{#if this.editorDocument}}
   <RdfaEditorContainer
