@@ -54,7 +54,7 @@ export default class SnippetsManagementEditController extends Controller {
     await this.model.save();
 
     this.router.transitionTo(
-      'snippets-management.edit-snippet',
+      'snippets-management.edit.edit-snippet',
       documentContainer
     );
   });
