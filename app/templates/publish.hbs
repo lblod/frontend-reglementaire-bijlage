@@ -1,13 +1,18 @@
 {{!-- template-lint-disable no-triple-curlies  --}}
 {{page-title (t "publish-page.title-short")}}
+<BreadcrumbsItem>
+<AuLink @route="edit" @model={{this.model.container.id}} >
+  {{t "publish-page.back"}}
+</AuLink>
+</BreadcrumbsItem>
+<BreadcrumbsItem>
+     {{t "publish-page.title-short"}}
+</BreadcrumbsItem>
 <AuToolbar @size="small" class="au-u-padding-bottom-none" as |Group|>
   <Group>
     <ul class="au-c-list-horizontal au-c-list-horizontal--small">
       <li class="au-c-list-horizontal__item">
-        <AuLink @route="edit" @model={{this.model.container.id}} >
-          <AuIcon @icon="arrow-left" @alignment="left" />
-          {{t "publish-page.back"}}
-        </AuLink>
+        
       </li>
       <li class="au-c-list-horizontal__item">
         {{t "publish-page.title-short"}}

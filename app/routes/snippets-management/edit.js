@@ -9,4 +9,9 @@ export default class SnippetsManagementEditRoute extends Route {
     await snippetList.snippets;
     return snippetList;
   }
+  resetController(controller, isExiting, transition) {
+    if (isExiting && transition.targetName !== 'error') {
+      controller.model.rollbackAttributes();
+    }
+  }
 }

@@ -1,23 +1,12 @@
 {{page-title (t "snippets.edit-snippet-list")}}
-<AuToolbar @size="medium" @skin="tint" @border="bottom" as |Group|>
-  <Group>
-    <ul class="au-c-list-horizontal au-c-list-horizontal--small">
-      <li class="au-c-list-horizontal__item">
-        <AuLink @route="index">
-          {{t "utility.back-to-overview"}}
-        </AuLink>
-      </li>
-      <li class="au-c-list-horizontal__item">
-        <AuLink @route="snippets-management">
-          {{t "snippets.manage-snippet-lists"}}
-        </AuLink>
-      </li>
-      <li class="au-c-list-horizontal__item">
-        {{t "snippets.edit-snippet-list"}}
-      </li>
-    </ul>
-  </Group>
-</AuToolbar>
+<BreadcrumbsItem>
+  <AuLink @route="snippets-management">
+    {{t "snippets.manage-snippet-lists"}}
+  </AuLink>
+</BreadcrumbsItem>
+<BreadcrumbsItem>
+  {{t "snippets.edit-snippet-list"}}
+</BreadcrumbsItem>
 <div class="au-c-body-container au-c-body-container--scroll">
   <div class="au-o-box">
     <div class="au-o-grid au-o-grid--small">
@@ -73,8 +62,8 @@
             <td>
               <AuLink
                 @skin="primary"
-                @route="snippets-management.edit-snippet"
-                @model={{snippet.id}}
+                @route="snippets-management.edit.edit-snippet"
+                @model={{snippet}}
               >
                 {{#if snippet.currentVersion.title}}
                   {{snippet.currentVersion.title}}

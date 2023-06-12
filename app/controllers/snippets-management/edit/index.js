@@ -26,14 +26,14 @@ export default class SnippetsManagementEditController extends Controller {
     }
     await timeout(1000);
     await this.model.save();
-    this.showSaved.perform();
+    this.showSavedTask.perform();
   });
 
   get invalidLabel() {
     return !this.model.label || this.model.label === '';
   }
 
-  showSaved = restartableTask(async () => {
+  showSavedTask = restartableTask(async () => {
     this.showSaved = true;
     await timeout(3000);
     this.showSaved = false;
@@ -54,7 +54,7 @@ export default class SnippetsManagementEditController extends Controller {
     await this.model.save();
 
     this.router.transitionTo(
-      'snippets-management.edit-snippet',
+      'snippets-management.edit.edit-snippet',
       documentContainer
     );
   });
@@ -77,5 +77,9 @@ export default class SnippetsManagementEditController extends Controller {
   closeRemoveModal() {
     this.deletingSnippet = null;
     this.isRemoveModalOpen = false;
+  }
+  @action
+  goBack() {
+    history.back();
   }
 }
