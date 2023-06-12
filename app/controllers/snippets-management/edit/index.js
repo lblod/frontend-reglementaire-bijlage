@@ -26,14 +26,14 @@ export default class SnippetsManagementEditController extends Controller {
     }
     await timeout(1000);
     await this.model.save();
-    this.showSaved.perform();
+    this.showSavedTask.perform();
   });
 
   get invalidLabel() {
     return !this.model.label || this.model.label === '';
   }
 
-  showSaved = restartableTask(async () => {
+  showSavedTask = restartableTask(async () => {
     this.showSaved = true;
     await timeout(3000);
     this.showSaved = false;
