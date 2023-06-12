@@ -17,6 +17,7 @@
     @editorDocument={{this.editorDocument}}
     @documentContainer={{this.model}}
     @save={{hash action=(perform this.save) isRunning=this.save.isRunning}}
+    @dirty={{this.dirty}}
   />
   {{#if this.editorDocument}}
     <RdfaEditorContainer
