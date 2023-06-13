@@ -2,12 +2,14 @@ import Controller from '@ember/controller';
 import { service } from '@ember/service';
 import { task } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
+import ConfirmDeletionModal from 'frontend-reglementaire-bijlage/components/snippets/confirm-delete-modal';
 
 export default class SnippetsManagementIndexController extends Controller {
   @service store;
   @service router;
   @service currentSession;
+  @service modals;
+  @service intl;
   queryParams = ['page', 'size', 'label', 'sort'];
 
   @tracked page = 0;
@@ -17,24 +19,29 @@ export default class SnippetsManagementIndexController extends Controller {
   @tracked isRemoveModalOpen = false;
   @tracked deletingSnippetList;
 
-  removeSnippetList = task(async () => {
-    const snippets = await this.deletingSnippetList.snippets;
-    for (let snippet of snippets) {
-      await snippet.destroyRecord();
+  removeSnippetList = task(async (snippetList) => {
+    let confirmModal = this.modals.open(ConfirmDeletionModal, {
+      title: this.intl.t('snippets.crud.confirm-deletion', {
+        name: snippetList.label,
+        htmlSafe: true,
+      }),
+      isLoading: false,
+    });
+    let isConfirmed = await confirmModal;
+    if (isConfirmed) {
+      let loadingModal = this.modals.open(ConfirmDeletionModal, {
+        title: this.intl.t('snippets.crud.confirm-deletion', {
+          name: snippetList.label,
+          htmlSafe: true,
+        }),
+        isLoading: true,
+      });
+      const snippets = await snippetList.snippets;
+      for (let snippet of snippets) {
+        await snippet.destroyRecord();
+      }
+      await snippetList.destroyRecord();
+      loadingModal.close();
     }
-    await this.deletingSnippetList.destroyRecord();
-    this.closeRemoveModal();
   });
-
-  @action
-  openRemoveModal(snippet) {
-    this.deletingSnippetList = snippet;
-    this.isRemoveModalOpen = true;
-  }
-
-  @action
-  closeRemoveModal() {
-    this.deletingSnippetList = null;
-    this.isRemoveModalOpen = false;
-  }
 }

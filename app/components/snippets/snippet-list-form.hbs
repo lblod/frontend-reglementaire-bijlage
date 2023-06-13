@@ -54,7 +54,7 @@
             @icon="trash"
             @alert="true"
             @disabled={{this.invalidLabel}}
-            {{on "click" (fn this.openRemoveModal snippet)}}
+            {{on "click" (perform this.removeSnippet snippet)}}
           >
             {{t "snippets.remove"}}
           </AuButton>
@@ -75,27 +75,3 @@
     {{t "snippets.add-new-snippet"}}
   </AuButton>
 </div>
-<AuModal
-  @title={{t 'utility.confirmation.body'}}
-  @modalOpen={{this.isRemoveModalOpen}}
-  @closeModal={{this.closeRemoveModal}} as |Modal|
->
-  <Modal.Body>
-    <p>
-      {{t 'snippets.crud.confirm-deletion-snippet' name=this.deletingSnippet.label htmlSafe=true}}
-    </p>
-  </Modal.Body>
-<Modal.Footer>
-  <AuButton
-    @alert={{true}}
-    @loading={{this.removeSnippet.isRunning}}
-    @loadingText={{t 'utility.deleting'}}
-    {{on 'click' (perform this.removeSnippet)}}
-  >
-    {{t 'snippets.crud.delete-snippet'}}
-  </AuButton>
-  <AuButton @skin='secondary' {{on 'click' this.closeRemoveModal}}>
-    {{t 'utility.cancel'}}
-  </AuButton>
-</Modal.Footer>
-</AuModal>  

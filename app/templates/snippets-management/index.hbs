@@ -58,7 +58,7 @@
             @skin="naked"
             @icon="trash"
             @alert="true"
-            {{on "click" (fn this.openRemoveModal snippet)}}
+            {{on "click" (perform this.removeSnippetList snippet)}}
           >
             {{t "snippets.remove"}}
           </AuButton>

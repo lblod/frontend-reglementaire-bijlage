@@ -3,12 +3,15 @@ import { service } from '@ember/service';
 import { action } from '@ember/object';
 import { restartableTask, task, timeout } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
-import { isBlank } from '../utils/strings';
+import { isBlank } from '../../utils/strings';
+import ConfirmDeletionModal from 'frontend-reglementaire-bijlage/components/snippets/confirm-delete-modal';
 
 export default class SnippetListForm extends Component {
   @service store;
   @service router;
   @service currentSession;
+  @service modals;
+  @service intl;
 
   @tracked label = '';
   @tracked showSaved = false;
@@ -60,25 +63,31 @@ export default class SnippetListForm extends Component {
     );
   });
 
-  removeSnippet = task(async () => {
-    this.args.model.snippets.removeObject(this.deletingSnippet);
-    this.deletingSnippet.deleteRecord();
-    await this.args.model.save();
-    await this.deletingSnippet.save();
-    this.closeRemoveModal();
+  removeSnippet = task(async (snippet) => {
+    let confirmModal = this.modals.open(ConfirmDeletionModal, {
+      title: this.intl.t('snippets.crud.confirm-deletion-snippet', {
+        name: snippet.label,
+        htmlSafe: true,
+      }),
+      isLoading: false,
+    });
+    let isConfirmed = await confirmModal;
+    if (isConfirmed) {
+      let loadingModal = this.modals.open(ConfirmDeletionModal, {
+        title: this.intl.t('snippets.crud.confirm-deletion-snippet', {
+          name: snippet.label,
+          htmlSafe: true,
+        }),
+        isLoading: true,
+      });
+      this.args.model.snippets.removeObject(snippet);
+      snippet.deleteRecord();
+      await this.args.model.save();
+      await snippet.save();
+      loadingModal.close();
+    }
   });
 
-  @action
-  openRemoveModal(snippet) {
-    this.deletingSnippet = snippet;
-    this.isRemoveModalOpen = true;
-  }
-
-  @action
-  closeRemoveModal() {
-    this.deletingSnippet = null;
-    this.isRemoveModalOpen = false;
-  }
   @action
   goBack() {
     history.back();
