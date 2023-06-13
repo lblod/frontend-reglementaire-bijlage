@@ -87,7 +87,7 @@
           @alert={{true}}
           @icon="bin"
           @hideText={{true}}
-          {{on "click" (fn this.removeCodelist codelist)}}
+          {{on "click" (perform this.removeCodelistTask codelist)}}
         />
       </td>
     </c.body>

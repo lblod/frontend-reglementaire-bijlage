@@ -1,7 +1,6 @@
 import Controller from '@ember/controller';
 import { dropTask, restartableTask, timeout } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import ConfirmDeletionModal from 'frontend-reglementaire-bijlage/components/codelist/confirm-delete-modal';
 
@@ -15,6 +14,7 @@ export default class CodelistsManagementIndexController extends Controller {
   @tracked size = 20;
   @tracked label = '';
   @tracked sort = '-created-on';
+  openModal;
 
   updateSearchFilterTask = restartableTask(
     async (queryParamProperty, event) => {
@@ -29,28 +29,34 @@ export default class CodelistsManagementIndexController extends Controller {
     this.page = 0;
   }
 
-  @action async removeCodelist(codelist) {
-    let confirmModal = this.modals.open(ConfirmDeletionModal, {
+  removeCodelistTask = dropTask(async (codelist) => {
+    this.openModal = this.modals.open(ConfirmDeletionModal, {
       codelist: codelist,
       isLoading: false,
     });
-    let isConfirmed = await confirmModal;
+    let isConfirmed = await this.openModal;
     if (isConfirmed) {
-      let loadingModal = this.modals.open(ConfirmDeletionModal, {
+      this.openModal = this.modals.open(ConfirmDeletionModal, {
         codelist: codelist,
         isLoading: true,
       });
-      await this.removeCodelistTask.perform(codelist);
-      loadingModal.close();
+      await this.destroyCodelistRecordTask.perform(codelist);
+      this.openModal.close();
+      this.router.refresh();
     }
-  }
+  })
 
-  removeCodelistTask = dropTask(async (codelist) => {
+  destroyCodelistRecordTask = dropTask(async (codelist) => {
+    let concepts = await codelist.concepts;
     await Promise.all(
-      codelist.concepts.map((option) => option.destroyRecord())
+      concepts.map((option) => option.destroyRecord())
     );
 
     await codelist.destroyRecord();
-    this.router.refresh();
   });
+
+  reset(){
+    console.log("reset")
+    this.openModal?.close();
+  }
 }
