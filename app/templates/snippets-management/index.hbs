@@ -47,11 +47,7 @@
             @route="snippets-management.edit"
             @model={{snippet.id}}
           >
-            {{#if snippet.label}}
-              {{snippet.label}}
-            {{else}}
-              Unnamed
-            {{/if}}
+            {{snippet.label}}
           </AuLink>
         </td>
         <td>
