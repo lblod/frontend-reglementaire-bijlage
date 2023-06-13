@@ -3,8 +3,9 @@ import { service } from '@ember/service';
 import { action } from '@ember/object';
 import { restartableTask, task, timeout } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
+import { isBlank } from '../utils/strings';
 
-export default class SnippetForm extends Component {
+export default class SnippetListForm extends Component {
   @service store;
   @service router;
   @service currentSession;
@@ -30,7 +31,7 @@ export default class SnippetForm extends Component {
   });
 
   get invalidLabel() {
-    return !this.args.model.label || this.args.model.label === '';
+    return isBlank(this.args.model.label);
   }
 
   showSavedTask = restartableTask(async () => {

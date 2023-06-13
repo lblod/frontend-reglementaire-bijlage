@@ -6,10 +6,10 @@ export default class SnippetsManagementEditSnippetRoute extends Route {
   @service session;
 
   async model(params) {
-    const documentContainer = await this.store.findRecord(
-      'document-container',
-      params.snippet_id
-    );
-    return documentContainer;
+    const container = await this.store.query('document-container', {
+      'filter[id]': params.snippet_id,
+      include: 'current-version',
+    });
+    return container[0];
   }
 }
