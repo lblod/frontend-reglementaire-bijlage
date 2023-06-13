@@ -65,6 +65,10 @@ landing-page:
     title: Codelists
     content: Manage codelists that are used in a regulatory attachment
     button: Go to codelists
+legal:
+  accessibility-statement: Accessibility statement
+  cookie-statement: Cookie statement
+  disclaimer: Disclaimer
 sparql:
   name: "Regulatory statements register: SPARQL endpoint"
 reglement-list:
