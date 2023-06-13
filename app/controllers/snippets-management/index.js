@@ -18,8 +18,11 @@ export default class SnippetsManagementIndexController extends Controller {
   @tracked deletingSnippetList;
 
   removeSnippetList = task(async () => {
-    this.deletingSnippetList.deleteRecord();
-    await this.deletingSnippetList.save();
+    const snippets = await this.deletingSnippetList.snippets
+    for(let snippet of snippets) {
+      await snippet.destroyRecord();
+    }
+    await this.deletingSnippetList.destroyRecord();
     this.closeRemoveModal();
   });
 
