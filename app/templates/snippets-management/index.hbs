@@ -20,13 +20,12 @@
             </AuHeading>
           </AuToolbar::Group>
           <AuToolbar::Group>
-            <AuButton
-              @skin="primary"
-              {{on "click" (perform this.createSnippetList)}}
-              @loading={{this.createSnippetList.isRunning}}
+            <AuLink
+              @skin="button"
+              @route="snippets-management.new"
             >
               {{t "snippets.make-new"}}
-            </AuButton>
+            </AuLink>
           </AuToolbar::Group>
         </AuToolbar>
       </menu.general>
