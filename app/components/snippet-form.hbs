@@ -43,7 +43,7 @@
           <AuLink
             @skin="primary"
             @route="snippets-management.edit.edit-snippet"
-            @model={{snippet}}
+            @models={{array @model.id snippet.id}}
           >
             {{snippet.currentVersion.title}}
           </AuLink>
