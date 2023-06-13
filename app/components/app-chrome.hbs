@@ -40,14 +40,14 @@
       </AuToolbar::Group>
       <AuToolbar::Group>
         {{#if @editorDocument.isNew}}
-        <LinkTo @route="inbox.agendapoints" class="au-c-button au-c-button--tertiary au-c-button--alert"
-          role="menuitem">
+        <LinkTo @route="inbox.agendapoints" class="au-c-button au-c-button--tertiary au-c-button--alert">
           <AuIcon @icon="bin" @alignment="left" />
           {{t "utility.remove-concept"}}
         </LinkTo>
         {{else if this.showFileDropDown}}
         <AuDropdown @title="Bestand acties" @buttonLabel="Bestand opties" @alignment="right">
           {{#if @copyAgendapunt}}
+          {{!-- template-lint-disable require-context-role --}}
           <AuButton {{on "click" @copyAgendapunt}} @skin="tertiary" role="menuitem">
             <AuIcon @icon="copy" @alignment="left" />
             {{t "appChrome.copyAgendapoint"}}

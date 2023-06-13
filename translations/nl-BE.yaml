@@ -69,6 +69,10 @@ landing-page:
     title: Codelijsten
     content: Beheer codelijsten die gebruikt worden in reglementaire bijlagen
     button: Ga naar codelijsten
+legal:
+  accessibility-statement: Toegankelijkheidsverklaring
+  cookie-statement: Cookieverklaring
+  disclaimer: Disclaimer
 sparql:
   name: "Register reglementaire bijlagen: SPARQL endpoint"
 reglement-list:
