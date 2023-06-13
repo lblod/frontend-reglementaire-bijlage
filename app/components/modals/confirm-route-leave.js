@@ -1,9 +1,18 @@
 import Component from '@glimmer/component';
 import { service } from '@ember/service';
-import isLoadingRoute from '../utils/is-loading-route';
+import isLoadingRoute from '../../utils/is-loading-route';
 
+/**
+ * Show a modal during a route transition that stops the transition if cancel is pressed.
+ * @modal Modal component to pass with `{{component 'modal-component-name'}}`. Needs `@close` hook (passing a boolean) from ember-promise-modals!
+ * @enabled Should the modal be shown on a transition
+ * @onConfirm (optional) hook when confirmation is clicked
+ * @onCancel (optional) hook when cancellation is clicked
+ */
 export default class ConfirmRouteLeaveComponent extends Component {
   @service router;
+  @service modals;
+  previousTransition;
 
   constructor(...args) {
     super(...args);
@@ -22,31 +31,40 @@ export default class ConfirmRouteLeaveComponent extends Component {
     if (this.args.onConfirm) {
       this.args.onConfirm(transition);
     }
+    this.previousTransition.retry().then(() => {
+      this.previousTransition = null;
+    });
   }
 
   onCancel(transition) {
     if (this.args.onCancel) {
       this.args.onCancel(transition);
     } else {
-      transition.abort();
-
       if (window.history) {
         window.history.forward();
       }
     }
+    this.previousTransition = null;
   }
 
   confirm(transition) {
-    if (transition.isAborted || isLoadingRoute(transition.to)) {
+    if (
+      !this.args.enabled ||
+      this.previousTransition ||
+      transition.isAborted ||
+      isLoadingRoute(transition.to)
+    ) {
       return;
     }
-    if (this.args.enabled) {
-      if (window.confirm(this.args.message)) {
+    this.previousTransition = transition;
+    transition.abort();
+    this.modals.open(this.args.modal).then((isConfirmed) => {
+      if (isConfirmed) {
         this.onConfirm(transition);
       } else {
         this.onCancel(transition);
       }
-    }
+    });
   }
 
   willDestroy(...args) {
