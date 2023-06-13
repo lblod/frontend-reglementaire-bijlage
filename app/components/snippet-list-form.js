@@ -5,7 +5,7 @@ import { restartableTask, task, timeout } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
 import { isBlank } from '../utils/strings';
 
-export default class SnippetForm extends Component {
+export default class SnippetListForm extends Component {
   @service store;
   @service router;
   @service currentSession;
