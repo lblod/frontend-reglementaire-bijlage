@@ -1,12 +1,13 @@
 import Controller from '@ember/controller';
-import { restartableTask, timeout } from 'ember-concurrency';
+import { dropTask, restartableTask, timeout } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
-import { task } from 'ember-concurrency';
+import ConfirmDeletionModal from 'frontend-reglementaire-bijlage/components/codelist/confirm-delete-modal';
 
 export default class CodelistsManagementIndexController extends Controller {
   @service router;
+  @service modals;
 
   queryParams = ['page', 'size', 'label', 'sort'];
 
@@ -14,8 +15,6 @@ export default class CodelistsManagementIndexController extends Controller {
   @tracked size = 20;
   @tracked label = '';
   @tracked sort = '-created-on';
-  @tracked isRemoveModalOpen = false;
-  @tracked modalCodelist;
 
   updateSearchFilterTask = restartableTask(
     async (queryParamProperty, event) => {
@@ -30,27 +29,28 @@ export default class CodelistsManagementIndexController extends Controller {
     this.page = 0;
   }
 
-  @action openRemoveModal(codelist) {
-    this.modalCodelist = codelist;
-    this.isRemoveModalOpen = true;
+  @action async removeCodelist(codelist) {
+    let confirmModal = this.modals.open(ConfirmDeletionModal, {
+      codelist: codelist,
+      isLoading: false,
+    });
+    let isConfirmed = await confirmModal;
+    if (isConfirmed) {
+      let loadingModal = this.modals.open(ConfirmDeletionModal, {
+        codelist: codelist,
+        isLoading: true,
+      });
+      await this.removeCodelistTask.perform(codelist);
+      loadingModal.close();
+    }
   }
 
-  @action closeRemoveModal() {
-    this.modalCodelist = null;
-    this.isRemoveModalOpen = false;
-  }
-
-  removeCodelist = task(async () => {
+  removeCodelistTask = dropTask(async (codelist) => {
     await Promise.all(
-      this.modalCodelist.concepts.map((option) => option.destroyRecord())
+      codelist.concepts.map((option) => option.destroyRecord())
     );
 
-    await this.modalCodelist.destroyRecord();
-    this.reset();
+    await codelist.destroyRecord();
     this.router.refresh();
   });
-
-  reset() {
-    this.closeRemoveModal();
-  }
 }

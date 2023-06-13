@@ -1,0 +1,10 @@
+<Modals::BaseConfirm
+  @message={{
+    t 'codelist.crud.confirm-deletion' name=@data.codelist.label htmlSafe=true
+  }}
+  @alert={{true}}
+  @loading={{@data.isLoading}}
+  @loadingText={{t 'utility.deleting'}}
+  @confirmText={{t 'codelist.crud.delete'}}
+  @close={{@close}}
+/>

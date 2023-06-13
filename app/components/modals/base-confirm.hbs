@@ -1,0 +1,28 @@
+<AuModal
+  @title={{or @title (t 'utility.confirmation.body')}}
+  @modalOpen={{true}}
+  @closeModal={{fn @close false}} as |Modal|
+>
+  <Modal.Body>
+    <p>
+      {{@message}}
+    </p>
+  </Modal.Body>
+  <Modal.Footer>
+    <AuButton
+      @alert={{@alert}}
+      @loading={{@loading}}
+      @loadingMessage={{or @loadingMessage (t 'utility.loading')}}
+      {{on 'click' (fn @close true)}}
+    >
+      {{or @confirmMessage (t 'utility.ok')}}
+    </AuButton>
+    <AuButton
+      @skin='secondary'
+      @disabled={{@loading}}
+      {{on 'click' (fn @close false)}}
+    >
+      {{t 'utility.cancel'}}
+    </AuButton>
+  </Modal.Footer>
+</AuModal>

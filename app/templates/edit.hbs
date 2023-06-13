@@ -112,12 +112,38 @@
             @controller={{this.editor}}
             @options={{this.config.date}}
           />
-        </Sidebar>
+          <InsertTitleCard
+            @controller={{this.editor}}
+          />
+          <CitationPlugin::CitationInsert
+            @controller={{this.editor}}
+            @plugin={{this.citationPlugin}}
+            @config={{this.config.citation}}
+          />
+        </Sidebar.Collapsible>
+        <VariablePlugin::InsertVariableCard
+          @controller={{this.editor}}
+          @options={{this.config.variable}}
+        />
+        <ArticleStructurePlugin::StructureCard
+          @controller={{this.editor}}
+          @options={{this.config.structures}}
+        />
+        <CitationPlugin::CitationCard
+          @controller={{this.editor}}
+          @plugin={{this.citationPlugin}}
+          @config={{this.config.citation}}
+        />
+        <RdfaDatePlugin::Card
+          @controller={{this.editor}}
+          @options={{this.config.date}}
+        />
+      </Sidebar>
       {{/if}}
-    </:aside>
+  </:aside>
   </RdfaEditorContainer>
 {{/if}}
-<ConfirmRouteLeave
+<Modals::ConfirmRouteLeave
   @enabled={{this.dirty}}
-  @message={{t 'reglement-edit.confirm-leave-without-saving'}}
+  @modal={{component 'modals/confirm-discard-changes'}}
 />
