@@ -68,7 +68,7 @@
     @icon="add"
     @skin="secondary"
     @width="block"
-    @disabled={{this.invalidLabel}}
+    @disabled={{or this.invalidLabel @model.isNew}}
     {{on "click" (perform this.createSnippet)}}
     @loading={{this.createSnippet.isRunning}}
   >
