@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "@appuniversum/ember-appuniversum": "^2.2.0",
+    "@babel/eslint-parser": "^7.22.5",
     "@bagaar/ember-breadcrumbs": "^3.0.0",
     "@ember/optional-features": "^2.0.0",
     "@ember/render-modifiers": "^2.0.4",
@@ -40,7 +41,6 @@
     "@lblod/ember-rdfa-editor": "^3.7.2",
     "@lblod/ember-rdfa-editor-lblod-plugins": "^7.1.0",
     "@release-it-plugins/lerna-changelog": "github:release-it-plugins/lerna-changelog",
-    "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
     "ember-auto-import": "^2.4.3",
     "ember-changeset": "^4.1.0",
@@ -70,7 +70,7 @@
     "ember-source": "~4.8.0",
     "ember-template-lint": "^4.16.1",
     "ember-welcome-page": "^6.2.0",
-    "eslint": "^7.32.0",
+    "eslint": "^8.42.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-ember": "^11.1.0",
     "eslint-plugin-node": "^11.1.0",
@@ -92,6 +92,7 @@
     "edition": "octane"
   },
   "dependencies": {
+    "@babel/plugin-proposal-decorators": "^7.22.5",
     "@triply/yasgui": "^4.2.26",
     "date-fns": "^2.29.1",
     "ember-cli-string-helpers": "^6.1.0",
