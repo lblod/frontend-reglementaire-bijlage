@@ -34,4 +34,8 @@ export default class CodelistsManagementIndexRoute extends Route {
       codelists: this.store.query('code-list', query),
     });
   }
+
+  resetController(controller) {
+    controller.reset();
+  }
 }

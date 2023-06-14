@@ -12,7 +12,8 @@ import isLoadingRoute from '../../utils/is-loading-route';
 export default class ConfirmRouteLeaveComponent extends Component {
   @service router;
   @service modals;
-  previousTransition;
+  isConfirmedTransition = false;
+  confirmModal = null;
 
   constructor(...args) {
     super(...args);
@@ -31,40 +32,56 @@ export default class ConfirmRouteLeaveComponent extends Component {
     if (this.args.onConfirm) {
       this.args.onConfirm(transition);
     }
-    this.previousTransition.retry().then(() => {
-      this.previousTransition = null;
+    this.isConfirmedTransition = true;
+    transition.retry().then(() => {
+      this.reset();
     });
   }
 
   onCancel(transition) {
     if (this.args.onCancel) {
       this.args.onCancel(transition);
-    } else {
-      if (window.history) {
-        window.history.forward();
-      }
     }
-    this.previousTransition = null;
+    this.reset();
+  }
+
+  abortTransition(transition) {
+    transition.abort();
+    if (window.history) {
+      window.history.forward();
+    }
   }
 
   confirm(transition) {
     if (
+      this.isConfirmedTransition ||
       !this.args.enabled ||
-      this.previousTransition ||
       transition.isAborted ||
       isLoadingRoute(transition.to)
     ) {
       return;
     }
-    this.previousTransition = transition;
-    transition.abort();
-    this.modals.open(this.args.modal).then((isConfirmed) => {
-      if (isConfirmed) {
-        this.onConfirm(transition);
-      } else {
-        this.onCancel(transition);
-      }
-    });
+
+    this.abortTransition(transition);
+
+    if (this.confirmModal) {
+      return;
+    }
+
+    this.confirmModal = this.modals
+      .open(this.args.modal)
+      .then((isConfirmed) => {
+        if (isConfirmed) {
+          this.onConfirm(transition);
+        } else {
+          this.onCancel(transition);
+        }
+      });
+  }
+
+  reset() {
+    this.confirmModal = null;
+    this.isConfirmedTransition = false;
   }
 
   willDestroy(...args) {
