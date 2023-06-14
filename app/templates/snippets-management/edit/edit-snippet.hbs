@@ -122,8 +122,8 @@
       </:aside>
     </RdfaEditorContainer>
   {{/if}}
-  <ConfirmRouteLeave
+  <Modals::ConfirmRouteLeave
     @enabled={{this.dirty}}
-    @message={{t 'reglement-edit.confirm-leave-without-saving'}}
+    @modal={{component 'modals/confirm-discard-changes'}}
   />
 </div>
