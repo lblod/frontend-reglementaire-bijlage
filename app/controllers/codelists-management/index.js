@@ -44,19 +44,16 @@ export default class CodelistsManagementIndexController extends Controller {
       this.openModal.close();
       this.router.refresh();
     }
-  })
+  });
 
   destroyCodelistRecordTask = dropTask(async (codelist) => {
     let concepts = await codelist.concepts;
-    await Promise.all(
-      concepts.map((option) => option.destroyRecord())
-    );
+    await Promise.all(concepts.map((option) => option.destroyRecord()));
 
     await codelist.destroyRecord();
   });
 
-  reset(){
-    console.log("reset")
+  reset() {
     this.openModal?.close();
   }
 }
