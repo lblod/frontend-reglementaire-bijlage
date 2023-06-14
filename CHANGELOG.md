@@ -23,6 +23,35 @@
 
 
 
+
+## 6.4.0 (2023-06-14)
+
+#### :rocket: Enhancement
+* [#87](https://github.com/lblod/frontend-reglementaire-bijlage/pull/87) Feature/snippets ([@lagartoverde](https://github.com/lagartoverde))
+* [#81](https://github.com/lblod/frontend-reglementaire-bijlage/pull/81)  adding labels to options of codelist via the codelist edit/create form ([@lagartoverde](https://github.com/lagartoverde))
+
+#### :bug: Bug Fix
+* [#85](https://github.com/lblod/frontend-reglementaire-bijlage/pull/85) fixed currrentSession.group can be undefined ([@lagartoverde](https://github.com/lagartoverde))
+
+#### :house: Internal
+* [#94](https://github.com/lblod/frontend-reglementaire-bijlage/pull/94) Bump ember-cli-app-version from 5.0.0 to 6.0.0 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#90](https://github.com/lblod/frontend-reglementaire-bijlage/pull/90) Bump webpack from 5.76.1 to 5.86.0 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#91](https://github.com/lblod/frontend-reglementaire-bijlage/pull/91) Bump @lblod/ember-rdfa-editor from 3.7.2 to 3.8.0 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#89](https://github.com/lblod/frontend-reglementaire-bijlage/pull/89) Bump prettier from 2.8.4 to 2.8.8 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#97](https://github.com/lblod/frontend-reglementaire-bijlage/pull/97) Bump socket.io-parser from 4.2.2 to 4.2.4 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#96](https://github.com/lblod/frontend-reglementaire-bijlage/pull/96) Bump vm2 from 3.9.14 to 3.9.19 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#92](https://github.com/lblod/frontend-reglementaire-bijlage/pull/92) Bump eslint from 7.32.0 to 8.42.0 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#95](https://github.com/lblod/frontend-reglementaire-bijlage/pull/95) Add woodpecker config file to verify PRs ([@elpoelma](https://github.com/elpoelma))
+* [#83](https://github.com/lblod/frontend-reglementaire-bijlage/pull/83) Update ember-power-select to 7.0.0 ([@elpoelma](https://github.com/elpoelma))
+* [#82](https://github.com/lblod/frontend-reglementaire-bijlage/pull/82) Remove/replace deprecated code ([@elpoelma](https://github.com/elpoelma))
+
+#### Committers: 4
+- Arne Bertrand ([@abeforgit](https://github.com/abeforgit))
+- Deniss Kozickis ([@dkozickis](https://github.com/dkozickis))
+- Elena Poelman ([@elpoelma](https://github.com/elpoelma))
+- Oscar Rodriguez Villalobos ([@lagartoverde](https://github.com/lagartoverde))
+
+
 ## 6.3.1 (2023-05-19)
 
 #### :bug: Bug Fix
