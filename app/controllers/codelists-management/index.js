@@ -56,7 +56,6 @@ export default class CodelistsManagementIndexController extends Controller {
   });
 
   reset(){
-    console.log("reset")
     this.openModal?.close();
   }
 }
