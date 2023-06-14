@@ -16,6 +16,7 @@ codelist:
     confirm-deletion: Confirm to delete codelist <strong>{name}</strong>
   attr:
     label: Name of codelist
+    value: Value
     type: Type
     created-on: Created On
     not-found: N/A
@@ -65,6 +66,10 @@ landing-page:
     title: Codelists
     content: Manage codelists that are used in a regulatory attachment
     button: Go to codelists
+  snippets:
+    title: Snippets
+    content: Manage snippets that are used in a regulatory attachment
+    button: Go to snippets
 legal:
   accessibility-statement: Accessibility statement
   cookie-statement: Cookie statement
@@ -123,3 +128,29 @@ static-page:
   disclaimer: Disclaimer
   cookie-policy: Cookie Policy
   accesibility-statement: Accessibility Statement
+snippets:
+  manage-snippet-lists: Manage snippet lists
+  make-new: Create new snippet list
+  create-snippet-list: Create snippet list
+  edit-snippet-list: Edit snippet list
+  edit-snippet: Edit snippet
+  snippet-label: Snippet label
+  snippet-label-explanation: Choose a label to refer to the snippet list
+  add-new-snippet: Add new snippet
+  remove: Remove
+  saved: Saved
+  crud:
+    no-data: No snippet lists where found
+    confirm-deletion: Confirm to delete snippet list <strong>{name}</strong>
+    confirm-deletion-snippet: Confirm to delete snippet <strong>{name}</strong>
+    delete: Delete snippet list
+    delete-snippet: Delete snippet
+  attr:
+    label: Label
+    id: Id
+    snippet: Snippet
+
+editor-document-title:
+  placeholder: Untitled document
+  change-title: Change title
+  title-saved: Title saved

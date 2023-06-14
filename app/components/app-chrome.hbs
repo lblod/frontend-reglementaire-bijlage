@@ -8,7 +8,7 @@
       <AuToolbar::Group>
         <ul class="au-c-list-horizontal au-u-padding-right-tiny">
           {{#unless @editorDocument.isNew}}
-          {{#if @editorDocument.updatedOn}}
+          {{#if (and @editorDocument.updatedOn (not @dirty))}}
           <li class="au-c-list-horizontal__item">
             <span class="au-c-app-chrome__status">
               {{t "utility.saved-on"}} {{human-friendly-date @editorDocument.updatedOn locale=this.intl.primaryLocale}}
@@ -35,7 +35,7 @@
         </AuPill>
         {{/if}}
         <EditorDocumentTitle @title={{@editorDocument.title}} @editActive={{@editorDocument.isNew}}
-          @onChange={{this.updateDocumentTitle}} @onSubmit={{this.saveDocument}} @onCancel={{this.resetDocument}}
+          @onSubmit={{perform this.updateDocumentTitle}} @onCancel={{perform this.resetDocument}}
           @readOnly={{@readOnly}} />
       </AuToolbar::Group>
       <AuToolbar::Group>

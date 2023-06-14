@@ -16,6 +16,7 @@ codelist:
     confirm-deletion: Bevestig om codelijst <strong>{name}</strong> te verwijderen
   attr:
     label: Naam van de codelijst
+    value: Waarde
     type: Type
     created-on: Aangemaakt op
     not-found: n.v.t.
@@ -65,6 +66,10 @@ landing-page:
     title: Codelijsten
     content: Beheer codelijsten die gebruikt worden in reglementaire bijlagen
     button: Ga naar codelijsten
+  snippets:
+    title: Fragmentlijsten
+    content: Beheer fragmentlijsten die gebruikt worden in reglementaire bijlagen
+    button: Ga naar fragmentlijsten
 legal:
   accessibility-statement: Toegankelijkheidsverklaring
   cookie-statement: Cookieverklaring
@@ -123,3 +128,29 @@ static-page:
   disclaimer: Disclaimer
   cookie-policy: Cookieverklaring
   accesibility-statement: Toegankelijkheidsverklaring
+snippets:
+  manage-snippet-lists: Beheer fragmentlijsten
+  make-new: Maak nieuwe fragmentlijst aan
+  create-snippet-list: Fragmentlijsten aanmaken
+  edit-snippet-list: Fragmentenlijst bewerken
+  edit-snippet: Fragment bewerken
+  snippet-label: Fragment label
+  snippet-label-explanation: Kies een label om naar de fragmentenlijst te verwijzen
+  add-new-snippet: Nieuw fragment toevoegen
+  remove: Verwijderen
+  saved: Opgeslagen
+  crud:
+    no-data: Geen fragmenten gevonden
+    confirm-deletion: Bevestig om fragmentenlijst <strong>{name}</strong> te verwijderen
+    confirm-deletion-snippet: Bevestig om fragment <strong>{name}</strong> te verwijderen
+    delete: Fragmentenlijst verwijderen
+    delete-snippet: Fragment verwijderen
+  attr:
+    label: Label
+    id: Id
+    snippet: Fragment
+
+editor-document-title:
+  placeholder: Naamloos document
+  change-title: Titel wijzigen
+  title-saved: Titel opgeslagen

@@ -53,6 +53,27 @@
           </c.footer>
         </AuCard>
       </li>
+      <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+        <AuCard @flex={{true}} as |c|>
+          <c.header @badgeSkin="brand" @badgeIcon="ordered-list">
+            <AuHeading @level="2" @skin="4">
+              {{t "landing-page.snippets.title"}}
+            </AuHeading>
+          </c.header>
+          <c.content>
+            <p>
+              {{t "landing-page.snippets.content"}}
+            </p>
+          </c.content>
+          <c.footer>
+            <AuLink
+              @route="snippets-management"
+              @skin="button">
+              {{t "landing-page.snippets.button"}}
+            </AuLink>
+          </c.footer>
+        </AuCard>
+      </li>
     </ul>
   </div>
 </div>

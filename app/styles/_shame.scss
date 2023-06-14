@@ -91,3 +91,22 @@
     overflow: inherit;
   }
 }
+
+.under-label-text {
+  font-size: 13px;
+  margin-bottom: 5px;
+  color: var(--au-gray-500);
+}
+
+.snippets-pill-container {
+  height: fit-content;
+  margin-left: 10px;
+}
+
+.snippets-add-button-container {
+  height: 50px;
+}
+
+.snippets-table .au-c-data-table__actions--bottom {
+  display: none;
+}

@@ -1,25 +1,37 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
+import { restartableTask, timeout } from 'ember-concurrency';
 
 export default class EditorDocumentTitleComponent extends Component {
   @tracked active = false;
   @tracked error = false;
-
+  @tracked _title;
+  @tracked showSaved = false;
   constructor() {
     super(...arguments);
     this.active = this.args.editActive;
   }
 
   get title() {
-    return this.args.title || '';
+    if (this._title === undefined || this._title === null) {
+      return this.args.title;
+    } else {
+      return this._title;
+    }
+  }
+
+  get titleModified() {
+    if (!this._title) {
+      return false;
+    }
+    return this.args.title !== this._title;
   }
 
   @action
   setTitle(event) {
     let title = event.target.value;
-
-    this.args.onChange?.(title);
+    this._title = title;
 
     if (title) {
       this.error = false;
@@ -27,25 +39,47 @@ export default class EditorDocumentTitleComponent extends Component {
   }
 
   @action
-  submit() {
-    this.args.onSubmit?.();
-    this.toggleActive();
+  submit(event) {
+    event.preventDefault();
+    this.args.onSubmit?.(this.title);
+    this.disabledEdit();
+    this.showSaved = true;
+    setTimeout(() => (this.showSaved = false), 30000);
+    return false;
   }
+
+  hideSaved = restartableTask(async () => {
+    await timeout(3000);
+    this.showSaved = false;
+  });
 
   @action
   cancel(event) {
     if (!event.currentTarget.contains(event.relatedTarget)) {
-      this.args.onCancel?.();
-      this.toggleActive();
+      this._title = undefined;
+      this.disabledEdit();
     }
   }
 
+  // We check the value of active in these 2 functions to avoid setting it 2 times in the same computation with
+  // the cancel event + submit which cause a bug in prod environments.
   @action
-  toggleActive() {
-    if (this.active && !this.title) {
+  enableEdit() {
+    if (this.active) {
+      return;
+    }
+    this.active = true;
+  }
+
+  @action
+  disabledEdit() {
+    if (!this.active) {
+      return;
+    }
+    if (!this.title) {
       this.error = true;
     } else {
-      this.active = !this.active;
+      this.active = false;
     }
   }
 
