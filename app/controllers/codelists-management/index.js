@@ -19,6 +19,7 @@ export default class CodelistsManagementIndexController extends Controller {
   updateSearchFilterTask = restartableTask(
     async (queryParamProperty, event) => {
       await timeout(300);
+
       this[queryParamProperty] = event.target.value.trim();
       this.resetPagination();
     }
