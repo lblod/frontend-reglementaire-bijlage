@@ -60,6 +60,7 @@ import { linkPasteHandler } from '@lblod/ember-rdfa-editor/plugins/link';
 import { citationPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/citation-plugin';
 import { highlight } from '@lblod/ember-rdfa-editor/plugins/highlight/marks/highlight';
 import { color } from '@lblod/ember-rdfa-editor/plugins/color/marks/color';
+import { trackedFunction } from 'ember-resources/util/function';
 
 export default class SnippetsManagementEditSnippetController extends Controller {
   @service store;
@@ -211,12 +212,13 @@ export default class SnippetsManagementEditSnippetController extends Controller 
     return this.editorDocument.content !== this.editor?.htmlContent;
   }
 
-  fetchEditorDocument = task(async () => {
-    this._editorDocument = await this.model.currentVersion;
+  currentVersion = trackedFunction(this, async () => {
+    const currentVersion = await this.model.currentVersion;
+    return currentVersion;
   });
 
   get editorDocument() {
-    return this._editorDocument || this.model.currentVersion;
+    return this._editorDocument || this.currentVersion.value;
   }
 
   publish = task(async () => {
