@@ -213,12 +213,11 @@ export default class SnippetsManagementEditSnippetController extends Controller 
   }
 
   currentVersion = trackedFunction(this, async () => {
-    const currentVersion = await this.model.currentVersion;
-    return currentVersion;
+    return await this.model.currentVersion;
   });
 
   get editorDocument() {
-    return this._editorDocument || this.currentVersion.value;
+    return this.currentVersion.value;
   }
 
   publish = task(async () => {
@@ -230,7 +229,7 @@ export default class SnippetsManagementEditSnippetController extends Controller 
     const html = this.editor.htmlContent;
     const templateVersion = generateTemplate(this.editor);
     const editorDocument = this.store.createRecord('editor-document');
-    const currentVersion = await this.model.currentVersion;
+    const currentVersion = this.editorDocument;
     editorDocument.content = html;
     editorDocument.templateVersion = templateVersion;
     editorDocument.createdOn = currentVersion.createdOn;
@@ -242,6 +241,5 @@ export default class SnippetsManagementEditSnippetController extends Controller 
     const documentContainer = this.model;
     documentContainer.currentVersion = editorDocument;
     await documentContainer.save();
-    this._editorDocument = editorDocument;
   });
 }
