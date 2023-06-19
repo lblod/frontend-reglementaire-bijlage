@@ -12,9 +12,4 @@ export default class SnippetsManagementEditSnippetRoute extends Route {
     });
     return container[0];
   }
-
-  setupController(controller, model) {
-    super.setupController(controller, model);
-    controller._editorDocument = null;
-  }
 }
