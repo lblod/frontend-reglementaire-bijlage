@@ -1,4 +1,4 @@
-### Overview
+## Overview
 <!-- high level overview of changes (not just "implement ticket") + *why* + design document, special notes like ticket partially implemented etc. -->
 
 ##### connected issues and PRs:
@@ -24,4 +24,5 @@
 - [ ] Check cancel/go-back flows
 - [ ] Check database state correct when deleting/updating (especially regarding relationships)
 - [ ] changelog
+- [ ] npm lint
 - [ ] no new deprecations
