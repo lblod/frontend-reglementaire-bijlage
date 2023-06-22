@@ -56,7 +56,7 @@ utility:
   required: Vereist
   optional: Optioneel
   field-required: Dit veld is verplicht
-  type-something-placeholder: Type iets...
+  type-something-placeholder: Typ iets...
 landing-page:
   create-reglement:
     title: Reglementaire bijlagen
@@ -100,8 +100,8 @@ reglement-edit:
   return: Terug naar overzicht reglementaire bijlagen
   saving: Bezig met opslaan
   confirm-leave-without-saving: Bent u zeker dat u deze pagina wilt verlaten zonder uw wijzigingen op te slaan?
-  document-title-placeholder: Geef titel op
-  insert-title: Titel document invoegen
+  document-title-placeholder: Geef document-titel op
+  insert-title: Document-titel invoegen
 auth:
   acmidm: Log in met acm/idm
   login: Meld u aan

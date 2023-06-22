@@ -24,6 +24,16 @@
 
 
 
+
+## 6.5.0 (2023-06-19)
+
+#### :house: Internal
+* [#99](https://github.com/lblod/frontend-reglementaire-bijlage/pull/99) Update editor plugins to 8.0.1 ([@lagartoverde](https://github.com/lagartoverde))
+
+#### Committers: 1
+- Oscar Rodriguez Villalobos ([@lagartoverde](https://github.com/lagartoverde))
+
+
 ## 6.4.0 (2023-06-14)
 
 #### :rocket: Enhancement
