@@ -110,3 +110,13 @@
 .snippets-table .au-c-data-table__actions--bottom {
   display: none;
 }
+
+[property='eli:title']:before {
+  content: 'Document-titel' !important;
+}
+
+[lang='en-US'] {
+  [property='eli:title']:before {
+    content: 'Document title' !important;
+  }
+}
