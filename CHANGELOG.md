@@ -25,6 +25,27 @@
 
 
 
+
+## 6.6.0 (2023-06-22)
+
+#### :rocket: Enhancement
+* [#109](https://github.com/lblod/frontend-reglementaire-bijlage/pull/109) GN-4312 make document title more distinct from title ([@abeforgit](https://github.com/abeforgit))
+
+#### :bug: Bug Fix
+* [#101](https://github.com/lblod/frontend-reglementaire-bijlage/pull/101) Fix type translation on codelist overview page ([@elpoelma](https://github.com/elpoelma))
+
+#### :house: Internal
+* [#110](https://github.com/lblod/frontend-reglementaire-bijlage/pull/110) Update `@lblod/ember-rdfa-editor-lblod-plugins` to 8.1.0 ([@elpoelma](https://github.com/elpoelma))
+* [#108](https://github.com/lblod/frontend-reglementaire-bijlage/pull/108) Update `@lblod/ember-rdfa-editor` to 3.10 ([@elpoelma](https://github.com/elpoelma))
+* [#102](https://github.com/lblod/frontend-reglementaire-bijlage/pull/102) Bump ember-concurrency from 2.3.7 to 3.0.0 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#103](https://github.com/lblod/frontend-reglementaire-bijlage/pull/103) Bump ember-cli-app-version from 6.0.0 to 6.0.1 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#105](https://github.com/lblod/frontend-reglementaire-bijlage/pull/105) Bump eslint from 8.42.0 to 8.43.0 ([@dependabot[bot]](https://github.com/apps/dependabot))
+
+#### Committers: 3
+- Arne Bertrand ([@abeforgit](https://github.com/abeforgit))
+- Elena Poelman ([@elpoelma](https://github.com/elpoelma))
+- Oscar Rodriguez Villalobos ([@lagartoverde](https://github.com/lagartoverde))
+
 ## 6.5.0 (2023-06-19)
 
 #### :house: Internal
