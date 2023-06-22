@@ -132,21 +132,31 @@ export default class CodelistFormComponent extends Component {
   @action
   setOptionLabel(option, event) {
     option.label = event.target.value;
+    // auto-validate the uniqueness of labels,
+    // just like ember-changeset does for other validation
+    this.validateUniqueLabels.perform();
   }
 
-  validateUniqueLabels() {
+  validateUniqueLabels = dropTask(async () => {
     const uniqueValues = new Set();
     this.optionsChangesetList.changesets.forEach((option) => {
-      if (!isBlank(option.label) && uniqueValues.has(option.label)) {
+      let label = option.label;
+      //workaround to clear a custom error
+      option.rollbackProperty('label');
+      option.label = label;
+
+      if (uniqueValues.has(label)) {
         option.addError(
           'label',
           this.intl.t('codelist.options.label-unique-error')
         );
       } else {
-        uniqueValues.add(option.label);
+        if (label !== undefined && !isBlank(label)) {
+          uniqueValues.add(label);
+        }
       }
     });
-  }
+  });
 
   @action
   updateCodelistType(type) {
@@ -166,7 +176,8 @@ export default class CodelistFormComponent extends Component {
         changeset.label = null;
       }
     });
-    this.validateUniqueLabels();
+
+    await this.validateUniqueLabels.perform();
 
     if (
       this.allValid &&
