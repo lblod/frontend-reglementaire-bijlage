@@ -136,6 +136,9 @@ export default class EditController extends Controller {
             'title|chapter|section|subsection|article',
             'structure_header|article_header',
           ],
+          scrollContainer: () =>
+            document.getElementsByClassName('say-container__main')[0],
+          scrollingPadding: 300,
         },
       ],
       date: {
