@@ -60,6 +60,7 @@ import { linkPasteHandler } from '@lblod/ember-rdfa-editor/plugins/link';
 import { citationPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/citation-plugin';
 import { highlight } from '@lblod/ember-rdfa-editor/plugins/highlight/marks/highlight';
 import { color } from '@lblod/ember-rdfa-editor/plugins/color/marks/color';
+import { trackedFunction } from 'ember-resources/util/function';
 
 export default class SnippetsManagementEditSnippetController extends Controller {
   @service store;
@@ -214,12 +215,12 @@ export default class SnippetsManagementEditSnippetController extends Controller 
     return this.editorDocument.content !== this.editor?.htmlContent;
   }
 
-  fetchEditorDocument = task(async () => {
-    this._editorDocument = await this.model.currentVersion;
+  currentVersion = trackedFunction(this, async () => {
+    return await this.model.currentVersion;
   });
 
   get editorDocument() {
-    return this._editorDocument || this.model.currentVersion;
+    return this.currentVersion.value;
   }
 
   publish = task(async () => {
@@ -231,7 +232,7 @@ export default class SnippetsManagementEditSnippetController extends Controller 
     const html = this.editor.htmlContent;
     const templateVersion = generateTemplate(this.editor);
     const editorDocument = this.store.createRecord('editor-document');
-    const currentVersion = await this.model.currentVersion;
+    const currentVersion = this.editorDocument;
     editorDocument.content = html;
     editorDocument.templateVersion = templateVersion;
     editorDocument.createdOn = currentVersion.createdOn;
@@ -243,6 +244,5 @@ export default class SnippetsManagementEditSnippetController extends Controller 
     const documentContainer = this.model;
     documentContainer.currentVersion = editorDocument;
     await documentContainer.save();
-    this._editorDocument = editorDocument;
   });
 }
