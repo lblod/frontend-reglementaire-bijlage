@@ -78,6 +78,9 @@
       {{#if this.editor}}
         <Sidebar as |Sidebar|>
           <Sidebar.Collapsible @title='Insert' @expandedInitially={{true}}>
+            <InsertTitleCard
+              @controller={{this.editor}}
+            />
             <ArticleStructurePlugin::ArticleStructureCard
               @controller={{this.editor}}
               @options={{this.config.structures}}
@@ -85,9 +88,6 @@
             <RdfaDatePlugin::Insert
               @controller={{this.editor}}
               @options={{this.config.date}}
-            />
-            <InsertTitleCard
-              @controller={{this.editor}}
             />
             <CitationPlugin::CitationInsert
               @controller={{this.editor}}
