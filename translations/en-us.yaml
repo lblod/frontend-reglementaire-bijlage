@@ -75,7 +75,7 @@ legal:
   cookie-statement: Cookie statement
   disclaimer: Disclaimer
 sparql:
-  name: "Regulatory statements register: SPARQL endpoint"
+  name: "Regulatory attachments register: SPARQL endpoint"
 reglement-list:
   page-title: Regulatory Attachments
   new: Add new
@@ -109,16 +109,16 @@ auth:
     select-user: Choose a mock user
   logout: Log out
 publish-page:
-  title: Publish regulatory statement template
+  title: Publish regulatory attachment template
   title-short: Publish template
-  back: Back to regulatory statement
+  back: Back to regulatory attachment
   latestversion: Latest version
   publishedversion: Published version
   publish: Publish
   notification-title: Success
   notification-content: Template successfully published
 reglementaire-bijlage-titel:
-  description: "Regulatory statement title"
+  description: "Regulatory attachment title"
   placeholder: "Untitled document"
   modify: "Modify title"
 static-page:
