@@ -76,7 +76,7 @@ legal:
   disclaimer: Disclaimer
 sparql:
   name: "Regulatory attachments register: SPARQL endpoint"
-reglement-list:
+regulatory-attachments:
   page-title: Regulatory Attachments
   new: Add new
   title: Title
@@ -133,6 +133,7 @@ snippets:
   make-new: Create new snippet list
   create-snippet-list: Create snippet list
   edit-snippet-list: Edit snippet list
+  new-snippet-list: New snippet list
   edit-snippet: Edit snippet
   snippet-label: Snippet label
   snippet-label-explanation: Choose a label to refer to the snippet list

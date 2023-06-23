@@ -76,7 +76,7 @@ legal:
   disclaimer: Disclaimer
 sparql:
   name: "Register reglementaire bijlagen: SPARQL endpoint"
-reglement-list:
+regulatory-attachments:
   page-title: Reglementaire bijlagen
   new: Aanmaken
   title: Titel
@@ -133,6 +133,7 @@ snippets:
   make-new: Maak nieuwe fragmentlijst aan
   create-snippet-list: Fragmentlijsten aanmaken
   edit-snippet-list: Fragmentenlijst bewerken
+  new-snippet-list: Nieuwe Fragmentenlijst
   edit-snippet: Fragment bewerken
   snippet-label: Fragment label
   snippet-label-explanation: Kies een label om naar de fragmentenlijst te verwijzen

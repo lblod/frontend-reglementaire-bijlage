@@ -53,8 +53,8 @@ import {
   date,
   dateView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/rdfa-date-plugin/nodes/date';
-import { document_title } from '../utils/editor-nodes';
-import { generateTemplate } from '../utils/generate-template';
+import { document_title } from '../../utils/editor-nodes';
+import { generateTemplate } from '../../utils/generate-template';
 import { getOwner } from '@ember/application';
 import { linkPasteHandler } from '@lblod/ember-rdfa-editor/plugins/link';
 import { citationPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/citation-plugin';
@@ -217,7 +217,10 @@ export default class EditController extends Controller {
 
   publish = task(async () => {
     await this.save.perform();
-    this.router.transitionTo('publish', this.model.documentContainer.id);
+    this.router.transitionTo(
+      'regulatory-attachments.publish',
+      this.model.documentContainer.id
+    );
   });
 
   save = task(async () => {
