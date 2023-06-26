@@ -56,10 +56,9 @@
       </td>
       <td>
         <AuButton
-          @icon="bin"
+          @skin="naked"
+          @icon="trash"
           @alert={{true}}
-          @skin="secondary"
-          @hideText={{true}}
           {{on "click" (fn this.startRemoveReglementFlow documentContainer)}}
         >
           {{t "utility.delete"}}

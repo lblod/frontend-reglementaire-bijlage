@@ -40,7 +40,7 @@ utility:
   saving: Bezig met opslaan
   cancel: Annuleren
   edit: Pas aan
-  delete: Verwijder
+  delete: Verwijderen
   deleting: Aan het verwijderen...
   close: Afsluiten
   saved-on: Bewaard op
@@ -138,7 +138,6 @@ snippets:
   snippet-label: Fragment label
   snippet-label-explanation: Kies een label om naar de fragmentenlijst te verwijzen
   add-new-snippet: Nieuw fragment toevoegen
-  remove: Verwijderen
   saved: Opgeslagen
   crud:
     no-data: Geen fragmenten gevonden

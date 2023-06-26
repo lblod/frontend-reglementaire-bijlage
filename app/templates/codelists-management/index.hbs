@@ -81,14 +81,14 @@
         {{/if}}
       </td>
       <td>
-        <AuButton
-          aria-label={{t 'utility.delete'}}
-          title={{t 'utility.delete'}}
-          @alert={{true}}
-          @icon="bin"
-          @hideText={{true}}
-          {{on "click" (fn this.openRemoveModal codelist)}}
-        />
+         <AuButton
+            @skin="naked"
+            @icon="trash"
+            @alert={{true}}
+            {{on "click" (fn this.openRemoveModal codelist)}}
+          >
+            {{t "utility.delete"}}
+          </AuButton>
       </td>
     </c.body>
   </s.content>
