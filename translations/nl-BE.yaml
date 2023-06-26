@@ -67,9 +67,9 @@ landing-page:
     content: Beheer codelijsten die gebruikt worden in reglementaire bijlagen
     button: Ga naar codelijsten
   snippets:
-    title: Fragmentlijsten
-    content: Beheer fragmentlijsten die gebruikt worden in reglementaire bijlagen
-    button: Ga naar fragmentlijsten
+    title: Fragmentenlijsten
+    content: Beheer fragmentenlijsten die gebruikt worden in reglementaire bijlagen
+    button: Ga naar fragmentenlijsten
 legal:
   accessibility-statement: Toegankelijkheidsverklaring
   cookie-statement: Cookieverklaring
@@ -129,9 +129,9 @@ static-page:
   cookie-policy: Cookieverklaring
   accesibility-statement: Toegankelijkheidsverklaring
 snippets:
-  manage-snippet-lists: Beheer fragmentlijsten
-  make-new: Maak nieuwe fragmentlijst aan
-  create-snippet-list: Fragmentlijsten aanmaken
+  manage-snippet-lists: Beheer fragmentenlijsten
+  make-new: Maak nieuwe fragmentenlijst aan
+  create-snippet-list: Fragmentenlijsten aanmaken
   edit-snippet-list: Fragmentenlijst bewerken
   new-snippet-list: Nieuwe Fragmentenlijst
   edit-snippet: Fragment bewerken
