@@ -139,7 +139,6 @@ export default class SnippetsManagementEditSnippetController extends Controller 
           ],
           scrollContainer: () =>
             document.getElementsByClassName('say-container__main')[0],
-          scrollingPadding: 300,
         },
       ],
       date: {
