@@ -26,6 +26,24 @@
 
 
 
+
+## 6.6.1 (2023-06-27)
+
+#### :bug: Bug Fix
+* [#121](https://github.com/lblod/frontend-reglementaire-bijlage/pull/121) Add number node and number view so the number variable is not broken ([@lagartoverde](https://github.com/lagartoverde))
+
+#### :house: Internal
+* [#117](https://github.com/lblod/frontend-reglementaire-bijlage/pull/117) Bump release-it from 15.8.0 to 15.11.0 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#115](https://github.com/lblod/frontend-reglementaire-bijlage/pull/115) Bump @ember/test-helpers from 2.9.3 to 2.9.4 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#116](https://github.com/lblod/frontend-reglementaire-bijlage/pull/116) Bump ember-template-lint from 4.18.2 to 5.10.3 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#118](https://github.com/lblod/frontend-reglementaire-bijlage/pull/118) Bump date-fns from 2.29.3 to 2.30.0 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#119](https://github.com/lblod/frontend-reglementaire-bijlage/pull/119) Bump eslint-plugin-ember from 11.4.7 to 11.9.0 ([@dependabot[bot]](https://github.com/apps/dependabot))
+
+#### Committers: 2
+- Deniss Kozickis ([@dkozickis](https://github.com/dkozickis))
+- Oscar Rodriguez Villalobos ([@lagartoverde](https://github.com/lagartoverde))
+
+
 ## 6.6.0 (2023-06-22)
 
 #### :rocket: Enhancement
