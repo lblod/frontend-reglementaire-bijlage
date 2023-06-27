@@ -94,7 +94,7 @@
   "dependencies": {
     "@babel/plugin-proposal-decorators": "^7.22.5",
     "@triply/yasgui": "^4.2.26",
-    "date-fns": "^2.29.1",
+    "date-fns": "^2.30.0",
     "ember-cli-string-helpers": "^6.1.0",
     "ember-simple-auth": "^4.2.2"
   },
