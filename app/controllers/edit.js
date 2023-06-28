@@ -60,6 +60,10 @@ import { linkPasteHandler } from '@lblod/ember-rdfa-editor/plugins/link';
 import { citationPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/citation-plugin';
 import { highlight } from '@lblod/ember-rdfa-editor/plugins/highlight/marks/highlight';
 import { color } from '@lblod/ember-rdfa-editor/plugins/color/marks/color';
+import {
+  number,
+  numberView,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/number';
 
 export default class EditController extends Controller {
   @service store;
@@ -87,6 +91,7 @@ export default class EditController extends Controller {
       placeholder,
       ...tableNodes({ tableGroup: 'block', cellContent: 'inline*' }),
       date: date(this.config.date),
+      number,
       variable,
       ...STRUCTURE_NODES,
       heading,
@@ -187,6 +192,7 @@ export default class EditController extends Controller {
         ),
         link: linkView(this.config.link)(controller),
         date: dateView(this.config.date)(controller),
+        number: numberView(controller),
       };
     };
   }
