@@ -38,6 +38,9 @@ utility:
   save: Opslaan
   save-and-publish: Bewaar en maak beschikbaar
   saving: Bezig met opslaan
+  confirm-leave-without-saving: Bent u zeker dat u deze pagina wilt verlaten zonder uw wijzigingen op te slaan?
+  confirm: Bevestigen
+  discard-changes: Wijzigingen verwerpen
   cancel: Annuleren
   edit: Pas aan
   delete: Verwijder
@@ -99,7 +102,6 @@ reglement-edit:
   edit: Wijzig bijlage
   return: Terug naar overzicht reglementaire bijlagen
   saving: Bezig met opslaan
-  confirm-leave-without-saving: Bent u zeker dat u deze pagina wilt verlaten zonder uw wijzigingen op te slaan?
   document-title-placeholder: Geef document-titel op
   insert-title: Document-titel invoegen
 auth:
