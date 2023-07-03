@@ -60,6 +60,7 @@
           <Tb.Group>
             <Plugins::Link::LinkMenu @controller={{this.editor}} />
             <Plugins::Image::InsertMenu @controller={{this.editor}}/>
+            <GenericRdfaVariable::InsertMenu @controller={{this.editor}}/>
           </Tb.Group>
           <Tb.Group>
             <Plugins::Table::TableMenu @controller={{this.editor}} />
@@ -115,6 +116,8 @@
             @controller={{this.editor}}
             @options={{this.config.date}}
           />
+          {{! VariablePlugin::TemplateVariableCard is not added on purpose
+          as an RB-document creator should not be able to set a "default" codelist option.}}
         </Sidebar>
       {{/if}}
     </:aside>
@@ -122,5 +125,4 @@
 {{/if}}
 <ConfirmRouteLeave
   @enabled={{this.dirty}}
-  @message={{t 'reglement-edit.confirm-leave-without-saving'}}
 />
