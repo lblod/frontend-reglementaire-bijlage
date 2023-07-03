@@ -142,7 +142,6 @@ export default class CodelistFormComponent extends Component {
     this.optionsChangesetList.changesets.forEach((option) => {
       let label = option.label;
       //workaround to clear a custom error
-      option.rollbackProperty('label');
       option.label = label;
 
       if (uniqueValues.has(label)) {
