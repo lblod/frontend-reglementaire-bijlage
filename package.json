@@ -82,7 +82,7 @@
     "qunit": "^2.19.2",
     "qunit-dom": "^2.0.0",
     "release-it": "^15.11.0",
-    "sass": "^1.51.0",
+    "sass": "^1.63.6",
     "webpack": "^5.86.0"
   },
   "engines": {
