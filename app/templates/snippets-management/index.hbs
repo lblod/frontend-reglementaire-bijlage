@@ -1,7 +1,3 @@
-{{page-title (t "snippets.manage-snippet-lists")}}
-<BreadcrumbsItem>
-  {{t "snippets.manage-snippet-lists"}}
-</BreadcrumbsItem>
 <div class="au-c-body-container au-c-body-container--scroll">
   <AuDataTable
     @content={{this.model}}
@@ -57,10 +53,10 @@
           <AuButton
             @skin="naked"
             @icon="trash"
-            @alert="true"
+            @alert={{true}}
             {{on "click" (fn this.openRemoveModal snippet)}}
           >
-            {{t "snippets.remove"}}
+            {{t "utility.delete"}}
           </AuButton>
         </td>
       </c.body>

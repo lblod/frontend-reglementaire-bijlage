@@ -1,9 +1,7 @@
-  <BreadcrumbsItem as |linkClass|>
-  <LinkTo
-    @route={{'codelists-management'}}
-    class={{linkClass}}
-  >
-      {{t "codelist.name"}}
-  </LinkTo>
+{{page-title (t 'codelist.name')}}
+<BreadcrumbsItem as |linkClass|>
+  <AuLink @route={{'codelists-management'}} class={{linkClass}}>
+    {{t 'codelist.name'}}
+  </AuLink>
 </BreadcrumbsItem>
 {{outlet}}

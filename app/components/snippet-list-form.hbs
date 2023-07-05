@@ -52,11 +52,11 @@
           <AuButton
             @skin="naked"
             @icon="trash"
-            @alert="true"
+            @alert={{true}}
             @disabled={{this.invalidLabel}}
             {{on "click" (fn this.openRemoveModal snippet)}}
           >
-            {{t "snippets.remove"}}
+            {{t "utility.delete"}}
           </AuButton>
         </td>
       </c.body>

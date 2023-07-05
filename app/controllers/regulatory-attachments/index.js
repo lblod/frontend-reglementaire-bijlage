@@ -3,7 +3,7 @@ import { restartableTask, task, timeout } from 'ember-concurrency';
 import { service } from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
-import { RS_STANDARD_FOLDER } from '../utils/constants';
+import { RS_STANDARD_FOLDER } from '../../utils/constants';
 
 export default class ListController extends Controller {
   @service store;
@@ -55,7 +55,10 @@ export default class ListController extends Controller {
     this.documentContainer.folder = folder;
     await this.documentContainer.save();
     this.createReglementModalIsOpen = false;
-    this.router.transitionTo('edit', this.documentContainer.id);
+    this.router.transitionTo(
+      'regulatory-attachments.edit',
+      this.documentContainer.id
+    );
   });
 
   @action

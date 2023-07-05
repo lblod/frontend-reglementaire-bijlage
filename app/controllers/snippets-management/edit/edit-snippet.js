@@ -226,11 +226,6 @@ export default class SnippetsManagementEditSnippetController extends Controller 
     return this.currentVersion.value;
   }
 
-  publish = task(async () => {
-    await this.save.perform();
-    this.router.transitionTo('publish', this.model.id);
-  });
-
   save = task(async () => {
     const html = this.editor.htmlContent;
     const templateVersion = generateTemplate(this.editor);
