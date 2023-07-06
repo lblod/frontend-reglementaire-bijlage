@@ -142,6 +142,8 @@ export default class SnippetsManagementEditSnippetController extends Controller 
             'title|chapter|section|subsection|article',
             'structure_header|article_header',
           ],
+          scrollContainer: () =>
+            document.getElementsByClassName('say-container__main')[0],
         },
       ],
       date: {
