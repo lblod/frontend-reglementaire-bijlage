@@ -38,9 +38,12 @@ utility:
   save: Opslaan
   save-and-publish: Bewaar en maak beschikbaar
   saving: Bezig met opslaan
+  confirm-leave-without-saving: Bent u zeker dat u deze pagina wilt verlaten zonder uw wijzigingen op te slaan?
+  confirm: Bevestigen
+  discard-changes: Wijzigingen verwerpen
   cancel: Annuleren
   edit: Pas aan
-  delete: Verwijder
+  delete: Verwijderen
   deleting: Aan het verwijderen...
   close: Afsluiten
   saved-on: Bewaard op
@@ -67,16 +70,16 @@ landing-page:
     content: Beheer codelijsten die gebruikt worden in reglementaire bijlagen
     button: Ga naar codelijsten
   snippets:
-    title: Fragmentlijsten
-    content: Beheer fragmentlijsten die gebruikt worden in reglementaire bijlagen
-    button: Ga naar fragmentlijsten
+    title: Fragmentenlijsten
+    content: Beheer fragmentenlijsten die gebruikt worden in reglementaire bijlagen
+    button: Ga naar fragmentenlijsten
 legal:
   accessibility-statement: Toegankelijkheidsverklaring
   cookie-statement: Cookieverklaring
   disclaimer: Disclaimer
 sparql:
   name: "Register reglementaire bijlagen: SPARQL endpoint"
-reglement-list:
+regulatory-attachments:
   page-title: Reglementaire bijlagen
   new: Aanmaken
   title: Titel
@@ -99,7 +102,6 @@ reglement-edit:
   edit: Wijzig bijlage
   return: Terug naar overzicht reglementaire bijlagen
   saving: Bezig met opslaan
-  confirm-leave-without-saving: Bent u zeker dat u deze pagina wilt verlaten zonder uw wijzigingen op te slaan?
   document-title-placeholder: Geef document-titel op
   insert-title: Document-titel invoegen
 auth:
@@ -129,15 +131,15 @@ static-page:
   cookie-policy: Cookieverklaring
   accesibility-statement: Toegankelijkheidsverklaring
 snippets:
-  manage-snippet-lists: Beheer fragmentlijsten
-  make-new: Maak nieuwe fragmentlijst aan
-  create-snippet-list: Fragmentlijsten aanmaken
+  manage-snippet-lists: Beheer fragmentenlijsten
+  make-new: Maak nieuwe fragmentenlijst aan
+  create-snippet-list: Fragmentenlijsten aanmaken
   edit-snippet-list: Fragmentenlijst bewerken
+  new-snippet-list: Nieuwe Fragmentenlijst
   edit-snippet: Fragment bewerken
   snippet-label: Fragment label
   snippet-label-explanation: Kies een label om naar de fragmentenlijst te verwijzen
   add-new-snippet: Nieuw fragment toevoegen
-  remove: Verwijderen
   saved: Opgeslagen
   crud:
     no-data: Geen fragmenten gevonden

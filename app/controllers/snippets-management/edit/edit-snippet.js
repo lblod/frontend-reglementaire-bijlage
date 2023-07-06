@@ -61,6 +61,10 @@ import { citationPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/c
 import { highlight } from '@lblod/ember-rdfa-editor/plugins/highlight/marks/highlight';
 import { color } from '@lblod/ember-rdfa-editor/plugins/color/marks/color';
 import { trackedFunction } from 'ember-resources/util/function';
+import {
+  number,
+  numberView,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/number';
 
 export default class SnippetsManagementEditSnippetController extends Controller {
   @service store;
@@ -88,6 +92,7 @@ export default class SnippetsManagementEditSnippetController extends Controller 
       placeholder,
       ...tableNodes({ tableGroup: 'block', cellContent: 'inline*' }),
       date: date(this.config.date),
+      number,
       variable,
       ...STRUCTURE_NODES,
       heading,
@@ -190,6 +195,7 @@ export default class SnippetsManagementEditSnippetController extends Controller 
         ),
         link: linkView(this.config.link)(controller),
         date: dateView(this.config.date)(controller),
+        number: numberView(controller),
       };
     };
   }
@@ -221,11 +227,6 @@ export default class SnippetsManagementEditSnippetController extends Controller 
   get editorDocument() {
     return this.currentVersion.value;
   }
-
-  publish = task(async () => {
-    await this.save.perform();
-    this.router.transitionTo('publish', this.model.id);
-  });
 
   save = task(async () => {
     const html = this.editor.htmlContent;

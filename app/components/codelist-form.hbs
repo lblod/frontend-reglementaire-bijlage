@@ -135,7 +135,7 @@
                 <AuInput
                   @error={{labelError}}
                   @value={{option.label}}
-                  {{on 'change' (fn this.setOptionLabel option)}}
+                  {{on 'input' (fn this.setOptionLabel option)}}
                 />
                  {{#if labelError}}
                     <AuHelpText>
@@ -162,7 +162,7 @@
               </td>
               <td>
                 <AuButton
-                  @icon='bin'
+                  @icon='trash'
                   @alert={{true}}
                   @skin='naked'
                   {{on 'click' (fn this.removeOption option)}}
@@ -196,3 +196,7 @@
     </table>
   </div>
 </div>
+
+<ConfirmRouteLeave
+  @enabled={{not this.allPristine}}
+/>

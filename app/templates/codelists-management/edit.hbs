@@ -1,11 +1,11 @@
 {{page-title (t "codelist.crud.edit")}}
 <BreadcrumbsItem as |linkClass|>
-    <LinkTo
+    <AuLink
       @route='codelists-management.edit'
       @model={{this.model.id}}
       class={{linkClass}}
     >
       {{this.model.codelist.label}}
-    </LinkTo>
+    </AuLink>
 </BreadcrumbsItem>
 <CodelistForm @codelist={{this.model.codelist}}/>

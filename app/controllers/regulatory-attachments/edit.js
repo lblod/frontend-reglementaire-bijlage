@@ -53,13 +53,17 @@ import {
   date,
   dateView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/rdfa-date-plugin/nodes/date';
-import { document_title } from '../utils/editor-nodes';
-import { generateTemplate } from '../utils/generate-template';
+import { document_title } from '../../utils/editor-nodes';
+import { generateTemplate } from '../../utils/generate-template';
 import { getOwner } from '@ember/application';
 import { linkPasteHandler } from '@lblod/ember-rdfa-editor/plugins/link';
 import { citationPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/citation-plugin';
 import { highlight } from '@lblod/ember-rdfa-editor/plugins/highlight/marks/highlight';
 import { color } from '@lblod/ember-rdfa-editor/plugins/color/marks/color';
+import {
+  number,
+  numberView,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/number';
 
 export default class EditController extends Controller {
   @service store;
@@ -87,6 +91,7 @@ export default class EditController extends Controller {
       placeholder,
       ...tableNodes({ tableGroup: 'block', cellContent: 'inline*' }),
       date: date(this.config.date),
+      number,
       variable,
       ...STRUCTURE_NODES,
       heading,
@@ -190,6 +195,7 @@ export default class EditController extends Controller {
         ),
         link: linkView(this.config.link)(controller),
         date: dateView(this.config.date)(controller),
+        number: numberView(controller),
       };
     };
   }
@@ -220,7 +226,10 @@ export default class EditController extends Controller {
 
   publish = task(async () => {
     await this.save.perform();
-    this.router.transitionTo('publish', this.model.documentContainer.id);
+    this.router.transitionTo(
+      'regulatory-attachments.publish',
+      this.model.documentContainer.id
+    );
   });
 
   save = task(async () => {

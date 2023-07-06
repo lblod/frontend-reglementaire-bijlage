@@ -38,6 +38,9 @@ utility:
   save: Save
   saving: Saving...
   save-and-publish: Save and publish
+  confirm-leave-without-saving: Are you sure you would like to leave this page without saving your changes?
+  confirm: Confirm
+  discard-changes: Discard changes
   cancel: Cancel
   edit: Edit
   delete: Delete
@@ -75,8 +78,8 @@ legal:
   cookie-statement: Cookie statement
   disclaimer: Disclaimer
 sparql:
-  name: "Regulatory statements register: SPARQL endpoint"
-reglement-list:
+  name: "Regulatory attachments register: SPARQL endpoint"
+regulatory-attachments:
   page-title: Regulatory Attachments
   new: Add new
   title: Title
@@ -99,7 +102,6 @@ reglement-edit:
   edit: Edit attachment
   return: Go Back
   saving: Saving
-  confirm-leave-without-saving: Are you sure you would like to leave this page without saving your changes?
   document-title-placeholder: Enter document title
   insert-title: Insert document title
 auth:
@@ -109,16 +111,16 @@ auth:
     select-user: Choose a mock user
   logout: Log out
 publish-page:
-  title: Publish regulatory statement template
+  title: Publish regulatory attachment template
   title-short: Publish template
-  back: Back to regulatory statement
+  back: Back to regulatory attachment
   latestversion: Latest version
   publishedversion: Published version
   publish: Publish
   notification-title: Success
   notification-content: Template successfully published
 reglementaire-bijlage-titel:
-  description: "Regulatory statement title"
+  description: "Regulatory attachment title"
   placeholder: "Untitled document"
   modify: "Modify title"
 static-page:
@@ -133,11 +135,11 @@ snippets:
   make-new: Create new snippet list
   create-snippet-list: Create snippet list
   edit-snippet-list: Edit snippet list
+  new-snippet-list: New snippet list
   edit-snippet: Edit snippet
   snippet-label: Snippet label
   snippet-label-explanation: Choose a label to refer to the snippet list
   add-new-snippet: Add new snippet
-  remove: Remove
   saved: Saved
   crud:
     no-data: No snippet lists where found

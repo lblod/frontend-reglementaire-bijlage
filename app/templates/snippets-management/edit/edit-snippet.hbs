@@ -1,16 +1,6 @@
 {{page-title (t 'reglement-edit.edit')}}
 <BreadcrumbsItem>
-  <AuLink @route="snippets-management">
-    {{t "snippets.manage-snippet-lists"}}
-  </AuLink>
-</BreadcrumbsItem>
-<BreadcrumbsItem>
-  <AuLink @route="snippets-management.edit">
-    {{t "snippets.edit-snippet-list"}}
-  </AuLink>
-</BreadcrumbsItem>
-<BreadcrumbsItem>
-  {{t "snippets.edit-snippet"}}
+    {{t "snippets.edit-snippet"}}
 </BreadcrumbsItem>
 <AppChrome
   @editorDocument={{this.editorDocument}}
@@ -61,6 +51,7 @@
           <Tb.Group>
             <Plugins::Link::LinkMenu @controller={{this.editor}} />
             <Plugins::Image::InsertMenu @controller={{this.editor}}/>
+            <GenericRdfaVariable::InsertMenu @controller={{this.editor}}/>
           </Tb.Group>
           <Tb.Group>
             <Plugins::Table::TableMenu @controller={{this.editor}} />
@@ -123,5 +114,4 @@
 {{/if}}
 <ConfirmRouteLeave
   @enabled={{this.dirty}}
-  @message={{t 'reglement-edit.confirm-leave-without-saving'}}
 />

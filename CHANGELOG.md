@@ -25,6 +25,45 @@
 
 
 
+
+
+## 6.6.1 (2023-06-27)
+
+#### :bug: Bug Fix
+* [#121](https://github.com/lblod/frontend-reglementaire-bijlage/pull/121) Add number node and number view so the number variable is not broken ([@lagartoverde](https://github.com/lagartoverde))
+
+#### :house: Internal
+* [#117](https://github.com/lblod/frontend-reglementaire-bijlage/pull/117) Bump release-it from 15.8.0 to 15.11.0 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#115](https://github.com/lblod/frontend-reglementaire-bijlage/pull/115) Bump @ember/test-helpers from 2.9.3 to 2.9.4 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#116](https://github.com/lblod/frontend-reglementaire-bijlage/pull/116) Bump ember-template-lint from 4.18.2 to 5.10.3 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#118](https://github.com/lblod/frontend-reglementaire-bijlage/pull/118) Bump date-fns from 2.29.3 to 2.30.0 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#119](https://github.com/lblod/frontend-reglementaire-bijlage/pull/119) Bump eslint-plugin-ember from 11.4.7 to 11.9.0 ([@dependabot[bot]](https://github.com/apps/dependabot))
+
+#### Committers: 2
+- Deniss Kozickis ([@dkozickis](https://github.com/dkozickis))
+- Oscar Rodriguez Villalobos ([@lagartoverde](https://github.com/lagartoverde))
+
+
+## 6.6.0 (2023-06-22)
+
+#### :rocket: Enhancement
+* [#109](https://github.com/lblod/frontend-reglementaire-bijlage/pull/109) GN-4312 make document title more distinct from title ([@abeforgit](https://github.com/abeforgit))
+
+#### :bug: Bug Fix
+* [#101](https://github.com/lblod/frontend-reglementaire-bijlage/pull/101) Fix type translation on codelist overview page ([@elpoelma](https://github.com/elpoelma))
+
+#### :house: Internal
+* [#110](https://github.com/lblod/frontend-reglementaire-bijlage/pull/110) Update `@lblod/ember-rdfa-editor-lblod-plugins` to 8.1.0 ([@elpoelma](https://github.com/elpoelma))
+* [#108](https://github.com/lblod/frontend-reglementaire-bijlage/pull/108) Update `@lblod/ember-rdfa-editor` to 3.10 ([@elpoelma](https://github.com/elpoelma))
+* [#102](https://github.com/lblod/frontend-reglementaire-bijlage/pull/102) Bump ember-concurrency from 2.3.7 to 3.0.0 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#103](https://github.com/lblod/frontend-reglementaire-bijlage/pull/103) Bump ember-cli-app-version from 6.0.0 to 6.0.1 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#105](https://github.com/lblod/frontend-reglementaire-bijlage/pull/105) Bump eslint from 8.42.0 to 8.43.0 ([@dependabot[bot]](https://github.com/apps/dependabot))
+
+#### Committers: 3
+- Arne Bertrand ([@abeforgit](https://github.com/abeforgit))
+- Elena Poelman ([@elpoelma](https://github.com/elpoelma))
+- Oscar Rodriguez Villalobos ([@lagartoverde](https://github.com/lagartoverde))
+
 ## 6.5.0 (2023-06-19)
 
 #### :house: Internal
