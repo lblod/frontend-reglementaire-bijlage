@@ -53,7 +53,6 @@ import {
   date,
   dateView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/rdfa-date-plugin/nodes/date';
-import { document_title } from '../../utils/editor-nodes';
 import { generateTemplate } from '../../utils/generate-template';
 import { getOwner } from '@ember/application';
 import { linkPasteHandler } from '@lblod/ember-rdfa-editor/plugins/link';
@@ -64,7 +63,7 @@ import {
   number,
   numberView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/number';
-
+import { document_title } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/document-title-plugin/nodes';
 export default class EditController extends Controller {
   @service store;
   @service router;
