@@ -135,7 +135,7 @@
                 <AuInput
                   @error={{labelError}}
                   @value={{option.label}}
-                  {{on 'change' (fn this.setOptionLabel option)}}
+                  {{on 'input' (fn this.setOptionLabel option)}}
                 />
                  {{#if labelError}}
                     <AuHelpText>
