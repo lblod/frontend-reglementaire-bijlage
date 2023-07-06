@@ -96,6 +96,7 @@
     "@triply/yasgui": "^4.2.26",
     "date-fns": "^2.30.0",
     "ember-cli-string-helpers": "^6.1.0",
+    "ember-resources": "^6.1.1",
     "ember-simple-auth": "^4.2.2"
   },
   "volta": {
