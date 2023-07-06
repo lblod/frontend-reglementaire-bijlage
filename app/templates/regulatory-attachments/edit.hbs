@@ -1,9 +1,12 @@
 {{page-title (t 'reglement-edit.edit')}}
-<BreadcrumbsItem>
-  <AuLink @route= 'list' @skin="secondary">
-    <AuIcon @icon="arrow-left" @alignment="left" />
-    {{t 'reglement-edit.return'}}
-  </AuLink>
+<BreadcrumbsItem as |linkClass|>
+    <AuLink
+      @route='regulatory-attachments.edit'
+      @model={{this.model.id}}
+      class={{linkClass}}
+    >
+      {{t 'reglement-edit.edit'}}
+    </AuLink>
 </BreadcrumbsItem>
 {{#if this.editorDocument}}
   <AppChrome

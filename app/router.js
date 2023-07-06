@@ -9,18 +9,18 @@ export default class Router extends EmberRouter {
 Router.map(function () {
   this.route('login');
   this.route('mock-login');
-  this.route('list');
-  this.route('edit', { path: '/:id/edit' });
-  this.route('publish', { path: '/:id/publish' });
-
   this.route('legal', function () {
     this.route('disclaimer');
     this.route('cookiestatement');
     this.route('accessibilitystatement');
   });
+  this.route('regulatory-attachments', function () {
+    this.route('edit', { path: '/:id/edit' });
+    this.route('publish', { path: '/:id/publish' });
+  });
   this.route('codelists-management', function () {
     this.route('new');
-    this.route('edit', { path: '/edit/:id' });
+    this.route('edit', { path: '/:id/edit' });
   });
   this.route('sparql');
   this.route('authorization', function () {
@@ -28,8 +28,8 @@ Router.map(function () {
   });
   this.route('snippets-management', function () {
     this.route('new');
-    this.route('edit', { path: '/edit/:id' }, function () {
-      this.route('edit-snippet', { path: '/edit-snippet/:snippet_id' });
+    this.route('edit', { path: '/:id/edit' }, function () {
+      this.route('edit-snippet', { path: '/:snippet_id/edit-snippet' });
     });
   });
 });
