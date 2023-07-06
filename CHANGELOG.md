@@ -27,6 +27,27 @@
 
 
 
+
+## 6.7.0 (2023-07-06)
+
+#### :rocket: Enhancement
+* [#111](https://github.com/lblod/frontend-reglementaire-bijlage/pull/111) Implement new TOC scrolling functionality ([@lagartoverde](https://github.com/lagartoverde))
+* [#120](https://github.com/lblod/frontend-reglementaire-bijlage/pull/120) Use AuModal for the modal shown when leaving a route ([@x-m-el](https://github.com/x-m-el))
+
+#### :bug: Bug Fix
+* [#113](https://github.com/lblod/frontend-reglementaire-bijlage/pull/113) GN-4378 Revalidate codelist options list when changing the label ([@x-m-el](https://github.com/x-m-el))
+
+#### :house: Internal
+* [#129](https://github.com/lblod/frontend-reglementaire-bijlage/pull/129) Update @lblod/ember-rdfa-editor-lblod-plugins to 8.4.0 ([@elpoelma](https://github.com/elpoelma))
+* [#127](https://github.com/lblod/frontend-reglementaire-bijlage/pull/127) Bump @lblod/ember-rdfa-editor-lblod-plugins from 8.1.0 to 8.2.2 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#123](https://github.com/lblod/frontend-reglementaire-bijlage/pull/123) Bump ember-resolver from 8.1.0 to 10.1.1 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#126](https://github.com/lblod/frontend-reglementaire-bijlage/pull/126) Bump sass from 1.59.2 to 1.63.6 ([@dependabot[bot]](https://github.com/apps/dependabot))
+
+#### Committers: 3
+- Elena Poelman ([@elpoelma](https://github.com/elpoelma))
+- Oscar Rodriguez Villalobos ([@lagartoverde](https://github.com/lagartoverde))
+- [@x-m-el](https://github.com/x-m-el)
+
 ## 6.6.1 (2023-06-27)
 
 #### :bug: Bug Fix
