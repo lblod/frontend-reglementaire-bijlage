@@ -50,14 +50,14 @@ export default class ListController extends Controller {
     await this.editorDocument.save();
     const folder = await this.store.findRecord(
       'editor-document-folder',
-      RS_STANDARD_FOLDER
+      RS_STANDARD_FOLDER,
     );
     this.documentContainer.folder = folder;
     await this.documentContainer.save();
     this.createReglementModalIsOpen = false;
     this.router.transitionTo(
       'regulatory-attachments.edit',
-      this.documentContainer.id
+      this.documentContainer.id,
     );
   });
 
@@ -104,7 +104,7 @@ export default class ListController extends Controller {
 
       this[queryParamProperty] = event.target.value.trim();
       this.resetPagination();
-    }
+    },
   );
 
   resetPagination() {

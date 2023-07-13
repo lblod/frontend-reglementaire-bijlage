@@ -23,7 +23,7 @@ export function generateTemplate(editor) {
     const uriWithoutUuid = uriParts.join('/');
     documentHTML = documentHTML.replace(
       uri,
-      `${uriWithoutUuid}/\${generateUuid()}`
+      `${uriWithoutUuid}/\${generateUuid()}`,
     );
   }
   return documentHTML;

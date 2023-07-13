@@ -50,13 +50,13 @@ export default class CodelistFormComponent extends Component {
     this.optionsChangesetList = new changesetList(
       conceptsSorted,
       OptionValidations,
-      ['inScheme', this.args.codelist]
+      ['inScheme', this.args.codelist],
     );
 
     this.changeset = Changeset(
       this.args.codelist,
       lookupValidator(CodelistValidations),
-      CodelistValidations
+      CodelistValidations,
     );
 
     if (this.args.codelist.isNew) {
@@ -94,7 +94,7 @@ export default class CodelistFormComponent extends Component {
       this.store.createRecord('skosConcept', {
         createdOn: new Date(),
         position: this.optionsChangesetList.length,
-      })
+      }),
     );
   }
 
@@ -106,7 +106,7 @@ export default class CodelistFormComponent extends Component {
   fetchCodelistTypes = task(async () => {
     const typesScheme = await this.store.findRecord(
       'concept-scheme',
-      COD_CONCEPT_SCHEME_ID
+      COD_CONCEPT_SCHEME_ID,
     );
     const types = await typesScheme.concepts;
     this.codelistTypes = types;
@@ -114,7 +114,7 @@ export default class CodelistFormComponent extends Component {
       this.selectedType = this.args.codelist.type;
     } else {
       this.selectedType = this.codelistTypes.find(
-        (type) => type.id === COD_SINGLE_SELECT_ID
+        (type) => type.id === COD_SINGLE_SELECT_ID,
       );
     }
   });
@@ -147,7 +147,7 @@ export default class CodelistFormComponent extends Component {
       if (uniqueValues.has(label)) {
         option.addError(
           'label',
-          this.intl.t('codelist.options.label-unique-error')
+          this.intl.t('codelist.options.label-unique-error'),
         );
       } else {
         if (label !== undefined && !isBlank(label)) {
@@ -185,7 +185,7 @@ export default class CodelistFormComponent extends Component {
       let wasNew = this.args.codelist.isNew;
       const administrativeUnit = await this.store.findRecord(
         'administrative-unit',
-        this.currentSession.group.id
+        this.currentSession.group.id,
       );
       this.changeset.publisher = administrativeUnit;
       await this.changeset.save();
@@ -194,7 +194,7 @@ export default class CodelistFormComponent extends Component {
       if (wasNew) {
         this.router.transitionTo(
           'codelists-management.edit',
-          this.changeset.id
+          this.changeset.id,
         );
       }
     }

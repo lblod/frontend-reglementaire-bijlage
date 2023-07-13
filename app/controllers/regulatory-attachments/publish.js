@@ -32,7 +32,7 @@ export default class PublishController extends Controller {
   createPublishedResource = task(async () => {
     this.showPublishingModal = false;
     const publicationTask = this.store.createRecord(
-      'regulatory-attachment-publication-task'
+      'regulatory-attachment-publication-task',
     );
     publicationTask.documentContainer = this.model.container;
     await publicationTask.save();
@@ -43,11 +43,11 @@ export default class PublishController extends Controller {
       this.intl.t('publish-page.notification-title'),
       {
         timeOut: 3000,
-      }
+      },
     );
     this.router.transitionTo(
       'regulatory-attachments.edit',
-      this.model.container.id
+      this.model.container.id,
     );
   });
 }

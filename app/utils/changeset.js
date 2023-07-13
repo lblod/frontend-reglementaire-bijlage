@@ -57,7 +57,7 @@ class ChangesetList {
   _initialize() {
     this._records = this._originalRecords;
     this._changesets = this._records.map((record) =>
-      this.createChangeset(record)
+      this.createChangeset(record),
     );
   }
 
@@ -75,7 +75,7 @@ class ChangesetList {
 
   async validate() {
     await Promise.all(
-      this._changesets.map((changeset) => changeset.validate())
+      this._changesets.map((changeset) => changeset.validate()),
     );
   }
 
