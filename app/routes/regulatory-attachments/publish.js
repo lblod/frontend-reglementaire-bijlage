@@ -9,7 +9,7 @@ export default class PublishRoute extends Route {
     const container = await this.store.findRecord(
       'document-container',
       params.id,
-      { reload: true }
+      { reload: true },
     );
     const currentVersion = await container.get('currentVersion');
     const templateVersion = await currentVersion.get('templateVersion');

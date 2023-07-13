@@ -56,7 +56,7 @@ export default class SnippetListForm extends Component {
 
     this.router.transitionTo(
       'snippets-management.edit.edit-snippet',
-      documentContainer
+      documentContainer,
     );
   });
 

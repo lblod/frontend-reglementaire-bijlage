@@ -8,7 +8,7 @@ module('Unit | Model | code-list', function (hooks) {
   // Specify the other units that are required for this test.
   test('creating a codelist and adding options works', async function (assert) {
     const codeList = run(() =>
-      this.owner.lookup('service:store').createRecord('code-list', {})
+      this.owner.lookup('service:store').createRecord('code-list', {}),
     );
 
     codeList.label = 'a';
@@ -16,7 +16,7 @@ module('Unit | Model | code-list', function (hooks) {
     assert.strictEqual(codeList.label, 'a');
 
     const option = run(() =>
-      this.owner.lookup('service:store').createRecord('skos-concept')
+      this.owner.lookup('service:store').createRecord('skos-concept'),
     );
 
     const options = await codeList.concepts;
