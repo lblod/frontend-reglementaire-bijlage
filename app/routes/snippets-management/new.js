@@ -8,7 +8,7 @@ export default class CodelistsManagementNewRoute extends Route {
   async model() {
     const administrativeUnit = await this.store.findRecord(
       'administrative-unit',
-      this.currentSession.group.id
+      this.currentSession.group.id,
     );
     const snippetList = this.store.createRecord('snippet-list', {
       createdOn: new Date(),

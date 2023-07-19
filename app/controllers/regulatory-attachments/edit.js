@@ -190,7 +190,7 @@ export default class EditController extends Controller {
       return {
         variable: variableView(controller),
         table_of_contents: tableOfContentsView(this.config.tableOfContents)(
-          controller
+          controller,
         ),
         link: linkView(this.config.link)(controller),
         date: dateView(this.config.date)(controller),
@@ -227,7 +227,7 @@ export default class EditController extends Controller {
     await this.save.perform();
     this.router.transitionTo(
       'regulatory-attachments.publish',
-      this.model.documentContainer.id
+      this.model.documentContainer.id,
     );
   });
 
