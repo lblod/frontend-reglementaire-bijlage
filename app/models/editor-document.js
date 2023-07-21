@@ -21,6 +21,11 @@ export default class EditorDocumentModel extends Model {
     async: true,
   })
   publishedVersion;
+  @belongsTo('published-snippet', {
+    inverse: 'derivedFrom',
+    async: true,
+  })
+  publishedSnippetVersion;
 
   get htmlSafeContent() {
     return htmlSafe(this.content);
