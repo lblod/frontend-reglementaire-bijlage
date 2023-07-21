@@ -19,9 +19,22 @@ export default class SnippetsManagementIndexController extends Controller {
 
   removeSnippetList = task(async () => {
     const snippets = await this.deletingSnippetList.snippets;
-    for (let snippet of snippets) {
-      await snippet.destroyRecord();
-    }
+
+    await Promise.all(
+      snippets.map(async (snippet) => {
+        const editorDocument = await snippet.currentVersion;
+        const publishedSnippetVersion =
+          await editorDocument.publishedSnippetVersion;
+
+        if (publishedSnippetVersion) {
+          publishedSnippetVersion.validThrough = new Date();
+          await publishedSnippetVersion.save();
+        }
+
+        await snippet.destroyRecord();
+      })
+    );
+
     await this.deletingSnippetList.destroyRecord();
     this.closeRemoveModal();
   });
