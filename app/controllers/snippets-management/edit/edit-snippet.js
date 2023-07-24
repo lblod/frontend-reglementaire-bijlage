@@ -75,6 +75,7 @@ export default class SnippetsManagementEditSnippetController extends Controller 
   @service intl;
   @service currentSession;
   @tracked citationPlugin = citationPlugin(this.config.citation);
+  @service muTask;
 
   schema = new Schema({
     nodes: {
@@ -235,6 +236,7 @@ export default class SnippetsManagementEditSnippetController extends Controller 
     const currentVersion = this.editorDocument;
     editorDocument.content = html;
     editorDocument.templateVersion = templateVersion;
+
     editorDocument.createdOn = currentVersion.createdOn;
     editorDocument.updatedOn = new Date();
     editorDocument.title = currentVersion.title;
@@ -244,5 +246,13 @@ export default class SnippetsManagementEditSnippetController extends Controller 
     const documentContainer = this.model;
     documentContainer.currentVersion = editorDocument;
     await documentContainer.save();
+
+    const publicationTask = this.store.createRecord(
+      'snippet-list-publication-task',
+    );
+    publicationTask.documentContainer = documentContainer;
+    await publicationTask.save();
+
+    await this.muTask.waitForMuTaskTask.perform(publicationTask.id, 100);
   });
 }

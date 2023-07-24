@@ -62,7 +62,19 @@ export default class SnippetListForm extends Component {
 
   removeSnippet = task(async () => {
     this.args.model.snippets.removeObject(this.deletingSnippet);
-    this.deletingSnippet.deleteRecord();
+
+    const editorDocument = await this.deletingSnippet.currentVersion;
+
+    const publishedSnippetVersion =
+      await editorDocument.publishedSnippetVersion;
+
+    if (publishedSnippetVersion) {
+      publishedSnippetVersion.validThrough = new Date();
+      await publishedSnippetVersion.save();
+    }
+
+    await this.deletingSnippet.deleteRecord();
+
     await this.args.model.save();
     await this.deletingSnippet.save();
     this.closeRemoveModal();
