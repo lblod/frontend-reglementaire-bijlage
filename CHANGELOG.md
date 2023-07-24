@@ -28,6 +28,26 @@
 
 
 
+
+## 6.8.0 (2023-07-24)
+
+#### :bug: Bug Fix
+* [#136](https://github.com/lblod/frontend-reglementaire-bijlage/pull/136) GN-4323: Publish snippet to public space ([@dkozickis](https://github.com/dkozickis))
+
+#### :house: Internal
+* [#140](https://github.com/lblod/frontend-reglementaire-bijlage/pull/140) Bump @lblod/ember-rdfa-editor-lblod-plugins from 8.4.0 to 8.4.1 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#142](https://github.com/lblod/frontend-reglementaire-bijlage/pull/142) Bump word-wrap from 1.2.3 to 1.2.4 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#137](https://github.com/lblod/frontend-reglementaire-bijlage/pull/137) Bump eslint from 8.44.0 to 8.45.0 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#139](https://github.com/lblod/frontend-reglementaire-bijlage/pull/139) Bump eslint-plugin-qunit from 7.3.4 to 8.0.0 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#134](https://github.com/lblod/frontend-reglementaire-bijlage/pull/134) Bump prettier from 2.8.8 to 3.0.0 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#130](https://github.com/lblod/frontend-reglementaire-bijlage/pull/130) Bump ember-welcome-page from 6.2.0 to 7.0.2 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#133](https://github.com/lblod/frontend-reglementaire-bijlage/pull/133) Bump ember-resources from 6.1.1 to 6.2.1 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#135](https://github.com/lblod/frontend-reglementaire-bijlage/pull/135) Bump semver from 5.7.1 to 5.7.2 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#131](https://github.com/lblod/frontend-reglementaire-bijlage/pull/131) Bump eslint-plugin-ember from 11.9.0 to 11.10.0 ([@dependabot[bot]](https://github.com/apps/dependabot))
+
+#### Committers: 1
+- Deniss Kozickis ([@dkozickis](https://github.com/dkozickis))
+
 ## 6.7.0 (2023-07-06)
 
 #### :rocket: Enhancement
