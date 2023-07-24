@@ -32,7 +32,7 @@ export default class SnippetsManagementIndexController extends Controller {
         }
 
         await snippet.destroyRecord();
-      })
+      }),
     );
 
     await this.deletingSnippetList.destroyRecord();

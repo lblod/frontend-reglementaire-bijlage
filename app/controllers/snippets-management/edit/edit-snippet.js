@@ -192,7 +192,7 @@ export default class SnippetsManagementEditSnippetController extends Controller 
       return {
         variable: variableView(controller),
         table_of_contents: tableOfContentsView(this.config.tableOfContents)(
-          controller
+          controller,
         ),
         link: linkView(this.config.link)(controller),
         date: dateView(this.config.date)(controller),
@@ -248,7 +248,7 @@ export default class SnippetsManagementEditSnippetController extends Controller 
     await documentContainer.save();
 
     const publicationTask = this.store.createRecord(
-      'snippet-list-publication-task'
+      'snippet-list-publication-task',
     );
     publicationTask.documentContainer = documentContainer;
     await publicationTask.save();
