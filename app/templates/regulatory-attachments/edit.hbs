@@ -98,6 +98,10 @@
               @plugin={{this.citationPlugin}}
               @config={{this.config.citation}}
             />
+            <SnippetPlugin::SnippetInsert
+              @controller={{this.editor}}
+              @config={{this.config.snippet}}
+            />
           </Sidebar.Collapsible>
           <VariablePlugin::InsertVariableCard
             @controller={{this.editor}}
