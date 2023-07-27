@@ -65,6 +65,7 @@ import {
   numberView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/number';
 import { document_title } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/document-title-plugin/nodes';
+import { docWithConfig } from '@lblod/ember-rdfa-editor/nodes/doc';
 
 export default class SnippetsManagementEditSnippetController extends Controller {
   @service store;
@@ -79,10 +80,10 @@ export default class SnippetsManagementEditSnippetController extends Controller 
 
   schema = new Schema({
     nodes: {
-      doc: {
+      doc: docWithConfig({
         content:
           'table_of_contents? document_title? ((chapter|block)+|(title|block)+|(article|block)+)',
-      },
+      }),
       paragraph,
       document_title,
       repaired_block,
@@ -213,7 +214,7 @@ export default class SnippetsManagementEditSnippetController extends Controller 
   handleRdfaEditorInit(editor) {
     this.editor = editor;
     if (this.editorDocument.content) {
-      editor.setHtmlContent(this.editorDocument.content);
+      editor.initialize(this.editorDocument.content);
     }
   }
 
