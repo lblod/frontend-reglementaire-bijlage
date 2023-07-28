@@ -256,4 +256,17 @@ export default class SnippetsManagementEditSnippetController extends Controller 
 
     await this.muTask.waitForMuTaskTask.perform(publicationTask.id, 100);
   });
+
+  updateDocumentTitle = task(async () => {
+    const documentContainer = this.model;
+
+    const publicationTask = this.store.createRecord(
+      'snippet-list-publication-task',
+    );
+
+    publicationTask.documentContainer = documentContainer;
+    await publicationTask.save();
+
+    await this.muTask.waitForMuTaskTask.perform(publicationTask.id, 100);
+  });
 }
