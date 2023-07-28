@@ -29,6 +29,19 @@
 
 
 
+
+## 6.9.0 (2023-07-28)
+
+#### :rocket: Enhancement
+* [#148](https://github.com/lblod/frontend-reglementaire-bijlage/pull/148) GN-4323: Add Snippet plugin to Regulatory Attachments ([@dkozickis](https://github.com/dkozickis))
+
+#### :house: Internal
+* [#146](https://github.com/lblod/frontend-reglementaire-bijlage/pull/146) Bump ember-template-lint from 5.11.0 to 5.11.1 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#147](https://github.com/lblod/frontend-reglementaire-bijlage/pull/147) Bump webpack from 5.88.1 to 5.88.2 ([@dependabot[bot]](https://github.com/apps/dependabot))
+
+#### Committers: 1
+- Deniss Kozickis ([@dkozickis](https://github.com/dkozickis))
+
 ## 6.8.0 (2023-07-24)
 
 #### :bug: Bug Fix
