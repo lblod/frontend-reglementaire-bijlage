@@ -40,7 +40,7 @@
     "@lblod/ember-mock-login": "^0.7.0",
     "@lblod/ember-rdfa-editor": "^4.1.0",
     "@lblod/ember-rdfa-editor-lblod-plugins": "^9.1.1",
-    "@release-it-plugins/lerna-changelog": "github:release-it-plugins/lerna-changelog",
+    "@release-it-plugins/lerna-changelog": "^6.0.0",
     "broccoli-asset-rev": "^3.0.0",
     "ember-auto-import": "^2.4.3",
     "ember-changeset": "^4.1.0",
@@ -81,7 +81,7 @@
     "prettier": "^3.0.0",
     "qunit": "^2.19.2",
     "qunit-dom": "^2.0.0",
-    "release-it": "^15.11.0",
+    "release-it": "^16.0.0",
     "sass": "^1.64.1",
     "webpack": "^5.88.2"
   },
