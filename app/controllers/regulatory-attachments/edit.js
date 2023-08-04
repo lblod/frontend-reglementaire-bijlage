@@ -78,6 +78,10 @@ export default class EditController extends Controller {
   @service intl;
   @service currentSession;
   @tracked citationPlugin = citationPlugin(this.config.citation);
+  @tracked assignedSnippetListsIds =
+    this.model.documentContainer.snippetLists
+      .toArray()
+      .map((snippetList) => snippetList.id) ?? [];
 
   schema = new Schema({
     nodes: {
@@ -278,5 +282,26 @@ export default class EditController extends Controller {
     documentContainer.currentVersion = editorDocument;
     await documentContainer.save();
     this._editorDocument = editorDocument;
+  });
+
+  setEditorDocumentSnippetLists = task(async (snippetIds) => {
+    if (!snippetIds || !snippetIds.length) {
+      this.model.documentContainer.snippetLists.setObjects([]);
+      this.assignedSnippetListsIds = [];
+
+      return await this.model.documentContainer.save();
+    }
+
+    const snippetLists = await this.store.query('snippet-list', {
+      filter: {
+        ':id:': snippetIds.join(','),
+      },
+      include: 'snippets',
+    });
+
+    this.assignedSnippetListsIds = snippetIds;
+    this.model.documentContainer.snippetLists.setObjects(snippetLists);
+
+    await this.model.documentContainer.save();
   });
 }

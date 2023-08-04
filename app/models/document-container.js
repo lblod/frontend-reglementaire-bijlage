@@ -19,4 +19,6 @@ export default class DocumentContainerModel extends Model {
     async: true,
   })
   publishedSnippetVersion;
+  @hasMany('snippet-list', { inverse: 'templates', async: true })
+  snippetLists;
 }

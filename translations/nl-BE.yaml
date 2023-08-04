@@ -147,6 +147,10 @@ snippets:
     confirm-deletion-snippet: Bevestig om fragment <strong>{name}</strong> te verwijderen
     delete: Fragmentenlijst verwijderen
     delete-snippet: Fragment verwijderen
+  template:
+    heading: Beschikbaar in
+    table-header: Sjabloon
+    no-data: Geen sjablonen gekoppeld aan deze lijst met fragmenten
   attr:
     label: Label
     id: Id

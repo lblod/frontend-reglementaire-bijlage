@@ -74,6 +74,7 @@
         </AuPill>
         {{/if}}
 
+        {{yield to="leadingButtons"}}
         {{#if @save}}
         <AuButton {{on "click" @save.action}} @disabled={{@save.isRunning}}>{{t "utility.save"}}</AuButton>
         {{/if}}
