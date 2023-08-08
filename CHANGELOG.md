@@ -30,6 +30,24 @@
 
 
 
+
+## 6.10.0 (2023-08-08)
+
+#### :rocket: Enhancement
+* [#163](https://github.com/lblod/frontend-reglementaire-bijlage/pull/163) Enable template comments on regulatory statement edit page ([@elpoelma](https://github.com/elpoelma))
+
+#### :house: Internal
+* [#162](https://github.com/lblod/frontend-reglementaire-bijlage/pull/162) Update editor to 4.2.0 and plugins to 10.0.0 ([@elpoelma](https://github.com/elpoelma))
+* [#143](https://github.com/lblod/frontend-reglementaire-bijlage/pull/143) Bump release-it from 15.11.0 to 16.0.0 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#149](https://github.com/lblod/frontend-reglementaire-bijlage/pull/149) Bump ember-resources from 6.2.1 to 6.3.1 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#155](https://github.com/lblod/frontend-reglementaire-bijlage/pull/155) Bump @appuniversum/ember-appuniversum from 2.7.0 to 2.10.0 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#154](https://github.com/lblod/frontend-reglementaire-bijlage/pull/154) Bump @lblod/ember-rdfa-editor-lblod-plugins from 9.0.2 to 9.1.1 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#152](https://github.com/lblod/frontend-reglementaire-bijlage/pull/152) Bump sass from 1.63.6 to 1.64.1 ([@dependabot[bot]](https://github.com/apps/dependabot))
+
+#### Committers: 2
+- Deniss Kozickis ([@dkozickis](https://github.com/dkozickis))
+- Elena Poelman ([@elpoelma](https://github.com/elpoelma))
+
 ## 6.9.0 (2023-07-28)
 
 #### :rocket: Enhancement
