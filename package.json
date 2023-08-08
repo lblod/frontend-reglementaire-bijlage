@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@appuniversum/ember-appuniversum": "^2.10.0",
-    "@babel/eslint-parser": "^7.22.5",
+    "@babel/eslint-parser": "^7.22.10",
     "@bagaar/ember-breadcrumbs": "^3.0.0",
     "@ember/optional-features": "^2.0.0",
     "@ember/render-modifiers": "^2.0.4",
