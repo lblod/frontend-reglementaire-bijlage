@@ -64,6 +64,10 @@ import {
   text_variable,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/variables';
 import { document_title } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/document-title-plugin/nodes';
+import {
+  templateComment,
+  templateCommentView,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/template-comments-plugin';
 import { docWithConfig } from '@lblod/ember-rdfa-editor/nodes/doc';
 export default class EditController extends Controller {
   @service store;
@@ -88,6 +92,7 @@ export default class EditController extends Controller {
       list_item,
       ordered_list,
       bullet_list,
+      templateComment,
       placeholder,
       ...tableNodes({ tableGroup: 'block', cellContent: 'inline*' }),
       date: date(this.config.date),
@@ -220,6 +225,7 @@ export default class EditController extends Controller {
         number: numberView(controller),
         text_variable: textVariableView(controller),
         codelist: codelistView(controller),
+        templateComment: templateCommentView(controller),
       };
     };
   }
