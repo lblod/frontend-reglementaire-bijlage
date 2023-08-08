@@ -123,6 +123,9 @@
             @controller={{this.editor}}
             @options={{this.config.date}}
           />
+          <TemplateCommentsPlugin::EditCard
+            @controller={{this.editor}}
+          />
           {{! VariablePlugin::TemplateVariableCard is not added on purpose
           as an RB-document creator should not be able to set a "default" codelist option.}}
         </Sidebar>
