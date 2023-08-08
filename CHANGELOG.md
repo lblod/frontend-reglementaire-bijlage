@@ -31,6 +31,20 @@
 
 
 
+
+## 6.10.1 (2023-08-08)
+
+#### :rocket: Enhancement
+* [#164](https://github.com/lblod/frontend-reglementaire-bijlage/pull/164) Add template-comment edit widget ([@elpoelma](https://github.com/elpoelma))
+
+#### :house: Internal
+* [#159](https://github.com/lblod/frontend-reglementaire-bijlage/pull/159) Bump prettier from 3.0.0 to 3.0.1 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#161](https://github.com/lblod/frontend-reglementaire-bijlage/pull/161) Bump @babel/eslint-parser from 7.22.7 to 7.22.10 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#160](https://github.com/lblod/frontend-reglementaire-bijlage/pull/160) Bump eslint from 8.45.0 to 8.46.0 ([@dependabot[bot]](https://github.com/apps/dependabot))
+
+#### Committers: 1
+- Elena Poelman ([@elpoelma](https://github.com/elpoelma))
+
 ## 6.10.0 (2023-08-08)
 
 #### :rocket: Enhancement
