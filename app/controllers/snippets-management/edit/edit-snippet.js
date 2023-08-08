@@ -35,10 +35,6 @@ import {
   STRUCTURE_SPECS,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/article-structure-plugin/structures';
 import {
-  variable,
-  variableView,
-} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/nodes';
-import {
   bullet_list,
   list_item,
   ordered_list,
@@ -61,9 +57,13 @@ import { highlight } from '@lblod/ember-rdfa-editor/plugins/highlight/marks/high
 import { color } from '@lblod/ember-rdfa-editor/plugins/color/marks/color';
 import { trackedFunction } from 'ember-resources/util/function';
 import {
+  codelist,
+  codelistView,
   number,
   numberView,
-} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/number';
+  textVariableView,
+  text_variable,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/variables';
 import { document_title } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/document-title-plugin/nodes';
 import { docWithConfig } from '@lblod/ember-rdfa-editor/nodes/doc';
 
@@ -94,8 +94,9 @@ export default class SnippetsManagementEditSnippetController extends Controller 
       placeholder,
       ...tableNodes({ tableGroup: 'block', cellContent: 'inline*' }),
       date: date(this.config.date),
+      text_variable,
       number,
-      variable,
+      codelist,
       ...STRUCTURE_NODES,
       heading,
       blockquote,
@@ -126,17 +127,41 @@ export default class SnippetsManagementEditSnippetController extends Controller 
     },
   });
 
-  get insertVariableWidgetOptions() {
+  get variableTypes() {
     const config = getOwner(this).resolveRegistration('config:environment');
-    return {
-      publisher: this.currentSession.group.uri,
-      defaultEndpoint: config.insertVariablePlugin.endpoint,
-      variableTypes: ['text', 'number', 'date', 'codelist'],
-    };
+    return [
+      {
+        label: 'text',
+        component: {
+          path: 'variable-plugin/text/insert',
+        },
+      },
+      {
+        label: 'number',
+        component: {
+          path: 'variable-plugin/number/insert',
+        },
+      },
+      {
+        label: 'date',
+        component: {
+          path: 'variable-plugin/date/insert',
+        },
+      },
+      {
+        label: 'codelist',
+        component: {
+          path: 'variable-plugin/codelist/insert',
+          options: {
+            endpoint: config.insertVariablePlugin.endpoint,
+            publisher: this.currentSession.group?.uri,
+          },
+        },
+      },
+    ];
   }
 
   get config() {
-    const ENV = getOwner(this).resolveRegistration('config:environment');
     return {
       tableOfContents: [
         {
@@ -169,11 +194,6 @@ export default class SnippetsManagementEditSnippetController extends Controller 
         ],
         allowCustomFormat: true,
       },
-      variable: {
-        publisher: this.currentSession.group?.uri,
-        defaultEndpoint: ENV.insertVariablePlugin.endpoint,
-        variableTypes: ['text', 'number', 'date', 'codelist'],
-      },
       structures: STRUCTURE_SPECS,
       citation: {
         type: 'nodes',
@@ -191,13 +211,14 @@ export default class SnippetsManagementEditSnippetController extends Controller 
   get nodeViews() {
     return (controller) => {
       return {
-        variable: variableView(controller),
         table_of_contents: tableOfContentsView(this.config.tableOfContents)(
           controller,
         ),
         link: linkView(this.config.link)(controller),
         date: dateView(this.config.date)(controller),
+        text_variable: textVariableView(controller),
         number: numberView(controller),
+        codelist: codelistView(controller),
       };
     };
   }
