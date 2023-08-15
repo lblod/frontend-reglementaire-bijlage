@@ -78,16 +78,14 @@ export default class EditController extends Controller {
   @service intl;
   @service currentSession;
   @tracked citationPlugin = citationPlugin(this.config.citation);
-  @tracked assignedSnippetListsIds =
-    this.model.documentContainer.snippetLists
-      .toArray()
-      .map((snippetList) => snippetList.id) ?? [];
+  @tracked assignedSnippetListsIds = [];
 
   schema = new Schema({
     nodes: {
       doc: docWithConfig({
         content:
           'table_of_contents? document_title? ((chapter|block)+|(title|block)+|(article|block)+)',
+        extraAttributes: { 'snippet-list-ids': { default: null } },
       }),
       paragraph,
       document_title,
@@ -213,7 +211,7 @@ export default class EditController extends Controller {
         interactive: true,
       },
       snippet: {
-        endpoint: '/sparql',
+        endpoint: '/raw-sparql',
       },
     };
   }
@@ -247,6 +245,7 @@ export default class EditController extends Controller {
     this.editor = editor;
     if (this.editorDocument.content) {
       editor.initialize(this.editorDocument.content);
+      this.assignedSnippetListsIds = this.documentSnippetListIds;
     }
   }
 
@@ -284,12 +283,26 @@ export default class EditController extends Controller {
     this._editorDocument = editorDocument;
   });
 
-  setEditorDocumentSnippetLists = task(async (snippetIds) => {
-    if (!snippetIds || !snippetIds.length) {
-      this.model.documentContainer.snippetLists.setObjects([]);
-      this.assignedSnippetListsIds = [];
+  get documentSnippetListIds() {
+    return (
+      this.editor
+        .getDocumentAttribute('snippet-list-ids')
+        ?.split(',')
+        .filter(Boolean) ?? []
+    );
+  }
 
-      return await this.model.documentContainer.save();
+  set documentSnippetListIds(snippetIds) {
+    this.editor.setDocumentAttribute('snippet-list-ids', snippetIds.join(','));
+    this.assignedSnippetListsIds = snippetIds;
+  }
+
+  setDocumentContainerSnippetLists = task(async (snippetIds) => {
+    if (!snippetIds || !snippetIds.length) {
+      this.documentSnippetListIds = [];
+      this.model.documentContainer.snippetLists.setObjects([]);
+
+      return this.save.perform();
     }
 
     const snippetLists = await this.store.query('snippet-list', {
@@ -299,9 +312,9 @@ export default class EditController extends Controller {
       include: 'snippets',
     });
 
-    this.assignedSnippetListsIds = snippetIds;
+    this.documentSnippetListIds = snippetIds;
     this.model.documentContainer.snippetLists.setObjects(snippetLists);
 
-    await this.model.documentContainer.save();
+    return this.save.perform();
   });
 }
