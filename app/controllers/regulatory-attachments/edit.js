@@ -211,7 +211,7 @@ export default class EditController extends Controller {
         interactive: true,
       },
       snippet: {
-        endpoint: '/raw-sparql',
+        endpoint: '/sparql',
       },
     };
   }
