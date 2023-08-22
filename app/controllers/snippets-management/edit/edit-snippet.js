@@ -82,7 +82,7 @@ export default class SnippetsManagementEditSnippetController extends Controller 
     nodes: {
       doc: docWithConfig({
         content:
-          'table_of_contents? document_title? ((chapter|block)+|(title|block)+|(article|block)+)',
+          'table_of_contents? document_title? (chapter|title|article|block)+',
       }),
       paragraph,
       document_title,
