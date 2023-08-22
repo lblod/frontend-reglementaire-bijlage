@@ -318,6 +318,7 @@ export default class EditController extends Controller {
         ':id:': snippetIds.join(','),
       },
       include: 'snippets',
+      sort: 'created-on',
     });
 
     this.documentSnippetListIds = snippetIds;
