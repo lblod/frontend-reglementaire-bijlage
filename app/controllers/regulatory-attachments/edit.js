@@ -69,6 +69,9 @@ import {
   templateCommentView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/template-comments-plugin';
 import { docWithConfig } from '@lblod/ember-rdfa-editor/nodes/doc';
+
+const SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE = 'snippet-list-ids';
+
 export default class EditController extends Controller {
   @service store;
   @service router;
@@ -85,7 +88,9 @@ export default class EditController extends Controller {
       doc: docWithConfig({
         content:
           'table_of_contents? document_title? ((chapter|block)+|(title|block)+|(article|block)+)',
-        extraAttributes: { 'snippet-list-ids': { default: null } },
+        extraAttributes: {
+          [SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE]: { default: null },
+        },
       }),
       paragraph,
       document_title,
@@ -286,14 +291,17 @@ export default class EditController extends Controller {
   get documentSnippetListIds() {
     return (
       this.editor
-        .getDocumentAttribute('snippet-list-ids')
+        .getDocumentAttribute(SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE)
         ?.split(',')
         .filter(Boolean) ?? []
     );
   }
 
   set documentSnippetListIds(snippetIds) {
-    this.editor.setDocumentAttribute('snippet-list-ids', snippetIds.join(','));
+    this.editor.setDocumentAttribute(
+      SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE,
+      snippetIds.join(','),
+    );
     this.assignedSnippetListsIds = snippetIds;
   }
 
