@@ -12,6 +12,7 @@ export default class EditRoute extends Route {
     const documentContainer = await this.store.findRecord(
       'document-container',
       params.id,
+      { include: 'current-version,snippet-lists,snippet-lists.snippets' },
     );
     const documentId = (await documentContainer.currentVersion).id;
     const editorDocument = await this.store.findRecord(

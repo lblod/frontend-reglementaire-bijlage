@@ -85,7 +85,7 @@
 .say-editor-hints {
   .au-c-card {
     margin-top: 10px;
-    
+
   }
   .au-c-card__content {
     overflow: inherit;
@@ -107,9 +107,11 @@
   height: 50px;
 }
 
-.snippets-table .au-c-data-table__actions--bottom {
+.snippets-table .au-c-data-table__actions--bottom,
+.snippet-list-template-table .au-c-data-table__actions--bottom, {
   display: none;
 }
+
 
 [property='eli:title']:before {
   content: 'Document-titel' !important;

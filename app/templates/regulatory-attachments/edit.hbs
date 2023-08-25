@@ -17,7 +17,15 @@
     @returnRoute='list'
     @returnRouteText={{t 'reglement-edit.return'}}
     @isPublished={{this.model.reglement.publishedVersion}}
-  />
+  >
+    <:leadingButtons>
+      <SnippetPlugin::SnippetListSelect
+        @config={{this.config.snippet}}
+        @onSaveSnippetListIds={{this.setDocumentContainerSnippetLists}}
+        @assignedSnippetListsIds={{this.assignedSnippetListsIds}}
+      />
+    </:leadingButtons>
+  </AppChrome>
   <RdfaEditorContainer
     @rdfaEditorInit={{this.handleRdfaEditorInit}}
     @editorDocument={{this.editorDocument}}
@@ -101,6 +109,7 @@
             <SnippetPlugin::SnippetInsert
               @controller={{this.editor}}
               @config={{this.config.snippet}}
+              @assignedSnippetListsIds={{this.assignedSnippetListsIds}}
             />
             <TemplateCommentsPlugin::Insert
               @controller={{this.editor}}

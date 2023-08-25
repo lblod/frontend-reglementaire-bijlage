@@ -69,6 +69,9 @@ import {
   templateCommentView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/template-comments-plugin';
 import { docWithConfig } from '@lblod/ember-rdfa-editor/nodes/doc';
+
+const SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE = 'snippet-list-ids';
+
 export default class EditController extends Controller {
   @service store;
   @service router;
@@ -78,12 +81,16 @@ export default class EditController extends Controller {
   @service intl;
   @service currentSession;
   @tracked citationPlugin = citationPlugin(this.config.citation);
+  @tracked assignedSnippetListsIds = [];
 
   schema = new Schema({
     nodes: {
       doc: docWithConfig({
         content:
           'table_of_contents? document_title? ((chapter|block)+|(title|block)+|(article|block)+)',
+        extraAttributes: {
+          [SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE]: { default: null },
+        },
       }),
       paragraph,
       document_title,
@@ -209,7 +216,7 @@ export default class EditController extends Controller {
         interactive: true,
       },
       snippet: {
-        endpoint: '/sparql',
+        endpoint: '/raw-sparql',
       },
     };
   }
@@ -243,6 +250,7 @@ export default class EditController extends Controller {
     this.editor = editor;
     if (this.editorDocument.content) {
       editor.initialize(this.editorDocument.content);
+      this.assignedSnippetListsIds = this.documentSnippetListIds;
     }
   }
 
@@ -278,5 +286,43 @@ export default class EditController extends Controller {
     documentContainer.currentVersion = editorDocument;
     await documentContainer.save();
     this._editorDocument = editorDocument;
+  });
+
+  get documentSnippetListIds() {
+    return (
+      this.editor
+        .getDocumentAttribute(SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE)
+        ?.split(',')
+        .filter(Boolean) ?? []
+    );
+  }
+
+  set documentSnippetListIds(snippetIds) {
+    this.editor.setDocumentAttribute(
+      SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE,
+      snippetIds.join(','),
+    );
+    this.assignedSnippetListsIds = snippetIds;
+  }
+
+  setDocumentContainerSnippetLists = task(async (snippetIds) => {
+    if (!snippetIds || !snippetIds.length) {
+      this.documentSnippetListIds = [];
+      this.model.documentContainer.snippetLists.setObjects([]);
+
+      return this.save.perform();
+    }
+
+    const snippetLists = await this.store.query('snippet-list', {
+      filter: {
+        ':id:': snippetIds.join(','),
+      },
+      include: 'snippets',
+    });
+
+    this.documentSnippetListIds = snippetIds;
+    this.model.documentContainer.snippetLists.setObjects(snippetLists);
+
+    return this.save.perform();
   });
 }

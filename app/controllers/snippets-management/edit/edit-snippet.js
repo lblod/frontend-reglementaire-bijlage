@@ -244,7 +244,7 @@ export default class SnippetsManagementEditSnippetController extends Controller 
   }
 
   currentVersion = trackedFunction(this, async () => {
-    return await this.model.currentVersion;
+    return await this.model.documentContainer.currentVersion;
   });
 
   get editorDocument() {
@@ -265,7 +265,7 @@ export default class SnippetsManagementEditSnippetController extends Controller 
     editorDocument.previousVersion = currentVersion;
     await editorDocument.save();
 
-    const documentContainer = this.model;
+    const documentContainer = this.model.documentContainer;
     documentContainer.currentVersion = editorDocument;
     await documentContainer.save();
 
@@ -273,19 +273,22 @@ export default class SnippetsManagementEditSnippetController extends Controller 
       'snippet-list-publication-task',
     );
     publicationTask.documentContainer = documentContainer;
+    publicationTask.snippetList = this.model.snippetList;
     await publicationTask.save();
 
     await this.muTask.waitForMuTaskTask.perform(publicationTask.id, 100);
   });
 
   updateDocumentTitle = task(async () => {
-    const documentContainer = this.model;
+    const documentContainer = this.model.documentContainer;
+    const snippetList = this.model.snippetList;
 
     const publicationTask = this.store.createRecord(
       'snippet-list-publication-task',
     );
 
     publicationTask.documentContainer = documentContainer;
+    publicationTask.snippetList = snippetList;
     await publicationTask.save();
 
     await this.muTask.waitForMuTaskTask.perform(publicationTask.id, 100);

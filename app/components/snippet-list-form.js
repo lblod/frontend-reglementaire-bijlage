@@ -54,10 +54,10 @@ export default class SnippetListForm extends Component {
     await documentContainer.save();
     await this.args.model.save();
 
-    this.router.transitionTo(
-      'snippets-management.edit.edit-snippet',
+    this.router.transitionTo('snippets-management.edit.edit-snippet', {
       documentContainer,
-    );
+      snippetList: this.args.model,
+    });
   });
 
   removeSnippet = task(async () => {
