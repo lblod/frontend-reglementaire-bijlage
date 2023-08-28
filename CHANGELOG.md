@@ -32,6 +32,19 @@
 
 
 
+
+## 7.0.0 (2023-08-28)
+
+#### :rocket: Enhancement
+* [#156](https://github.com/lblod/frontend-reglementaire-bijlage/pull/156) GN-4322: Connect Snippet List with Template ([@dkozickis](https://github.com/dkozickis))
+
+#### :house: Internal
+* [#165](https://github.com/lblod/frontend-reglementaire-bijlage/pull/165) Bump sass from 1.64.1 to 1.65.1 ([@dependabot[bot]](https://github.com/apps/dependabot))
+
+#### Committers: 1
+- Deniss Kozickis ([@dkozickis](https://github.com/dkozickis))
+
+
 ## 6.10.1 (2023-08-08)
 
 #### :rocket: Enhancement
