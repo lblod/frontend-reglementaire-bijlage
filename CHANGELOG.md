@@ -33,6 +33,22 @@
 
 
 
+
+## 7.1.0 (2023-08-29)
+
+#### :rocket: Enhancement
+* [#173](https://github.com/lblod/frontend-reglementaire-bijlage/pull/173) feat(deps): bump editor and plugins ([@abeforgit](https://github.com/abeforgit))
+
+#### :house: Internal
+* [#169](https://github.com/lblod/frontend-reglementaire-bijlage/pull/169) Bump @babel/plugin-proposal-decorators from 7.22.7 to 7.22.10 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#172](https://github.com/lblod/frontend-reglementaire-bijlage/pull/172) Bump ember-concurrency from 3.0.0 to 3.1.1 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#166](https://github.com/lblod/frontend-reglementaire-bijlage/pull/166) Bump ember-resources from 6.3.1 to 6.4.0 ([@dependabot[bot]](https://github.com/apps/dependabot))
+* [#168](https://github.com/lblod/frontend-reglementaire-bijlage/pull/168) Bump ember-resolver from 10.1.1 to 11.0.1 ([@dependabot[bot]](https://github.com/apps/dependabot))
+
+#### Committers: 1
+- Arne Bertrand ([@abeforgit](https://github.com/abeforgit))
+
+
 ## 7.0.0 (2023-08-28)
 
 #### :rocket: Enhancement
