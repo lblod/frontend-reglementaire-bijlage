@@ -1,6 +1,6 @@
 {{page-title (t 'reglement-edit.edit')}}
 <BreadcrumbsItem>
-    {{t "snippets.edit-snippet"}}
+  {{t 'snippets.edit-snippet'}}
 </BreadcrumbsItem>
 <AppChrome
   @editorDocument={{this.editorDocument}}
@@ -33,26 +33,28 @@
             <Plugins::TextStyle::Italic @controller={{this.editor}} />
             <Plugins::TextStyle::Strikethrough @controller={{this.editor}} />
             <Plugins::TextStyle::Underline @controller={{this.editor}} />
-            <Plugins::TextStyle::Subscript @controller={{this.editor}}/>
-            <Plugins::TextStyle::Superscript @controller={{this.editor}}/>
+            <Plugins::TextStyle::Subscript @controller={{this.editor}} />
+            <Plugins::TextStyle::Superscript @controller={{this.editor}} />
             <Plugins::TextStyle::Highlight
               @controller={{this.editor}}
-              @defaultColor="#FFEA00"
+              @defaultColor='#FFEA00'
             />
             <Plugins::TextStyle::Color
               @controller={{this.editor}}
-              @defaultColor="#000000"
+              @defaultColor='#000000'
             />
           </Tb.Group>
           <Tb.Group>
             <Plugins::List::Unordered @controller={{this.editor}} />
             <Plugins::List::Ordered @controller={{this.editor}} />
-            <Plugins::Indentation::IndentationMenu @controller={{this.editor}} />
+            <Plugins::Indentation::IndentationMenu
+              @controller={{this.editor}}
+            />
           </Tb.Group>
           <Tb.Group>
             <Plugins::Link::LinkMenu @controller={{this.editor}} />
-            <Plugins::Image::InsertMenu @controller={{this.editor}}/>
-            <GenericRdfaVariable::InsertMenu @controller={{this.editor}}/>
+            <Plugins::Image::InsertMenu @controller={{this.editor}} />
+            <GenericRdfaVariable::InsertMenu @controller={{this.editor}} />
           </Tb.Group>
           <Tb.Group>
             <Plugins::Table::TableMenu @controller={{this.editor}} />
@@ -74,9 +76,7 @@
       {{#if this.editor}}
         <Sidebar as |Sidebar|>
           <Sidebar.Collapsible @title='Insert' @expandedInitially={{true}}>
-            <DocumentTitlePlugin::InsertTitleCard
-              @controller={{this.editor}}
-            />
+            <DocumentTitlePlugin::InsertTitleCard @controller={{this.editor}} />
             <ArticleStructurePlugin::ArticleStructureCard
               @controller={{this.editor}}
               @options={{this.config.structures}}
@@ -90,11 +90,14 @@
               @plugin={{this.citationPlugin}}
               @config={{this.config.citation}}
             />
+            <TemplateCommentsPlugin::Insert @controller={{this.editor}} />
+            <VariablePlugin::Address::Insert @controller={{this.editor}} />
           </Sidebar.Collapsible>
           <VariablePlugin::InsertVariableCard
             @controller={{this.editor}}
             @variableTypes={{this.variableTypes}}
           />
+          <VariablePlugin::Address::Edit @controller={{this.editor}} />
           <ArticleStructurePlugin::StructureCard
             @controller={{this.editor}}
             @options={{this.config.structures}}
@@ -108,11 +111,10 @@
             @controller={{this.editor}}
             @options={{this.config.date}}
           />
+          <TemplateCommentsPlugin::EditCard @controller={{this.editor}} />
         </Sidebar>
       {{/if}}
     </:aside>
   </RdfaEditorContainer>
 {{/if}}
-<ConfirmRouteLeave
-  @enabled={{this.dirty}}
-/>
+<ConfirmRouteLeave @enabled={{this.dirty}} />

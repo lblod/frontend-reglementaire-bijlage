@@ -57,6 +57,8 @@ import { highlight } from '@lblod/ember-rdfa-editor/plugins/highlight/marks/high
 import { color } from '@lblod/ember-rdfa-editor/plugins/color/marks/color';
 import { trackedFunction } from 'ember-resources/util/function';
 import {
+  address,
+  addressView,
   codelist,
   codelistView,
   number,
@@ -65,6 +67,10 @@ import {
   text_variable,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/variables';
 import { document_title } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/document-title-plugin/nodes';
+import {
+  templateComment,
+  templateCommentView,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/template-comments-plugin';
 import { docWithConfig } from '@lblod/ember-rdfa-editor/nodes/doc';
 
 export default class SnippetsManagementEditSnippetController extends Controller {
@@ -91,8 +97,10 @@ export default class SnippetsManagementEditSnippetController extends Controller 
       list_item,
       ordered_list,
       bullet_list,
+      templateComment,
       placeholder,
       ...tableNodes({ tableGroup: 'block', cellContent: 'inline*' }),
+      address,
       date: date(this.config.date),
       text_variable,
       number,
@@ -146,6 +154,12 @@ export default class SnippetsManagementEditSnippetController extends Controller 
         label: 'date',
         component: {
           path: 'variable-plugin/date/insert',
+        },
+      },
+      {
+        label: 'address',
+        component: {
+          path: 'variable-plugin/address/insert',
         },
       },
       {
@@ -215,10 +229,12 @@ export default class SnippetsManagementEditSnippetController extends Controller 
           controller,
         ),
         link: linkView(this.config.link)(controller),
+        address: addressView(controller),
         date: dateView(this.config.date)(controller),
         text_variable: textVariableView(controller),
         number: numberView(controller),
         codelist: codelistView(controller),
+        templateComment: templateCommentView(controller),
       };
     };
   }
