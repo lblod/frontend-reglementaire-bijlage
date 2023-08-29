@@ -92,7 +92,7 @@
     "edition": "octane"
   },
   "dependencies": {
-    "@babel/plugin-proposal-decorators": "^7.22.5",
+    "@babel/plugin-proposal-decorators": "^7.22.10",
     "@triply/yasgui": "^4.2.26",
     "date-fns": "^2.30.0",
     "ember-cli-string-helpers": "^6.1.0",
