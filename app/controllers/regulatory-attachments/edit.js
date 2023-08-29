@@ -56,6 +56,8 @@ import { citationPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/c
 import { highlight } from '@lblod/ember-rdfa-editor/plugins/highlight/marks/highlight';
 import { color } from '@lblod/ember-rdfa-editor/plugins/color/marks/color';
 import {
+  address,
+  addressView,
   codelist,
   codelistView,
   number,
@@ -102,6 +104,7 @@ export default class EditController extends Controller {
       templateComment,
       placeholder,
       ...tableNodes({ tableGroup: 'block', cellContent: 'inline*' }),
+      address,
       date: date(this.config.date),
       text_variable,
       number,
@@ -149,6 +152,12 @@ export default class EditController extends Controller {
         label: 'number',
         component: {
           path: 'variable-plugin/number/insert',
+        },
+      },
+      {
+        label: 'address',
+        component: {
+          path: 'variable-plugin/address/insert',
         },
       },
       {
@@ -228,6 +237,7 @@ export default class EditController extends Controller {
           controller,
         ),
         link: linkView(this.config.link)(controller),
+        address: addressView(controller),
         date: dateView(this.config.date)(controller),
         number: numberView(controller),
         text_variable: textVariableView(controller),

@@ -4,6 +4,10 @@
    Some parts will be reused, but most of them will not.
    ========================================================================== */
 
+// fix powerselect menu z-level being overridden by auto somewhere
+.ember-power-select-dropdown.ember-basic-dropdown-content--in-place {
+  z-index: 10000;
+}
 
 // Fix app with environment banner @TODO: rework app component
 .au-c-app--environment {
@@ -20,7 +24,7 @@
 
 /* Style publishing animation
  ========================================================================== */
- .au-c-scanner {
+.au-c-scanner {
   position: absolute !important;
   top: 0;
   left: 0;
@@ -30,7 +34,7 @@
   pointer-events: none;
 }
 .au-c-scanner:after {
-  content: "";
+  content: '';
   display: block;
   left: 0;
   right: 0;
@@ -63,11 +67,11 @@
   left: 0;
   top: 0;
   height: 100%;
-  background-color: #FEE539;
+  background-color: #fee539;
   z-index: 1;
   animation: move 3s cubic-bezier(0.15, 0.44, 0.76, 0.64);
   animation-iteration-count: infinite;
-  border-right: 1rem #FEE539 solid;
+  border-right: 1rem #fee539 solid;
   margin-top: 0;
 }
 
@@ -85,7 +89,6 @@
 .say-editor-hints {
   .au-c-card {
     margin-top: 10px;
-
   }
   .au-c-card__content {
     overflow: inherit;
@@ -108,10 +111,9 @@
 }
 
 .snippets-table .au-c-data-table__actions--bottom,
-.snippet-list-template-table .au-c-data-table__actions--bottom, {
+.snippet-list-template-table .au-c-data-table__actions--bottom {
   display: none;
 }
-
 
 [property='eli:title']:before {
   content: 'Document-titel' !important;
