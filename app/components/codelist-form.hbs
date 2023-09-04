@@ -53,23 +53,6 @@
         {{/if}}
       </p>
     {{/let}}
-    <p class='au-o-box au-u-padding-bottom-none'>
-      <AuLabel for='label'>
-        {{t 'codelist.attr.type'}}&nbsp;
-      </AuLabel>
-      <PowerSelect
-        @allowClear={{false}}
-        @searchEnabled={{false}}
-        @options={{this.codelistTypes}}
-        @selected={{this.selectedType}}
-        @onChange={{this.updateCodelistType}} as |type|
-      >
-        <span class='codelist-type-select-option'>
-          {{t (concat 'codelist.attr.types.' type.value)}}
-        </span>
-      </PowerSelect>
-      <br />
-    </p>
   </div>
   <div>
     <table class='au-c-data-table__table'>

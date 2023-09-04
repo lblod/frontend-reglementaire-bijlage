@@ -1,14 +1,10 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { service } from '@ember/service';
-import { dropTask, task } from 'ember-concurrency';
+import { dropTask } from 'ember-concurrency';
 import CodelistValidations from '../validations/codelist';
 import OptionValidations from '../validations/codelist-option';
 import { tracked } from '@glimmer/tracking';
-import {
-  COD_SINGLE_SELECT_ID,
-  COD_CONCEPT_SCHEME_ID,
-} from '../utils/constants';
 
 import changesetList from '../utils/changeset';
 import { Changeset } from 'ember-changeset';
@@ -22,8 +18,6 @@ export default class CodelistFormComponent extends Component {
   @service currentSession;
   @service intl;
 
-  @tracked codelistTypes;
-  @tracked selectedType;
 
   @tracked changeset;
   @tracked optionsChangesetList;
@@ -63,7 +57,6 @@ export default class CodelistFormComponent extends Component {
       this.startEditingOptions();
     }
 
-    await this.fetchCodelistTypes.perform();
   }
 
   get isSaving() {
@@ -103,21 +96,6 @@ export default class CodelistFormComponent extends Component {
     this.optionsChangesetList.remove(option);
   }
 
-  fetchCodelistTypes = task(async () => {
-    const typesScheme = await this.store.findRecord(
-      'concept-scheme',
-      COD_CONCEPT_SCHEME_ID,
-    );
-    const types = await typesScheme.concepts;
-    this.codelistTypes = types;
-    if (await this.args.codelist.type) {
-      this.selectedType = this.args.codelist.type;
-    } else {
-      this.selectedType = this.codelistTypes.find(
-        (type) => type.id === COD_SINGLE_SELECT_ID,
-      );
-    }
-  });
 
   @action
   setCodelistLabel(event) {
@@ -157,11 +135,6 @@ export default class CodelistFormComponent extends Component {
     });
   });
 
-  @action
-  updateCodelistType(type) {
-    this.selectedType = type;
-    this.changeset.type = type;
-  }
 
   saveChangesetTask = dropTask(async (event) => {
     event.preventDefault();
