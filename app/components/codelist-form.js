@@ -18,7 +18,6 @@ export default class CodelistFormComponent extends Component {
   @service currentSession;
   @service intl;
 
-
   @tracked changeset;
   @tracked optionsChangesetList;
 
@@ -56,7 +55,6 @@ export default class CodelistFormComponent extends Component {
     if (this.args.codelist.isNew) {
       this.startEditingOptions();
     }
-
   }
 
   get isSaving() {
@@ -96,7 +94,6 @@ export default class CodelistFormComponent extends Component {
     this.optionsChangesetList.remove(option);
   }
 
-
   @action
   setCodelistLabel(event) {
     this.changeset.label = event.target.value;
@@ -134,7 +131,6 @@ export default class CodelistFormComponent extends Component {
       }
     });
   });
-
 
   saveChangesetTask = dropTask(async (event) => {
     event.preventDefault();
