@@ -26,9 +26,28 @@ export default class SnippetListForm extends Component {
     await this.args.model.save();
     this.showSavedTask.perform();
     if (isNew) {
-      this.router.transitionTo('snippets-management.edit', this.args.model);
+      this.router.transitionTo('snippets-management.edit', this.args.model, {
+        queryParams: { showSaved: true },
+      });
     }
   });
+
+  constructor() {
+    super(...arguments);
+    const queryParams = this.router.currentRoute.queryParams;
+
+    if (queryParams.showSaved) {
+      this.showSavedTask.perform();
+
+      // Remove the query param from the URL, so that refreshing the page
+      // doesn't show the saved message again.
+      // Use `replaceWith` instead of `transitionTo` to avoid adding a new
+      // history entry.
+      this.router.replaceWith('snippets-management.edit', this.args.model, {
+        queryParams: { showSaved: undefined },
+      });
+    }
+  }
 
   get invalidLabel() {
     return isBlank(this.args.model.label);
