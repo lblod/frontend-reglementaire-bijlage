@@ -5,6 +5,8 @@ import { restartableTask, task, timeout } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
 import { isBlank } from '../utils/strings';
 
+const SHOW_SAVED_PILL = 'showSavedPill';
+
 export default class SnippetListForm extends Component {
   @service store;
   @service router;
@@ -26,8 +28,8 @@ export default class SnippetListForm extends Component {
     await this.args.model.save();
     this.showSavedTask.perform();
     if (isNew) {
-      this.router.transitionTo('snippets-management.edit', this.args.model, {
-        queryParams: { showSaved: true },
+      this.router.replaceWith('snippets-management.edit', this.args.model, {
+        queryParams: { [SHOW_SAVED_PILL]: true },
       });
     }
   });
@@ -36,7 +38,7 @@ export default class SnippetListForm extends Component {
     super(...arguments);
     const queryParams = this.router.currentRoute.queryParams;
 
-    if (queryParams.showSaved) {
+    if (queryParams[SHOW_SAVED_PILL]) {
       this.showSavedTask.perform();
 
       // Remove the query param from the URL, so that refreshing the page
@@ -44,7 +46,7 @@ export default class SnippetListForm extends Component {
       // Use `replaceWith` instead of `transitionTo` to avoid adding a new
       // history entry.
       this.router.replaceWith('snippets-management.edit', this.args.model, {
-        queryParams: { showSaved: undefined },
+        queryParams: { [SHOW_SAVED_PILL]: undefined },
       });
     }
   }
