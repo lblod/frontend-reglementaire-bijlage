@@ -50,7 +50,6 @@
         @currentSorting={{this.sort}}
         @label={{t "codelist.attr.created-on"}}
       />
-      <th>{{t "codelist.attr.type"}}</th>
       <th></th>
     </c.header>
     <c.body as |codelist|>
@@ -71,13 +70,6 @@
           {{detailed-date codelist.createdOn}}
         {{else}}
           {{t "codelist.attr.not-found"}}
-        {{/if}}
-      </td>
-      <td>
-        {{#if codelist.type}}
-          {{t (concat "codelist.attr.types." codelist.type.value)}}
-        {{else}}
-          {{t "codelist.attr.types.singleSelect"}}
         {{/if}}
       </td>
       <td>
