@@ -17,7 +17,6 @@ codelist:
   attr:
     label: Naam van de codelijst
     value: Waarde
-    type: Type
     created-on: Aangemaakt op
     not-found: n.v.t.
     options: "Items"
