@@ -17,7 +17,6 @@ codelist:
   attr:
     label: Name of codelist
     value: Value
-    type: Type
     created-on: Created On
     not-found: N/A
     options: "Options"
