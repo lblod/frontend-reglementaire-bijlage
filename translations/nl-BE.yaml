@@ -159,3 +159,10 @@ editor-document-title:
   placeholder: Naamloos document
   change-title: Titel wijzigen
   title-saved: Titel opgeslagen
+editor:
+  variables:
+    text: tekst
+    number: nummer
+    address: adres
+    date: datum
+    codelist: codelijst
