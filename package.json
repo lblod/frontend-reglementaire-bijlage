@@ -27,7 +27,7 @@
     "release": "release-it"
   },
   "devDependencies": {
-    "@appuniversum/ember-appuniversum": "^2.10.0",
+    "@appuniversum/ember-appuniversum": "^2.14.0",
     "@babel/eslint-parser": "^7.22.10",
     "@bagaar/ember-breadcrumbs": "^3.0.0",
     "@changesets/changelog-github": "^0.4.8",
