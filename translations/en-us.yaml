@@ -159,3 +159,10 @@ editor-document-title:
   placeholder: Untitled document
   change-title: Change title
   title-saved: Title saved
+editor:
+  variables:
+    text: text
+    number: number
+    address: address
+    date: date
+    codelist: codelist
