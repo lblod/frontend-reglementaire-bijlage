@@ -45,10 +45,6 @@ import { blockquote } from '@lblod/ember-rdfa-editor/plugins/blockquote';
 import { code_block } from '@lblod/ember-rdfa-editor/plugins/code';
 import { image } from '@lblod/ember-rdfa-editor/plugins/image';
 import { inline_rdfa } from '@lblod/ember-rdfa-editor/marks';
-import {
-  date,
-  dateView,
-} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/rdfa-date-plugin/nodes/date';
 import { generateTemplate } from '../../utils/generate-template';
 import { getOwner } from '@ember/application';
 import { linkPasteHandler } from '@lblod/ember-rdfa-editor/plugins/link';
@@ -60,6 +56,8 @@ import {
   addressView,
   codelist,
   codelistView,
+  date,
+  dateView,
   number,
   numberView,
   textVariableView,
@@ -157,13 +155,13 @@ export default class EditController extends Controller {
       {
         label: this.intl.t('editor.variables.address'),
         component: {
-          path: 'variable-plugin/address/insert',
+          path: 'variable-plugin/address/insert-variable',
         },
       },
       {
         label: this.intl.t('editor.variables.date'),
         component: {
-          path: 'variable-plugin/date/insert',
+          path: 'variable-plugin/date/insert-variable',
         },
       },
       {
@@ -193,10 +191,6 @@ export default class EditController extends Controller {
         },
       ],
       date: {
-        placeholder: {
-          insertDate: this.intl.t('date-plugin.insert.date'),
-          insertDateTime: this.intl.t('date-plugin.insert.datetime'),
-        },
         formats: [
           {
             label: 'Short Date',
