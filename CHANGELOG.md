@@ -1,5 +1,13 @@
 # frontend-reglementaire-bijlage
 
+## 7.2.1
+
+### Patch Changes
+
+- [#185](https://github.com/lblod/frontend-reglementaire-bijlage/pull/185) [`e1d494e`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/e1d494ec655340841969ac7a43f704a4904dc1de) Thanks [@abeforgit](https://github.com/abeforgit)! - bump editor to v6.1.0 and plugins to v13.0.0
+
+- [#185](https://github.com/lblod/frontend-reglementaire-bijlage/pull/185) [`e1d494e`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/e1d494ec655340841969ac7a43f704a4904dc1de) Thanks [@abeforgit](https://github.com/abeforgit)! - use the correct components for dates and addresses in the variable insert component
+
 ## 7.2.0
 
 ### Minor Changes
