@@ -25,5 +25,5 @@ export default modifier(
 
     new Yasgui(element, config);
   },
-  { eager: false }
+  { eager: false },
 );

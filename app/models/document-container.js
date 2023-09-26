@@ -14,4 +14,11 @@ export default class DocumentContainerModel extends Model {
     async: true,
   })
   publishedVersion;
+  @belongsTo('published-snippet-container', {
+    inverse: 'derivedFrom',
+    async: true,
+  })
+  publishedSnippetVersion;
+  @hasMany('snippet-list', { inverse: 'templates', async: true })
+  snippetLists;
 }

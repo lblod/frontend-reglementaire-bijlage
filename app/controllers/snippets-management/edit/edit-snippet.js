@@ -35,10 +35,6 @@ import {
   STRUCTURE_SPECS,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/article-structure-plugin/structures';
 import {
-  variable,
-  variableView,
-} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/nodes';
-import {
   bullet_list,
   list_item,
   ordered_list,
@@ -49,10 +45,6 @@ import { blockquote } from '@lblod/ember-rdfa-editor/plugins/blockquote';
 import { code_block } from '@lblod/ember-rdfa-editor/plugins/code';
 import { image } from '@lblod/ember-rdfa-editor/plugins/image';
 import { inline_rdfa } from '@lblod/ember-rdfa-editor/marks';
-import {
-  date,
-  dateView,
-} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/rdfa-date-plugin/nodes/date';
 import { generateTemplate } from '../../../utils/generate-template';
 import { getOwner } from '@ember/application';
 import { linkPasteHandler } from '@lblod/ember-rdfa-editor/plugins/link';
@@ -61,10 +53,23 @@ import { highlight } from '@lblod/ember-rdfa-editor/plugins/highlight/marks/high
 import { color } from '@lblod/ember-rdfa-editor/plugins/color/marks/color';
 import { trackedFunction } from 'ember-resources/util/function';
 import {
+  address,
+  addressView,
+  codelist,
+  codelistView,
+  date,
+  dateView,
   number,
   numberView,
-} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/number';
+  textVariableView,
+  text_variable,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/variables';
 import { document_title } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/document-title-plugin/nodes';
+import {
+  templateComment,
+  templateCommentView,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/template-comments-plugin';
+import { docWithConfig } from '@lblod/ember-rdfa-editor/nodes/doc';
 
 export default class SnippetsManagementEditSnippetController extends Controller {
   @service store;
@@ -75,13 +80,14 @@ export default class SnippetsManagementEditSnippetController extends Controller 
   @service intl;
   @service currentSession;
   @tracked citationPlugin = citationPlugin(this.config.citation);
+  @service muTask;
 
   schema = new Schema({
     nodes: {
-      doc: {
+      doc: docWithConfig({
         content:
           'table_of_contents? document_title? ((chapter|block)+|(title|block)+|(article|block)+)',
-      },
+      }),
       paragraph,
       document_title,
       repaired_block,
@@ -89,11 +95,14 @@ export default class SnippetsManagementEditSnippetController extends Controller 
       list_item,
       ordered_list,
       bullet_list,
+      templateComment,
       placeholder,
       ...tableNodes({ tableGroup: 'block', cellContent: 'inline*' }),
+      address,
       date: date(this.config.date),
+      text_variable,
       number,
-      variable,
+      codelist,
       ...STRUCTURE_NODES,
       heading,
       blockquote,
@@ -124,17 +133,47 @@ export default class SnippetsManagementEditSnippetController extends Controller 
     },
   });
 
-  get insertVariableWidgetOptions() {
+  get variableTypes() {
     const config = getOwner(this).resolveRegistration('config:environment');
-    return {
-      publisher: this.currentSession.group.uri,
-      defaultEndpoint: config.insertVariablePlugin.endpoint,
-      variableTypes: ['text', 'number', 'date', 'codelist'],
-    };
+    return [
+      {
+        label: this.intl.t('editor.variables.text'),
+        component: {
+          path: 'variable-plugin/text/insert',
+        },
+      },
+      {
+        label: this.intl.t('editor.variables.number'),
+        component: {
+          path: 'variable-plugin/number/insert',
+        },
+      },
+      {
+        label: this.intl.t('editor.variables.address'),
+        component: {
+          path: 'variable-plugin/address/insert-variable',
+        },
+      },
+      {
+        label: this.intl.t('editor.variables.date'),
+        component: {
+          path: 'variable-plugin/date/insert-variable',
+        },
+      },
+      {
+        label: this.intl.t('editor.variables.codelist'),
+        component: {
+          path: 'variable-plugin/codelist/insert',
+          options: {
+            endpoint: config.insertVariablePlugin.endpoint,
+            publisher: this.currentSession.group?.uri,
+          },
+        },
+      },
+    ];
   }
 
   get config() {
-    const ENV = getOwner(this).resolveRegistration('config:environment');
     return {
       tableOfContents: [
         {
@@ -147,10 +186,6 @@ export default class SnippetsManagementEditSnippetController extends Controller 
         },
       ],
       date: {
-        placeholder: {
-          insertDate: this.intl.t('date-plugin.insert.date'),
-          insertDateTime: this.intl.t('date-plugin.insert.datetime'),
-        },
         formats: [
           {
             label: 'Short Date',
@@ -166,11 +201,6 @@ export default class SnippetsManagementEditSnippetController extends Controller 
           },
         ],
         allowCustomFormat: true,
-      },
-      variable: {
-        publisher: this.currentSession.group?.uri,
-        defaultEndpoint: ENV.insertVariablePlugin.endpoint,
-        variableTypes: ['text', 'number', 'date', 'codelist'],
       },
       structures: STRUCTURE_SPECS,
       citation: {
@@ -189,13 +219,16 @@ export default class SnippetsManagementEditSnippetController extends Controller 
   get nodeViews() {
     return (controller) => {
       return {
-        variable: variableView(controller),
         table_of_contents: tableOfContentsView(this.config.tableOfContents)(
-          controller
+          controller,
         ),
         link: linkView(this.config.link)(controller),
+        address: addressView(controller),
         date: dateView(this.config.date)(controller),
+        text_variable: textVariableView(controller),
         number: numberView(controller),
+        codelist: codelistView(controller),
+        templateComment: templateCommentView(controller),
       };
     };
   }
@@ -212,7 +245,7 @@ export default class SnippetsManagementEditSnippetController extends Controller 
   handleRdfaEditorInit(editor) {
     this.editor = editor;
     if (this.editorDocument.content) {
-      editor.setHtmlContent(this.editorDocument.content);
+      editor.initialize(this.editorDocument.content);
     }
   }
 
@@ -221,7 +254,7 @@ export default class SnippetsManagementEditSnippetController extends Controller 
   }
 
   currentVersion = trackedFunction(this, async () => {
-    return await this.model.currentVersion;
+    return await this.model.documentContainer.currentVersion;
   });
 
   get editorDocument() {
@@ -235,14 +268,39 @@ export default class SnippetsManagementEditSnippetController extends Controller 
     const currentVersion = this.editorDocument;
     editorDocument.content = html;
     editorDocument.templateVersion = templateVersion;
+
     editorDocument.createdOn = currentVersion.createdOn;
     editorDocument.updatedOn = new Date();
     editorDocument.title = currentVersion.title;
     editorDocument.previousVersion = currentVersion;
     await editorDocument.save();
 
-    const documentContainer = this.model;
+    const documentContainer = this.model.documentContainer;
     documentContainer.currentVersion = editorDocument;
     await documentContainer.save();
+
+    const publicationTask = this.store.createRecord(
+      'snippet-list-publication-task',
+    );
+    publicationTask.documentContainer = documentContainer;
+    publicationTask.snippetList = this.model.snippetList;
+    await publicationTask.save();
+
+    await this.muTask.waitForMuTaskTask.perform(publicationTask.id, 100);
+  });
+
+  updateDocumentTitle = task(async () => {
+    const documentContainer = this.model.documentContainer;
+    const snippetList = this.model.snippetList;
+
+    const publicationTask = this.store.createRecord(
+      'snippet-list-publication-task',
+    );
+
+    publicationTask.documentContainer = documentContainer;
+    publicationTask.snippetList = snippetList;
+    await publicationTask.save();
+
+    await this.muTask.waitForMuTaskTask.perform(publicationTask.id, 100);
   });
 }

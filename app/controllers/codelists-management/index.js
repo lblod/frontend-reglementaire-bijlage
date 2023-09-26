@@ -23,7 +23,7 @@ export default class CodelistsManagementIndexController extends Controller {
 
       this[queryParamProperty] = event.target.value.trim();
       this.resetPagination();
-    }
+    },
   );
 
   resetPagination() {
@@ -42,7 +42,7 @@ export default class CodelistsManagementIndexController extends Controller {
 
   removeCodelist = task(async () => {
     await Promise.all(
-      this.modalCodelist.concepts.map((option) => option.destroyRecord())
+      this.modalCodelist.concepts.map((option) => option.destroyRecord()),
     );
 
     await this.modalCodelist.destroyRecord();

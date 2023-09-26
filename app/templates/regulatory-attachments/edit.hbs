@@ -1,23 +1,34 @@
 {{page-title (t 'reglement-edit.edit')}}
 <BreadcrumbsItem as |linkClass|>
-    <AuLink
-      @route='regulatory-attachments.edit'
-      @model={{this.model.id}}
-      class={{linkClass}}
-    >
-      {{t 'reglement-edit.edit'}}
-    </AuLink>
+  <AuLink
+    @route='regulatory-attachments.edit'
+    @model={{this.model.id}}
+    class={{linkClass}}
+  >
+    {{t 'reglement-edit.edit'}}
+  </AuLink>
 </BreadcrumbsItem>
 {{#if this.editorDocument}}
   <AppChrome
     @editorDocument={{this.editorDocument}}
     @documentContainer={{this.model.documentContainer}}
     @save={{hash action=(perform this.save) isRunning=this.save.isRunning}}
-    @publish={{hash action=(perform this.publish) isRunning=this.save.isRunning}}
+    @publish={{hash
+      action=(perform this.publish)
+      isRunning=this.save.isRunning
+    }}
     @returnRoute='list'
     @returnRouteText={{t 'reglement-edit.return'}}
     @isPublished={{this.model.reglement.publishedVersion}}
-  />
+  >
+    <:leadingButtons>
+      <SnippetPlugin::SnippetListSelect
+        @config={{this.config.snippet}}
+        @onSaveSnippetListIds={{this.setDocumentContainerSnippetLists}}
+        @assignedSnippetListsIds={{this.assignedSnippetListsIds}}
+      />
+    </:leadingButtons>
+  </AppChrome>
   <RdfaEditorContainer
     @rdfaEditorInit={{this.handleRdfaEditorInit}}
     @editorDocument={{this.editorDocument}}
@@ -41,26 +52,28 @@
             <Plugins::TextStyle::Italic @controller={{this.editor}} />
             <Plugins::TextStyle::Strikethrough @controller={{this.editor}} />
             <Plugins::TextStyle::Underline @controller={{this.editor}} />
-            <Plugins::TextStyle::Subscript @controller={{this.editor}}/>
-            <Plugins::TextStyle::Superscript @controller={{this.editor}}/>
+            <Plugins::TextStyle::Subscript @controller={{this.editor}} />
+            <Plugins::TextStyle::Superscript @controller={{this.editor}} />
             <Plugins::TextStyle::Highlight
               @controller={{this.editor}}
-              @defaultColor="#FFEA00"
+              @defaultColor='#FFEA00'
             />
             <Plugins::TextStyle::Color
               @controller={{this.editor}}
-              @defaultColor="#000000"
+              @defaultColor='#000000'
             />
           </Tb.Group>
           <Tb.Group>
             <Plugins::List::Unordered @controller={{this.editor}} />
             <Plugins::List::Ordered @controller={{this.editor}} />
-            <Plugins::Indentation::IndentationMenu @controller={{this.editor}} />
+            <Plugins::Indentation::IndentationMenu
+              @controller={{this.editor}}
+            />
           </Tb.Group>
           <Tb.Group>
             <Plugins::Link::LinkMenu @controller={{this.editor}} />
-            <Plugins::Image::InsertMenu @controller={{this.editor}}/>
-            <GenericRdfaVariable::InsertMenu @controller={{this.editor}}/>
+            <Plugins::Image::InsertMenu @controller={{this.editor}} />
+            <GenericRdfaVariable::InsertMenu @controller={{this.editor}} />
           </Tb.Group>
           <Tb.Group>
             <Plugins::Table::TableMenu @controller={{this.editor}} />
@@ -82,14 +95,12 @@
       {{#if this.editor}}
         <Sidebar as |Sidebar|>
           <Sidebar.Collapsible @title='Insert' @expandedInitially={{true}}>
-            <DocumentTitlePlugin::InsertTitleCard
-              @controller={{this.editor}}
-            />
+            <DocumentTitlePlugin::InsertTitleCard @controller={{this.editor}} />
             <ArticleStructurePlugin::ArticleStructureCard
               @controller={{this.editor}}
               @options={{this.config.structures}}
             />
-            <RdfaDatePlugin::Insert
+            <VariablePlugin::Date::Insert
               @controller={{this.editor}}
               @options={{this.config.date}}
             />
@@ -98,11 +109,19 @@
               @plugin={{this.citationPlugin}}
               @config={{this.config.citation}}
             />
+            <SnippetPlugin::SnippetInsert
+              @controller={{this.editor}}
+              @config={{this.config.snippet}}
+              @assignedSnippetListsIds={{this.assignedSnippetListsIds}}
+            />
+            <TemplateCommentsPlugin::Insert @controller={{this.editor}} />
+            <VariablePlugin::Address::Insert @controller={{this.editor}} />
           </Sidebar.Collapsible>
           <VariablePlugin::InsertVariableCard
             @controller={{this.editor}}
-            @options={{this.config.variable}}
+            @variableTypes={{this.variableTypes}}
           />
+          <VariablePlugin::Address::Edit @controller={{this.editor}} />
           <ArticleStructurePlugin::StructureCard
             @controller={{this.editor}}
             @options={{this.config.structures}}
@@ -112,10 +131,11 @@
             @plugin={{this.citationPlugin}}
             @config={{this.config.citation}}
           />
-          <RdfaDatePlugin::Card
+          <VariablePlugin::Date::Edit
             @controller={{this.editor}}
             @options={{this.config.date}}
           />
+          <TemplateCommentsPlugin::EditCard @controller={{this.editor}} />
           {{! VariablePlugin::TemplateVariableCard is not added on purpose
           as an RB-document creator should not be able to set a "default" codelist option.}}
         </Sidebar>
@@ -123,6 +143,4 @@
     </:aside>
   </RdfaEditorContainer>
 {{/if}}
-<ConfirmRouteLeave
-  @enabled={{this.dirty}}
-/>
+<ConfirmRouteLeave @enabled={{this.dirty}} />

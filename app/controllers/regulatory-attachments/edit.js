@@ -35,10 +35,6 @@ import {
   STRUCTURE_SPECS,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/article-structure-plugin/structures';
 import {
-  variable,
-  variableView,
-} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/nodes';
-import {
   bullet_list,
   list_item,
   ordered_list,
@@ -49,10 +45,6 @@ import { blockquote } from '@lblod/ember-rdfa-editor/plugins/blockquote';
 import { code_block } from '@lblod/ember-rdfa-editor/plugins/code';
 import { image } from '@lblod/ember-rdfa-editor/plugins/image';
 import { inline_rdfa } from '@lblod/ember-rdfa-editor/marks';
-import {
-  date,
-  dateView,
-} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/rdfa-date-plugin/nodes/date';
 import { generateTemplate } from '../../utils/generate-template';
 import { getOwner } from '@ember/application';
 import { linkPasteHandler } from '@lblod/ember-rdfa-editor/plugins/link';
@@ -60,10 +52,26 @@ import { citationPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/c
 import { highlight } from '@lblod/ember-rdfa-editor/plugins/highlight/marks/highlight';
 import { color } from '@lblod/ember-rdfa-editor/plugins/color/marks/color';
 import {
+  address,
+  addressView,
+  codelist,
+  codelistView,
+  date,
+  dateView,
   number,
   numberView,
-} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/number';
+  textVariableView,
+  text_variable,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/variables';
 import { document_title } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/document-title-plugin/nodes';
+import {
+  templateComment,
+  templateCommentView,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/template-comments-plugin';
+import { docWithConfig } from '@lblod/ember-rdfa-editor/nodes/doc';
+
+const SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE = 'snippet-list-ids';
+
 export default class EditController extends Controller {
   @service store;
   @service router;
@@ -73,13 +81,17 @@ export default class EditController extends Controller {
   @service intl;
   @service currentSession;
   @tracked citationPlugin = citationPlugin(this.config.citation);
+  @tracked assignedSnippetListsIds = [];
 
   schema = new Schema({
     nodes: {
-      doc: {
+      doc: docWithConfig({
         content:
           'table_of_contents? document_title? ((chapter|block)+|(title|block)+|(article|block)+)',
-      },
+        extraAttributes: {
+          [SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE]: { default: null },
+        },
+      }),
       paragraph,
       document_title,
       repaired_block,
@@ -87,11 +99,14 @@ export default class EditController extends Controller {
       list_item,
       ordered_list,
       bullet_list,
+      templateComment,
       placeholder,
       ...tableNodes({ tableGroup: 'block', cellContent: 'inline*' }),
+      address,
       date: date(this.config.date),
+      text_variable,
       number,
-      variable,
+      codelist,
       ...STRUCTURE_NODES,
       heading,
       blockquote,
@@ -122,17 +137,47 @@ export default class EditController extends Controller {
     },
   });
 
-  get insertVariableWidgetOptions() {
+  get variableTypes() {
     const config = getOwner(this).resolveRegistration('config:environment');
-    return {
-      publisher: this.currentSession.group.uri,
-      defaultEndpoint: config.insertVariablePlugin.endpoint,
-      variableTypes: ['text', 'number', 'date', 'codelist'],
-    };
+    return [
+      {
+        label: this.intl.t('editor.variables.text'),
+        component: {
+          path: 'variable-plugin/text/insert',
+        },
+      },
+      {
+        label: this.intl.t('editor.variables.number'),
+        component: {
+          path: 'variable-plugin/number/insert',
+        },
+      },
+      {
+        label: this.intl.t('editor.variables.address'),
+        component: {
+          path: 'variable-plugin/address/insert-variable',
+        },
+      },
+      {
+        label: this.intl.t('editor.variables.date'),
+        component: {
+          path: 'variable-plugin/date/insert-variable',
+        },
+      },
+      {
+        label: this.intl.t('editor.variables.codelist'),
+        component: {
+          path: 'variable-plugin/codelist/insert',
+          options: {
+            endpoint: config.insertVariablePlugin.endpoint,
+            publisher: this.currentSession.group?.uri,
+          },
+        },
+      },
+    ];
   }
 
   get config() {
-    const ENV = getOwner(this).resolveRegistration('config:environment');
     return {
       tableOfContents: [
         {
@@ -146,10 +191,6 @@ export default class EditController extends Controller {
         },
       ],
       date: {
-        placeholder: {
-          insertDate: this.intl.t('date-plugin.insert.date'),
-          insertDateTime: this.intl.t('date-plugin.insert.datetime'),
-        },
         formats: [
           {
             label: 'Short Date',
@@ -166,11 +207,6 @@ export default class EditController extends Controller {
         ],
         allowCustomFormat: true,
       },
-      variable: {
-        publisher: this.currentSession.group?.uri,
-        defaultEndpoint: ENV.insertVariablePlugin.endpoint,
-        variableTypes: ['text', 'number', 'date', 'codelist'],
-      },
       structures: STRUCTURE_SPECS,
       citation: {
         type: 'nodes',
@@ -182,19 +218,25 @@ export default class EditController extends Controller {
       link: {
         interactive: true,
       },
+      snippet: {
+        endpoint: '/raw-sparql',
+      },
     };
   }
 
   get nodeViews() {
     return (controller) => {
       return {
-        variable: variableView(controller),
         table_of_contents: tableOfContentsView(this.config.tableOfContents)(
-          controller
+          controller,
         ),
         link: linkView(this.config.link)(controller),
+        address: addressView(controller),
         date: dateView(this.config.date)(controller),
         number: numberView(controller),
+        text_variable: textVariableView(controller),
+        codelist: codelistView(controller),
+        templateComment: templateCommentView(controller),
       };
     };
   }
@@ -211,7 +253,8 @@ export default class EditController extends Controller {
   handleRdfaEditorInit(editor) {
     this.editor = editor;
     if (this.editorDocument.content) {
-      editor.setHtmlContent(this.editorDocument.content);
+      editor.initialize(this.editorDocument.content);
+      this.assignedSnippetListsIds = this.documentSnippetListIds;
     }
   }
 
@@ -227,7 +270,7 @@ export default class EditController extends Controller {
     await this.save.perform();
     this.router.transitionTo(
       'regulatory-attachments.publish',
-      this.model.documentContainer.id
+      this.model.documentContainer.id,
     );
   });
 
@@ -247,5 +290,43 @@ export default class EditController extends Controller {
     documentContainer.currentVersion = editorDocument;
     await documentContainer.save();
     this._editorDocument = editorDocument;
+  });
+
+  get documentSnippetListIds() {
+    return (
+      this.editor
+        .getDocumentAttribute(SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE)
+        ?.split(',')
+        .filter(Boolean) ?? []
+    );
+  }
+
+  set documentSnippetListIds(snippetIds) {
+    this.editor.setDocumentAttribute(
+      SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE,
+      snippetIds.join(','),
+    );
+    this.assignedSnippetListsIds = snippetIds;
+  }
+
+  setDocumentContainerSnippetLists = task(async (snippetIds) => {
+    if (!snippetIds || !snippetIds.length) {
+      this.documentSnippetListIds = [];
+      this.model.documentContainer.snippetLists.setObjects([]);
+
+      return this.save.perform();
+    }
+
+    const snippetLists = await this.store.query('snippet-list', {
+      filter: {
+        ':id:': snippetIds.join(','),
+      },
+      include: 'snippets',
+    });
+
+    this.documentSnippetListIds = snippetIds;
+    this.model.documentContainer.snippetLists.setObjects(snippetLists);
+
+    return this.save.perform();
   });
 }

@@ -11,12 +11,13 @@ export default class EditRoute extends Route {
   async model(params) {
     const documentContainer = await this.store.findRecord(
       'document-container',
-      params.id
+      params.id,
+      { include: 'current-version,snippet-lists,snippet-lists.snippets' },
     );
     const documentId = (await documentContainer.currentVersion).id;
     const editorDocument = await this.store.findRecord(
       'editor-document',
-      documentId
+      documentId,
     );
     return { documentContainer, editorDocument };
   }

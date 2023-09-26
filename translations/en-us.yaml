@@ -17,7 +17,6 @@ codelist:
   attr:
     label: Name of codelist
     value: Value
-    type: Type
     created-on: Created On
     not-found: N/A
     options: "Options"
@@ -142,11 +141,15 @@ snippets:
   add-new-snippet: Add new snippet
   saved: Saved
   crud:
-    no-data: No snippet lists where found
+    no-data: No snippet lists were found
     confirm-deletion: Confirm to delete snippet list <strong>{name}</strong>
     confirm-deletion-snippet: Confirm to delete snippet <strong>{name}</strong>
     delete: Delete snippet list
     delete-snippet: Delete snippet
+  template:
+    heading: Available in
+    table-header: Template
+    no-data: No templates connected to this snippet list
   attr:
     label: Label
     id: Id
@@ -156,3 +159,10 @@ editor-document-title:
   placeholder: Untitled document
   change-title: Change title
   title-saved: Title saved
+editor:
+  variables:
+    text: text
+    number: number
+    address: address
+    date: date
+    codelist: codelist
