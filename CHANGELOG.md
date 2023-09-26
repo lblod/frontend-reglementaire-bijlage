@@ -1,5 +1,11 @@
 # frontend-reglementaire-bijlage
 
+## 7.2.2
+
+### Patch Changes
+
+- [#190](https://github.com/lblod/frontend-reglementaire-bijlage/pull/190) [`8d220a8`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/8d220a8ca186e506ef9c53a7be0ab27c9b8b85e8) Thanks [@elpoelma](https://github.com/elpoelma)! - Fix website URL in footer
+
 ## 7.2.1
 
 ### Patch Changes
