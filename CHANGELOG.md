@@ -28,6 +28,15 @@
 
 
 
+
+## 6.7.1 (2023-09-26)
+
+#### :bug: Bug Fix
+* [#189](https://github.com/lblod/frontend-reglementaire-bijlage/pull/189) Fix website url in footer (hotfix) ([@elpoelma](https://github.com/elpoelma))
+
+#### Committers: 1
+- Elena Poelman ([@elpoelma](https://github.com/elpoelma))
+
 ## 6.7.0 (2023-07-06)
 
 #### :rocket: Enhancement
