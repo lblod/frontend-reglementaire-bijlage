@@ -6,8 +6,9 @@ import { isBlank } from '../utils/strings';
 
 export default class EditorDocumentTitleComponent extends Component {
   @tracked active = false;
+  @tracked error = false;
   @tracked _title;
-  @tracked showIsSaved = false;
+
   constructor() {
     super(...arguments);
     this.active = this.args.editActive;
@@ -37,6 +38,10 @@ export default class EditorDocumentTitleComponent extends Component {
   setTitle(event) {
     let title = event.target.value;
     this._title = title;
+
+    if (title) {
+      this.error = false;
+    }
   }
 
   @action
@@ -48,14 +53,12 @@ export default class EditorDocumentTitleComponent extends Component {
     }
     this.args.onSubmit?.(this.title);
     this.disableEdit();
-    this.showIsSavedTask.perform;
+    this.showIsSavedTask.perform();
     return false;
   }
 
   showIsSavedTask = restartableTask(async () => {
-    this.showIsSaved = true;
     await timeout(3000);
-    this.showIsSaved = false;
   });
 
   @action
@@ -75,8 +78,7 @@ export default class EditorDocumentTitleComponent extends Component {
   // the cancel event + submit which cause a bug in prod environments.
   @action
   enableEdit() {
-    this.showIsSavedTask.cancel;
-    this.showIsSaved = false;
+    this.showIsSavedTask.cancelAll();
     if (this.active) {
       return;
     }
