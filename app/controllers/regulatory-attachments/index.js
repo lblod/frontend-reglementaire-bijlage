@@ -4,6 +4,7 @@ import { service } from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { RS_STANDARD_FOLDER } from '../../utils/constants';
+import { isBlank } from '../../utils/strings';
 
 export default class ListController extends Controller {
   @service store;
@@ -43,6 +44,10 @@ export default class ListController extends Controller {
     this.editorDocument = undefined;
     this.documentContainer = undefined;
     this.createReglementModalIsOpen = false;
+  }
+
+  get isInvalidReglementTitle() {
+    return isBlank(this.editorDocument.title);
   }
 
   saveReglement = task(async (event) => {
