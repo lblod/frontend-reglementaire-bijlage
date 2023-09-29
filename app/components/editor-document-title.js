@@ -22,6 +22,13 @@ export default class EditorDocumentTitleComponent extends Component {
     }
   }
 
+  get isTitleModified() {
+    if (!this._title) {
+      return false;
+    }
+    return this.args.title !== this._title;
+  }
+
   get isInvalidTitle() {
     // do not allow empty titles
     return isBlank(this.title);
@@ -40,7 +47,7 @@ export default class EditorDocumentTitleComponent extends Component {
   @action
   submit(event) {
     event.preventDefault();
-    if (this.isInvalidTitle) {
+    if (this.isInvalidTitle || !this.isTitleModified) {
       this.cancel();
       return;
     }
