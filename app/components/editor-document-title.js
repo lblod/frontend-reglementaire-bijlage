@@ -6,7 +6,6 @@ import { isBlank } from '../utils/strings';
 
 export default class EditorDocumentTitleComponent extends Component {
   @tracked active = false;
-  @tracked error = false;
   @tracked _title;
   @tracked showIsSaved = false;
   constructor() {
@@ -38,10 +37,6 @@ export default class EditorDocumentTitleComponent extends Component {
   setTitle(event) {
     let title = event.target.value;
     this._title = title;
-
-    if (title) {
-      this.error = false;
-    }
   }
 
   @action
