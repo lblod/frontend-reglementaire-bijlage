@@ -8,7 +8,7 @@ export default class EditorDocumentTitleComponent extends Component {
   @tracked active = false;
   @tracked error = false;
   @tracked _title;
-  @tracked showSaved = false;
+  @tracked showIsSaved = false;
   constructor() {
     super(...arguments);
     this.active = this.args.editActive;
@@ -53,14 +53,14 @@ export default class EditorDocumentTitleComponent extends Component {
     }
     this.args.onSubmit?.(this.title);
     this.disableEdit();
-    this.showSaved = true;
-    setTimeout(() => (this.showSaved = false), 30000);
+    this.showIsSavedTask.perform;
     return false;
   }
 
-  hideSaved = restartableTask(async () => {
+  showIsSavedTask = restartableTask(async () => {
+    this.showIsSaved = true;
     await timeout(3000);
-    this.showSaved = false;
+    this.showIsSaved = false;
   });
 
   @action
@@ -80,7 +80,8 @@ export default class EditorDocumentTitleComponent extends Component {
   // the cancel event + submit which cause a bug in prod environments.
   @action
   enableEdit() {
-    this.showSaved = false;
+    this.showIsSavedTask.cancel;
+    this.showIsSaved = false;
     if (this.active) {
       return;
     }
