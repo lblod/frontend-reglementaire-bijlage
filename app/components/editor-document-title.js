@@ -22,11 +22,9 @@ export default class EditorDocumentTitleComponent extends Component {
     }
   }
 
-  get titleModified() {
-    if (!this._title) {
-      return false;
-    }
-    return this.args.title !== this._title;
+  get isInvalidTitle() {
+    // do not allow empty titles
+    return isBlank(this.title);
   }
 
   @action
@@ -42,13 +40,12 @@ export default class EditorDocumentTitleComponent extends Component {
   @action
   submit(event) {
     event.preventDefault();
-    if (isBlank(this.title)) {
-      // do not allow any empty title
+    if (this.isInvalidTitle) {
       this.cancel();
       return;
     }
     this.args.onSubmit?.(this.title);
-    this.disabledEdit();
+    this.disableEdit();
     this.showSaved = true;
     setTimeout(() => (this.showSaved = false), 30000);
     return false;
@@ -62,7 +59,7 @@ export default class EditorDocumentTitleComponent extends Component {
   @action
   cancel() {
     this._title = undefined;
-    this.disabledEdit();
+    this.disableEdit();
   }
 
   @action
@@ -76,6 +73,7 @@ export default class EditorDocumentTitleComponent extends Component {
   // the cancel event + submit which cause a bug in prod environments.
   @action
   enableEdit() {
+    this.showSaved = false;
     if (this.active) {
       return;
     }
@@ -83,15 +81,11 @@ export default class EditorDocumentTitleComponent extends Component {
   }
 
   @action
-  disabledEdit() {
+  disableEdit() {
     if (!this.active) {
       return;
     }
-    if (!this.title) {
-      this.error = true;
-    } else {
-      this.active = false;
-    }
+    this.active = false;
   }
 
   @action
