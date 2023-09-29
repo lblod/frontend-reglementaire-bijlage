@@ -2,6 +2,7 @@ import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { restartableTask, timeout } from 'ember-concurrency';
+import { isBlank } from '../utils/strings';
 
 export default class EditorDocumentTitleComponent extends Component {
   @tracked active = false;
@@ -41,6 +42,11 @@ export default class EditorDocumentTitleComponent extends Component {
   @action
   submit(event) {
     event.preventDefault();
+    if (isBlank(this.title)) {
+      // do not allow any empty title
+      this.cancel();
+      return;
+    }
     this.args.onSubmit?.(this.title);
     this.disabledEdit();
     this.showSaved = true;
@@ -54,11 +60,9 @@ export default class EditorDocumentTitleComponent extends Component {
   });
 
   @action
-  cancel(event) {
-    if (!event.currentTarget.contains(event.relatedTarget)) {
-      this._title = undefined;
-      this.disabledEdit();
-    }
+  cancel() {
+    this._title = undefined;
+    this.disabledEdit();
   }
 
   // We check the value of active in these 2 functions to avoid setting it 2 times in the same computation with
