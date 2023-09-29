@@ -65,6 +65,13 @@ export default class EditorDocumentTitleComponent extends Component {
     this.disabledEdit();
   }
 
+  @action
+  cancelOnEscape(keyEvent) {
+    if (keyEvent.key === 'Escape') {
+      this.cancel();
+    }
+  }
+
   // We check the value of active in these 2 functions to avoid setting it 2 times in the same computation with
   // the cancel event + submit which cause a bug in prod environments.
   @action

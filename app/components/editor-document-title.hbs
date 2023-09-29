@@ -14,6 +14,7 @@
               type="text"
               value={{this.title}}
               {{on "input" this.setTitle}}
+              {{on "keydown" this.cancelOnEscape}}
               {{did-insert this.focus}}
             />
         {{/let}}
