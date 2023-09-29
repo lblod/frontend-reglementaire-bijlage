@@ -13,11 +13,11 @@ export default class SnippetListForm extends Component {
   @service currentSession;
 
   @tracked label = '';
-  @tracked showSaved = false;
   @tracked isRemoveModalOpen = false;
   @tracked deletingSnippet;
 
   updateLabel = restartableTask(async (event) => {
+    this.showSavedTask.cancelAll();
     const value = event.target.value;
     this.args.model.label = value;
     if (this.invalidLabel) {
@@ -56,9 +56,7 @@ export default class SnippetListForm extends Component {
   }
 
   showSavedTask = restartableTask(async () => {
-    this.showSaved = true;
     await timeout(3000);
-    this.showSaved = false;
   });
 
   createSnippet = task(async () => {
