@@ -83,13 +83,14 @@
   </Modal.Body>
   <Modal.Footer>
     <AuButtonGroup>
-      <button
+      <AuButton
         class="au-c-button"
         form="create-meeting-form"
         type="submit"
+        @disabled={{this.isInvalidReglementTitle}}
       >
         {{t "regulatory-attachments.create-modal.save"}}
-      </button>
+      </AuButton>
       <AuButton {{on "click" this.cancelCreateReglement}} @skin="secondary">
         {{t "regulatory-attachments.create-modal.cancel"}}
       </AuButton>

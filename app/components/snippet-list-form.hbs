@@ -14,7 +14,7 @@
         @value={{@model.label}}
         {{on "input" (perform this.updateLabel)}}
       />
-      {{#if this.showSaved}}
+      {{#if this.showSavedTask.isRunning}}
         <div class="snippets-pill-container">
           <AuPill
             @skin="success"
