@@ -1,5 +1,14 @@
 # frontend-reglementaire-bijlage
 
+## 7.3.0
+
+### Minor Changes
+
+- [#191](https://github.com/lblod/frontend-reglementaire-bijlage/pull/191) [`a746364`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/a74636433d78d3e2dc283e3a9c0081aa9604a0b7) Thanks [@x-m-el](https://github.com/x-m-el)! - - automatically save the document title if clicking outside of the title input box
+  - Do not allow any empty document titles
+  - saving a document will also save its title
+  - the "saved" pill will only show up if something is actually saved
+
 ## 7.2.2
 
 ### Patch Changes
