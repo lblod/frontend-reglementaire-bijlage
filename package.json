@@ -52,12 +52,13 @@
     "ember-cli-app-version": "^6.0.1",
     "ember-cli-babel": "^7.26.11",
     "ember-cli-dependency-checker": "^3.3.1",
+    "ember-cli-dependency-lint": "^2.0.1",
     "ember-cli-htmlbars": "^6.3.0",
     "ember-cli-inject-live-reload": "^2.1.0",
     "ember-cli-sass": "^11.0.1",
     "ember-cli-sri": "^2.1.1",
     "ember-cli-terser": "^4.0.2",
-    "ember-concurrency": "^3.1.1",
+    "ember-concurrency": "^2.3.7",
     "ember-config-helper": "^0.1.4",
     "ember-data": "~4.8.8",
     "ember-drag-drop": "^0.9.0-beta.0",
@@ -66,7 +67,7 @@
     "ember-load-initializers": "^2.1.2",
     "ember-mu-transform-helpers": "^2.1.2",
     "ember-page-title": "^7.0.0",
-    "ember-power-select": "^7.0.0",
+    "ember-power-select": "^6.0.1",
     "ember-promise-helpers": "^2.0.0",
     "ember-qunit": "^6.0.0",
     "ember-resolver": "^11.0.1",
@@ -87,6 +88,11 @@
     "release-it": "^16.0.0",
     "sass": "^1.69.0",
     "webpack": "^5.88.2"
+  },
+  "overrides": {
+    "@appuniversum/ember-appuniversum": {
+      "tracked-toolbox": "^2.0.0"
+    }
   },
   "engines": {
     "node": ">= 16"
