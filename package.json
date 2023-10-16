@@ -65,7 +65,7 @@
     "ember-intl": "^5.7.2",
     "ember-load-initializers": "^2.1.2",
     "ember-mu-transform-helpers": "^2.1.2",
-    "ember-page-title": "^7.0.0",
+    "ember-page-title": "^8.0.0",
     "ember-power-select": "^7.0.0",
     "ember-promise-helpers": "^2.0.0",
     "ember-qunit": "^6.0.0",
@@ -85,7 +85,7 @@
     "qunit": "^2.19.2",
     "qunit-dom": "^2.0.0",
     "release-it": "^16.0.0",
-    "sass": "^1.65.1",
+    "sass": "^1.69.0",
     "webpack": "^5.88.2"
   },
   "engines": {
