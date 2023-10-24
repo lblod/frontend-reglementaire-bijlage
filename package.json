@@ -66,7 +66,7 @@
     "ember-intl": "^5.7.2",
     "ember-load-initializers": "^2.1.2",
     "ember-mu-transform-helpers": "^2.1.2",
-    "ember-page-title": "^7.0.0",
+    "ember-page-title": "^8.0.0",
     "ember-power-select": "^6.0.1",
     "ember-promise-helpers": "^2.0.0",
     "ember-qunit": "^6.0.0",

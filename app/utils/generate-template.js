@@ -17,14 +17,14 @@ export function generateTemplate(editor) {
     uris = [...uris, ...resourceUris];
   }
   let documentHTML = editor.htmlContent;
-  for (let uri of uris) {
+  uris.forEach((uri, index) => {
     const uriParts = uri.split('/');
     uriParts.pop();
     const uriWithoutUuid = uriParts.join('/');
-    documentHTML = documentHTML.replace(
+    documentHTML = documentHTML.replaceAll(
       uri,
-      `${uriWithoutUuid}/\${generateUuid()}`,
+      `${uriWithoutUuid}/\${generateBoundUuid(${index})}`,
     );
-  }
+  });
   return documentHTML;
 }
