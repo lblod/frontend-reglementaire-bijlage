@@ -7,6 +7,9 @@ module.exports = function (environment) {
     rootURL: '/',
     locationType: 'history',
     EmberENV: {
+      // Disable prototype extensions once we no longer rely on them.
+      // See: https://guides.emberjs.com/v3.27.0/configuring-ember/disabling-prototype-extensions/
+      // EXTEND_PROTOTYPES: false,
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
         // e.g. EMBER_NATIVE_DECORATOR_SUPPORT: true
