@@ -71,6 +71,12 @@ import {
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/template-comments-plugin';
 import { docWithConfig } from '@lblod/ember-rdfa-editor/nodes/doc';
 
+import TextVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/text/insert';
+import NumberInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/number/insert';
+import DateInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/date/insert-variable';
+import CodelistInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/codelist/insert';
+import VariablePluginAddressInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/address/insert-variable';
+
 export default class SnippetsManagementEditSnippetController extends Controller {
   @service store;
   @service router;
@@ -138,36 +144,26 @@ export default class SnippetsManagementEditSnippetController extends Controller 
     return [
       {
         label: this.intl.t('editor.variables.text'),
-        component: {
-          path: 'variable-plugin/text/insert',
-        },
+        component: TextVariableInsertComponent,
       },
       {
         label: this.intl.t('editor.variables.number'),
-        component: {
-          path: 'variable-plugin/number/insert',
-        },
+        component: NumberInsertComponent,
       },
       {
         label: this.intl.t('editor.variables.address'),
-        component: {
-          path: 'variable-plugin/address/insert-variable',
-        },
+        component: VariablePluginAddressInsertVariableComponent,
       },
       {
         label: this.intl.t('editor.variables.date'),
-        component: {
-          path: 'variable-plugin/date/insert-variable',
-        },
+        component: DateInsertVariableComponent,
       },
       {
         label: this.intl.t('editor.variables.codelist'),
-        component: {
-          path: 'variable-plugin/codelist/insert',
-          options: {
-            endpoint: config.insertVariablePlugin.endpoint,
-            publisher: this.currentSession.group?.uri,
-          },
+        component: CodelistInsertComponent,
+        options: {
+          endpoint: config.insertVariablePlugin.endpoint,
+          publisher: this.currentSession.group?.uri,
         },
       },
     ];
