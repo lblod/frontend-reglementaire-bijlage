@@ -1,5 +1,34 @@
 # frontend-reglementaire-bijlage
 
+## 8.0.0
+
+### Major Changes
+
+- [#192](https://github.com/lblod/frontend-reglementaire-bijlage/pull/192) [`d163caf`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/d163cafdcf04a099c1b25e903521ccfa97e3fdc9) Thanks [@piemonkey](https://github.com/piemonkey)! - Generate regulatory attachment templates which maintain relationships between nodes
+  BREAKS import on GN unless updated to support generateBoundUuid
+
+### Minor Changes
+
+- [#205](https://github.com/lblod/frontend-reglementaire-bijlage/pull/205) [`7769d29`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/7769d29e86421630ac8a8080d89139b376d6bd30) Thanks [@elpoelma](https://github.com/elpoelma)! - Update ember-source to 4.12.3
+
+- [#200](https://github.com/lblod/frontend-reglementaire-bijlage/pull/200) [`cf28141`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/cf28141707b42ff34b723f15f83f2cedc0e37152) Thanks [@elpoelma](https://github.com/elpoelma)! - GN-4536: fill out legal pages
+
+- [#205](https://github.com/lblod/frontend-reglementaire-bijlage/pull/205) [`7769d29`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/7769d29e86421630ac8a8080d89139b376d6bd30) Thanks [@elpoelma](https://github.com/elpoelma)! - Update ember-data to 4.12.4
+
+### Patch Changes
+
+- [#195](https://github.com/lblod/frontend-reglementaire-bijlage/pull/195) [`ed4146a`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/ed4146a607f47577ebd3702a8798b1d8fb2750d7) Thanks [@elpoelma](https://github.com/elpoelma)! - override tracked-toolbox dependency of `@appuniversum/ember-appuniversum`
+
+- [#195](https://github.com/lblod/frontend-reglementaire-bijlage/pull/195) [`ed4146a`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/ed4146a607f47577ebd3702a8798b1d8fb2750d7) Thanks [@elpoelma](https://github.com/elpoelma)! - Enable dependency-lint CI check
+
+- [#202](https://github.com/lblod/frontend-reglementaire-bijlage/pull/202) [`692b07b`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/692b07b4ad2ceceeae013ff2749eb65e99d97bca) Thanks [@elpoelma](https://github.com/elpoelma)! - Update `@lblod/ember-rdfa-editor-lblod-plugins` to 15.0.0
+
+- [#202](https://github.com/lblod/frontend-reglementaire-bijlage/pull/202) [`692b07b`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/692b07b4ad2ceceeae013ff2749eb65e99d97bca) Thanks [@elpoelma](https://github.com/elpoelma)! - Update `@lblod/ember-rdfa-editor` to 6.3.0
+
+- [#195](https://github.com/lblod/frontend-reglementaire-bijlage/pull/195) [`ed4146a`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/ed4146a607f47577ebd3702a8798b1d8fb2750d7) Thanks [@elpoelma](https://github.com/elpoelma)! - downgrade ember-power-select from 7.0.0 to 6.0.1
+
+- [#195](https://github.com/lblod/frontend-reglementaire-bijlage/pull/195) [`ed4146a`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/ed4146a607f47577ebd3702a8798b1d8fb2750d7) Thanks [@elpoelma](https://github.com/elpoelma)! - downgrade ember-concurrency from 3.1.1 to 2.3.7
+
 ## 7.3.0
 
 ### Minor Changes
