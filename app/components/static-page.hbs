@@ -6,27 +6,4 @@
 
 {{yield}}
 
-<AuMainFooter>
-  <AuHeading @level="3" @skin="4">
-    {{t "static-page.official-website"}}
-  </AuHeading>
-  <AuContent @skin="small">
-    <p>{{t "static-page.published-by"}}
-      <a
-        class="au-c-link"
-        href="https://www.vlaanderen.be/organisaties/administratieve-diensten-van-de-vlaamse-overheid/beleidsdomein-kanselarij-en-bestuur/agentschap-binnenlands-bestuur"
-      >{{t "static-page.agentschap-binnenlands-bestuur"}}</a>
-    </p>
-    <ul class="au-c-list-horizontal">
-      <li class="au-c-list-horizontal__item">
-        <AuLink @route="legal.disclaimer" @skin="secondary">{{t "static-page.disclaimer"}}</AuLink>
-      </li>
-      <li class="au-c-list-horizontal__item">
-        <AuLink @route="legal.cookiestatement" @skin="secondary">{{t "static-page.cookie-policy"}}</AuLink>
-      </li>
-      <li class="au-c-list-horizontal__item">
-        <AuLink @route="legal.accessibilitystatement" @skin="secondary">{{t "static-page.accesibility-statement"}}</AuLink>
-      </li>
-    </ul>
-  </AuContent>
-</AuMainFooter>
+<Footer/>
