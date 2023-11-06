@@ -1,5 +1,11 @@
 # frontend-reglementaire-bijlage
 
+## 8.0.1
+
+### Patch Changes
+
+- [`2b852a8`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/2b852a8200bf8a63e2ba6de14e5817f093135ab6) Thanks [@abeforgit](https://github.com/abeforgit)! - bump base images to 4.12
+
 ## 8.0.0
 
 ### Major Changes
