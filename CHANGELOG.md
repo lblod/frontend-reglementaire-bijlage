@@ -1,5 +1,11 @@
 # frontend-reglementaire-bijlage
 
+## 8.0.2
+
+### Patch Changes
+
+- [`d0615bd`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/d0615bda19050dfa6c74a1c4c7654bbdb8968b13) Thanks [@elpoelma](https://github.com/elpoelma)! - Update `@lblod/ember-rdfa-editor` to 6.4.0
+
 ## 8.0.1
 
 ### Patch Changes
