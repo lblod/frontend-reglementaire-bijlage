@@ -1,5 +1,13 @@
 # frontend-reglementaire-bijlage
 
+## 8.0.3
+
+### Patch Changes
+
+- [#209](https://github.com/lblod/frontend-reglementaire-bijlage/pull/209) [`de770de`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/de770de9c51d47a5f0bceba4d8c467d2782ebd9b) Thanks [@dkozickis](https://github.com/dkozickis)! - GN-4628: Change attribute name used to store snippet list IDs
+
+  `snippet-list-ids` was not a valid attribute name. Changed to `data-snippet-list-ids`.
+
 ## 8.0.2
 
 ### Patch Changes
