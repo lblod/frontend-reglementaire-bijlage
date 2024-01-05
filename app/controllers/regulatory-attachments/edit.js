@@ -69,6 +69,7 @@ import {
   templateCommentView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/template-comments-plugin';
 import { docWithConfig } from '@lblod/ember-rdfa-editor/nodes/doc';
+import { undo } from '@lblod/ember-rdfa-editor/plugins/history';
 import TextVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/text/insert';
 import NumberInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/number/insert';
 import DateInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/date/insert-variable';
@@ -82,7 +83,6 @@ export default class EditController extends Controller {
   @service router;
   @tracked editor;
   @tracked _editorDocument;
-  @tracked controller;
   @service intl;
   @service currentSession;
   @tracked citationPlugin = citationPlugin(this.config.citation);
@@ -254,7 +254,11 @@ export default class EditController extends Controller {
   }
 
   get dirty() {
-    return this.editorDocument.content !== this.editor.htmlContent;
+    // Since we clear the undo history when saving, this works. If we want to maintain undo history
+    // on save, we would need to add functionality to the editor to track what is the 'saved' state
+    return this.editor?.checkCommand(undo, {
+      view: this.editor?.mainEditorView,
+    });
   }
 
   get editorDocument() {

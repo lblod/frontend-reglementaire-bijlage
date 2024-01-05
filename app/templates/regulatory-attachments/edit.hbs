@@ -13,6 +13,7 @@
     @editorDocument={{this.editorDocument}}
     @documentContainer={{this.model.documentContainer}}
     @save={{hash action=(perform this.save) isRunning=this.save.isRunning}}
+    @dirty={{this.dirty}}
     @publish={{hash
       action=(perform this.publish)
       isRunning=this.save.isRunning
