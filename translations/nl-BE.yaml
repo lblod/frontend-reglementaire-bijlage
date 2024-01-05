@@ -59,6 +59,7 @@ utility:
   optional: Optioneel
   field-required: Dit veld is verplicht
   type-something-placeholder: Typ iets...
+  insert: Invoegen
 landing-page:
   create-reglement:
     title: Reglementaire bijlagen

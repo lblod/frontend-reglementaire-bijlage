@@ -59,6 +59,7 @@ utility:
   optional: Optional
   field-required: This field is required
   type-something-placeholder: Type something...
+  insert: Insert
 landing-page:
   create-reglement:
     title: Regulatory Attachments

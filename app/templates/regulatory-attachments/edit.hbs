@@ -94,7 +94,7 @@
     <:aside>
       {{#if this.editor}}
         <Sidebar as |Sidebar|>
-          <Sidebar.Collapsible @title='Insert' @expandedInitially={{true}}>
+          <Sidebar.Collapsible @title={{t "utility.insert"}} @expandedInitially={{true}}>
             <DocumentTitlePlugin::InsertTitleCard @controller={{this.editor}} />
             <ArticleStructurePlugin::ArticleStructureCard
               @controller={{this.editor}}
