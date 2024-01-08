@@ -1,5 +1,19 @@
 # frontend-reglementaire-bijlage
 
+## 8.1.0
+
+### Minor Changes
+
+- [#214](https://github.com/lblod/frontend-reglementaire-bijlage/pull/214) [`2fa15f5`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/2fa15f59d313ca405761d8a5dae5b7e6f551ab61) Thanks [@piemonkey](https://github.com/piemonkey)! - Correctly track the saved state of attachments and snippets so we only ask to save changes when changes have been made
+
+### Patch Changes
+
+- [#213](https://github.com/lblod/frontend-reglementaire-bijlage/pull/213) [`2033c16`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/2033c167a94fcd7647601e07ca56f1301241b119) Thanks [@piemonkey](https://github.com/piemonkey)! - Correctly translate 'insert' in the sidebar
+
+- [#215](https://github.com/lblod/frontend-reglementaire-bijlage/pull/215) [`6393f99`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/6393f9924a2d096e3d2bb120a71b5c4d41ef7348) Thanks [@elpoelma](https://github.com/elpoelma)! - Update editor-plugins to 15.2.2
+
+- [#215](https://github.com/lblod/frontend-reglementaire-bijlage/pull/215) [`17bca1e`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/17bca1eacfd7d2970687372c4f89a944a3d10b96) Thanks [@elpoelma](https://github.com/elpoelma)! - Update editor to 8.2.0
+
 ## 8.0.3
 
 ### Patch Changes
