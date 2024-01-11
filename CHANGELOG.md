@@ -1,5 +1,11 @@
 # frontend-reglementaire-bijlage
 
+## 8.2.0
+
+### Minor Changes
+
+- [`997d2dc`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/997d2dce07e3662a9660e82a2b2525937337179c) Thanks [@piemonkey](https://github.com/piemonkey)! - Update @lblod/ember-rdfa-editor to 8.3.0
+
 ## 8.1.0
 
 ### Minor Changes
