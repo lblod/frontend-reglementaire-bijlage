@@ -1,5 +1,17 @@
 # frontend-reglementaire-bijlage
 
+## 8.2.1
+
+### Patch Changes
+
+- [#217](https://github.com/lblod/frontend-reglementaire-bijlage/pull/217) [`06957f6`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/06957f6d611da9ac482ebbf6c2512ca17de4da9d) Thanks [@elpoelma](https://github.com/elpoelma)! - Update `@appuniversum/ember-appuniversum` to 2.15.0
+
+- [#217](https://github.com/lblod/frontend-reglementaire-bijlage/pull/217) [`06957f6`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/06957f6d611da9ac482ebbf6c2512ca17de4da9d) Thanks [@elpoelma](https://github.com/elpoelma)! - Update `@lblod/ember-rdfa-editor` to 9.0.0
+
+- [#217](https://github.com/lblod/frontend-reglementaire-bijlage/pull/217) [`06957f6`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/06957f6d611da9ac482ebbf6c2512ca17de4da9d) Thanks [@elpoelma](https://github.com/elpoelma)! - Update `ember-intl` to 6.1.0
+
+- [#217](https://github.com/lblod/frontend-reglementaire-bijlage/pull/217) [`06957f6`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/06957f6d611da9ac482ebbf6c2512ca17de4da9d) Thanks [@elpoelma](https://github.com/elpoelma)! - Update `@lblod/ember-rdfa-editor-lblod-plugins` to 16.0.0
+
 ## 8.2.0
 
 ### Minor Changes
