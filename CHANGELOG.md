@@ -1,5 +1,14 @@
 # frontend-reglementaire-bijlage
 
+## 8.2.2
+
+### Patch Changes
+
+- [#219](https://github.com/lblod/frontend-reglementaire-bijlage/pull/219) [`d57f15c`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/d57f15c438a76692849e3a432d930d6925dd2663) Thanks [@elpoelma](https://github.com/elpoelma)! - Downgrade `ember-intl` to 5.7.2
+
+- [#219](https://github.com/lblod/frontend-reglementaire-bijlage/pull/219) [`d57f15c`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/d57f15c438a76692849e3a432d930d6925dd2663) Thanks [@elpoelma](https://github.com/elpoelma)! - Update `@lblod/ember-rdfa-editor` to 9.0.2
+  Update `@lblod/ember-rdfa-editor-lblod-plugins` to 16.0.1
+
 ## 8.2.1
 
 ### Patch Changes
