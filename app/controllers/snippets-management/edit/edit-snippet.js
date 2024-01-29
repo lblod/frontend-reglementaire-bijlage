@@ -22,8 +22,9 @@ import {
   text,
 } from '@lblod/ember-rdfa-editor/nodes';
 import {
+  tableKeymap,
   tableNodes,
-  tablePlugin,
+  tablePlugins,
 } from '@lblod/ember-rdfa-editor/plugins/table';
 import { link, linkView } from '@lblod/ember-rdfa-editor/nodes/link';
 import {
@@ -103,7 +104,7 @@ export default class SnippetsManagementEditSnippetController extends Controller 
       bullet_list,
       templateComment,
       placeholder,
-      ...tableNodes({ tableGroup: 'block', cellContent: 'inline*' }),
+      ...tableNodes({ tableGroup: 'block', cellContent: 'block+' }),
       address,
       date: date(this.config.date),
       text_variable,
@@ -231,7 +232,8 @@ export default class SnippetsManagementEditSnippetController extends Controller 
 
   get plugins() {
     return [
-      tablePlugin,
+      ...tablePlugins,
+      tableKeymap,
       this.citationPlugin,
       linkPasteHandler(this.schema.nodes.link),
     ];
