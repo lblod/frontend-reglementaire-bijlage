@@ -1,5 +1,20 @@
 # frontend-reglementaire-bijlage
 
+## 8.3.0
+
+### Minor Changes
+
+- [#221](https://github.com/lblod/frontend-reglementaire-bijlage/pull/221) [`5a0060a`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/5a0060a61cce2d18aad484f333aedd7ee6f8872a) Thanks [@abeforgit](https://github.com/abeforgit)! - Bump editor to 9.1.0 and plugins to 16.1.0
+
+  - enable resizable tables config
+  - fixes GN-4654
+  - fixes GN-4652
+  - fixes GN-4657
+
+### Patch Changes
+
+- [#220](https://github.com/lblod/frontend-reglementaire-bijlage/pull/220) [`f59eddf`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/f59eddf3dfe5f250fea0f2081a9769442dfc3c9c) Thanks [@elpoelma](https://github.com/elpoelma)! - Add editor styling to previews of templates
+
 ## 8.2.2
 
 ### Patch Changes
