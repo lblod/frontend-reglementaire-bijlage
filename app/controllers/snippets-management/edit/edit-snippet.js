@@ -28,6 +28,10 @@ import {
 } from '@lblod/ember-rdfa-editor/plugins/table';
 import { link, linkView } from '@lblod/ember-rdfa-editor/nodes/link';
 import {
+  inline_rdfa,
+  inlineRdfaView,
+} from '@lblod/ember-rdfa-editor/nodes/inline-rdfa';
+import {
   tableOfContentsView,
   table_of_contents,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/table-of-contents-plugin/nodes';
@@ -45,7 +49,6 @@ import { heading } from '@lblod/ember-rdfa-editor/plugins/heading';
 import { blockquote } from '@lblod/ember-rdfa-editor/plugins/blockquote';
 import { code_block } from '@lblod/ember-rdfa-editor/plugins/code';
 import { image } from '@lblod/ember-rdfa-editor/plugins/image';
-import { inline_rdfa } from '@lblod/ember-rdfa-editor/marks';
 import { generateTemplate } from '../../../utils/generate-template';
 import { getOwner } from '@ember/application';
 import { linkPasteHandler } from '@lblod/ember-rdfa-editor/plugins/link';
@@ -79,7 +82,19 @@ import DateInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/
 import CodelistInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/codelist/insert';
 import VariablePluginAddressInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/address/insert-variable';
 
+import {
+  editableNodePlugin,
+  getActiveEditableNode,
+} from '@lblod/ember-rdfa-editor/plugins/_private/editable-node';
+import AttributeEditor from '@lblod/ember-rdfa-editor/components/_private/attribute-editor';
+import RdfaEditor from '@lblod/ember-rdfa-editor/components/_private/rdfa-editor';
+import DebugInfo from '@lblod/ember-rdfa-editor/components/_private/debug-info';
+
 export default class SnippetsManagementEditSnippetController extends Controller {
+  AttributeEditor = AttributeEditor;
+  RdfaEditor = RdfaEditor;
+  DebugInfo = DebugInfo;
+
   @service store;
   @service router;
   @tracked editor;
@@ -93,7 +108,7 @@ export default class SnippetsManagementEditSnippetController extends Controller 
     nodes: {
       doc: docWithConfig({
         content:
-          'table_of_contents? document_title? ((chapter|block)+|(title|block)+|(article|block)+)',
+          'table_of_contents? document_title? ((block|chapter)+|(block|title)+|(block|article)+)',
       }),
       paragraph,
       document_title,
@@ -121,6 +136,7 @@ export default class SnippetsManagementEditSnippetController extends Controller 
 
       image,
 
+      inline_rdfa,
       hard_break,
       block_rdfa,
       table_of_contents: table_of_contents(this.config.tableOfContents),
@@ -128,7 +144,6 @@ export default class SnippetsManagementEditSnippetController extends Controller 
       link: link(this.config.link),
     },
     marks: {
-      inline_rdfa,
       em,
       strong,
       underline,
@@ -226,6 +241,7 @@ export default class SnippetsManagementEditSnippetController extends Controller 
         number: numberView(controller),
         codelist: codelistView(controller),
         templateComment: templateCommentView(controller),
+        inline_rdfa: inlineRdfaView(controller),
       };
     };
   }
@@ -236,6 +252,7 @@ export default class SnippetsManagementEditSnippetController extends Controller 
       tableKeymap,
       this.citationPlugin,
       linkPasteHandler(this.schema.nodes.link),
+      editableNodePlugin(),
     ];
   }
 
@@ -245,6 +262,13 @@ export default class SnippetsManagementEditSnippetController extends Controller 
     if (this.editorDocument.content) {
       editor.initialize(this.editorDocument.content);
     }
+  }
+
+  get activeNode() {
+    if (this.editor) {
+      return getActiveEditableNode(this.editor.activeEditorState);
+    }
+    return null;
   }
 
   get dirty() {

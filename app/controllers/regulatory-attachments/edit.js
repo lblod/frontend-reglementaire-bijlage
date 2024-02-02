@@ -28,6 +28,10 @@ import {
 } from '@lblod/ember-rdfa-editor/plugins/table';
 import { link, linkView } from '@lblod/ember-rdfa-editor/nodes/link';
 import {
+  inline_rdfa,
+  inlineRdfaView,
+} from '@lblod/ember-rdfa-editor/nodes/inline-rdfa';
+import {
   tableOfContentsView,
   table_of_contents,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/table-of-contents-plugin/nodes';
@@ -45,7 +49,6 @@ import { heading } from '@lblod/ember-rdfa-editor/plugins/heading';
 import { blockquote } from '@lblod/ember-rdfa-editor/plugins/blockquote';
 import { code_block } from '@lblod/ember-rdfa-editor/plugins/code';
 import { image } from '@lblod/ember-rdfa-editor/plugins/image';
-import { inline_rdfa } from '@lblod/ember-rdfa-editor/marks';
 import { generateTemplate } from '../../utils/generate-template';
 import { getOwner } from '@ember/application';
 import { linkPasteHandler } from '@lblod/ember-rdfa-editor/plugins/link';
@@ -76,8 +79,17 @@ import NumberInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/compon
 import DateInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/date/insert-variable';
 import CodelistInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/codelist/insert';
 import VariablePluginAddressInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/address/insert-variable';
-
+import {
+  editableNodePlugin,
+  getActiveEditableNode,
+} from '@lblod/ember-rdfa-editor/plugins/_private/editable-node';
+import AttributeEditor from '@lblod/ember-rdfa-editor/components/_private/attribute-editor';
+import RdfaEditor from '@lblod/ember-rdfa-editor/components/_private/rdfa-editor';
+import DebugInfo from '@lblod/ember-rdfa-editor/components/_private/debug-info';
 const SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE = 'data-snippet-list-ids';
+
+import SnippetListSelectRdfaComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/snippet-plugin/snippet-list-select-rdfa';
+import SnippetInsertRdfaComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/snippet-plugin/snippet-insert-rdfa';
 
 export default class EditController extends Controller {
   @service store;
@@ -88,12 +100,16 @@ export default class EditController extends Controller {
   @service currentSession;
   @tracked citationPlugin = citationPlugin(this.config.citation);
   @tracked assignedSnippetListsIds = [];
-
+  AttributeEditor = AttributeEditor;
+  RdfaEditor = RdfaEditor;
+  DebugInfo = DebugInfo;
+  SnippetInsert = SnippetInsertRdfaComponent;
+  SnippetListSelect = SnippetListSelectRdfaComponent;
   schema = new Schema({
     nodes: {
       doc: docWithConfig({
         content:
-          'table_of_contents? document_title? ((chapter|block)+|(title|block)+|(article|block)+)',
+          'table_of_contents? document_title? ((block|chapter)+|(block|title)+|(block|article)+)',
         extraAttributes: {
           [SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE]: { default: null },
         },
@@ -124,6 +140,7 @@ export default class EditController extends Controller {
 
       image,
 
+      inline_rdfa,
       hard_break,
       block_rdfa,
       table_of_contents: table_of_contents(this.config.tableOfContents),
@@ -131,7 +148,6 @@ export default class EditController extends Controller {
       link: link(this.config.link),
     },
     marks: {
-      inline_rdfa,
       em,
       strong,
       underline,
@@ -233,6 +249,7 @@ export default class EditController extends Controller {
         text_variable: textVariableView(controller),
         codelist: codelistView(controller),
         templateComment: templateCommentView(controller),
+        inline_rdfa: inlineRdfaView(controller),
       };
     };
   }
@@ -243,7 +260,14 @@ export default class EditController extends Controller {
       tableKeymap,
       this.citationPlugin,
       linkPasteHandler(this.schema.nodes.link),
+      editableNodePlugin(),
     ];
+  }
+  get activeNode() {
+    if (this.editor) {
+      return getActiveEditableNode(this.editor.activeEditorState);
+    }
+    return null;
   }
 
   @action
