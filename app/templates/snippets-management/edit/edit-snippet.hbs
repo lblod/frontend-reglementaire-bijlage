@@ -1,6 +1,6 @@
-{{page-title (t 'reglement-edit.edit')}}
+{{page-title (t "reglement-edit.edit")}}
 <BreadcrumbsItem>
-  {{t 'snippets.edit-snippet'}}
+  {{t "snippets.edit-snippet"}}
 </BreadcrumbsItem>
 <AppChrome
   @editorDocument={{this.editorDocument}}
@@ -13,10 +13,10 @@
   <RdfaEditorContainer
     @rdfaEditorInit={{this.handleRdfaEditorInit}}
     @editorDocument={{this.editorDocument}}
-    @typeOfWrappingDiv='lblodgn:ReglementaireBijlage'
+    @typeOfWrappingDiv="lblodgn:ReglementaireBijlage"
     @showToggleRdfaAnnotations={{true}}
     @busy={{or this.save.isRunning}}
-    @busyText={{t 'reglement-edit.saving'}}
+    @busyText={{t "reglement-edit.saving"}}
     @schema={{this.schema}}
     @nodeViews={{this.nodeViews}}
     @plugins={{this.plugins}}
@@ -37,11 +37,11 @@
             <Plugins::TextStyle::Superscript @controller={{this.editor}} />
             <Plugins::TextStyle::Highlight
               @controller={{this.editor}}
-              @defaultColor='#FFEA00'
+              @defaultColor="#FFEA00"
             />
             <Plugins::TextStyle::Color
               @controller={{this.editor}}
-              @defaultColor='#000000'
+              @defaultColor="#000000"
             />
           </Tb.Group>
           <Tb.Group>
@@ -75,7 +75,10 @@
     <:aside>
       {{#if this.editor}}
         <Sidebar as |Sidebar|>
-          <Sidebar.Collapsible @title={{t "utility.insert"}} @expandedInitially={{true}}>
+          <Sidebar.Collapsible
+            @title={{t "utility.insert"}}
+            @expandedInitially={{true}}
+          >
             <DocumentTitlePlugin::InsertTitleCard @controller={{this.editor}} />
             <ArticleStructurePlugin::ArticleStructureCard
               @controller={{this.editor}}
@@ -93,6 +96,18 @@
             <TemplateCommentsPlugin::Insert @controller={{this.editor}} />
             <VariablePlugin::Address::Insert @controller={{this.editor}} />
           </Sidebar.Collapsible>
+
+          {{#if this.activeNode}}
+            <this.RdfaEditor
+              @node={{this.activeNode}}
+              @controller={{this.editor}}
+            />
+            <this.AttributeEditor
+              @node={{this.activeNode}}
+              @controller={{this.editor}}
+            />
+            <this.DebugInfo @node={{this.activeNode}} />
+          {{/if}}
           <VariablePlugin::InsertVariableCard
             @controller={{this.editor}}
             @variableTypes={{this.variableTypes}}
