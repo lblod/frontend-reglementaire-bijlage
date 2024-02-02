@@ -3,9 +3,13 @@
 @import 'ember-rdfa-editor';
 @import 'date-plugin';
 @import 'variable-plugin';
+@import 'besluit-plugin';
+@import 'article-structure-plugin';
+@import 'generic-rdfa-variable';
+@import 'document-title-plugin';
 @import 'snippet-plugin';
 @import 'template-comments-plugin';
-@import 'generic-rdfa-variable';
+@import 'confidentiality-plugin';
 @import 'shame';
 @import 'breadcrumbs';
 @import '_c-app-chrome';

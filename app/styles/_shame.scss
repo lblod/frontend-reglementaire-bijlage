@@ -34,7 +34,7 @@
   pointer-events: none;
 }
 .au-c-scanner:after {
-  content: '';
+  content: "";
   display: block;
   left: 0;
   right: 0;
@@ -115,12 +115,29 @@
   display: none;
 }
 
-[property='eli:title']:before {
-  content: 'Document-titel' !important;
+[property="eli:title"]:before {
+  content: "Document-titel" !important;
 }
 
-[lang='en-US'] {
-  [property='eli:title']:before {
-    content: 'Document title' !important;
+[lang="en-US"] {
+  [property="eli:title"]:before {
+    content: "Document title" !important;
+  }
+}
+
+.say-editable {
+  outline: 0.1rem solid var(--au-gray-300);
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 2px;
+  padding-right: 2px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  // border-radius: $au-radius;
+  &.say-active {
+    outline: 0.2rem solid var(--au-blue-500);
+  }
+  &.ProseMirror-selectednode {
+    background-color: var(--au-blue-200);
   }
 }
