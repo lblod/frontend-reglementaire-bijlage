@@ -108,7 +108,8 @@ export default class EditController extends Controller {
   schema = new Schema({
     nodes: {
       doc: docWithConfig({
-        content: '(chapter | title | article | block)+',
+        content:
+          'table_of_contents? document_title? ((block|chapter)+|(block|title)+|(block|article)+)',
         extraAttributes: {
           [SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE]: { default: null },
         },

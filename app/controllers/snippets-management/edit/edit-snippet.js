@@ -107,7 +107,8 @@ export default class SnippetsManagementEditSnippetController extends Controller 
   schema = new Schema({
     nodes: {
       doc: docWithConfig({
-        content: '(chapter | title | article | block)+',
+        content:
+          'table_of_contents? document_title? ((block|chapter)+|(block|title)+|(block|article)+)',
       }),
       paragraph,
       document_title,
