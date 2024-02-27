@@ -116,11 +116,13 @@
               @plugin={{this.citationPlugin}}
               @config={{this.config.citation}}
             />
-            <this.SnippetInsert
-              @controller={{this.editor}}
-              @config={{this.config.snippet}}
-              @node={{this.activeNode}}
-            />
+            {{#if this.activeNode}}
+              <this.SnippetInsert
+                @controller={{this.editor}}
+                @config={{this.config.snippet}}
+                @node={{this.activeNode}}
+              />
+            {{/if}}
             <TemplateCommentsPlugin::Insert @controller={{this.editor}} />
             <VariablePlugin::Address::Insert @controller={{this.editor}} />
           </Sidebar.Collapsible>
