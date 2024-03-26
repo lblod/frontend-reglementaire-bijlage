@@ -7,6 +7,7 @@ export default class ApplicationController extends Controller {
   @service store;
   @service session;
   @service currentSession;
+  @service router;
 
   @action
   logout() {
@@ -22,6 +23,12 @@ export default class ApplicationController extends Controller {
     return (
       this.environmentName !== '' &&
       this.environmentName !== '{{ENVIRONMENT_NAME}}'
+    );
+  }
+
+  get showBreadcrumbsToolbar() {
+    return (
+      this.session.isAuthenticated && this.router.currentRouteName !== 'index'
     );
   }
 }
