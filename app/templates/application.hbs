@@ -42,6 +42,7 @@
   </AuMainHeader>
   <AuMainContainer class='header-main-container' as |m|>
     <m.content scroll={{false}}>
+      {{#if this.showBreadcrumbsToolbar}}
       <AuToolbar
         @border='bottom'
         @size='medium'
@@ -62,6 +63,7 @@
           </BreadcrumbsContainer>
         </Group>
       </AuToolbar>
+      {{/if}}
       {{outlet}}
     </m.content>
   </AuMainContainer>

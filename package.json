@@ -42,8 +42,8 @@
     "@lblod/ember-acmidm-login": "^2.0.0-beta.1",
     "@lblod/ember-environment-banner": "^0.2.0",
     "@lblod/ember-mock-login": "^0.7.0",
-    "@lblod/ember-rdfa-editor": "https://github.com/lblod/ember-rdfa-editor/raw/feat/rdfa-links-ui/lblod-ember-rdfa-editor-10.0.0-next.1.tgz",
-    "@lblod/ember-rdfa-editor-lblod-plugins": "https://github.com/lblod/ember-rdfa-editor-lblod-plugins/raw/feat/rdfa-editing-ui/lblod-ember-rdfa-editor-lblod-plugins-16.0.1.tgz",
+    "@lblod/ember-rdfa-editor": "^9.6.0",
+    "@lblod/ember-rdfa-editor-lblod-plugins": "16.3.0-dev.3cc0097e4fd008a0472991365cddc73b9af1eb1e",
     "@release-it-plugins/lerna-changelog": "^6.0.0",
     "broccoli-asset-rev": "^3.0.0",
     "changesets-release-it-plugin": "^0.1.1",
@@ -96,6 +96,9 @@
   "overrides": {
     "@appuniversum/ember-appuniversum": {
       "tracked-toolbox": "^2.0.0"
+    },
+    "@lblod/ember-rdfa-editor-lblod-plugins": {
+      "@lblod/ember-rdfa-editor": "^9.6.0"
     }
   },
   "engines": {

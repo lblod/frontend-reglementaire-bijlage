@@ -13,12 +13,12 @@ import {
   superscript,
 } from '@lblod/ember-rdfa-editor/plugins/text-style';
 import {
-  block_rdfa,
+  blockRdfaWithConfig,
   hard_break,
   horizontal_rule,
-  invisible_rdfa,
+  invisibleRdfaWithConfig,
   paragraph,
-  repaired_block,
+  repairedBlockWithConfig,
   text,
 } from '@lblod/ember-rdfa-editor/nodes';
 import {
@@ -28,8 +28,8 @@ import {
 } from '@lblod/ember-rdfa-editor/plugins/table';
 import { link, linkView } from '@lblod/ember-rdfa-editor/nodes/link';
 import {
-  inline_rdfa,
-  inlineRdfaView,
+  inlineRdfaWithConfigView,
+  inlineRdfaWithConfig,
 } from '@lblod/ember-rdfa-editor/nodes/inline-rdfa';
 import {
   tableOfContentsView,
@@ -40,12 +40,12 @@ import {
   STRUCTURE_SPECS,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/article-structure-plugin/structures';
 import {
-  bullet_list,
-  list_item,
-  ordered_list,
+  bulletListWithConfig,
+  listItemWithConfig,
+  orderedListWithConfig,
 } from '@lblod/ember-rdfa-editor/plugins/list';
 import { placeholder } from '@lblod/ember-rdfa-editor/plugins/placeholder';
-import { heading } from '@lblod/ember-rdfa-editor/plugins/heading';
+import { headingWithConfig } from '@lblod/ember-rdfa-editor/plugins/heading';
 import { blockquote } from '@lblod/ember-rdfa-editor/plugins/blockquote';
 import { code_block } from '@lblod/ember-rdfa-editor/plugins/code';
 import { image } from '@lblod/ember-rdfa-editor/plugins/image';
@@ -113,24 +113,28 @@ export default class EditController extends Controller {
         extraAttributes: {
           [SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE]: { default: null },
         },
+        rdfaAware: true,
       }),
       paragraph,
       document_title,
-      repaired_block,
+      repaired_block: repairedBlockWithConfig({ rdfaAware: true }),
 
-      list_item,
-      ordered_list,
-      bullet_list,
+      list_item: listItemWithConfig({ rdfaAware: true }),
+      ordered_list: orderedListWithConfig({ rdfaAware: true }),
+      bullet_list: bulletListWithConfig({ rdfaAware: true }),
       templateComment,
       placeholder,
-      ...tableNodes({ tableGroup: 'block', cellContent: 'block+' }),
+      ...tableNodes({
+        tableGroup: 'block',
+        cellContent: 'block+',
+      }),
       address,
       date: date(this.config.date),
       text_variable,
       number,
       codelist,
       ...STRUCTURE_NODES,
-      heading,
+      heading: headingWithConfig({ rdfaAware: true }),
       blockquote,
 
       horizontal_rule,
@@ -140,11 +144,11 @@ export default class EditController extends Controller {
 
       image,
 
-      inline_rdfa,
+      inline_rdfa: inlineRdfaWithConfig({ rdfaAware: true }),
       hard_break,
-      block_rdfa,
+      block_rdfa: blockRdfaWithConfig({ rdfaAware: true }),
       table_of_contents: table_of_contents(this.config.tableOfContents),
-      invisible_rdfa,
+      invisible_rdfa: invisibleRdfaWithConfig({ rdfaAware: true }),
       link: link(this.config.link),
     },
     marks: {
@@ -229,6 +233,7 @@ export default class EditController extends Controller {
       },
       link: {
         interactive: true,
+        rdfaAware: true,
       },
       snippet: {
         endpoint: '/raw-sparql',
@@ -249,7 +254,7 @@ export default class EditController extends Controller {
         text_variable: textVariableView(controller),
         codelist: codelistView(controller),
         templateComment: templateCommentView(controller),
-        inline_rdfa: inlineRdfaView(controller),
+        inline_rdfa: inlineRdfaWithConfigView(controller),
       };
     };
   }
