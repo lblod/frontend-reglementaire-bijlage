@@ -31,12 +31,29 @@ export default class PublishController extends Controller {
 
   createPublishedResource = task(async () => {
     this.showPublishingModal = false;
-    const publicationTask = this.store.createRecord(
-      'regulatory-attachment-publication-task',
+    const body = {
+      data: {
+        relationships: {
+          'document-container': {
+            data: {
+              id: this.model.container.id,
+            },
+          },
+        },
+      },
+    };
+
+    const taskId = await this.muTask.fetchTaskifiedEndpoint(
+      '/regulatory-attachment-publication-tasks',
+      {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: {
+          'Content-Type': 'application/vnd.api+json',
+        },
+      },
     );
-    publicationTask.documentContainer = this.model.container;
-    await publicationTask.save();
-    await this.muTask.waitForMuTaskTask.perform(publicationTask.id, 100);
+    await this.muTask.waitForMuTaskTask.perform(taskId, 100);
     await this.fetchPreview.perform();
     this.toaster.success(
       this.intl.t('publish-page.notification-content'),
