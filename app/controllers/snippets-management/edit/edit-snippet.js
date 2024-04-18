@@ -306,29 +306,38 @@ export default class SnippetsManagementEditSnippetController extends Controller 
     const documentContainer = this.model.documentContainer;
     documentContainer.currentVersion = editorDocument;
     await documentContainer.save();
-
-    const publicationTask = this.store.createRecord(
-      'snippet-list-publication-task',
-    );
-    publicationTask.documentContainer = documentContainer;
-    publicationTask.snippetList = this.model.snippetList;
-    await publicationTask.save();
-
-    await this.muTask.waitForMuTaskTask.perform(publicationTask.id, 100);
+    await this.publishSnippet.perform();
   });
 
-  updateDocumentTitle = task(async () => {
-    const documentContainer = this.model.documentContainer;
-    const snippetList = this.model.snippetList;
+  publishSnippet = task(async () => {
+    const body = {
+      data: {
+        relationships: {
+          'document-container': {
+            data: {
+              id: this.model.documentContainer.id,
+            },
+          },
+          'snippet-list': {
+            data: {
+              id: this.model.snippetList.id,
+            },
+          },
+        },
+      },
+    };
 
-    const publicationTask = this.store.createRecord(
-      'snippet-list-publication-task',
+    const taskId = await this.muTask.fetchTaskifiedEndpoint(
+      '/snippet-list-publication-tasks',
+      {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: {
+          'Content-Type': 'application/vnd.api+json',
+        },
+      },
     );
 
-    publicationTask.documentContainer = documentContainer;
-    publicationTask.snippetList = snippetList;
-    await publicationTask.save();
-
-    await this.muTask.waitForMuTaskTask.perform(publicationTask.id, 100);
+    await this.muTask.waitForMuTaskTask.perform(taskId, 100);
   });
 }
