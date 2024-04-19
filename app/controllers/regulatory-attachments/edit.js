@@ -254,7 +254,7 @@ export default class EditController extends Controller {
         text_variable: textVariableView(controller),
         codelist: codelistView(controller),
         templateComment: templateCommentView(controller),
-        inline_rdfa: inlineRdfaWithConfigView(controller),
+        inline_rdfa: inlineRdfaWithConfigView({ rdfaAware: true })(controller),
       };
     };
   }

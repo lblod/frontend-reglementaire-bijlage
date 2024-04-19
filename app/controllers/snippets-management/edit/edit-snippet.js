@@ -243,7 +243,7 @@ export default class SnippetsManagementEditSnippetController extends Controller 
         number: numberView(controller),
         codelist: codelistView(controller),
         templateComment: templateCommentView(controller),
-        inline_rdfa: inlineRdfaWithConfigView(controller),
+        inline_rdfa: inlineRdfaWithConfigView({ rdfaAware: true })(controller),
       };
     };
   }
