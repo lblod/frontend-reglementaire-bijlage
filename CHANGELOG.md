@@ -1,5 +1,26 @@
 # frontend-reglementaire-bijlage
 
+## 8.3.1
+
+### Patch Changes
+
+- [#228](https://github.com/lblod/frontend-reglementaire-bijlage/pull/228) [`d99f952`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/d99f9520ebff2b958d3ae8a0f40f013ff5febb7b) Thanks [@elpoelma](https://github.com/elpoelma)! - Hide breadcrumbs toolbar when not authenticated or on index page
+
+- [#229](https://github.com/lblod/frontend-reglementaire-bijlage/pull/229) [`31e16b7`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/31e16b737be13abe4f5b197e7fa4a8a173b6a2d1) Thanks [@elpoelma](https://github.com/elpoelma)! - Remove unused `Mapping` model
+
+- [#229](https://github.com/lblod/frontend-reglementaire-bijlage/pull/229) [`0fda78f`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/0fda78f30a949e6bc8e4f23e5eba0f516bce2746) Thanks [@elpoelma](https://github.com/elpoelma)! - Remove ununused `EditorDocumentStatus` model
+
+- [#233](https://github.com/lblod/frontend-reglementaire-bijlage/pull/233) [`33286b4`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/33286b4efd4f63caa589fd900e7281a35ca8044a) Thanks [@elpoelma](https://github.com/elpoelma)! - When fetching task information, use `/tasks/:id` endpoint instead of `/regulatory-attachment-publication-tasks/:id` endpoint
+
+- [#232](https://github.com/lblod/frontend-reglementaire-bijlage/pull/232) [`6baf674`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/6baf6742bcc73e85988c90f78563e0a727bd5082) Thanks [@elpoelma](https://github.com/elpoelma)! - Drop ember-data `task` models
+
+- [#230](https://github.com/lblod/frontend-reglementaire-bijlage/pull/230) [`858740a`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/858740a05b160704f2f72fd80825e80d5a0912dd) Thanks [@elpoelma](https://github.com/elpoelma)! - Update `@lblod/ember-rdfa-editor` to version `9.6.0` and @lblod/ember-rdfa-editor-lblod-plugins' to
+  version `16.3.0`
+
+- [#229](https://github.com/lblod/frontend-reglementaire-bijlage/pull/229) [`e8961d7`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/e8961d73b5d75ee083b7de1501dbdb927b23d784) Thanks [@elpoelma](https://github.com/elpoelma)! - Remove unused `Attachment` model
+
+- [#229](https://github.com/lblod/frontend-reglementaire-bijlage/pull/229) [`8d4f83c`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/8d4f83c5ff6025ac3586bb6498079919dfc8bde9) Thanks [@elpoelma](https://github.com/elpoelma)! - Drop unused `status` attribute from `document-container` model
+
 ## 8.3.0
 
 ### Minor Changes
