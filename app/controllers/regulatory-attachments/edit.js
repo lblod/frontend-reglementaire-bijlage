@@ -286,7 +286,7 @@ export default class EditController extends Controller {
     } else {
       const docId = uuid();
       editor.initialize(
-        `<div data-say-document="true" resource="http://example.net/id/reglement/ref-${docId}" typeof="ext:Reglement"></div>`,
+        `<div data-say-document="true" resource="http://example.net/id/reglement/--ref-uuid4-${docId}" typeof="ext:Reglement"></div>`,
       );
     }
   }
