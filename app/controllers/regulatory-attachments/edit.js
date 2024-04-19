@@ -115,8 +115,6 @@ export default class EditController extends Controller {
         extraAttributes: {
           [SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE]: { default: null },
         },
-
-
         rdfaAware: true,
       }),
       paragraph,
@@ -286,8 +284,10 @@ export default class EditController extends Controller {
       editor.initialize(this.editorDocument.content);
       this.assignedSnippetListsIds = this.documentSnippetListIds;
     } else {
-      const docId = uuid()
-      editor.initialize(`<div data-say-document="true" resource="http://reglementen/${docId}" typeof="ext:Reglement"></div>`)
+      const docId = uuid();
+      editor.initialize(
+        `<div data-say-document="true" resource="http://example.net/id/reglement/ref-${docId}" typeof="ext:Reglement"></div>`,
+      );
     }
   }
 
