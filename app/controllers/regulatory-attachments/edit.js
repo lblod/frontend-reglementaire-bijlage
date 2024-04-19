@@ -4,6 +4,7 @@ import { task } from 'ember-concurrency';
 import { service } from '@ember/service';
 import { tracked } from 'tracked-built-ins';
 import { Schema } from '@lblod/ember-rdfa-editor';
+import { v4 as uuid } from 'uuid';
 import {
   em,
   strikethrough,
@@ -110,9 +111,12 @@ export default class EditController extends Controller {
       doc: docWithConfig({
         content:
           'table_of_contents? document_title? ((block|chapter)+|(block|title)+|(block|article)+)',
+
         extraAttributes: {
           [SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE]: { default: null },
         },
+
+
         rdfaAware: true,
       }),
       paragraph,
@@ -281,6 +285,9 @@ export default class EditController extends Controller {
     if (this.editorDocument.content) {
       editor.initialize(this.editorDocument.content);
       this.assignedSnippetListsIds = this.documentSnippetListIds;
+    } else {
+      const docId = uuid()
+      editor.initialize(`<div data-say-document="true" resource="http://reglementen/${docId}" typeof="ext:Reglement"></div>`)
     }
   }
 
