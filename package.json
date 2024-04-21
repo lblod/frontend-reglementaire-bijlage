@@ -113,7 +113,8 @@
     "date-fns": "^2.30.0",
     "ember-cli-string-helpers": "^6.1.0",
     "ember-resources": "^6.4.0",
-    "ember-simple-auth": "^4.2.2"
+    "ember-simple-auth": "^4.2.2",
+    "uuid": "^9.0.1"
   },
   "volta": {
     "node": "18.14.0"
