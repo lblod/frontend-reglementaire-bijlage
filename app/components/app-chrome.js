@@ -1,6 +1,11 @@
 import Component from '@glimmer/component';
 import { service } from '@ember/service';
 import { task } from 'ember-concurrency';
+import { trackedFunction } from 'ember-resources/util/function';
+import {
+  DECISION_STANDARD_FOLDER,
+  RS_STANDARD_FOLDER,
+} from '../utils/constants';
 
 export default class AppChromeComponent extends Component {
   @service currentSession;
@@ -8,10 +13,27 @@ export default class AppChromeComponent extends Component {
   @service intl;
   @service router;
 
+  get editorDocument() {
+    return this.args.editorDocument;
+  }
+
+  get documentContainer() {
+    return this.args.documentContainer;
+  }
+
   get documentStatus() {
-    const status = this.args.documentContainer?.get('status');
+    const status = this.documentContainer?.get('status');
     return status;
   }
+
+  templateType = trackedFunction(this, async () => {
+    const folder = await this.documentContainer?.folder;
+    if (folder?.id === RS_STANDARD_FOLDER) {
+      return 'Regulatory statement';
+    } else if (folder?.id === DECISION_STANDARD_FOLDER) {
+      return 'Decision';
+    }
+  });
 
   get showFileDropdown() {
     return (
@@ -22,8 +44,8 @@ export default class AppChromeComponent extends Component {
   }
 
   updateDocumentTitle = task(async (title) => {
-    this.args.editorDocument.title = title;
-    await this.args.editorDocument.save();
+    this.editorDocument.title = title;
+    await this.editorDocument.save();
 
     if (this.args.onUpdateDocumentTitle) {
       await this.args.onUpdateDocumentTitle();
@@ -31,6 +53,6 @@ export default class AppChromeComponent extends Component {
   });
 
   resetDocument = task(async () => {
-    this.args.editorDocument.rollbackAttributes();
+    this.editorDocument.rollbackAttributes();
   });
 }

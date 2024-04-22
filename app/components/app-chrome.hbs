@@ -37,6 +37,9 @@
         <EditorDocumentTitle @title={{@editorDocument.title}} @editActive={{@editorDocument.isNew}}
           @onSubmit={{perform this.updateDocumentTitle}} @onCancel={{perform this.resetDocument}}
           @readOnly={{@readOnly}} />
+        {{#if this.templateType.value}}
+          <AuPill>{{this.templateType.value}}</AuPill>
+        {{/if}}
       </AuToolbar::Group>
       <AuToolbar::Group>
         {{#if @editorDocument.isNew}}
