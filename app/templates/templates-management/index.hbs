@@ -43,7 +43,7 @@
     </c.header>
     <c.body as |documentContainer|>
       <td>
-        <LinkTo @route="regulatory-attachments.edit" @model={{documentContainer.id}} class="au-c-link">{{documentContainer.currentVersion.title}}</LinkTo>
+        <LinkTo @route="templates-management.edit" @model={{documentContainer.id}} class="au-c-link">{{documentContainer.currentVersion.title}}</LinkTo>
       </td>
       <td>{{detailed-date documentContainer.currentVersion.createdOn}}</td>
       <td>{{detailed-date documentContainer.currentVersion.updatedOn}}</td>

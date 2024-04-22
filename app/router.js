@@ -14,7 +14,7 @@ Router.map(function () {
     this.route('cookiestatement');
     this.route('accessibilitystatement');
   });
-  this.route('regulatory-attachments', function () {
+  this.route('templates-management', function () {
     this.route('edit', { path: '/:id/edit' });
     this.route('publish', { path: '/:id/publish' });
   });

@@ -2,7 +2,7 @@ import Route from '@ember/routing/route';
 import { tracked } from '@glimmer/tracking';
 import { service } from '@ember/service';
 
-export default class EditRoute extends Route {
+export default class TemplatesManagementEditRoute extends Route {
   @tracked editor;
   @service store;
   @service session;

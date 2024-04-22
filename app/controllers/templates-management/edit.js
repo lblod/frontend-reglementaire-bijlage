@@ -79,7 +79,7 @@ import VariablePluginAddressInsertVariableComponent from '@lblod/ember-rdfa-edit
 
 const SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE = 'data-snippet-list-ids';
 
-export default class EditController extends Controller {
+export default class TemplatesManagementEditController extends Controller {
   @service store;
   @service router;
   @tracked editor;
@@ -270,7 +270,7 @@ export default class EditController extends Controller {
   publish = task(async () => {
     await this.save.perform();
     this.router.transitionTo(
-      'regulatory-attachments.publish',
+      'templates-management.publish',
       this.model.documentContainer.id,
     );
   });

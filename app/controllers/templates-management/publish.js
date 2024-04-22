@@ -2,7 +2,7 @@ import Controller from '@ember/controller';
 import { service } from '@ember/service';
 import { task } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
-export default class PublishController extends Controller {
+export default class TemplatesManagementPublishController extends Controller {
   @service store;
   @service router;
   @service session;
@@ -63,7 +63,7 @@ export default class PublishController extends Controller {
       },
     );
     this.router.transitionTo(
-      'regulatory-attachments.edit',
+      'templates-management.edit',
       this.model.container.id,
     );
   });

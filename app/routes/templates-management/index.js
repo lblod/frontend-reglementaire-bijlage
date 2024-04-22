@@ -2,7 +2,7 @@ import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 import { RS_STANDARD_FOLDER } from '../../utils/constants';
 
-export default class ListRoute extends Route {
+export default class TemplatesManagementIndexRoute extends Route {
   @service store;
   @service session;
 

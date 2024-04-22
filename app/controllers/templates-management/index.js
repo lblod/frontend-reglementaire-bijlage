@@ -6,7 +6,7 @@ import { tracked } from '@glimmer/tracking';
 import { RS_STANDARD_FOLDER } from '../../utils/constants';
 import { isBlank } from '../../utils/strings';
 
-export default class ListController extends Controller {
+export default class TemplatesManagementIndexController extends Controller {
   @service store;
   @service session;
   @service router;
@@ -61,7 +61,7 @@ export default class ListController extends Controller {
     await this.documentContainer.save();
     this.createReglementModalIsOpen = false;
     this.router.transitionTo(
-      'regulatory-attachments.edit',
+      'templates-management.edit',
       this.documentContainer.id,
     );
   });
