@@ -15,19 +15,19 @@
         <AuCard @flex={{true}} as |c|>
           <c.header @badgeSkin="brand" @badgeIcon="alert-triangle">
             <AuHeading @level="2" @skin="4">
-              Templates
+              {{t "landing-page.templates.title"}}
             </AuHeading>
           </c.header>
           <c.content>
             <p>
-              Templates beheren
+              {{t "landing-page.templates.content"}}
             </p>
           </c.content>
           <c.footer>
             <AuLink
               @route="templates-management"
               @skin="button">
-              Ga naar templates
+              {{t "landing-page.templates.button"}}
             </AuLink>
           </c.footer>
         </AuCard>

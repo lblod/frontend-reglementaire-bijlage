@@ -31,11 +31,13 @@ export default class TemplatesManagementIndexController extends Controller {
   templateTypes = [
     {
       folder: RS_STANDARD_FOLDER,
-      label: 'Regulatory Attachment Template',
+      label: this.intl.t(
+        'templates-management.template-type.regulatory-attachment',
+      ),
     },
     {
       folder: DECISION_STANDARD_FOLDER,
-      label: 'Decision Template',
+      label: this.intl.t('templates-management.template-type.decision'),
     },
   ];
 

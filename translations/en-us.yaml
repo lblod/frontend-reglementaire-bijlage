@@ -61,17 +61,17 @@ utility:
   type-something-placeholder: Type something...
   insert: Insert
 landing-page:
-  create-reglement:
-    title: Regulatory Attachments
-    content: Manage templates of regulatory attachments
-    button: Go to regulatory attachments
+  templates:
+    title: Template management
+    content: Manage document templates
+    button: Go to template management
   codelists:
     title: Codelists
-    content: Manage codelists that are used in a regulatory attachment
+    content: Manage codelists that are used in a template
     button: Go to codelists
   snippets:
     title: Snippets
-    content: Manage snippets that are used in a regulatory attachment
+    content: Manage snippets that are used in a template
     button: Go to snippets
 legal:
   accessibility-statement: Accessibility statement
@@ -79,27 +79,31 @@ legal:
   disclaimer: Disclaimer
 sparql:
   name: "Regulatory attachments register: SPARQL endpoint"
-regulatory-attachments:
-  page-title: Regulatory Attachments
-  new: Add new
+templates-management:
+  page-title: Template management
+  new: Create template
   title: Title
   created-on: Created On
   updated-on: Updated On
   not-found: N/A
   publish-date: Published on
-  no-data-message: No Data
+  template-type:
+    label: Template type
+    decision: Decision
+    regulatory-attachment: Regulatory attachment
+  no-data-message: No templates found
   crud:
     label-filter: Label
   create-modal:
-    title: Create new regulatory attachment
+    title: Create new template
     save: Save
     cancel: Cancel
   remove-modal:
-    title: Are you sure you want to delete this regulatory attachment?
+    title: Are you sure you want to delete this template?
     remove: Remove
     cancel: Cancel
-reglement-edit:
-  edit: Edit attachment
+template-edit:
+  edit: Edit template
   return: Go Back
   saving: Saving
   document-title-placeholder: Enter document title
@@ -111,16 +115,16 @@ auth:
     select-user: Choose a mock user
   logout: Log out
 publish-page:
-  title: Publish regulatory attachment template
+  title: Publish document template
   title-short: Publish template
-  back: Back to regulatory attachment
+  back: Back to document template
   latestversion: Latest version
   publishedversion: Published version
   publish: Publish
   notification-title: Success
   notification-content: Template successfully published
 reglementaire-bijlage-titel:
-  description: "Regulatory attachment title"
+  description: "Template title"
   placeholder: "Untitled document"
   modify: "Modify title"
 static-page:

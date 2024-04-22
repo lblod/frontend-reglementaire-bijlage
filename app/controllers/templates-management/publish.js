@@ -66,9 +66,11 @@ export default class TemplatesManagementPublishController extends Controller {
   templateType = trackedFunction(this, async () => {
     const folder = await this.model.container?.folder;
     if (folder?.id === RS_STANDARD_FOLDER) {
-      return 'Regulatory statement';
+      return this.intl.t(
+        'templates-management.template-type.regulatory-attachment',
+      );
     } else if (folder?.id === DECISION_STANDARD_FOLDER) {
-      return 'Decision';
+      return this.intl.t('templates-management.template-type.decision');
     }
   });
 }

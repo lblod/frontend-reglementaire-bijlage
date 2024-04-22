@@ -29,9 +29,11 @@ export default class AppChromeComponent extends Component {
   templateType = trackedFunction(this, async () => {
     const folder = await this.documentContainer?.folder;
     if (folder?.id === RS_STANDARD_FOLDER) {
-      return 'Regulatory statement';
+      return this.intl.t(
+        'templates-management.template-type.regulatory-attachment',
+      );
     } else if (folder?.id === DECISION_STANDARD_FOLDER) {
-      return 'Decision';
+      return this.intl.t('templates-management.template-type.decision');
     }
   });
 

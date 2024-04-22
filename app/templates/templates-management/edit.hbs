@@ -1,11 +1,11 @@
-{{page-title (t 'reglement-edit.edit')}}
+{{page-title (t 'template-edit.edit')}}
 <BreadcrumbsItem as |linkClass|>
   <AuLink
     @route='templates-management.edit'
     @model={{this.model.documentContainer.id}}
     class={{linkClass}}
   >
-    Edit template
+    {{t 'template-edit.edit'}}
   </AuLink>
 </BreadcrumbsItem>
 {{#if this.editorDocument}}
@@ -18,8 +18,6 @@
       action=(perform this.publish)
       isRunning=this.save.isRunning
     }}
-    @returnRoute="list"
-    @returnRouteText="Go back to template overview"
     @isPublished={{this.isPublished.value}}
   >
     <:leadingButtons>
@@ -35,7 +33,7 @@
     @editorDocument={{this.editorDocument}}
     @showToggleRdfaAnnotations={{true}}
     @busy={{or this.save.isRunning}}
-    @busyText={{t 'reglement-edit.saving'}}
+    @busyText={{t 'template-edit.saving'}}
     @schema={{this.schema}}
     @nodeViews={{this.nodeViews}}
     @plugins={{this.plugins}}

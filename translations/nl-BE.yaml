@@ -61,17 +61,17 @@ utility:
   type-something-placeholder: Typ iets...
   insert: Invoegen
 landing-page:
-  create-reglement:
-    title: Reglementaire bijlagen
-    content: Templates van reglementaire bijlagen beheren
-    button: Ga naar reglementaire bijlagen
+  templates:
+    title: Sjabloonbeheer
+    content: Document-sjablonen beheren
+    button: Ga naar sjabloonbeheer
   codelists:
     title: Codelijsten
-    content: Beheer codelijsten die gebruikt worden in reglementaire bijlagen
+    content: Beheer codelijsten die gebruikt worden in sjablonen
     button: Ga naar codelijsten
   snippets:
     title: Fragmentenlijsten
-    content: Beheer fragmentenlijsten die gebruikt worden in reglementaire bijlagen
+    content: Beheer fragmentenlijsten die gebruikt worden in sjablonen
     button: Ga naar fragmentenlijsten
 legal:
   accessibility-statement: Toegankelijkheidsverklaring
@@ -79,28 +79,32 @@ legal:
   disclaimer: Disclaimer
 sparql:
   name: "Register reglementaire bijlagen: SPARQL endpoint"
-regulatory-attachments:
-  page-title: Reglementaire bijlagen
-  new: Aanmaken
+templates-management:
+  page-title: Sjabloonbeheer
+  new: Sjabloon aanmaken
   title: Titel
   created-on: Aangemaakt op
   updated-on: Bijgewerkt op
   not-found: n.v.t.
   publish-date: Beschikbaar gemaakt op
-  no-data-message: Geen bijlagen gevonden
+  template-type:
+    label: Sjabloontype
+    decision: Besluit
+    regulatory-attachment: Reglementaire bijlage
+  no-data-message: Geen sjablonen gevonden
   crud:
     label-filter: Label
   create-modal:
-    title: Een nieuwe reglementaire bijlage aanmaken
+    title: Een nieuw sjabloon aanmaken
     save: Opslaan
     cancel: Terug
   remove-modal:
-    title:  Weet u zeker dat u deze reglementaire bijlage wilt verwijderen?
-    remove: Bijlage verwijderen
+    title:  Weet u zeker dat u dit sjabloon wilt verwijderen?
+    remove: Sjabloon verwijderen
     cancel: Terug
-reglement-edit:
-  edit: Wijzig bijlage
-  return: Terug naar overzicht reglementaire bijlagen
+template-edit:
+  edit: Wijzig sjabloon
+  return: Terug naar sjablonenoverzicht
   saving: Bezig met opslaan
   document-title-placeholder: Geef document-titel op
   insert-title: Document-titel invoegen
@@ -111,16 +115,16 @@ auth:
     select-user: Selecteer een testgebruiker
   logout: Afmelden
 publish-page:
-  title: Maak reglementaire bijlage sjabloon beschikbaar
+  title: Maak sjabloon beschikbaar
   title-short: Sjabloon beschikbaar maken
-  back: Terug naar reglementaire bijlage
+  back: Terug naar sjabloon
   latestversion: Laatste versie
   publishedversion: Publieke versie
   publish: Maak beschikbaar
   notification-title: Geslaagd
   notification-content: Sjabloon beschikbaar gemaakt
 reglementaire-bijlage-titel:
-  description: "Titel reglementaire bijlage"
+  description: "Titel sjabloon"
   placeholder: Naamloos document
   modify: "Titel aanpassen"
 static-page:
