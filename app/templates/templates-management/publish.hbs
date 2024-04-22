@@ -14,8 +14,9 @@
     <AuHeading class='au-u-margin-bottom'>
       Maak sjabloon beschikbaar
     </AuHeading>
+    <AuPill>{{this.templateType.value}}</AuPill>
     <div
-      class='au-o-grid au-o-grid--small'
+      class='au-o-grid au-o-grid--small au-u-margin-top-small'
       {{did-insert (perform this.fetchPreview)}}
     >
       <div class='au-o-grid__item au-u-1-2@large'>
