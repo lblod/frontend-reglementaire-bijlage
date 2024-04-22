@@ -25,7 +25,7 @@ export default class TemplatesManagementIndexController extends Controller {
   @tracked documentContainer;
   @tracked templateType = this.templateTypes[0];
   @tracked createTemplateModalIsOpen;
-  @tracked removeReglementModalIsOpen;
+  @tracked removeTemplateModalIsOpen;
   sort = '-current-version.created-on';
 
   templateTypes = [
@@ -113,14 +113,14 @@ export default class TemplatesManagementIndexController extends Controller {
 
   @action
   startRemoveTemplateFlow(documentContainer) {
-    this.removeReglementModalIsOpen = true;
+    this.removeTemplateModalIsOpen = true;
     this.documentContainer = documentContainer;
   }
 
   @action
   cancelRemoveTemplate() {
     this.editorDocument = undefined;
-    this.removeReglementModalIsOpen = false;
+    this.removeTemplateModalIsOpen = false;
   }
 
   submitRemoveTemplate = task(async () => {
@@ -128,21 +128,26 @@ export default class TemplatesManagementIndexController extends Controller {
     // publishedVersion, since GN filters on the validThrough date
     // if we'd want to soft-delete the container as well
     // we'd likely have to use RS_DELETED_FOLDER from utils/constants
-    const editorDocument = await this.documentContainer.currentVersion;
-    const publishedVersion = await this.store.queryRecord('template-version', {
-      filter: {
-        'derived-from': {
-          id: editorDocument.id,
+    console.log(this.documentContainer.id);
+    const publishedTemplate = (
+      await this.store.query('template', {
+        filter: {
+          'derived-from': {
+            id: this.documentContainer.id,
+          },
         },
-      },
-    });
-    if (publishedVersion) {
-      publishedVersion.validThrough = new Date();
-      await publishedVersion.save();
+      })
+    )[0];
+
+    if (publishedTemplate) {
+      const currentTemplateVersion = await publishedTemplate.currentVersion;
+      if (currentTemplateVersion) {
+        currentTemplateVersion.validThrough = new Date();
+        await currentTemplateVersion.save();
+      }
     }
-    this.removeReglementModalIsOpen = false;
-    await editorDocument.deleteRecord();
-    await editorDocument.save();
+
+    this.removeTemplateModalIsOpen = false;
     await this.documentContainer.deleteRecord();
     await this.documentContainer.save();
     this.refresh();
