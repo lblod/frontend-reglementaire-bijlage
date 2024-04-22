@@ -19,11 +19,19 @@ export default class TemplatesManagementPublishController extends Controller {
 
   fetchPreview = task(async () => {
     this.currentVersion = '';
-    const publishedVersionContainer =
-      await this.model.container.publishedVersion.reload();
-    if (publishedVersionContainer) {
+    const currentPublishedTemplate = (
+      await this.store.query('template', {
+        filter: {
+          'derived-from': {
+            id: this.model.container.id,
+          },
+        },
+      })
+    )[0];
+    console.log(currentPublishedTemplate);
+    if (currentPublishedTemplate) {
       const publishedVersion =
-        await publishedVersionContainer.currentVersion.reload();
+        await currentPublishedTemplate.currentVersion.reload();
       const response = await fetch(publishedVersion.downloadLink);
       this.currentVersion = await response.text();
     }
@@ -31,27 +39,9 @@ export default class TemplatesManagementPublishController extends Controller {
 
   createPublishedResource = task(async () => {
     this.showPublishingModal = false;
-    const body = {
-      data: {
-        relationships: {
-          'document-container': {
-            data: {
-              id: this.model.container.id,
-            },
-          },
-        },
-      },
-    };
-
     const taskId = await this.muTask.fetchTaskifiedEndpoint(
-      '/regulatory-attachment-publication-tasks',
-      {
-        method: 'POST',
-        body: JSON.stringify(body),
-        headers: {
-          'Content-Type': 'application/vnd.api+json',
-        },
-      },
+      `/publish-template/${this.model.container.id}`,
+      { method: 'POST' },
     );
     await this.muTask.waitForMuTaskTask.perform(taskId, 100);
     await this.fetchPreview.perform();

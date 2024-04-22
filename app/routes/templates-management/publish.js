@@ -11,12 +11,8 @@ export default class TemplatesManagementPublishRoute extends Route {
       params.id,
       { reload: true },
     );
-    const currentVersion = await container.get('currentVersion');
-    const templateVersion = await currentVersion.get('templateVersion');
+    const currentVersion = await container.currentVersion;
+    const templateVersion = await currentVersion.templateVersion;
     return { container, templateVersion };
-  }
-
-  beforeModel(transition) {
-    this.session.requireAuthentication(transition, 'login');
   }
 }

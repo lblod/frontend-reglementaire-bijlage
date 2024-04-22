@@ -2,10 +2,10 @@
 <BreadcrumbsItem as |linkClass|>
   <AuLink
     @route='templates-management.edit'
-    @model={{this.model.id}}
+    @model={{this.model.documentContainer.id}}
     class={{linkClass}}
   >
-    {{t 'reglement-edit.edit'}}
+    Edit template
   </AuLink>
 </BreadcrumbsItem>
 {{#if this.editorDocument}}
@@ -18,9 +18,9 @@
       action=(perform this.publish)
       isRunning=this.save.isRunning
     }}
-    @returnRoute='list'
-    @returnRouteText={{t 'reglement-edit.return'}}
-    @isPublished={{this.model.reglement.publishedVersion}}
+    @returnRoute="list"
+    @returnRouteText="Go back to template overview"
+    @isPublished={{this.isPublished.value}}
   >
     <:leadingButtons>
       <SnippetPlugin::SnippetListSelect
@@ -33,7 +33,6 @@
   <RdfaEditorContainer
     @rdfaEditorInit={{this.handleRdfaEditorInit}}
     @editorDocument={{this.editorDocument}}
-    @typeOfWrappingDiv='lblodgn:ReglementaireBijlage'
     @showToggleRdfaAnnotations={{true}}
     @busy={{or this.save.isRunning}}
     @busyText={{t 'reglement-edit.saving'}}

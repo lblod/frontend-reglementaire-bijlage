@@ -1,16 +1,18 @@
 <AuDataTable
   @content={{this.model}}
   @isLoading={{this.isLoadingModel}}
-  @noDataMessage={{t 'regulatory-attachments.no-data-message'}}
+  @noDataMessage="No templates found"
   @sort={{this.sort}}
   @page={{this.page}}
-  @size={{this.size}} as |table|>
+  @size={{this.size}}
+  as |table|
+>
   <table.menu as |menu|>
     <menu.general>
       <AuToolbar class="au-o-box" @size="large">
         <AuToolbar::Group>
           <AuHeading @skin="2">
-            {{t "regulatory-attachments.page-title"}}
+            Templates
           </AuHeading>
         </AuToolbar::Group>
         <AuToolbar::Group class="au-c-toolbar__group--center">
@@ -27,7 +29,11 @@
             </span>
           </div>
           {{#unless this.readOnly}}
-            <AuButton @icon="add" @iconAlignment="left"  {{on 'click' this.startCreateReglementFlow}}>{{t "regulatory-attachments.new"}}</AuButton>
+            <AuButton
+              @icon="add"
+              @iconAlignment="left"
+              {{on "click" this.startCreateTemplateFlow}}
+            >{{t "regulatory-attachments.new"}}</AuButton>
           {{/unless}}
         </AuToolbar::Group>
       </AuToolbar>
@@ -35,31 +41,56 @@
   </table.menu>
   <table.content as |c|>
     <c.header>
-      <AuDataTableThSortable @field="currentVersion.title" @currentSorting={{this.sort}} @label={{t 'regulatory-attachments.title'}} />
-      <AuDataTableThSortable @field="currentVersion.createdOn" @currentSorting={{this.sort}} @label={{t 'regulatory-attachments.created-on'}} />
-      <AuDataTableThSortable @field="currentVersion.updatedOn" @currentSorting={{this.sort}} @label={{t 'regulatory-attachments.updated-on'}} />
-      <AuDataTableThSortable @field="publishedVersion.currentVersion.created" @currentSorting={{this.sort}} @label={{t 'regulatory-attachments.publish-date'}} />
+      <AuDataTableThSortable
+        @field="currentVersion.title"
+        @currentSorting={{this.sort}}
+        @label={{t "regulatory-attachments.title"}}
+      />
+      <th>Template type</th>
+      <AuDataTableThSortable
+        @field="currentVersion.createdOn"
+        @currentSorting={{this.sort}}
+        @label={{t "regulatory-attachments.created-on"}}
+      />
+      <AuDataTableThSortable
+        @field="currentVersion.updatedOn"
+        @currentSorting={{this.sort}}
+        @label={{t "regulatory-attachments.updated-on"}}
+      />
+      <th>{{t "regulatory-attachments.publish-date"}}</th>
       <th></th>
     </c.header>
     <c.body as |documentContainer|>
       <td>
-        <LinkTo @route="templates-management.edit" @model={{documentContainer.id}} class="au-c-link">{{documentContainer.currentVersion.title}}</LinkTo>
+        <LinkTo
+          @route="templates-management.edit"
+          @model={{documentContainer.id}}
+          class="au-c-link"
+        >{{documentContainer.currentVersion.title}}</LinkTo>
+      </td>
+      <td>
+        {{await (this.getTemplateType documentContainer)}}
       </td>
       <td>{{detailed-date documentContainer.currentVersion.createdOn}}</td>
       <td>{{detailed-date documentContainer.currentVersion.updatedOn}}</td>
       <td>
-        {{#if documentContainer.publishedVersion.currentVersion.created}}
-          {{ detailed-date documentContainer.publishedVersion.currentVersion.created }}
-        {{else}}
-          {{t "regulatory-attachments.not-found"}}
-        {{/if}}
+        {{#let
+          (await (this.lastPublicationDate documentContainer))
+          as |lastPublicationDate|
+        }}
+          {{#if lastPublicationDate}}
+            {{detailed-date lastPublicationDate}}
+          {{else}}
+            {{t "regulatory-attachments.not-found"}}
+          {{/if}}
+        {{/let}}
       </td>
       <td>
         <AuButton
           @skin="naked"
           @icon="trash"
           @alert={{true}}
-          {{on "click" (fn this.startRemoveReglementFlow documentContainer)}}
+          {{on "click" (fn this.startRemoveTemplateFlow documentContainer)}}
         >
           {{t "utility.delete"}}
         </AuButton>
@@ -69,16 +100,37 @@
 </AuDataTable>
 <AuModal
   @title={{t "regulatory-attachments.create-modal.title"}}
-  @modalOpen={{this.createReglementModalIsOpen}}
-  @closeModal={{this.cancelCreateReglement}}
+  @modalOpen={{this.createTemplateModalIsOpen}}
+  @closeModal={{this.cancelCreateTemplate}}
   as |Modal|
 >
   <Modal.Body>
-    <form class="au-o-flow" id="create-meeting-form" {{on "submit" (perform this.saveReglement)}}>
-      <AuLabel for="reglementList-title">
+    <form
+      class="au-o-flow"
+      id="create-meeting-form"
+      {{on "submit" (perform this.saveTemplate)}}
+    >
+      <AuLabel for="template-title">
         {{t "regulatory-attachments.title"}}
       </AuLabel>
-      <AuInput @value={{this.editorDocument.title}} @width="block" id="reglementList-title" type="text" />
+      <AuInput
+        @value={{this.editorDocument.title}}
+        @width="block"
+        id="template-title"
+        type="text"
+      />
+      <AuLabel for="template-type">
+        Template type
+      </AuLabel>
+      <PowerSelect
+        @allowClear={{false}}
+        @searchEnabled={{false}}
+        @options={{this.templateTypes}}
+        @selected={{this.templateType}}
+        @onChange={{this.updateTemplateType}} as |templateType|
+      >
+        {{templateType.label}}
+      </PowerSelect>
     </form>
   </Modal.Body>
   <Modal.Footer>
@@ -87,11 +139,11 @@
         class="au-c-button"
         form="create-meeting-form"
         type="submit"
-        @disabled={{this.isInvalidReglementTitle}}
+        @disabled={{this.isInvalidTemplateTitle}}
       >
         {{t "regulatory-attachments.create-modal.save"}}
       </AuButton>
-      <AuButton {{on "click" this.cancelCreateReglement}} @skin="secondary">
+      <AuButton {{on "click" this.cancelCreateTemplate}} @skin="secondary">
         {{t "regulatory-attachments.create-modal.cancel"}}
       </AuButton>
     </AuButtonGroup>
@@ -99,16 +151,19 @@
 </AuModal>
 <AuModal
   @title={{t "regulatory-attachments.remove-modal.title"}}
-  @modalOpen={{this.removeReglementModalIsOpen}}
-  @closeModal={{this.cancelRemoveReglement}}
+  @modalOpen={{this.removeTemplateModalIsOpen}}
+  @closeModal={{this.cancelRemoveTemplate}}
   as |Modal|
 >
   <Modal.Footer>
     <AuButtonGroup>
-      <AuButton {{on "click" (perform this.submitRemoveReglement)}} @skin="primary">
+      <AuButton
+        {{on "click" (perform this.submitRemoveTemplate)}}
+        @skin="primary"
+      >
         {{t "regulatory-attachments.remove-modal.remove"}}
       </AuButton>
-      <AuButton {{on "click" this.cancelRemoveReglement}} @skin="secondary">
+      <AuButton {{on "click" this.cancelRemoveTemplate}} @skin="secondary">
         {{t "regulatory-attachments.remove-modal.cancel"}}
       </AuButton>
     </AuButtonGroup>

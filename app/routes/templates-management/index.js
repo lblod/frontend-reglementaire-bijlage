@@ -1,6 +1,9 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
-import { RS_STANDARD_FOLDER } from '../../utils/constants';
+import {
+  DECISION_STANDARD_FOLDER,
+  RS_STANDARD_FOLDER,
+} from '../../utils/constants';
 
 export default class TemplatesManagementIndexRoute extends Route {
   @service store;
@@ -19,10 +22,11 @@ export default class TemplatesManagementIndexRoute extends Route {
   }
 
   async model(params) {
+    const folders = [RS_STANDARD_FOLDER, DECISION_STANDARD_FOLDER];
     const options = {
       filter: {
         folder: {
-          id: RS_STANDARD_FOLDER,
+          id: folders.join(','),
         },
       },
       sort: params.sort,
@@ -43,9 +47,5 @@ export default class TemplatesManagementIndexRoute extends Route {
     super.setupController(controller, model);
 
     controller.set('refresh', this.refresh.bind(this));
-  }
-
-  beforeModel(transition) {
-    this.session.requireAuthentication(transition, 'login');
   }
 }

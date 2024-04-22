@@ -3,7 +3,10 @@ import { restartableTask, task, timeout } from 'ember-concurrency';
 import { service } from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
-import { RS_STANDARD_FOLDER } from '../../utils/constants';
+import {
+  DECISION_STANDARD_FOLDER,
+  RS_STANDARD_FOLDER,
+} from '../../utils/constants';
 import { isBlank } from '../../utils/strings';
 
 export default class TemplatesManagementIndexController extends Controller {
@@ -12,6 +15,7 @@ export default class TemplatesManagementIndexController extends Controller {
   @service router;
   @service currentSession;
   @service muTask;
+  @service intl;
 
   @tracked page = 0;
   @tracked size = 20;
@@ -19,12 +23,52 @@ export default class TemplatesManagementIndexController extends Controller {
   @tracked debounceTime = 2000;
   @tracked editorDocument;
   @tracked documentContainer;
-  @tracked createReglementModalIsOpen;
+  @tracked templateType = this.templateTypes[0];
+  @tracked createTemplateModalIsOpen;
   @tracked removeReglementModalIsOpen;
   sort = '-current-version.created-on';
 
+  templateTypes = [
+    {
+      folder: RS_STANDARD_FOLDER,
+      label: 'Regulatory Attachment Template',
+    },
+    {
+      folder: DECISION_STANDARD_FOLDER,
+      label: 'Decision Template',
+    },
+  ];
+
   @action
-  startCreateReglementFlow() {
+  updateTemplateType(templateType) {
+    this.templateType = templateType;
+  }
+
+  getTemplateType = async (documentContainer) => {
+    const folder = await documentContainer.folder;
+    return this.templateTypes.find((type) => type.folder === folder.id)?.label;
+  };
+
+  lastPublicationDate = async (documentContainer) => {
+    const publishedTemplate = (
+      await this.store.query('template', {
+        filter: {
+          'derived-from': {
+            id: documentContainer.id,
+          },
+        },
+      })
+    )[0];
+    if (publishedTemplate) {
+      const templateVersion = await publishedTemplate.currentVersion;
+      return templateVersion.created;
+    } else {
+      return;
+    }
+  };
+
+  @action
+  startCreateTemplateFlow() {
     const documentContainer = this.store.createRecord('document-container');
     const editorDocument = this.store.createRecord('editor-document');
     editorDocument.content = '';
@@ -36,30 +80,31 @@ export default class TemplatesManagementIndexController extends Controller {
 
     documentContainer.currentVersion = editorDocument;
 
-    this.createReglementModalIsOpen = true;
+    this.createTemplateModalIsOpen = true;
   }
 
   @action
-  cancelCreateReglement() {
+  cancelCreateTemplate() {
     this.editorDocument = undefined;
     this.documentContainer = undefined;
-    this.createReglementModalIsOpen = false;
+    this.folder = this.templateTypes[0];
+    this.createTemplateModalIsOpen = false;
   }
 
-  get isInvalidReglementTitle() {
+  get isInvalidTemplateTitle() {
     return isBlank(this.editorDocument.title);
   }
 
-  saveReglement = task(async (event) => {
+  saveTemplate = task(async (event) => {
     event.preventDefault();
     await this.editorDocument.save();
     const folder = await this.store.findRecord(
       'editor-document-folder',
-      RS_STANDARD_FOLDER,
+      this.templateType.folder,
     );
     this.documentContainer.folder = folder;
     await this.documentContainer.save();
-    this.createReglementModalIsOpen = false;
+    this.createTemplateModalIsOpen = false;
     this.router.transitionTo(
       'templates-management.edit',
       this.documentContainer.id,
@@ -67,25 +112,30 @@ export default class TemplatesManagementIndexController extends Controller {
   });
 
   @action
-  startRemoveReglementFlow(documentContainer) {
+  startRemoveTemplateFlow(documentContainer) {
     this.removeReglementModalIsOpen = true;
     this.documentContainer = documentContainer;
   }
 
   @action
-  cancelRemoveReglement() {
+  cancelRemoveTemplate() {
     this.editorDocument = undefined;
     this.removeReglementModalIsOpen = false;
   }
 
-  submitRemoveReglement = task(async () => {
+  submitRemoveTemplate = task(async () => {
     // this is currenlty a hard-delete of the container, but a soft-delete of the
     // publishedVersion, since GN filters on the validThrough date
     // if we'd want to soft-delete the container as well
     // we'd likely have to use RS_DELETED_FOLDER from utils/constants
-
     const editorDocument = await this.documentContainer.currentVersion;
-    const publishedVersion = await editorDocument.publishedVersion;
+    const publishedVersion = await this.store.queryRecord('template-version', {
+      filter: {
+        'derived-from': {
+          id: editorDocument.id,
+        },
+      },
+    });
     if (publishedVersion) {
       publishedVersion.validThrough = new Date();
       await publishedVersion.save();

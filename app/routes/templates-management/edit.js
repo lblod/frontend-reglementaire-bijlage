@@ -14,15 +14,8 @@ export default class TemplatesManagementEditRoute extends Route {
       params.id,
       { include: 'current-version,snippet-lists,snippet-lists.snippets' },
     );
-    const documentId = (await documentContainer.currentVersion).id;
-    const editorDocument = await this.store.findRecord(
-      'editor-document',
-      documentId,
-    );
+    const editorDocument = await documentContainer.currentVersion;
     return { documentContainer, editorDocument };
-  }
-  beforeModel(transition) {
-    this.session.requireAuthentication(transition, 'login');
   }
 
   setupController(controller, model) {

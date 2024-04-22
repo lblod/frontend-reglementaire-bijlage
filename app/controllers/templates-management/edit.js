@@ -78,6 +78,7 @@ import CodelistInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/comp
 import VariablePluginAddressInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/address/insert-variable';
 
 const SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE = 'data-snippet-list-ids';
+import { trackedFunction } from 'ember-resources/util/function';
 
 export default class TemplatesManagementEditController extends Controller {
   @service store;
@@ -254,6 +255,17 @@ export default class TemplatesManagementEditController extends Controller {
       this.assignedSnippetListsIds = this.documentSnippetListIds;
     }
   }
+
+  isPublished = trackedFunction(this, async () => {
+    const publishedTemplate = await this.store.query('template-version', {
+      filter: {
+        'derived-from': {
+          id: this.editorDocument.id,
+        },
+      },
+    })[0];
+    return Boolean(publishedTemplate);
+  });
 
   get dirty() {
     // Since we clear the undo history when saving, this works. If we want to maintain undo history

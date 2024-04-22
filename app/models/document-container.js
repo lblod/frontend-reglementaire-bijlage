@@ -6,11 +6,6 @@ export default class DocumentContainerModel extends Model {
   @belongsTo('editor-document', { inverse: null, async: true }) currentVersion;
   @belongsTo('editor-document-folder', { inverse: null, async: true }) folder;
   @belongsTo('administrative-unit', { inverse: null, async: true }) publisher;
-  @belongsTo('published-regulatory-attachment-container', {
-    inverse: 'derivedFrom',
-    async: true,
-  })
-  publishedVersion;
   @belongsTo('published-snippet-container', {
     inverse: 'derivedFrom',
     async: true,
