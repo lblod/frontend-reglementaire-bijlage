@@ -16,7 +16,7 @@
               >
                 {{#let (await (this.getGroup account)) as |group|}}
                   <AuButton
-                    @skin="tertiary"
+                    @skin="link"
                     {{on
                       "click"
                       (fn login.login account.id group.id)
