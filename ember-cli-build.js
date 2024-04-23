@@ -8,9 +8,6 @@ module.exports = function (defaults) {
       extension: 'scss',
       includePaths: ['node_modules/@appuniversum/ember-appuniversum'],
     },
-    '@appuniversum/ember-appuniversum': {
-      disableWormholeElement: true,
-    },
   });
 
   // Use `app.import` to add additional libraries to the generated
