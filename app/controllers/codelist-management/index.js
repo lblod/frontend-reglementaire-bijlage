@@ -5,7 +5,7 @@ import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
 
-export default class CodelistsManagementIndexController extends Controller {
+export default class CodelistManagementIndexController extends Controller {
   @service router;
 
   queryParams = ['page', 'size', 'label', 'sort'];

@@ -29,7 +29,7 @@
             </span>
           </div>
           <AuLink
-            @route="codelists-management.new"
+            @route="codelist-management.new"
             @skin="button">
             {{t "codelist.crud.new"}}
           </AuLink>
@@ -56,7 +56,7 @@
       <td>
         <AuLink
           @skin="primary"
-          @route="codelists-management.edit"
+          @route="codelist-management.edit"
           @model={{codelist.id}}
         >
           {{codelist.label}}

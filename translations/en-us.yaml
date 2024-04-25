@@ -1,5 +1,5 @@
 codelist:
-  name: Codelists management
+  name: Codelist management
   details: Codelist details
   order-label: Order
   crud:

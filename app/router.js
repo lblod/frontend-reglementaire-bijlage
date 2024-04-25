@@ -18,7 +18,7 @@ Router.map(function () {
     this.route('edit', { path: '/:id/edit' });
     this.route('publish', { path: '/:id/publish' });
   });
-  this.route('codelists-management', function () {
+  this.route('codelist-management', function () {
     this.route('new');
     this.route('edit', { path: '/:id/edit' });
   });

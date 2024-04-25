@@ -162,7 +162,7 @@ export default class CodelistFormComponent extends Component {
       this.isEditingOptions = false;
       if (wasNew) {
         this.router.transitionTo(
-          'codelists-management.edit',
+          'codelist-management.edit',
           this.changeset.id,
         );
       }
@@ -172,7 +172,7 @@ export default class CodelistFormComponent extends Component {
   @action
   cancelEditingTask() {
     this.reset();
-    this.router.transitionTo('codelists-management');
+    this.router.transitionTo('codelist-management');
   }
 
   reset() {
