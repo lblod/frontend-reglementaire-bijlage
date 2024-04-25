@@ -1,6 +1,6 @@
 {{! template-lint-disable table-groups  }}
-<AuToolbar @border='bottom' @size='large'>
-  <AuToolbar::Group>
+<AuToolbar @border='bottom' @size='large' as |Group|>
+  <Group>
     <AuHeading @skin='2'>
       {{#if @codelist.isNew}}
         {{t 'codelist.crud.new'}}
@@ -8,7 +8,7 @@
         {{t 'codelist.crud.edit'}}
       {{/if}}
     </AuHeading>
-  </AuToolbar::Group>
+  </Group>
   <AuButtonGroup>
     <AuButton
       @disabled={{(or this.allPristine (not this.allValid))}}
@@ -43,7 +43,7 @@
           id='codelist-name-input'
           required='required'
           placeholder={{t 'utility.type-something-placeholder'}}
-          @value={{this.changeset.label}}
+          value={{this.changeset.label}}
           {{on 'input' this.setCodelistLabel}}
         />
         {{#if isInvalid}}
@@ -72,7 +72,7 @@
               <p>{{t 'codelist.options.value'}}
               <AuPill>
               {{t 'utility.required'}}
-              </AuPill> 
+              </AuPill>
               </p>
             </th>
             <th></th>
@@ -117,7 +117,7 @@
                 {{#let option.error.label as |labelError|}}
                 <AuInput
                   @error={{labelError}}
-                  @value={{option.label}}
+                  value={{option.label}}
                   {{on 'input' (fn this.setOptionLabel option)}}
                 />
                  {{#if labelError}}
@@ -131,7 +131,7 @@
                 {{#let option.error.value as |isInvalid|}}
                   <AuInput
                     @error={{isInvalid}}
-                    @value={{option.value}}
+                    value={{option.value}}
                     @isError={{option.isInvalid}}
                     placeholder={{t 'utility.type-something-placeholder'}}
                     {{on 'change' (fn this.setOptionValue option)}}
@@ -156,7 +156,7 @@
             {{else}}
               <td>{{option.label}}</td>
               <td>{{option.value}}</td>
-            {{/if}}  
+            {{/if}}
           </DraggableObject>
         {{/each}}
       </SortableObjects>
@@ -173,7 +173,7 @@
             >
               {{t 'codelist.crud.add-option'}}
             </AuButton>
-          </th>  
+          </th>
         {{/if}}
       </tfoot>
     </table>

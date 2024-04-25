@@ -1,11 +1,11 @@
 <nav>
   <div class="au-c-app-chrome">
-    <AuToolbar @size="small" class="au-u-padding-bottom-none">
-      <AuToolbar::Group>
+    <AuToolbar @size="small" class="au-u-padding-bottom-none" as |Group|>
+      <Group>
         <span class="au-c-app-chrome__entity">{{this.currentSession.group.classificatie.label}}
           {{this.currentSession.group.naam}}</span>
-      </AuToolbar::Group>
-      <AuToolbar::Group>
+      </Group>
+      <Group>
         <ul class="au-c-list-horizontal au-u-padding-right-tiny">
           {{#unless @editorDocument.isNew}}
           {{#if (and @editorDocument.updatedOn (not @dirty))}}
@@ -24,10 +24,10 @@
           {{/if}}
           {{/unless}}
         </ul>
-      </AuToolbar::Group>
+      </Group>
     </AuToolbar>
-    <AuToolbar @size="small" class="au-u-padding-top-none">
-      <AuToolbar::Group>
+    <AuToolbar @size="small" class="au-u-padding-top-none" as |Group|>
+      <Group>
         {{#if @editorDocument.isNew}}
         <AuPill @skin="warning">
           <AuIcon @icon="alert-triangle" @alignment="left" />
@@ -40,8 +40,8 @@
         {{#if this.templateType.value}}
           <AuPill>{{this.templateType.value}}</AuPill>
         {{/if}}
-      </AuToolbar::Group>
-      <AuToolbar::Group>
+      </Group>
+      <Group>
         {{#if @editorDocument.isNew}}
         <LinkTo @route="inbox.agendapoints" class="au-c-button au-c-button--tertiary au-c-button--alert">
           <AuIcon @icon="bin" @alignment="left" />
@@ -51,19 +51,19 @@
         <AuDropdown @title="Bestand acties" @buttonLabel="Bestand opties" @alignment="right">
           {{#if @copyAgendapunt}}
           {{!-- template-lint-disable require-context-role --}}
-          <AuButton {{on "click" @copyAgendapunt}} @skin="tertiary" role="menuitem">
+          <AuButton {{on "click" @copyAgendapunt}} @skin="link" role="menuitem">
             <AuIcon @icon="copy" @alignment="left" />
             {{t "appChrome.copyAgendapoint"}}
           </AuButton>
           {{/if}}
           {{#if @exportHtmlFunction}}
-          <AuButton {{on "click" @exportHtmlFunction}} @skin="tertiary" role="menuitem">
+          <AuButton {{on "click" @exportHtmlFunction}} @skin="link" role="menuitem">
             <AuIcon @icon="export" @alignment="left" />
             {{t "utility.export-to-html"}}
           </AuButton>
           {{/if}}
           {{#if @sendToTrash}}
-          <AuButton {{on "click" @sendToTrash}} @skin="tertiary" @alert="true" role="menuitem"
+          <AuButton {{on "click" @sendToTrash}} @skin="link" @alert="true" role="menuitem"
             @disabled={{this.isNotAllowedToTrash}}>
             <AuIcon @icon="bin" @alignment="left" />
             {{t "utility.to-recycle-bin"}}
@@ -85,7 +85,7 @@
         <AuButton {{on "click" @publish.action}} @disabled={{@publish.isRunning}}>{{t "utility.save-and-publish"}}
         </AuButton>
         {{/if}}
-      </AuToolbar::Group>
+      </Group>
     </AuToolbar>
   </div>
 </nav>
