@@ -161,10 +161,7 @@ export default class CodelistFormComponent extends Component {
       await this.optionsChangesetList.save();
       this.isEditingOptions = false;
       if (wasNew) {
-        this.router.transitionTo(
-          'codelist-management.edit',
-          this.changeset.id,
-        );
+        this.router.transitionTo('codelist-management.edit', this.changeset.id);
       }
     }
   });
