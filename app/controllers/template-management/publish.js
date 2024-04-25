@@ -7,7 +7,7 @@ import {
   DECISION_STANDARD_FOLDER,
   RS_STANDARD_FOLDER,
 } from '../../utils/constants';
-export default class TemplatesManagementPublishController extends Controller {
+export default class TemplateManagementPublishController extends Controller {
   @service store;
   @service router;
   @service session;
@@ -57,7 +57,7 @@ export default class TemplatesManagementPublishController extends Controller {
       },
     );
     this.router.transitionTo(
-      'templates-management.edit',
+      'template-management.edit',
       this.model.container.id,
     );
   });
@@ -66,10 +66,10 @@ export default class TemplatesManagementPublishController extends Controller {
     const folder = await this.model.container?.folder;
     if (folder?.id === RS_STANDARD_FOLDER) {
       return this.intl.t(
-        'templates-management.template-type.regulatory-attachment',
+        'template-management.template-type.regulatory-attachment',
       );
     } else if (folder?.id === DECISION_STANDARD_FOLDER) {
-      return this.intl.t('templates-management.template-type.decision');
+      return this.intl.t('template-management.template-type.decision');
     }
   });
 }

@@ -79,7 +79,7 @@ legal:
   disclaimer: Disclaimer
 sparql:
   name: "Regulatory attachments register: SPARQL endpoint"
-templates-management:
+template-management:
   page-title: Template management
   new: Create template
   title: Title

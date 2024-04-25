@@ -5,7 +5,7 @@ import {
   RS_STANDARD_FOLDER,
 } from '../../utils/constants';
 
-export default class TemplatesManagementIndexRoute extends Route {
+export default class TemplateManagementIndexRoute extends Route {
   @service store;
   @service session;
 

@@ -30,10 +30,10 @@ export default class AppChromeComponent extends Component {
     const folder = await this.documentContainer?.folder;
     if (folder?.id === RS_STANDARD_FOLDER) {
       return this.intl.t(
-        'templates-management.template-type.regulatory-attachment',
+        'template-management.template-type.regulatory-attachment',
       );
     } else if (folder?.id === DECISION_STANDARD_FOLDER) {
-      return this.intl.t('templates-management.template-type.decision');
+      return this.intl.t('template-management.template-type.decision');
     }
   });
 

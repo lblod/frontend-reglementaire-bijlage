@@ -9,7 +9,7 @@ import {
 } from '../../utils/constants';
 import { isBlank } from '../../utils/strings';
 
-export default class TemplatesManagementIndexController extends Controller {
+export default class TemplateManagementIndexController extends Controller {
   @service store;
   @service session;
   @service router;
@@ -32,12 +32,12 @@ export default class TemplatesManagementIndexController extends Controller {
     {
       folder: RS_STANDARD_FOLDER,
       label: this.intl.t(
-        'templates-management.template-type.regulatory-attachment',
+        'template-management.template-type.regulatory-attachment',
       ),
     },
     {
       folder: DECISION_STANDARD_FOLDER,
-      label: this.intl.t('templates-management.template-type.decision'),
+      label: this.intl.t('template-management.template-type.decision'),
     },
   ];
 
@@ -108,7 +108,7 @@ export default class TemplatesManagementIndexController extends Controller {
     await this.documentContainer.save();
     this.createTemplateModalIsOpen = false;
     this.router.transitionTo(
-      'templates-management.edit',
+      'template-management.edit',
       this.documentContainer.id,
     );
   });

@@ -14,7 +14,7 @@ Router.map(function () {
     this.route('cookiestatement');
     this.route('accessibilitystatement');
   });
-  this.route('templates-management', function () {
+  this.route('template-management', function () {
     this.route('edit', { path: '/:id/edit' });
     this.route('publish', { path: '/:id/publish' });
   });

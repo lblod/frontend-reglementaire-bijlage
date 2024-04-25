@@ -79,7 +79,7 @@ legal:
   disclaimer: Disclaimer
 sparql:
   name: "Register reglementaire bijlagen: SPARQL endpoint"
-templates-management:
+template-management:
   page-title: Sjabloonbeheer
   new: Sjabloon aanmaken
   title: Titel

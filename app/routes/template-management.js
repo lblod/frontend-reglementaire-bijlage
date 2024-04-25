@@ -1,7 +1,7 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
-export default class TemplatesManagementRoute extends Route {
+export default class TemplateManagementRoute extends Route {
   @service session;
 
   beforeModel(transition) {

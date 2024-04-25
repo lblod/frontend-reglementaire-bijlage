@@ -1,8 +1,8 @@
-{{page-title (t "templates-management.page-title")}}
+{{page-title (t "template-management.page-title")}}
 <AuDataTable
   @content={{this.model}}
   @isLoading={{this.isLoadingModel}}
-  @noDataMessage={{t "templates-management.no-data-message"}}
+  @noDataMessage={{t "template-management.no-data-message"}}
   @sort={{this.sort}}
   @page={{this.page}}
   @size={{this.size}}
@@ -13,15 +13,15 @@
       <AuToolbar class="au-o-box" @size="large">
         <AuToolbar::Group>
           <AuHeading @skin="2">
-            {{t "templates-management.page-title"}}
+            {{t "template-management.page-title"}}
           </AuHeading>
         </AuToolbar::Group>
         <AuToolbar::Group class="au-c-toolbar__group--center">
           <div class="au-c-data-table__search codelist-label-search">
             <input
-              aria-label={{t "templates-management.crud.label-filter"}}
+              aria-label={{t "template-management.crud.label-filter"}}
               value={{this.title}}
-              placeholder={{t "templates-management.crud.label-filter"}}
+              placeholder={{t "template-management.crud.label-filter"}}
               class="au-c-input au-c-input--block"
               {{on "input" (perform this.updateSearchFilterTask "title")}}
             />
@@ -34,7 +34,7 @@
               @icon="add"
               @iconAlignment="left"
               {{on "click" this.startCreateTemplateFlow}}
-            >{{t "templates-management.new"}}</AuButton>
+            >{{t "template-management.new"}}</AuButton>
           {{/unless}}
         </AuToolbar::Group>
       </AuToolbar>
@@ -45,26 +45,26 @@
       <AuDataTableThSortable
         @field="currentVersion.title"
         @currentSorting={{this.sort}}
-        @label={{t "templates-management.title"}}
+        @label={{t "template-management.title"}}
       />
-      <th>{{t "templates-management.template-type.label"}}</th>
+      <th>{{t "template-management.template-type.label"}}</th>
       <AuDataTableThSortable
         @field="currentVersion.createdOn"
         @currentSorting={{this.sort}}
-        @label={{t "templates-management.created-on"}}
+        @label={{t "template-management.created-on"}}
       />
       <AuDataTableThSortable
         @field="currentVersion.updatedOn"
         @currentSorting={{this.sort}}
-        @label={{t "templates-management.updated-on"}}
+        @label={{t "template-management.updated-on"}}
       />
-      <th>{{t "templates-management.publish-date"}}</th>
+      <th>{{t "template-management.publish-date"}}</th>
       <th></th>
     </c.header>
     <c.body as |documentContainer|>
       <td>
         <LinkTo
-          @route="templates-management.edit"
+          @route="template-management.edit"
           @model={{documentContainer.id}}
           class="au-c-link"
         >{{documentContainer.currentVersion.title}}</LinkTo>
@@ -82,7 +82,7 @@
           {{#if lastPublicationDate}}
             {{detailed-date lastPublicationDate}}
           {{else}}
-            {{t "templates-management.not-found"}}
+            {{t "template-management.not-found"}}
           {{/if}}
         {{/let}}
       </td>
@@ -100,7 +100,7 @@
   </table.content>
 </AuDataTable>
 <AuModal
-  @title={{t "templates-management.create-modal.title"}}
+  @title={{t "template-management.create-modal.title"}}
   @modalOpen={{this.createTemplateModalIsOpen}}
   @closeModal={{this.cancelCreateTemplate}}
   as |Modal|
@@ -112,7 +112,7 @@
       {{on "submit" (perform this.saveTemplate)}}
     >
       <AuLabel for="template-title">
-        {{t "templates-management.title"}}
+        {{t "template-management.title"}}
       </AuLabel>
       <AuInput
         @value={{this.editorDocument.title}}
@@ -121,7 +121,7 @@
         type="text"
       />
       <AuLabel for="template-type">
-        {{t "templates-management.template-type.label"}}
+        {{t "template-management.template-type.label"}}
       </AuLabel>
       <PowerSelect
         id="template-type"
@@ -144,16 +144,16 @@
         type="submit"
         @disabled={{this.isInvalidTemplateTitle}}
       >
-        {{t "templates-management.create-modal.save"}}
+        {{t "template-management.create-modal.save"}}
       </AuButton>
       <AuButton {{on "click" this.cancelCreateTemplate}} @skin="secondary">
-        {{t "templates-management.create-modal.cancel"}}
+        {{t "template-management.create-modal.cancel"}}
       </AuButton>
     </AuButtonGroup>
   </Modal.Footer>
 </AuModal>
 <AuModal
-  @title={{t "templates-management.remove-modal.title"}}
+  @title={{t "template-management.remove-modal.title"}}
   @modalOpen={{this.removeTemplateModalIsOpen}}
   @closeModal={{this.cancelRemoveTemplate}}
   as |Modal|
@@ -164,10 +164,10 @@
         {{on "click" (perform this.submitRemoveTemplate)}}
         @skin="primary"
       >
-        {{t "templates-management.remove-modal.remove"}}
+        {{t "template-management.remove-modal.remove"}}
       </AuButton>
       <AuButton {{on "click" this.cancelRemoveTemplate}} @skin="secondary">
-        {{t "templates-management.remove-modal.cancel"}}
+        {{t "template-management.remove-modal.cancel"}}
       </AuButton>
     </AuButtonGroup>
   </Modal.Footer>
