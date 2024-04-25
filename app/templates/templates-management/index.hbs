@@ -10,13 +10,13 @@
 >
   <table.menu as |menu|>
     <menu.general>
-      <AuToolbar class="au-o-box" @size="large">
-        <AuToolbar::Group>
+      <AuToolbar class="au-o-box" @size="large" as |Group|>
+        <Group>
           <AuHeading @skin="2">
             {{t "templates-management.page-title"}}
           </AuHeading>
-        </AuToolbar::Group>
-        <AuToolbar::Group class="au-c-toolbar__group--center">
+        </Group>
+        <Group class="au-c-toolbar__group--center">
           <div class="au-c-data-table__search codelist-label-search">
             <input
               aria-label={{t "templates-management.crud.label-filter"}}
@@ -36,7 +36,7 @@
               {{on "click" this.startCreateTemplateFlow}}
             >{{t "templates-management.new"}}</AuButton>
           {{/unless}}
-        </AuToolbar::Group>
+        </Group>
       </AuToolbar>
     </menu.general>
   </table.menu>
@@ -115,10 +115,11 @@
         {{t "templates-management.title"}}
       </AuLabel>
       <AuInput
-        @value={{this.editorDocument.title}}
+        value={{this.editorDocument.title}}
         @width="block"
         id="template-title"
         type="text"
+        {{on "input" this.handleTitleUpdate}}
       />
       <AuLabel for="template-type">
         {{t "templates-management.template-type.label"}}

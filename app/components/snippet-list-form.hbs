@@ -11,7 +11,7 @@
         @error={{this.invalidLabel}}
         id="label"
         required="required"
-        @value={{@model.label}}
+        value={{@model.label}}
         {{on "input" (perform this.updateLabel)}}
       />
       {{#if this.showSavedTask.isRunning}}

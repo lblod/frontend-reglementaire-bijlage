@@ -171,4 +171,9 @@ export default class TemplatesManagementIndexController extends Controller {
   resetPagination() {
     this.page = 0;
   }
+
+  @action
+  handleTitleUpdate(event) {
+    this.editorDocument.title = event.target.value;
+  }
 }
