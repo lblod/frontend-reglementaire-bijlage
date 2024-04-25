@@ -33,7 +33,6 @@ export default class TemplatesManagementPublishController extends Controller {
         },
       })
     )[0];
-    console.log(currentPublishedTemplate);
     if (currentPublishedTemplate) {
       const publishedVersion =
         await currentPublishedTemplate.currentVersion.reload();

@@ -130,7 +130,6 @@ export default class TemplatesManagementIndexController extends Controller {
     // publishedVersion, since GN filters on the validThrough date
     // if we'd want to soft-delete the container as well
     // we'd likely have to use RS_DELETED_FOLDER from utils/constants
-    console.log(this.documentContainer.id);
     const publishedTemplate = (
       await this.store.query('template', {
         filter: {
