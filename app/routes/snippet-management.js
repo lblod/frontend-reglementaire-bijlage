@@ -1,7 +1,7 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
-export default class SnippetsManagementRoute extends Route {
+export default class SnippetManagementRoute extends Route {
   @service session;
 
   beforeModel(transition) {

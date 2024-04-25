@@ -18,7 +18,7 @@
           <AuToolbar::Group>
             <AuLink
               @skin="button"
-              @route="snippets-management.new"
+              @route="snippet-management.new"
             >
               {{t "snippets.make-new"}}
             </AuLink>
@@ -40,7 +40,7 @@
         <td>
           <AuLink
             @skin="primary"
-            @route="snippets-management.edit"
+            @route="snippet-management.edit"
             @model={{snippet.id}}
           >
             {{snippet.label}}

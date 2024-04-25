@@ -1,7 +1,7 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
-export default class CodelistsManagementNewRoute extends Route {
+export default class SnippetManagementNewRoute extends Route {
   @service store;
   @service currentSession;
 

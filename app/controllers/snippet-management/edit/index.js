@@ -1,5 +1,5 @@
 import Controller from '@ember/controller';
 
-export default class SnippetsManagementEditController extends Controller {
+export default class SnippetManagementEditController extends Controller {
   queryParams = ['showSaved'];
 }

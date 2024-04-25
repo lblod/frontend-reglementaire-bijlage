@@ -79,7 +79,7 @@ import DateInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/
 import CodelistInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/codelist/insert';
 import VariablePluginAddressInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/address/insert-variable';
 
-export default class SnippetsManagementEditSnippetController extends Controller {
+export default class SnippetManagementEditSnippetController extends Controller {
   @service store;
   @service router;
   @tracked editor;

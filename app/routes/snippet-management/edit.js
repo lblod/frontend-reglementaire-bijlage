@@ -1,7 +1,7 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
-export default class SnippetsManagementEditRoute extends Route {
+export default class SnippetManagementEditRoute extends Route {
   @service store;
 
   async model(params) {

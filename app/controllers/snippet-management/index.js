@@ -4,7 +4,7 @@ import { task } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 
-export default class SnippetsManagementIndexController extends Controller {
+export default class SnippetManagementIndexController extends Controller {
   @service store;
   @service router;
   @service currentSession;

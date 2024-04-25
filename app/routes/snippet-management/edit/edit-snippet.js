@@ -1,7 +1,8 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 import { hash } from 'rsvp';
-export default class SnippetsManagementEditSnippetRoute extends Route {
+
+export default class SnippetManagementEditSnippetRoute extends Route {
   @service store;
   @service session;
 
@@ -13,7 +14,7 @@ export default class SnippetsManagementEditSnippetRoute extends Route {
           include: 'current-version',
         })
       )[0],
-      snippetList: this.modelFor('snippets-management.edit'),
+      snippetList: this.modelFor('snippet-management.edit'),
     });
   }
 }
