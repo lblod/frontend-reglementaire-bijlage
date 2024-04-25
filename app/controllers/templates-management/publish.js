@@ -31,11 +31,11 @@ export default class TemplatesManagementPublishController extends Controller {
             id: this.model.container.id,
           },
         },
+        include: 'current-version',
       })
     )[0];
     if (currentPublishedTemplate) {
-      const publishedVersion =
-        await currentPublishedTemplate.currentVersion.reload();
+      const publishedVersion = await currentPublishedTemplate.currentVersion;
       const response = await fetch(publishedVersion.downloadLink);
       this.currentVersion = await response.text();
     }
