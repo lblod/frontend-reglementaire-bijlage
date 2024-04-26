@@ -42,6 +42,7 @@ import {
 import {
   bulletListWithConfig,
   listItemWithConfig,
+  listTrackingPlugin,
   orderedListWithConfig,
 } from '@lblod/ember-rdfa-editor/plugins/list';
 import { placeholder } from '@lblod/ember-rdfa-editor/plugins/placeholder';
@@ -115,9 +116,18 @@ export default class SnippetsManagementEditSnippetController extends Controller 
       document_title,
       repaired_block: repairedBlockWithConfig({ rdfaAware: true }),
 
-      list_item: listItemWithConfig({ rdfaAware: true }),
-      ordered_list: orderedListWithConfig({ rdfaAware: true }),
-      bullet_list: bulletListWithConfig({ rdfaAware: true }),
+      list_item: listItemWithConfig({
+        rdfaAware: true,
+        enableHierarchicalList: true,
+      }),
+      ordered_list: orderedListWithConfig({
+        rdfaAware: true,
+        enableHierarchicalList: true,
+      }),
+      bullet_list: bulletListWithConfig({
+        rdfaAware: true,
+        enableHierarchicalList: true,
+      }),
       templateComment,
       placeholder,
       ...tableNodes({ tableGroup: 'block', cellContent: 'block+' }),
@@ -254,6 +264,7 @@ export default class SnippetsManagementEditSnippetController extends Controller 
       tableKeymap,
       this.citationPlugin,
       linkPasteHandler(this.schema.nodes.link),
+      listTrackingPlugin(),
       editableNodePlugin(),
     ];
   }
