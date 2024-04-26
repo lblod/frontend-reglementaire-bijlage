@@ -36,9 +36,10 @@ import {
   STRUCTURE_SPECS,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/article-structure-plugin/structures';
 import {
-  bullet_list,
-  list_item,
-  ordered_list,
+  bulletListWithConfig,
+  listItemWithConfig,
+  listTrackingPlugin,
+  orderedListWithConfig,
 } from '@lblod/ember-rdfa-editor/plugins/list';
 import { placeholder } from '@lblod/ember-rdfa-editor/plugins/placeholder';
 import { heading } from '@lblod/ember-rdfa-editor/plugins/heading';
@@ -102,9 +103,9 @@ export default class EditController extends Controller {
       document_title,
       repaired_block,
 
-      list_item,
-      ordered_list,
-      bullet_list,
+      list_item: listItemWithConfig({ enableHierarchicalList: true }),
+      ordered_list: orderedListWithConfig({ enableHierarchicalList: true }),
+      bullet_list: bulletListWithConfig({ enableHierarchicalList: true }),
       templateComment,
       placeholder,
       ...tableNodes({ tableGroup: 'block', cellContent: 'block+' }),
@@ -243,6 +244,7 @@ export default class EditController extends Controller {
       tableKeymap,
       this.citationPlugin,
       linkPasteHandler(this.schema.nodes.link),
+      listTrackingPlugin(),
     ];
   }
 
