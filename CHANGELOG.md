@@ -1,5 +1,31 @@
 # frontend-reglementaire-bijlage
 
+## 8.4.0
+
+### Minor Changes
+
+- [#237](https://github.com/lblod/frontend-reglementaire-bijlage/pull/237) [`af836e4`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/af836e46f5e1731ab0686ea044ff8a6ee13cc2d5) Thanks [@dkozickis](https://github.com/dkozickis)! - GN-4801: Bump `@appuniversum/ember-appuniversum` to `3.4.1`
+
+  - Bump `@appuniversum/ember-appuniversum` to `3.4.1`
+
+    - Update breaking changes
+      - Use yielded `Group` from `AuToolbar` instead of `AuToolbar::Group`
+      - Change `@skin='tertiary'` to `@skin='link'` on `AuButton`
+      - Remove two-way binding on `AuInput`
+    - Change how `appuniversum` SCSS is imported in the app.
+    - Add a key to `AuDatePicker` localisation.
+
+  - Bump `@lblod/ember-rdfa-editor-lblod-plugins` to `17.0.0`
+  - Bump `@lblod/ember-environment-banner` to `0.5.0`
+
+- [#239](https://github.com/lblod/frontend-reglementaire-bijlage/pull/239) [`676c3bd`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/676c3bdaf76de4cec5f760273f000bfe8c17b8bb) Thanks [@elpoelma](https://github.com/elpoelma)! - Enable support for hierarchical lists
+
+### Patch Changes
+
+- [#240](https://github.com/lblod/frontend-reglementaire-bijlage/pull/240) [`d76103e`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/d76103e53c287289fb1dc97f24cbff6865692db2) Thanks [@elpoelma](https://github.com/elpoelma)! - Update `@lblod/ember-rdfa-editor-plugins` to 17.1.1
+
+- [`44cf6cf`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/44cf6cffa601eb668bd4d7cf8f71d15a6d614a5d) Thanks [@elpoelma](https://github.com/elpoelma)! - Update `@lblod/ember-rdfa-editor` to 9.7.1
+
 ## 8.3.1
 
 ### Patch Changes
