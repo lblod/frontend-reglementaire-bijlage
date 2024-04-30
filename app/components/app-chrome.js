@@ -1,11 +1,7 @@
 import Component from '@glimmer/component';
 import { service } from '@ember/service';
 import { task } from 'ember-concurrency';
-import { trackedFunction } from 'ember-resources/util/function';
-import {
-  DECISION_STANDARD_FOLDER,
-  RS_STANDARD_FOLDER,
-} from '../utils/constants';
+import { getTemplateType } from '../utils/template-type';
 
 export default class AppChromeComponent extends Component {
   @service currentSession;
@@ -26,16 +22,9 @@ export default class AppChromeComponent extends Component {
     return status;
   }
 
-  templateType = trackedFunction(this, async () => {
-    const folder = await this.documentContainer?.folder;
-    if (folder?.id === RS_STANDARD_FOLDER) {
-      return this.intl.t(
-        'template-management.template-type.regulatory-attachment',
-      );
-    } else if (folder?.id === DECISION_STANDARD_FOLDER) {
-      return this.intl.t('template-management.template-type.decision');
-    }
-  });
+  templateTypeLabel =
+    this.args.templateTypeId &&
+    getTemplateType(this.args.templateTypeId, this.intl)?.label;
 
   get showFileDropdown() {
     return (

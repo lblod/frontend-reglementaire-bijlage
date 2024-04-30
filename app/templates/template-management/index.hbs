@@ -70,7 +70,7 @@
         >{{documentContainer.currentVersion.title}}</LinkTo>
       </td>
       <td>
-        {{await (this.getTemplateType documentContainer)}}
+        {{await (this.getTemplateTypeLabel documentContainer)}}
       </td>
       <td>{{detailed-date documentContainer.currentVersion.createdOn}}</td>
       <td>{{detailed-date documentContainer.currentVersion.updatedOn}}</td>
@@ -129,7 +129,7 @@
         @allowClear={{false}}
         @searchEnabled={{false}}
         @options={{this.templateTypes}}
-        @selected={{this.templateType}}
+        @selected={{this.templateTypeToCreate}}
         @onChange={{this.updateTemplateType}}
         as |templateType|
       >

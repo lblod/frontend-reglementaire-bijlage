@@ -14,7 +14,7 @@
     <AuHeading class='au-u-margin-bottom'>
       {{t 'publish-page.title'}}
     </AuHeading>
-    <AuPill>{{this.templateType.value}}</AuPill>
+    <AuPill>{{this.templateTypeLabel}}</AuPill>
     <div
       class='au-o-grid au-o-grid--small au-u-margin-top-small'
       {{did-insert (perform this.fetchPreview)}}
@@ -31,7 +31,7 @@
               class='say-editor say-content rdfa-annotations rdfa-annotations-highlight rdfa-annotations-hover'
             >
               {{! template-lint-disable no-triple-curlies }}
-              {{{this.model.templateVersion}}}
+              {{{this.model.currentVersion.templateVersion}}}
             </div>
           </c.content>
         </AuCard>

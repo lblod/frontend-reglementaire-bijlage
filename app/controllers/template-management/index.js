@@ -3,11 +3,8 @@ import { restartableTask, task, timeout } from 'ember-concurrency';
 import { service } from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
-import {
-  DECISION_STANDARD_FOLDER,
-  RS_STANDARD_FOLDER,
-} from '../../utils/constants';
 import { isBlank } from '../../utils/strings';
+import { getTemplateType, getTemplateTypes } from '../../utils/template-type';
 
 export default class TemplateManagementIndexController extends Controller {
   @service store;
@@ -23,32 +20,21 @@ export default class TemplateManagementIndexController extends Controller {
   @tracked debounceTime = 2000;
   @tracked editorDocument;
   @tracked documentContainer;
-  @tracked templateType = this.templateTypes[0];
+  @tracked templateTypeToCreate = this.templateTypes[0];
   @tracked createTemplateModalIsOpen;
   @tracked removeTemplateModalIsOpen;
   sort = '-current-version.created-on';
 
-  templateTypes = [
-    {
-      folder: RS_STANDARD_FOLDER,
-      label: this.intl.t(
-        'template-management.template-type.regulatory-attachment',
-      ),
-    },
-    {
-      folder: DECISION_STANDARD_FOLDER,
-      label: this.intl.t('template-management.template-type.decision'),
-    },
-  ];
+  templateTypes = getTemplateTypes(this.intl);
 
   @action
   updateTemplateType(templateType) {
-    this.templateType = templateType;
+    this.templateTypeToCreate = templateType;
   }
 
-  getTemplateType = async (documentContainer) => {
-    const folder = await documentContainer.folder;
-    return this.templateTypes.find((type) => type.folder === folder.id)?.label;
+  getTemplateTypeLabel = async (documentContainer) => {
+    const type = await documentContainer.templateTypeId;
+    return getTemplateType(type, this.intl)?.label;
   };
 
   lastPublicationDate = async (documentContainer) => {
@@ -102,7 +88,7 @@ export default class TemplateManagementIndexController extends Controller {
     await this.editorDocument.save();
     const folder = await this.store.findRecord(
       'editor-document-folder',
-      this.templateType.folder,
+      this.templateTypeToCreate.folder,
     );
     this.documentContainer.folder = folder;
     await this.documentContainer.save();

@@ -2,11 +2,8 @@ import Controller from '@ember/controller';
 import { service } from '@ember/service';
 import { task } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
-import { trackedFunction } from 'ember-resources/util/function';
-import {
-  DECISION_STANDARD_FOLDER,
-  RS_STANDARD_FOLDER,
-} from '../../utils/constants';
+import { getTemplateType } from '../../utils/template-type';
+
 export default class TemplateManagementPublishController extends Controller {
   @service store;
   @service router;
@@ -62,14 +59,7 @@ export default class TemplateManagementPublishController extends Controller {
     );
   });
 
-  templateType = trackedFunction(this, async () => {
-    const folder = await this.model.container?.folder;
-    if (folder?.id === RS_STANDARD_FOLDER) {
-      return this.intl.t(
-        'template-management.template-type.regulatory-attachment',
-      );
-    } else if (folder?.id === DECISION_STANDARD_FOLDER) {
-      return this.intl.t('template-management.template-type.decision');
-    }
-  });
+  get templateTypeLabel() {
+    return getTemplateType(this.model.templateTypeId, this.intl)?.label;
+  }
 }

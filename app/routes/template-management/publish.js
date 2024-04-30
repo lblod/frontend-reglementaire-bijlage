@@ -1,5 +1,6 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
+import { hash } from 'rsvp';
 
 export default class TemplateManagementPublishRoute extends Route {
   @service session;
@@ -9,10 +10,13 @@ export default class TemplateManagementPublishRoute extends Route {
     const container = await this.store.findRecord(
       'document-container',
       params.id,
-      { reload: true },
+      { include: 'current-version,folder', reload: true },
     );
-    const currentVersion = await container.currentVersion;
-    const templateVersion = await currentVersion.templateVersion;
-    return { container, templateVersion };
+
+    return hash({
+      container,
+      currentVersion: container.currentVersion,
+      templateTypeId: container.templateTypeId,
+    });
   }
 }

@@ -13,4 +13,8 @@ export default class DocumentContainerModel extends Model {
   publishedSnippetVersion;
   @hasMany('snippet-list', { inverse: 'templates', async: true })
   snippetLists;
+
+  get templateTypeId() {
+    return this.folder.then((folder) => folder?.id);
+  }
 }

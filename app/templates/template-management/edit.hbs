@@ -12,6 +12,7 @@
   <AppChrome
     @editorDocument={{this.editorDocument}}
     @documentContainer={{this.model.documentContainer}}
+    @templateTypeId={{this.model.templateTypeId}}
     @save={{hash action=(perform this.save) isRunning=this.save.isRunning}}
     @dirty={{this.dirty}}
     @publish={{hash
