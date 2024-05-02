@@ -3,6 +3,7 @@ import { action } from '@ember/object';
 import { task } from 'ember-concurrency';
 import { service } from '@ember/service';
 import { tracked } from 'tracked-built-ins';
+import { trackedFunction } from 'ember-resources/util/function';
 import { Schema } from '@lblod/ember-rdfa-editor';
 import {
   em,
@@ -72,14 +73,19 @@ import {
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/template-comments-plugin';
 import { docWithConfig } from '@lblod/ember-rdfa-editor/nodes/doc';
 import { undo } from '@lblod/ember-rdfa-editor/plugins/history';
+import {
+  besluitNodes,
+  structureSpecs as decisionStructureSpecs,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/standard-template-plugin';
+import { roadsign_regulation } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/roadsign-regulation-plugin/nodes';
 import TextVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/text/insert';
 import NumberInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/number/insert';
 import DateInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/date/insert-variable';
 import CodelistInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/codelist/insert';
 import VariablePluginAddressInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/address/insert-variable';
+import { DECISION_STANDARD_FOLDER } from '../../utils/constants';
 
 const SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE = 'data-snippet-list-ids';
-import { trackedFunction } from 'ember-resources/util/function';
 
 export default class TemplateManagementEditController extends Controller {
   @service store;
@@ -116,6 +122,9 @@ export default class TemplateManagementEditController extends Controller {
       number,
       codelist,
       ...STRUCTURE_NODES,
+      ...besluitNodes,
+      roadsign_regulation,
+
       heading,
       blockquote,
 
@@ -176,6 +185,8 @@ export default class TemplateManagementEditController extends Controller {
   }
 
   get config() {
+    const env = getOwner(this).resolveRegistration('config:environment');
+    const classification = this.currentSession.classification;
     return {
       tableOfContents: [
         {
@@ -205,7 +216,10 @@ export default class TemplateManagementEditController extends Controller {
         ],
         allowCustomFormat: true,
       },
-      structures: STRUCTURE_SPECS,
+      structures:
+        this.internalTypeName === 'decision'
+          ? decisionStructureSpecs
+          : STRUCTURE_SPECS,
       citation: {
         type: 'nodes',
         activeInNodeTypes(schema) {
@@ -218,6 +232,14 @@ export default class TemplateManagementEditController extends Controller {
       },
       snippet: {
         endpoint: '/raw-sparql',
+      },
+      roadsignRegulation: {
+        endpoint: env.mowRegistryEndpoint,
+        imageBaseUrl: env.roadsignImageBaseUrl,
+      },
+      decisionType: {
+        endpoint: 'https://centrale-vindplaats.lblod.info/sparql',
+        classificatieUri: classification?.uri,
       },
     };
   }
@@ -247,6 +269,13 @@ export default class TemplateManagementEditController extends Controller {
       linkPasteHandler(this.schema.nodes.link),
       listTrackingPlugin(),
     ];
+  }
+
+  /** @returns {'decision', 'regulatory-attachment'} - the internal name for the template type */
+  get internalTypeName() {
+    return this.model?.templateTypeId === DECISION_STANDARD_FOLDER
+      ? 'decision'
+      : 'regulatory-attachment';
   }
 
   @action
