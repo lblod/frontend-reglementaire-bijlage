@@ -88,10 +88,14 @@ import {
 import AttributeEditor from '@lblod/ember-rdfa-editor/components/_private/attribute-editor';
 import RdfaEditor from '@lblod/ember-rdfa-editor/components/_private/rdfa-editor';
 import DebugInfo from '@lblod/ember-rdfa-editor/components/_private/debug-info';
-const SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE = 'data-snippet-list-ids';
-
 import SnippetListSelectRdfaComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/snippet-plugin/snippet-list-select-rdfa';
 import SnippetInsertRdfaComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/snippet-plugin/snippet-insert-rdfa';
+import {
+  snippetPlaceholder,
+  snippetPlaceholderView,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/snippet-plugin/nodes/snippet-placeholder';
+
+const SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE = 'data-snippet-list-ids';
 
 export default class EditController extends Controller {
   @service store;
@@ -162,6 +166,7 @@ export default class EditController extends Controller {
       table_of_contents: table_of_contents(this.config.tableOfContents),
       invisible_rdfa: invisibleRdfaWithConfig({ rdfaAware: true }),
       link: link(this.config.link),
+      snippet_placeholder: snippetPlaceholder,
     },
     marks: {
       em,
@@ -267,6 +272,7 @@ export default class EditController extends Controller {
         codelist: codelistView(controller),
         templateComment: templateCommentView(controller),
         inline_rdfa: inlineRdfaWithConfigView({ rdfaAware: true })(controller),
+        snippet_placeholder: snippetPlaceholderView(controller),
       };
     };
   }
