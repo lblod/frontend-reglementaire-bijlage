@@ -284,6 +284,21 @@ export default class TemplateManagementEditController extends Controller {
     if (this.editorDocument.content) {
       editor.initialize(this.editorDocument.content);
       this.assignedSnippetListsIds = this.documentSnippetListIds;
+    } else if (this.model?.templateTypeId === DECISION_STANDARD_FOLDER) {
+      // This is a decision with no content, so we need to insert a decision (besluit) node so that
+      // any of the decision-based plugins work
+      const decisionNodeType = this.editor.schema.nodes['besluit'];
+      if (decisionNodeType) {
+        const decisionNode = decisionNodeType.create(
+          // This should just be needed for 'legacy' rdfa
+          { resource: '' },
+          this.editor.schema.nodes['paragraph'].create(),
+        );
+        this.editor.withTransaction(
+          (tr) => tr.replaceSelectionWith(decisionNode),
+          { view: this.editor.mainEditorView },
+        );
+      }
     }
   }
 
