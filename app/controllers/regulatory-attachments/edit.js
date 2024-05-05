@@ -4,6 +4,7 @@ import { task } from 'ember-concurrency';
 import { service } from '@ember/service';
 import { tracked } from 'tracked-built-ins';
 import { Schema } from '@lblod/ember-rdfa-editor';
+import { v4 as uuid } from 'uuid';
 import {
   em,
   strikethrough,
@@ -13,12 +14,12 @@ import {
   superscript,
 } from '@lblod/ember-rdfa-editor/plugins/text-style';
 import {
-  block_rdfa,
+  blockRdfaWithConfig,
   hard_break,
   horizontal_rule,
-  invisible_rdfa,
+  invisibleRdfaWithConfig,
   paragraph,
-  repaired_block,
+  repairedBlockWithConfig,
   text,
 } from '@lblod/ember-rdfa-editor/nodes';
 import {
@@ -27,6 +28,10 @@ import {
   tablePlugins,
 } from '@lblod/ember-rdfa-editor/plugins/table';
 import { link, linkView } from '@lblod/ember-rdfa-editor/nodes/link';
+import {
+  inlineRdfaWithConfigView,
+  inlineRdfaWithConfig,
+} from '@lblod/ember-rdfa-editor/nodes/inline-rdfa';
 import {
   tableOfContentsView,
   table_of_contents,
@@ -42,11 +47,10 @@ import {
   orderedListWithConfig,
 } from '@lblod/ember-rdfa-editor/plugins/list';
 import { placeholder } from '@lblod/ember-rdfa-editor/plugins/placeholder';
-import { heading } from '@lblod/ember-rdfa-editor/plugins/heading';
+import { headingWithConfig } from '@lblod/ember-rdfa-editor/plugins/heading';
 import { blockquote } from '@lblod/ember-rdfa-editor/plugins/blockquote';
 import { code_block } from '@lblod/ember-rdfa-editor/plugins/code';
 import { image } from '@lblod/ember-rdfa-editor/plugins/image';
-import { inline_rdfa } from '@lblod/ember-rdfa-editor/marks';
 import { generateTemplate } from '../../utils/generate-template';
 import { getOwner } from '@ember/application';
 import { linkPasteHandler } from '@lblod/ember-rdfa-editor/plugins/link';
@@ -77,6 +81,19 @@ import NumberInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/compon
 import DateInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/date/insert-variable';
 import CodelistInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/codelist/insert';
 import VariablePluginAddressInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/address/insert-variable';
+import {
+  editableNodePlugin,
+  getActiveEditableNode,
+} from '@lblod/ember-rdfa-editor/plugins/_private/editable-node';
+import AttributeEditor from '@lblod/ember-rdfa-editor/components/_private/attribute-editor';
+import RdfaEditor from '@lblod/ember-rdfa-editor/components/_private/rdfa-editor';
+import DebugInfo from '@lblod/ember-rdfa-editor/components/_private/debug-info';
+import SnippetListSelectRdfaComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/snippet-plugin/snippet-list-select-rdfa';
+import SnippetInsertRdfaComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/snippet-plugin/snippet-insert-rdfa';
+import {
+  snippetPlaceholder,
+  snippetPlaceholderView,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/snippet-plugin/nodes/snippet-placeholder';
 
 const SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE = 'data-snippet-list-ids';
 
@@ -89,33 +106,51 @@ export default class EditController extends Controller {
   @service currentSession;
   @tracked citationPlugin = citationPlugin(this.config.citation);
   @tracked assignedSnippetListsIds = [];
-
+  AttributeEditor = AttributeEditor;
+  RdfaEditor = RdfaEditor;
+  DebugInfo = DebugInfo;
+  SnippetInsert = SnippetInsertRdfaComponent;
+  SnippetListSelect = SnippetListSelectRdfaComponent;
   schema = new Schema({
     nodes: {
       doc: docWithConfig({
         content:
-          'table_of_contents? document_title? ((chapter|block)+|(title|block)+|(article|block)+)',
+          'table_of_contents? document_title? ((block|chapter)+|(block|title)+|(block|article)+)',
+
         extraAttributes: {
           [SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE]: { default: null },
         },
+        rdfaAware: true,
       }),
       paragraph,
       document_title,
-      repaired_block,
+      repaired_block: repairedBlockWithConfig({ rdfaAware: true }),
 
-      list_item: listItemWithConfig({ enableHierarchicalList: true }),
-      ordered_list: orderedListWithConfig({ enableHierarchicalList: true }),
-      bullet_list: bulletListWithConfig({ enableHierarchicalList: true }),
+      list_item: listItemWithConfig({
+        rdfaAware: true,
+        enableHierarchicalList: true,
+      }),
+      ordered_list: orderedListWithConfig({
+        rdfaAware: true,
+        enableHierarchicalList: true,
+      }),
+      bullet_list: bulletListWithConfig({
+        rdfaAware: true,
+        enableHierarchicalList: true,
+      }),
       templateComment,
       placeholder,
-      ...tableNodes({ tableGroup: 'block', cellContent: 'block+' }),
+      ...tableNodes({
+        tableGroup: 'block',
+        cellContent: 'block+',
+      }),
       address,
       date: date(this.config.date),
       text_variable,
       number,
       codelist,
       ...STRUCTURE_NODES,
-      heading,
+      heading: headingWithConfig({ rdfaAware: true }),
       blockquote,
 
       horizontal_rule,
@@ -125,14 +160,15 @@ export default class EditController extends Controller {
 
       image,
 
+      inline_rdfa: inlineRdfaWithConfig({ rdfaAware: true }),
       hard_break,
-      block_rdfa,
+      block_rdfa: blockRdfaWithConfig({ rdfaAware: true }),
       table_of_contents: table_of_contents(this.config.tableOfContents),
-      invisible_rdfa,
+      invisible_rdfa: invisibleRdfaWithConfig({ rdfaAware: true }),
       link: link(this.config.link),
+      snippet_placeholder: snippetPlaceholder,
     },
     marks: {
-      inline_rdfa,
       em,
       strong,
       underline,
@@ -214,6 +250,7 @@ export default class EditController extends Controller {
       },
       link: {
         interactive: true,
+        rdfaAware: true,
       },
       snippet: {
         endpoint: '/raw-sparql',
@@ -234,6 +271,8 @@ export default class EditController extends Controller {
         text_variable: textVariableView(controller),
         codelist: codelistView(controller),
         templateComment: templateCommentView(controller),
+        inline_rdfa: inlineRdfaWithConfigView({ rdfaAware: true })(controller),
+        snippet_placeholder: snippetPlaceholderView(controller),
       };
     };
   }
@@ -245,7 +284,14 @@ export default class EditController extends Controller {
       this.citationPlugin,
       linkPasteHandler(this.schema.nodes.link),
       listTrackingPlugin(),
+      editableNodePlugin(),
     ];
+  }
+  get activeNode() {
+    if (this.editor) {
+      return getActiveEditableNode(this.editor.activeEditorState);
+    }
+    return null;
   }
 
   @action
@@ -254,6 +300,11 @@ export default class EditController extends Controller {
     if (this.editorDocument.content) {
       editor.initialize(this.editorDocument.content);
       this.assignedSnippetListsIds = this.documentSnippetListIds;
+    } else {
+      const docId = uuid();
+      editor.initialize(
+        `<div data-say-document="true" resource="http://example.net/id/reglement/--ref-uuid4-${docId}" typeof="ext:Reglement"></div>`,
+      );
     }
   }
 

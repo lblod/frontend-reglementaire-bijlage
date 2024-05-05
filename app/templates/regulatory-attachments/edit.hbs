@@ -1,11 +1,11 @@
-{{page-title (t 'reglement-edit.edit')}}
+{{page-title (t "reglement-edit.edit")}}
 <BreadcrumbsItem as |linkClass|>
   <AuLink
-    @route='regulatory-attachments.edit'
+    @route="regulatory-attachments.edit"
     @model={{this.model.id}}
     class={{linkClass}}
   >
-    {{t 'reglement-edit.edit'}}
+    {{t "reglement-edit.edit"}}
   </AuLink>
 </BreadcrumbsItem>
 {{#if this.editorDocument}}
@@ -18,25 +18,28 @@
       action=(perform this.publish)
       isRunning=this.save.isRunning
     }}
-    @returnRoute='list'
-    @returnRouteText={{t 'reglement-edit.return'}}
+    @returnRoute="list"
+    @returnRouteText={{t "reglement-edit.return"}}
     @isPublished={{this.model.reglement.publishedVersion}}
   >
     <:leadingButtons>
-      <SnippetPlugin::SnippetListSelect
-        @config={{this.config.snippet}}
-        @onSaveSnippetListIds={{this.setDocumentContainerSnippetLists}}
-        @assignedSnippetListsIds={{this.assignedSnippetListsIds}}
-      />
+
+      {{#if this.activeNode}}
+        <this.SnippetListSelect
+          @node={{this.activeNode}}
+          @controller={{this.editor}}
+          @config={{this.config.snippet}}
+        />
+      {{/if}}
     </:leadingButtons>
   </AppChrome>
   <RdfaEditorContainer
     @rdfaEditorInit={{this.handleRdfaEditorInit}}
     @editorDocument={{this.editorDocument}}
-    @typeOfWrappingDiv='lblodgn:ReglementaireBijlage'
+    @typeOfWrappingDiv="lblodgn:ReglementaireBijlage"
     @showToggleRdfaAnnotations={{true}}
     @busy={{or this.save.isRunning}}
-    @busyText={{t 'reglement-edit.saving'}}
+    @busyText={{t "reglement-edit.saving"}}
     @schema={{this.schema}}
     @nodeViews={{this.nodeViews}}
     @plugins={{this.plugins}}
@@ -57,11 +60,11 @@
             <Plugins::TextStyle::Superscript @controller={{this.editor}} />
             <Plugins::TextStyle::Highlight
               @controller={{this.editor}}
-              @defaultColor='#FFEA00'
+              @defaultColor="#FFEA00"
             />
             <Plugins::TextStyle::Color
               @controller={{this.editor}}
-              @defaultColor='#000000'
+              @defaultColor="#000000"
             />
           </Tb.Group>
           <Tb.Group>
@@ -95,7 +98,10 @@
     <:aside>
       {{#if this.editor}}
         <Sidebar as |Sidebar|>
-          <Sidebar.Collapsible @title={{t "utility.insert"}} @expandedInitially={{true}}>
+          <Sidebar.Collapsible
+            @title={{t "utility.insert"}}
+            @expandedInitially={{true}}
+          >
             <DocumentTitlePlugin::InsertTitleCard @controller={{this.editor}} />
             <ArticleStructurePlugin::ArticleStructureCard
               @controller={{this.editor}}
@@ -110,14 +116,32 @@
               @plugin={{this.citationPlugin}}
               @config={{this.config.citation}}
             />
-            <SnippetPlugin::SnippetInsert
+            <SnippetPlugin::SnippetInsertPlaceholder
               @controller={{this.editor}}
               @config={{this.config.snippet}}
-              @assignedSnippetListsIds={{this.assignedSnippetListsIds}}
             />
+            {{#if this.activeNode}}
+              <this.SnippetInsert
+                @controller={{this.editor}}
+                @config={{this.config.snippet}}
+                @node={{this.activeNode}}
+              />
+            {{/if}}
             <TemplateCommentsPlugin::Insert @controller={{this.editor}} />
             <VariablePlugin::Address::Insert @controller={{this.editor}} />
           </Sidebar.Collapsible>
+          <Plugins::Link::LinkEditor @controller={{this.editor}} />
+          <this.RdfaEditor
+            @node={{this.activeNode}}
+            @controller={{this.editor}}
+          />
+          {{#if this.activeNode}}
+            <this.AttributeEditor
+              @node={{this.activeNode}}
+              @controller={{this.editor}}
+            />
+            <this.DebugInfo @node={{this.activeNode}} />
+          {{/if}}
           <VariablePlugin::InsertVariableCard
             @controller={{this.editor}}
             @variableTypes={{this.variableTypes}}
