@@ -22,11 +22,14 @@
     @isPublished={{this.isPublished.value}}
   >
     <:leadingButtons>
-      <SnippetPlugin::SnippetListSelect
-        @config={{this.config.snippet}}
-        @onSaveSnippetListIds={{this.setDocumentContainerSnippetLists}}
-        @assignedSnippetListsIds={{this.assignedSnippetListsIds}}
-      />
+
+      {{#if this.activeNode}}
+        <this.SnippetListSelect
+          @node={{this.activeNode}}
+          @controller={{this.editor}}
+          @config={{this.config.snippet}}
+        />
+      {{/if}}
     </:leadingButtons>
   </AppChrome>
   <RdfaEditorContainer
@@ -125,16 +128,34 @@
               @plugin={{this.citationPlugin}}
               @config={{this.config.citation}}
             />
-            <SnippetPlugin::SnippetInsert
+            <SnippetPlugin::SnippetInsertPlaceholder
               @controller={{this.editor}}
               @config={{this.config.snippet}}
-              @assignedSnippetListsIds={{this.assignedSnippetListsIds}}
             />
+            {{#if this.activeNode}}
+              <this.SnippetInsert
+                @controller={{this.editor}}
+                @config={{this.config.snippet}}
+                @node={{this.activeNode}}
+              />
+            {{/if}}
             <TemplateCommentsPlugin::Insert @controller={{this.editor}} />
             <VariablePlugin::Address::Insert @controller={{this.editor}} />
           </Sidebar.Collapsible>
           {{#if (eq this.internalTypeName 'decision')}}
             <DecisionPlugin::DecisionPluginCard @controller={{this.editor}} />
+          {{/if}}
+          <Plugins::Link::LinkEditor @controller={{this.editor}} />
+          <this.RdfaEditor
+            @node={{this.activeNode}}
+            @controller={{this.editor}}
+          />
+          {{#if this.activeNode}}
+            <this.AttributeEditor
+              @node={{this.activeNode}}
+              @controller={{this.editor}}
+            />
+            <this.DebugInfo @node={{this.activeNode}} />
           {{/if}}
           <VariablePlugin::InsertVariableCard
             @controller={{this.editor}}

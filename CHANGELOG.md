@@ -1,5 +1,21 @@
 # frontend-reglementaire-bijlage
 
+## 8.5.0
+
+### Minor Changes
+
+- [#241](https://github.com/lblod/frontend-reglementaire-bijlage/pull/241) [`773984e`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/773984e02683bae5de407f9acc8b01f7f7e63f60) Thanks [@piemonkey](https://github.com/piemonkey)! - Add placeholder for snippets in templates
+
+- [#234](https://github.com/lblod/frontend-reglementaire-bijlage/pull/234) [`faae595`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/faae595d7925f1511961bf74ca2b463d169a1d7f) Thanks [@abeforgit](https://github.com/abeforgit)! - Add rdfa editing tools
+
+  This is the culmination of an incredible amount of work to develop UI tools for authoring rdfa-annotated templates. More information can be found [here](https://github.com/lblod/ember-rdfa-editor/tree/master?tab=readme-ov-file#experimental-a-new-approach-to-handle-rdfa-in-documents)
+
+### Patch Changes
+
+- [#225](https://github.com/lblod/frontend-reglementaire-bijlage/pull/225) [`67d2f5a`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/67d2f5a43311aecbfa537f3b6b61b518be3edc4c) Thanks [@elpoelma](https://github.com/elpoelma)! - Fix issue with undefined error of snippet-insert component
+
+- [#235](https://github.com/lblod/frontend-reglementaire-bijlage/pull/235) [`177b982`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/177b9824fd56e1ac7c3094b8d5b19aa3bf92bed6) Thanks [@abeforgit](https://github.com/abeforgit)! - Allow document properties to be edited
+
 ## 8.4.0
 
 ### Minor Changes
