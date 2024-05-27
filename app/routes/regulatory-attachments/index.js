@@ -30,12 +30,12 @@ export default class ListRoute extends Route {
         number: params.page,
         size: params.size,
       },
+      include: 'published-version.current-version'
     };
 
     if (params.title) {
       options['filter[current-version][title]'] = params.title;
     }
-
     return await this.store.query('document-container', options);
   }
 
