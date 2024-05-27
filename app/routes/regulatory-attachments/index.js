@@ -30,7 +30,7 @@ export default class ListRoute extends Route {
         number: params.page,
         size: params.size,
       },
-      include: 'published-version.current-version'
+      include: 'published-version.current-version',
     };
 
     if (params.title) {
