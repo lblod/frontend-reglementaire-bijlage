@@ -52,7 +52,7 @@ export default class ConfirmRouteLeaveComponent extends Component {
   }
 
   abortTransition(transition) {
-    if(transition?.to?.queryParams?.overrideConfirm) {
+    if (transition.to.queryParams?.overrideConfirm) {
       return;
     }
     transition.abort();
