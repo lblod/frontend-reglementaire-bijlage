@@ -325,6 +325,9 @@ export default class EditController extends Controller {
     this.router.transitionTo(
       'regulatory-attachments.publish',
       this.model.documentContainer.id,
+      {queryParams: {
+        overrideConfirm: true
+      }}
     );
   });
 
