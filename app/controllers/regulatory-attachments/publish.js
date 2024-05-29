@@ -53,7 +53,6 @@ export default class PublishController extends Controller {
         },
       },
     );
-    console.log(taskId);
     await this.muTask.waitForMuTaskTask.perform(taskId, 100);
     await this.fetchPreview.perform();
     this.toaster.success(
