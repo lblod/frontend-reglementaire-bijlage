@@ -77,10 +77,7 @@ import {
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/template-comments-plugin';
 import { docWithConfig } from '@lblod/ember-rdfa-editor/nodes/doc';
 import { undo } from '@lblod/ember-rdfa-editor/plugins/history';
-import {
-  besluitNodes,
-  structureSpecs as decisionStructureSpecs,
-} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/standard-template-plugin';
+import { structureSpecs as decisionStructureSpecs } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/standard-template-plugin';
 import { roadsign_regulation } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/roadsign-regulation-plugin/nodes';
 import TextVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/text/insert';
 import NumberInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/number/insert';
@@ -157,7 +154,6 @@ export default class TemplateManagementEditController extends Controller {
       number,
       codelist,
       ...STRUCTURE_NODES,
-      ...besluitNodes,
       roadsign_regulation,
 
       heading: headingWithConfig({ rdfaAware: true }),
@@ -333,11 +329,25 @@ export default class TemplateManagementEditController extends Controller {
     } else if (this.model?.templateTypeId === DECISION_STANDARD_FOLDER) {
       // This is a decision with no content, so we need to insert a decision (besluit) node so that
       // any of the decision-based plugins work
-      const decisionNodeType = this.editor.schema.nodes['besluit'];
+      const decisionNodeType = this.editor.schema.nodes['block_rdfa'];
       if (decisionNodeType) {
+        /** @type {import('@lblod/ember-rdfa-editor/core/rdfa-processor').OutgoingTriple[]} */
+        const outgoingProps = [
+          {
+            predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+            object: {
+              termType: 'NamedNode',
+              value: 'http://data.vlaanderen.be/ns/besluit#Besluit',
+            },
+          },
+        ];
         const decisionNode = decisionNodeType.create(
           // This should just be needed for 'legacy' rdfa
-          { resource: '' },
+          {
+            subject: 'http://example.net/new-decision',
+            properties: outgoingProps,
+            rdfaNodeType: 'resource',
+          },
           this.editor.schema.nodes['paragraph'].create(),
         );
         this.editor.withTransaction(
