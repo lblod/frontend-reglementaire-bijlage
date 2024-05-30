@@ -48,7 +48,6 @@ export default class MuTaskService extends Service {
         const reason = await resp.text();
         throw new Error(reason);
       }
-
       if (currentStatus === TASK_STATUS_SUCCESS) {
         return jsonBody;
       } else if (currentStatus === TASK_STATUS_FAILURE) {
