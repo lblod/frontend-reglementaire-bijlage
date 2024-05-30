@@ -25,6 +25,7 @@ export default class ListRoute extends Route {
           id: RS_STANDARD_FOLDER,
         },
       },
+      avoid_cache_param: new Date().toISOString(), //Adding this param so the query skippes the cache and grabs the latest published date of each RB
       sort: params.sort,
       page: {
         number: params.page,
