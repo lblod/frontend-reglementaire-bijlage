@@ -1,5 +1,17 @@
 # frontend-reglementaire-bijlage
 
+## 8.6.0
+
+### Minor Changes
+
+- [`2ecc66b`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/2ecc66ba0cc26903e9c9ee44610710241e3adf96) Thanks [@piemonkey](https://github.com/piemonkey)! - Update @lblod/ember-rdfa-editor to 9.10.0 and @lblod/ember-rdfa-editor-lblod-plugins to 19.2.0
+
+### Patch Changes
+
+- [#243](https://github.com/lblod/frontend-reglementaire-bijlage/pull/243) [`4bbef1c`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/4bbef1c407c892b8c09b224acf725adeb6f60e84) Thanks [@lagartoverde](https://github.com/lagartoverde)! - Fix save and publish first saves then goes to publish
+
+- [#242](https://github.com/lblod/frontend-reglementaire-bijlage/pull/242) [`a65df93`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/a65df939b13af04c28c5e601af68bc2af7b88b65) Thanks [@lagartoverde](https://github.com/lagartoverde)! - Fixed wrong published version date being shown
+
 ## 8.5.0
 
 ### Minor Changes
