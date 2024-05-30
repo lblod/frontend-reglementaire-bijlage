@@ -32,6 +32,8 @@ export default class ListRoute extends Route {
         size: params.size,
       },
       include: 'published-version.current-version',
+      /* This include should not be removed as when we publish a new RB ember data doesn't know about the update, 
+      with this include and the cache param we force it to update */
     };
 
     if (params.title) {
