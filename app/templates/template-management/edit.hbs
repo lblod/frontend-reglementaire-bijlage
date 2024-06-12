@@ -78,9 +78,11 @@
               <Plugins::Image::InsertMenu @controller={{this.editor}} />
               <GenericRdfaVariable::InsertMenu @controller={{this.editor}} />
             </Tb.Group>
+            {{#if this.supportsTables}}
             <Tb.Group>
               <Plugins::Table::TableMenu @controller={{this.editor}} />
             </Tb.Group>
+            {{/if}}
             <Tb.Group>
               <Plugins::Heading::HeadingMenu @controller={{this.editor}} />
             </Tb.Group>
@@ -108,13 +110,16 @@
       {{#if this.editor}}
         <Sidebar as |Sidebar|>
           <Sidebar.Collapsible @title={{t "utility.insert"}} @expandedInitially={{true}}>
+            <this.StructureInsert @controller={{this.editor}}/>
             {{#if (eq this.internalTypeName 'decision')}}
               <RoadsignRegulationPlugin::RoadsignRegulationCard
                 @controller={{this.editor}}
                 @options={{this.config.roadsignRegulation}}
               />
             {{/if}}
-            <DocumentTitlePlugin::InsertTitleCard @controller={{this.editor}} />
+            {{#unless (eq this.internalTypeName 'decision')}}
+              <DocumentTitlePlugin::InsertTitleCard @controller={{this.editor}} />
+            {{/unless}}
             <ArticleStructurePlugin::ArticleStructureCard
               @controller={{this.editor}}
               @options={{this.config.structures}}
@@ -139,11 +144,14 @@
                 @node={{this.activeNode}}
               />
             {{/if}}
+            {{#if this.supportsComments}}
             <TemplateCommentsPlugin::Insert @controller={{this.editor}} />
+            {{/if}}
             <VariablePlugin::Address::Insert @controller={{this.editor}} />
           </Sidebar.Collapsible>
           {{#if (eq this.internalTypeName 'decision')}}
             <DecisionPlugin::DecisionPluginCard @controller={{this.editor}} />
+            <this.StructureControl @controller={{this.editor}} />
           {{/if}}
           <Plugins::Link::LinkEditor @controller={{this.editor}} />
           <this.RdfaEditor

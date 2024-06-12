@@ -77,7 +77,6 @@ import {
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/template-comments-plugin';
 import { docWithConfig } from '@lblod/ember-rdfa-editor/nodes/doc';
 import { undo } from '@lblod/ember-rdfa-editor/plugins/history';
-import { structureSpecs as decisionStructureSpecs } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/standard-template-plugin';
 import { roadsign_regulation } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/roadsign-regulation-plugin/nodes';
 import TextVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/text/insert';
 import NumberInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/number/insert';
@@ -98,8 +97,16 @@ import {
   snippetPlaceholder,
   snippetPlaceholderView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/snippet-plugin/nodes/snippet-placeholder';
+import {
+  structure,
+  structureView,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/structure-plugin/node';
+import StructureControl from '@lblod/ember-rdfa-editor-lblod-plugins/components/structure-plugin/_private/control-card';
+import StructureInsert from '@lblod/ember-rdfa-editor-lblod-plugins/components/decision-plugin/insert-article';
 
 const SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE = 'data-snippet-list-ids';
+const GEMEENTE_CLASSIFICATION_URI =
+  'http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001';
 
 export default class TemplateManagementEditController extends Controller {
   @service store;
@@ -115,6 +122,8 @@ export default class TemplateManagementEditController extends Controller {
   DebugInfo = DebugInfo;
   SnippetInsert = SnippetInsertRdfaComponent;
   SnippetListSelect = SnippetListSelectRdfaComponent;
+  StructureInsert = StructureInsert;
+  StructureControl = StructureControl;
   schema = new Schema({
     nodes: {
       doc: docWithConfig({
@@ -127,19 +136,17 @@ export default class TemplateManagementEditController extends Controller {
         rdfaAware: true,
       }),
       paragraph,
+      structure,
       document_title,
       repaired_block: repairedBlockWithConfig({ rdfaAware: true }),
 
       list_item: listItemWithConfig({
-        rdfaAware: true,
         enableHierarchicalList: true,
       }),
       ordered_list: orderedListWithConfig({
-        rdfaAware: true,
         enableHierarchicalList: true,
       }),
       bullet_list: bulletListWithConfig({
-        rdfaAware: true,
         enableHierarchicalList: true,
       }),
       templateComment,
@@ -216,9 +223,19 @@ export default class TemplateManagementEditController extends Controller {
     ];
   }
 
+  get supportsTables() {
+    return (
+      this.editor && this.editor.activeEditorState.schema.nodes['table_cell']
+    );
+  }
+  get supportsComments() {
+    return (
+      this.editor &&
+      this.editor.activeEditorState.schema.nodes['templateComment']
+    );
+  }
   get config() {
     const env = getOwner(this).resolveRegistration('config:environment');
-    const classification = this.currentSession.classification;
     return {
       tableOfContents: [
         {
@@ -248,10 +265,7 @@ export default class TemplateManagementEditController extends Controller {
         ],
         allowCustomFormat: true,
       },
-      structures:
-        this.internalTypeName === 'decision'
-          ? decisionStructureSpecs
-          : STRUCTURE_SPECS,
+      structures: this.internalTypeName === 'decision' ? [] : STRUCTURE_SPECS,
       citation: {
         type: 'nodes',
         activeInNodeTypes(schema) {
@@ -272,7 +286,7 @@ export default class TemplateManagementEditController extends Controller {
       },
       decisionType: {
         endpoint: 'https://centrale-vindplaats.lblod.info/sparql',
-        classificatieUri: classification?.uri,
+        classificatieUri: GEMEENTE_CLASSIFICATION_URI,
       },
     };
   }
@@ -292,6 +306,7 @@ export default class TemplateManagementEditController extends Controller {
         templateComment: templateCommentView(controller),
         inline_rdfa: inlineRdfaWithConfigView({ rdfaAware: true })(controller),
         snippet_placeholder: snippetPlaceholderView(controller),
+        structure: structureView(controller),
       };
     };
   }
