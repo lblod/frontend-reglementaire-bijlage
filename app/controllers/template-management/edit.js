@@ -406,6 +406,11 @@ export default class TemplateManagementEditController extends Controller {
     this.router.transitionTo(
       'template-management.publish',
       this.model.documentContainer.id,
+      {
+        queryParams: {
+          overrideConfirm: true,
+        },
+      },
     );
   });
 
