@@ -1,5 +1,31 @@
 # frontend-reglementaire-bijlage
 
+## 9.0.0
+
+### Major Changes
+
+- [#236](https://github.com/lblod/frontend-reglementaire-bijlage/pull/236) [`7096bb591389cb5352ad8c3549c555d8e1cf6988`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/7096bb591389cb5352ad8c3549c555d8e1cf6988) Thanks [@elpoelma](https://github.com/elpoelma)! - Add support for the creation of decision templates.
+  This release contains a change in the datamodel used to represent the templates created by this application. The new datamodel is developed for the purpose of easier extendability.
+  This release allows users to design decision templates which may be consumed by another application.
+
+### Minor Changes
+
+- [#236](https://github.com/lblod/frontend-reglementaire-bijlage/pull/236) [`0cc70663d17763b315ca4f7e529fc93def6c1c72`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/0cc70663d17763b315ca4f7e529fc93def6c1c72) Thanks [@elpoelma](https://github.com/elpoelma)! - Rename 'regulatory-attachments' route to 'templates-management'
+
+- [#238](https://github.com/lblod/frontend-reglementaire-bijlage/pull/238) [`36e1c09276dfa7ae9021fc8db0d54e5c2e2aa377`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/36e1c09276dfa7ae9021fc8db0d54e5c2e2aa377) Thanks [@elpoelma](https://github.com/elpoelma)! - Rename `codelists-management` route to `codelist-management`
+
+- [#238](https://github.com/lblod/frontend-reglementaire-bijlage/pull/238) [`de8c02dff04d45036cf2cadb7cbe8b3601b595aa`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/de8c02dff04d45036cf2cadb7cbe8b3601b595aa) Thanks [@elpoelma](https://github.com/elpoelma)! - Rename `templates-management` route to `template-management`
+
+- [#236](https://github.com/lblod/frontend-reglementaire-bijlage/pull/236) [`2acbaeffd903b631b817b3bc29b3180907a1a95c`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/2acbaeffd903b631b817b3bc29b3180907a1a95c) Thanks [@elpoelma](https://github.com/elpoelma)! - Use decision plugins when editing decision templates
+
+- [#238](https://github.com/lblod/frontend-reglementaire-bijlage/pull/238) [`9f9e464cbcdd46353cf25ee960d15a262a314913`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/9f9e464cbcdd46353cf25ee960d15a262a314913) Thanks [@elpoelma](https://github.com/elpoelma)! - Rename `snippets-management` route to `snippet-management`
+
+### Patch Changes
+
+- [#244](https://github.com/lblod/frontend-reglementaire-bijlage/pull/244) [`85328aeb48cf05d2eb1cb90e10cb5a4f49126652`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/85328aeb48cf05d2eb1cb90e10cb5a4f49126652) Thanks [@piemonkey](https://github.com/piemonkey)! - Correctly tag release builds as latest
+
+- [#245](https://github.com/lblod/frontend-reglementaire-bijlage/pull/245) [`91c7cfd051b00da5087f1a5690dc5f2ac889c6a3`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/91c7cfd051b00da5087f1a5690dc5f2ac889c6a3) Thanks [@dkozickis](https://github.com/dkozickis)! - GN-4820: Bump editor and enable copy/pasting variable nodes correctly #678
+
 ## 8.6.0
 
 ### Minor Changes
