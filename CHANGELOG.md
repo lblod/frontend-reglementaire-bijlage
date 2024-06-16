@@ -1,5 +1,11 @@
 # frontend-reglementaire-bijlage
 
+## 9.0.1
+
+### Patch Changes
+
+- [`49aba4bb9df2b31d6ab5332d40624658f53f74c3`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/49aba4bb9df2b31d6ab5332d40624658f53f74c3) Thanks [@abeforgit](https://github.com/abeforgit)! - change tags syntax
+
 ## 9.0.0
 
 ### Major Changes
