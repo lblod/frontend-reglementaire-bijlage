@@ -28,7 +28,7 @@ export default class SnippetListForm extends Component {
     await this.args.model.save();
     this.showSavedTask.perform();
     if (isNew) {
-      this.router.replaceWith('snippets-management.edit', this.args.model, {
+      this.router.replaceWith('snippet-management.edit', this.args.model, {
         queryParams: { [SHOW_SAVED_PILL]: true },
       });
     }
@@ -45,7 +45,7 @@ export default class SnippetListForm extends Component {
       // doesn't show the saved message again.
       // Use `replaceWith` instead of `transitionTo` to avoid adding a new
       // history entry.
-      this.router.replaceWith('snippets-management.edit', this.args.model, {
+      this.router.replaceWith('snippet-management.edit', this.args.model, {
         queryParams: { [SHOW_SAVED_PILL]: undefined },
       });
     }
@@ -73,7 +73,7 @@ export default class SnippetListForm extends Component {
     await documentContainer.save();
     await this.args.model.save();
 
-    this.router.transitionTo('snippets-management.edit.edit-snippet', {
+    this.router.transitionTo('snippet-management.edit.edit-snippet', {
       documentContainer,
       snippetList: this.args.model,
     });

@@ -14,11 +14,11 @@ Router.map(function () {
     this.route('cookiestatement');
     this.route('accessibilitystatement');
   });
-  this.route('regulatory-attachments', function () {
+  this.route('template-management', function () {
     this.route('edit', { path: '/:id/edit' });
     this.route('publish', { path: '/:id/publish' });
   });
-  this.route('codelists-management', function () {
+  this.route('codelist-management', function () {
     this.route('new');
     this.route('edit', { path: '/:id/edit' });
   });
@@ -26,7 +26,7 @@ Router.map(function () {
   this.route('authorization', function () {
     this.route('callback');
   });
-  this.route('snippets-management', function () {
+  this.route('snippet-management', function () {
     this.route('new');
     this.route('edit', { path: '/:id/edit' }, function () {
       this.route('edit-snippet', { path: '/:snippet_id/edit-snippet' });

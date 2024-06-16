@@ -16,11 +16,6 @@ export default class EditorDocumentModel extends Model {
   nextVersion;
   @belongsTo('document-container', { inverse: 'revisions', async: true })
   documentContainer;
-  @belongsTo('published-regulatory-attachment', {
-    inverse: 'derivedFrom',
-    async: true,
-  })
-  publishedVersion;
   @belongsTo('published-snippet', {
     inverse: 'derivedFrom',
     async: true,

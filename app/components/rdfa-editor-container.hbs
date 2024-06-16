@@ -23,8 +23,12 @@
     </div>
   </AuBodyContainer>
 {{else}}
-  <AuBodyContainer vocab="{{this.vocab}}" {{did-insert this.setPrefix}}
-       typeof="{{@typeOfWrappingDiv}}" property="{{@property}}" resource="#">
+  <AuBodyContainer
+    vocab="{{this.vocab}}"
+    {{did-insert this.setPrefix}}
+    property="{{@property}}"
+    resource="#"
+  >
     {{#if this.ready}}
       <EditorContainer
         @editorOptions={{hash

@@ -42,7 +42,7 @@
         <td>
           <AuLink
             @skin="primary"
-            @route="snippets-management.edit.edit-snippet"
+            @route="snippet-management.edit.edit-snippet"
             @models={{array @model.id snippet.id}}
           >
             {{snippet.currentVersion.title}}
@@ -92,7 +92,7 @@
         <td>
           <AuLink
             @skin="primary"
-            @route="regulatory-attachments.edit"
+            @route="template-management.edit"
             @model={{template.id}}
           >
             {{template.currentVersion.title}}

@@ -1,0 +1,175 @@
+{{page-title (t "template-management.page-title")}}
+<AuDataTable
+  @content={{this.model}}
+  @isLoading={{this.isLoadingModel}}
+  @noDataMessage={{t "template-management.no-data-message"}}
+  @sort={{this.sort}}
+  @page={{this.page}}
+  @size={{this.size}}
+  as |table|
+>
+  <table.menu as |menu|>
+    <menu.general>
+      <AuToolbar class="au-o-box" @size="large" as |Group|>
+        <Group>
+          <AuHeading @skin="2">
+            {{t "template-management.page-title"}}
+          </AuHeading>
+        </Group>
+        <Group class="au-c-toolbar__group--center">
+          <div class="au-c-data-table__search codelist-label-search">
+            <input
+              aria-label={{t "template-management.crud.label-filter"}}
+              value={{this.title}}
+              placeholder={{t "template-management.crud.label-filter"}}
+              class="au-c-input au-c-input--block"
+              {{on "input" (perform this.updateSearchFilterTask "title")}}
+            />
+            <span class="au-c-data-table__search-icon">
+              <AuIcon @icon="search" @size="large" />
+            </span>
+          </div>
+          {{#unless this.readOnly}}
+            <AuButton
+              @icon="add"
+              @iconAlignment="left"
+              {{on "click" this.startCreateTemplateFlow}}
+            >{{t "template-management.new"}}</AuButton>
+          {{/unless}}
+        </Group>
+      </AuToolbar>
+    </menu.general>
+  </table.menu>
+  <table.content as |c|>
+    <c.header>
+      <AuDataTableThSortable
+        @field="currentVersion.title"
+        @currentSorting={{this.sort}}
+        @label={{t "template-management.title"}}
+      />
+      <th>{{t "template-management.template-type.label"}}</th>
+      <AuDataTableThSortable
+        @field="currentVersion.createdOn"
+        @currentSorting={{this.sort}}
+        @label={{t "template-management.created-on"}}
+      />
+      <AuDataTableThSortable
+        @field="currentVersion.updatedOn"
+        @currentSorting={{this.sort}}
+        @label={{t "template-management.updated-on"}}
+      />
+      <th>{{t "template-management.publish-date"}}</th>
+      <th></th>
+    </c.header>
+    <c.body as |documentContainer|>
+      <td>
+        <LinkTo
+          @route="template-management.edit"
+          @model={{documentContainer.id}}
+          class="au-c-link"
+        >{{documentContainer.currentVersion.title}}</LinkTo>
+      </td>
+      <td>
+        {{await (this.getTemplateTypeLabel documentContainer)}}
+      </td>
+      <td>{{detailed-date documentContainer.currentVersion.createdOn}}</td>
+      <td>{{detailed-date documentContainer.currentVersion.updatedOn}}</td>
+      <td>
+        {{#let
+          (await (this.lastPublicationDate documentContainer))
+          as |lastPublicationDate|
+        }}
+          {{#if lastPublicationDate}}
+            {{detailed-date lastPublicationDate}}
+          {{else}}
+            {{t "template-management.not-found"}}
+          {{/if}}
+        {{/let}}
+      </td>
+      <td>
+        <AuButton
+          @skin="naked"
+          @icon="trash"
+          @alert={{true}}
+          {{on "click" (fn this.startRemoveTemplateFlow documentContainer)}}
+        >
+          {{t "utility.delete"}}
+        </AuButton>
+      </td>
+    </c.body>
+  </table.content>
+</AuDataTable>
+<AuModal
+  @title={{t "template-management.create-modal.title"}}
+  @modalOpen={{this.createTemplateModalIsOpen}}
+  @closeModal={{this.cancelCreateTemplate}}
+  as |Modal|
+>
+  <Modal.Body>
+    <form
+      class="au-o-flow"
+      id="create-meeting-form"
+      {{on "submit" (perform this.saveTemplate)}}
+    >
+      <AuLabel for="template-title">
+        {{t "template-management.title"}}
+      </AuLabel>
+      <AuInput
+        value={{this.editorDocument.title}}
+        @width="block"
+        id="template-title"
+        type="text"
+        {{on "input" this.handleTitleUpdate}}
+      />
+      <AuLabel for="template-type">
+        {{t "template-management.template-type.label"}}
+      </AuLabel>
+      <PowerSelect
+        id="template-type"
+        @allowClear={{false}}
+        @searchEnabled={{false}}
+        @options={{this.templateTypes}}
+        @selected={{this.templateTypeToCreate}}
+        @onChange={{this.updateTemplateType}}
+        as |templateType|
+      >
+        {{templateType.label}}
+      </PowerSelect>
+    </form>
+  </Modal.Body>
+  <Modal.Footer>
+    <AuButtonGroup>
+      <AuButton
+        class="au-c-button"
+        form="create-meeting-form"
+        type="submit"
+        @disabled={{this.isInvalidTemplateTitle}}
+      >
+        {{t "template-management.create-modal.save"}}
+      </AuButton>
+      <AuButton {{on "click" this.cancelCreateTemplate}} @skin="secondary">
+        {{t "template-management.create-modal.cancel"}}
+      </AuButton>
+    </AuButtonGroup>
+  </Modal.Footer>
+</AuModal>
+<AuModal
+  @title={{t "template-management.remove-modal.title"}}
+  @modalOpen={{this.removeTemplateModalIsOpen}}
+  @closeModal={{this.cancelRemoveTemplate}}
+  as |Modal|
+>
+  <Modal.Footer>
+    <AuButtonGroup>
+      <AuButton
+        {{on "click" (perform this.submitRemoveTemplate)}}
+        @skin="primary"
+      >
+        {{t "template-management.remove-modal.remove"}}
+      </AuButton>
+      <AuButton {{on "click" this.cancelRemoveTemplate}} @skin="secondary">
+        {{t "template-management.remove-modal.cancel"}}
+      </AuButton>
+    </AuButtonGroup>
+  </Modal.Footer>
+</AuModal>

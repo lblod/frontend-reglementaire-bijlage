@@ -1,0 +1,7 @@
+{{page-title (t 'codelist.crud.new')}}
+<BreadcrumbsItem as |linkClass|>
+  <LinkTo @route='codelist-management.new' class={{linkClass}}>
+    {{t 'codelist.crud.new'}}
+  </LinkTo>
+</BreadcrumbsItem>
+<CodelistForm @codelist={{this.model.newCodelist}} />
