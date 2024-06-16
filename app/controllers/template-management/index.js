@@ -38,6 +38,31 @@ export default class TemplateManagementIndexController extends Controller {
   };
 
   lastPublicationDate = async (documentContainer) => {
+    // start of shenanigans
+    /*
+    The following query and subsequent relationship access are a horrible house of cards.
+
+    Here's the problem:
+    We create a published version using a backend service that's not mu-cl-resources.
+    This means that in order for the cache to invalidate, it needs to get a delta from mu-auth.
+    This takes some time (unsure how much, likely in the order of 500 - 1000 ms, depending on server load)
+
+    This means that when we query for the newly published document, we get a bogus cache response.
+
+    There is currently no good way to avoid this, so we use a horrible way: by adding a nonsense query param
+    that is guaranteed to change every request.
+
+    This is still not enough, however. Because we later need to access a relationship, ED's own caching
+    will kick in. So we'd still get the old version, because ED wouldn't even bother to send the request.
+
+    Normally, you'd avoid this by forcing ED to reload the relationship using belongsTo('currentVersion').reload().
+    HOWEVER, this _again_ doesn't work cause there seems to be no remotely sane way to force ED to include a
+    query param in the request it sends for a belongsTo relationship (and yes, I've tried extending the adapter,
+    it's simply not set up to do this).
+
+    So the ONLY way this works, is by forcing ED to reload the relationship data in the below query first, after
+    which the relationship access will load correctly.
+     */
     const publishedTemplate = (
       await this.store.query('template', {
         filter: {
@@ -45,10 +70,17 @@ export default class TemplateManagementIndexController extends Controller {
             id: documentContainer.id,
           },
         },
+        // the abovementioned bogus query param
+        avoid_cache: new Date().toISOString(),
+        // as mentioned above, without this we still get stale data
+        include: 'current-version',
       })
     )[0];
     if (publishedTemplate) {
+      // normally you'd force a reload here, but the reload's option passing mechanism ignores any query
+      // params you add
       const templateVersion = await publishedTemplate.currentVersion;
+      // end of shenanigans
       return templateVersion.created;
     } else {
       return;

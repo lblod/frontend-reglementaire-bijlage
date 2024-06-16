@@ -29,15 +29,11 @@ export default class TemplateManagementIndexRoute extends Route {
           id: folders.join(','),
         },
       },
-      avoid_cache_param: new Date().toISOString(), //Adding this param so the query skippes the cache and grabs the latest published date of each RB
       sort: params.sort,
       page: {
         number: params.page,
         size: params.size,
       },
-      include: 'published-version.current-version',
-      /* This include should not be removed as when we publish a new RB ember data doesn't know about the update, 
-      with this include and the cache param we force it to update */
     };
 
     if (params.title) {
