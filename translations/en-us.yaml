@@ -146,6 +146,7 @@ snippets:
   add-new-snippet: Add new snippet
   saved: Saved
   crud:
+    label-filter: Label
     no-data: No snippet lists were found
     confirm-deletion: Confirm to delete snippet list <strong>{name}</strong>
     confirm-deletion-snippet: Confirm to delete snippet <strong>{name}</strong>
