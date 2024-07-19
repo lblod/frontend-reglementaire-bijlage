@@ -6,6 +6,7 @@ export default class SnippetManagementIndexRoute extends Route {
   @service currentSession;
 
   queryParams = {
+    label: { refreshModel: true },
     page: { refreshModel: true },
     size: { refreshModel: true },
     sort: { refreshModel: true },
@@ -24,6 +25,10 @@ export default class SnippetManagementIndexRoute extends Route {
         },
       },
     };
+
+    if (params.label) {
+      query.filter.label = params.label;
+    }
 
     return this.store.query('snippet-list', query);
   }
