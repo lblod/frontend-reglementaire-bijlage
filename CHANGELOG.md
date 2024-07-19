@@ -1,5 +1,15 @@
 # frontend-reglementaire-bijlage
 
+## 9.1.0
+
+### Minor Changes
+
+- [#247](https://github.com/lblod/frontend-reglementaire-bijlage/pull/247) [`bfa018b`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/bfa018b3d7c9cbbcc4f4d5218c801479b8b903f1) Thanks [@piemonkey](https://github.com/piemonkey)! - Update `@lblod/ember-rdfa-editor` to version [10.0.1](https://github.com/lblod/ember-rdfa-editor/releases/tag/v10.0.1)
+  Update `@lblod/ember-rdfa-editor-lblod-plugins` to version [22.0.2](https://github.com/lblod/ember-rdfa-editor-lblod-plugins/releases/tag/v22.0.2)
+  Update related dependencies
+
+- [#246](https://github.com/lblod/frontend-reglementaire-bijlage/pull/246) [`7b4d7ca`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/7b4d7ca4b1c092a93a4f81c9b5fa129f234db223) Thanks [@lagartoverde](https://github.com/lagartoverde)! - Add search field on snippet list page
+
 ## 9.0.1
 
 ### Patch Changes
