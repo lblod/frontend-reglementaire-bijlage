@@ -22,53 +22,56 @@
   >
     <:top>
       {{#if this.editor}}
-        <Toolbar as |Tb|>
-          <Tb.Group>
-            <Plugins::History::Undo @controller={{this.editor}} />
-            <Plugins::History::Redo @controller={{this.editor}} />
-          </Tb.Group>
-          <Tb.Group>
-            <Plugins::TextStyle::Bold @controller={{this.editor}} />
-            <Plugins::TextStyle::Italic @controller={{this.editor}} />
-            <Plugins::TextStyle::Strikethrough @controller={{this.editor}} />
-            <Plugins::TextStyle::Underline @controller={{this.editor}} />
-            <Plugins::TextStyle::Subscript @controller={{this.editor}} />
-            <Plugins::TextStyle::Superscript @controller={{this.editor}} />
-            <Plugins::TextStyle::Highlight
-              @controller={{this.editor}}
-              @defaultColor="#FFEA00"
-            />
-            <Plugins::TextStyle::Color
-              @controller={{this.editor}}
-              @defaultColor="#000000"
-            />
-          </Tb.Group>
-          <Tb.Group>
-            <Plugins::List::Unordered @controller={{this.editor}} />
-            <Plugins::List::Ordered @controller={{this.editor}} @enableHierarchicalList={{true}}/>
-            <Plugins::Indentation::IndentationMenu
-              @controller={{this.editor}}
-            />
-          </Tb.Group>
-          <Tb.Group>
-            <Plugins::Link::LinkMenu @controller={{this.editor}} />
-            <Plugins::Image::InsertMenu @controller={{this.editor}} />
-            <GenericRdfaVariable::InsertMenu @controller={{this.editor}} />
-          </Tb.Group>
-          <Tb.Group>
-            <Plugins::Table::TableMenu @controller={{this.editor}} />
-          </Tb.Group>
-          <Tb.Group>
-            <Plugins::Heading::HeadingMenu @controller={{this.editor}} />
-          </Tb.Group>
-          <Tb.Spacer />
-          <Tb.Group>
-            <TableOfContentsPlugin::ToolbarButton @controller={{this.editor}} />
-            <Plugins::RdfaBlockRender::RdfaBlocksToggle
-              @controller={{this.editor}}
-            />
-          </Tb.Group>
-        </Toolbar>
+        <ResponsiveToolbar>
+          <:main as |Tb|>
+            <Tb.Group>
+              <Plugins::History::Undo @controller={{this.editor}} />
+              <Plugins::History::Redo @controller={{this.editor}} />
+            </Tb.Group>
+            <Tb.Group>
+              <Plugins::TextStyle::Bold @controller={{this.editor}} />
+              <Plugins::TextStyle::Italic @controller={{this.editor}} />
+              <Plugins::TextStyle::Strikethrough @controller={{this.editor}} />
+              <Plugins::TextStyle::Underline @controller={{this.editor}} />
+              <Plugins::TextStyle::Subscript @controller={{this.editor}} />
+              <Plugins::TextStyle::Superscript @controller={{this.editor}} />
+              <Plugins::TextStyle::Highlight
+                @controller={{this.editor}}
+                @defaultColor="#FFEA00"
+              />
+              <Plugins::TextStyle::Color
+                @controller={{this.editor}}
+                @defaultColor="#000000"
+              />
+            </Tb.Group>
+            <Tb.Group>
+              <Plugins::List::Unordered @controller={{this.editor}} />
+              <Plugins::List::Ordered @controller={{this.editor}} @enableHierarchicalList={{true}}/>
+              <Plugins::Indentation::IndentationMenu
+                @controller={{this.editor}}
+              />
+            </Tb.Group>
+            <Tb.Group>
+              <Plugins::Link::LinkMenu @controller={{this.editor}} />
+              <Plugins::Image::InsertMenu @controller={{this.editor}} />
+              <GenericRdfaVariable::InsertMenu @controller={{this.editor}} />
+            </Tb.Group>
+            <Tb.Group>
+              <Plugins::Table::TableMenu @controller={{this.editor}} />
+            </Tb.Group>
+            <Tb.Group>
+              <Plugins::Heading::HeadingMenu @controller={{this.editor}} />
+            </Tb.Group>
+          </:main>
+          <:side as |Tb|>
+            <Tb.Group>
+              <TableOfContentsPlugin::ToolbarButton @controller={{this.editor}} />
+              <Plugins::RdfaBlockRender::RdfaBlocksToggle
+                @controller={{this.editor}}
+              />
+            </Tb.Group>
+          </:side>
+        </ResponsiveToolbar>
       {{/if}}
     </:top>
     <:aside>

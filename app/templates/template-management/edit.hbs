@@ -86,7 +86,8 @@
             <Tb.Group>
               <Plugins::Heading::HeadingMenu @controller={{this.editor}} />
             </Tb.Group>
-            <Tb.Spacer />
+          </:main>
+          <:side as |Tb|>
             <Tb.Group>
               <TableOfContentsPlugin::ToolbarButton @controller={{this.editor}} />
               <Plugins::RdfaBlockRender::RdfaBlocksToggle
@@ -102,7 +103,7 @@
                 />
               </Tb.Group>
             {{/if}}
-          </:main>
+          </:side>
         </ResponsiveToolbar>
       {{/if}}
     </:top>
