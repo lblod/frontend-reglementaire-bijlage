@@ -92,7 +92,6 @@ import AttributeEditor from '@lblod/ember-rdfa-editor/components/_private/attrib
 import RdfaEditor from '@lblod/ember-rdfa-editor/components/_private/rdfa-editor';
 import DebugInfo from '@lblod/ember-rdfa-editor/components/_private/debug-info';
 import SnippetListSelectRdfaComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/snippet-plugin/snippet-list-select-rdfa';
-import SnippetInsertRdfaComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/snippet-plugin/snippet-insert-rdfa';
 import {
   snippetPlaceholder,
   snippetPlaceholderView,
@@ -120,7 +119,6 @@ export default class TemplateManagementEditController extends Controller {
   AttributeEditor = AttributeEditor;
   RdfaEditor = RdfaEditor;
   DebugInfo = DebugInfo;
-  SnippetInsert = SnippetInsertRdfaComponent;
   SnippetListSelect = SnippetListSelectRdfaComponent;
   StructureInsert = StructureInsert;
   StructureControl = StructureControl;
