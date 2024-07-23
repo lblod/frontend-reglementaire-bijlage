@@ -40,7 +40,7 @@
   <s.content as |c|>
     <c.header>
       <AuDataTableThSortable
-        @field="label"
+        @field=":no-case:label"
         @currentSorting={{this.sort}}
         @label={{t "codelist.attr.label"}}
       />

@@ -43,7 +43,7 @@
   <table.content as |c|>
     <c.header>
       <AuDataTableThSortable
-        @field="currentVersion.title"
+        @field=":no-case:currentVersion.title"
         @currentSorting={{this.sort}}
         @label={{t "template-management.title"}}
       />
