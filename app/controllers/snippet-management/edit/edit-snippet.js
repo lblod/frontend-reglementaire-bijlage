@@ -90,6 +90,10 @@ import {
 import AttributeEditor from '@lblod/ember-rdfa-editor/components/_private/attribute-editor';
 import RdfaEditor from '@lblod/ember-rdfa-editor/components/_private/rdfa-editor';
 import DebugInfo from '@lblod/ember-rdfa-editor/components/_private/debug-info';
+import {
+  osloLocation,
+  osloLocationView,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin/node';
 
 export default class SnippetManagementEditSnippetController extends Controller {
   AttributeEditor = AttributeEditor;
@@ -133,6 +137,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
       ...tableNodes({ tableGroup: 'block', cellContent: 'block+' }),
       address,
       date: date(this.config.date),
+      oslo_location: osloLocation(this.config.location),
       text_variable,
       number,
       codelist,
@@ -237,6 +242,15 @@ export default class SnippetManagementEditSnippetController extends Controller {
         interactive: true,
         rdfaAware: true,
       },
+
+      location: {
+        defaultPointUriRoot:
+          'https://publicatie.gelinkt-notuleren.vlaanderen.be/id/geometrie/',
+        defaultPlaceUriRoot:
+          'https://publicatie.gelinkt-notuleren.vlaanderen.be/id/plaats/',
+        defaultAddressUriRoot:
+          'https://publicatie.gelinkt-notuleren.vlaanderen.be/id/adres/',
+      },
     };
   }
 
@@ -254,6 +268,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
         codelist: codelistView(controller),
         templateComment: templateCommentView(controller),
         inline_rdfa: inlineRdfaWithConfigView({ rdfaAware: true })(controller),
+        oslo_location: osloLocationView(this.config.location)(controller),
       };
     };
   }
