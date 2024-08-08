@@ -46,7 +46,10 @@
             </Tb.Group>
             <Tb.Group>
               <Plugins::List::Unordered @controller={{this.editor}} />
-              <Plugins::List::Ordered @controller={{this.editor}} @enableHierarchicalList={{true}}/>
+              <Plugins::List::Ordered
+                @controller={{this.editor}}
+                @enableHierarchicalList={{true}}
+              />
               <Plugins::Indentation::IndentationMenu
                 @controller={{this.editor}}
               />
@@ -62,10 +65,15 @@
             <Tb.Group>
               <Plugins::Heading::HeadingMenu @controller={{this.editor}} />
             </Tb.Group>
+            <Tb.Group>
+              <Plugins::Alignment::AlignmentMenu @controller={{this.editor}} />
+            </Tb.Group>
           </:main>
           <:side as |Tb|>
             <Tb.Group>
-              <TableOfContentsPlugin::ToolbarButton @controller={{this.editor}} />
+              <TableOfContentsPlugin::ToolbarButton
+                @controller={{this.editor}}
+              />
               <Plugins::RdfaBlockRender::RdfaBlocksToggle
                 @controller={{this.editor}}
               />
