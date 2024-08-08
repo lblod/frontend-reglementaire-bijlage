@@ -69,6 +69,8 @@ import {
   numberView,
   textVariableView,
   text_variable,
+  personVariableView,
+  person_variable,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/variables';
 import { document_title } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/document-title-plugin/nodes';
 import {
@@ -79,6 +81,7 @@ import { docWithConfig } from '@lblod/ember-rdfa-editor/nodes/doc';
 import { undo } from '@lblod/ember-rdfa-editor/plugins/history';
 import { roadsign_regulation } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/roadsign-regulation-plugin/nodes';
 import TextVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/text/insert';
+import PersonVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/person/insert';
 import NumberInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/number/insert';
 import DateInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/date/insert-variable';
 import CodelistInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/codelist/insert';
@@ -156,6 +159,7 @@ export default class TemplateManagementEditController extends Controller {
       address,
       date: date(this.config.date),
       text_variable,
+      person_variable,
       number,
       codelist,
       ...STRUCTURE_NODES,
@@ -217,6 +221,10 @@ export default class TemplateManagementEditController extends Controller {
           endpoint: config.insertVariablePlugin.endpoint,
           publisher: this.currentSession.group?.uri,
         },
+      },
+      {
+        label: this.intl.t('editor.variables.person'),
+        component: PersonVariableInsertComponent,
       },
     ];
   }
@@ -286,6 +294,9 @@ export default class TemplateManagementEditController extends Controller {
         endpoint: 'https://centrale-vindplaats.lblod.info/sparql',
         classificatieUri: GEMEENTE_CLASSIFICATION_URI,
       },
+      lmb: {
+        endpoint: '/vendor-proxy/query',
+      },
     };
   }
 
@@ -302,6 +313,7 @@ export default class TemplateManagementEditController extends Controller {
         text_variable: textVariableView(controller),
         codelist: codelistView(controller),
         templateComment: templateCommentView(controller),
+        person_variable: personVariableView(controller),
         inline_rdfa: inlineRdfaWithConfigView({ rdfaAware: true })(controller),
         snippet_placeholder: snippetPlaceholderView(controller),
         structure: structureView(controller),
