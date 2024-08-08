@@ -103,6 +103,11 @@
               @plugin={{this.citationPlugin}}
               @config={{this.config.citation}}
             />
+
+            <LocationPlugin::Insert
+              @controller={{this.editor}}
+              @config={{this.config.location}}
+            />
             <TemplateCommentsPlugin::Insert @controller={{this.editor}} />
             <VariablePlugin::Address::Insert @controller={{this.editor}} />
           </Sidebar.Collapsible>
