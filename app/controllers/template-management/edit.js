@@ -105,6 +105,10 @@ import {
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/structure-plugin/node';
 import StructureControl from '@lblod/ember-rdfa-editor-lblod-plugins/components/structure-plugin/_private/control-card';
 import StructureInsert from '@lblod/ember-rdfa-editor-lblod-plugins/components/decision-plugin/insert-article';
+import {
+  mandatee_table,
+  mandateeTableView,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/mandatee-table-plugin/node';
 
 const SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE = 'data-snippet-list-ids';
 const GEMEENTE_CLASSIFICATION_URI =
@@ -164,6 +168,7 @@ export default class TemplateManagementEditController extends Controller {
       codelist,
       ...STRUCTURE_NODES,
       roadsign_regulation,
+      mandatee_table,
 
       heading: headingWithConfig({ rdfaAware: true }),
       blockquote,
@@ -297,6 +302,10 @@ export default class TemplateManagementEditController extends Controller {
       lmb: {
         endpoint: '/vendor-proxy/query',
       },
+      mandateeTable: {
+        tags: ['test-1', 'test-2', 'test-3'],
+        defaultTag: 'test-1',
+      },
     };
   }
 
@@ -316,6 +325,7 @@ export default class TemplateManagementEditController extends Controller {
         person_variable: personVariableView(controller),
         inline_rdfa: inlineRdfaWithConfigView({ rdfaAware: true })(controller),
         snippet_placeholder: snippetPlaceholderView(controller),
+        mandatee_table: mandateeTableView(controller),
         structure: structureView(controller),
       };
     };

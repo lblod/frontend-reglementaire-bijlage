@@ -152,10 +152,18 @@
               <TemplateCommentsPlugin::Insert @controller={{this.editor}} />
             {{/if}}
             <VariablePlugin::Address::Insert @controller={{this.editor}} />
+
+            {{#if (eq this.internalTypeName "decision")}}
+              <MandateeTablePlugin::Insert
+                @controller={{this.editor}}
+                @defaultTag={{this.config.mandateeTable.defaultTag}}
+              />
+            {{/if}}
           </Sidebar.Collapsible>
           {{#if (eq this.internalTypeName "decision")}}
             <DecisionPlugin::DecisionPluginCard @controller={{this.editor}} />
             <this.StructureControl @controller={{this.editor}} />
+
           {{/if}}
           <Plugins::Link::LinkEditor @controller={{this.editor}} />
           <this.RdfaEditor
@@ -169,6 +177,10 @@
             />
             <this.DebugInfo @node={{this.activeNode}} />
           {{/if}}
+          <MandateeTablePlugin::Configure
+            @controller={{this.editor}}
+            @supportedTags={{this.config.mandateeTable.tags}}
+          />
           <VariablePlugin::InsertVariableCard
             @controller={{this.editor}}
             @variableTypes={{this.variableTypes}}
