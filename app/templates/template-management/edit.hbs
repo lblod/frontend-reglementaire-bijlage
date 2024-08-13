@@ -1,11 +1,11 @@
-{{page-title (t 'template-edit.edit')}}
+{{page-title (t "template-edit.edit")}}
 <BreadcrumbsItem as |linkClass|>
   <AuLink
-    @route='template-management.edit'
+    @route="template-management.edit"
     @model={{this.model.documentContainer.id}}
     class={{linkClass}}
   >
-    {{t 'template-edit.edit'}}
+    {{t "template-edit.edit"}}
   </AuLink>
 </BreadcrumbsItem>
 {{#if this.editorDocument}}
@@ -37,7 +37,7 @@
     @editorDocument={{this.editorDocument}}
     @showToggleRdfaAnnotations={{true}}
     @busy={{or this.save.isRunning}}
-    @busyText={{t 'template-edit.saving'}}
+    @busyText={{t "template-edit.saving"}}
     @schema={{this.schema}}
     @nodeViews={{this.nodeViews}}
     @plugins={{this.plugins}}
@@ -59,16 +59,19 @@
               <Plugins::TextStyle::Superscript @controller={{this.editor}} />
               <Plugins::TextStyle::Highlight
                 @controller={{this.editor}}
-                @defaultColor='#FFEA00'
+                @defaultColor="#FFEA00"
               />
               <Plugins::TextStyle::Color
                 @controller={{this.editor}}
-                @defaultColor='#000000'
+                @defaultColor="#000000"
               />
             </Tb.Group>
             <Tb.Group>
               <Plugins::List::Unordered @controller={{this.editor}} />
-              <Plugins::List::Ordered @controller={{this.editor}} @enableHierarchicalList={{true}}/>
+              <Plugins::List::Ordered
+                @controller={{this.editor}}
+                @enableHierarchicalList={{true}}
+              />
               <Plugins::Indentation::IndentationMenu
                 @controller={{this.editor}}
               />
@@ -79,9 +82,9 @@
               <GenericRdfaVariable::InsertMenu @controller={{this.editor}} />
             </Tb.Group>
             {{#if this.supportsTables}}
-            <Tb.Group>
-              <Plugins::Table::TableMenu @controller={{this.editor}} />
-            </Tb.Group>
+              <Tb.Group>
+                <Plugins::Table::TableMenu @controller={{this.editor}} />
+              </Tb.Group>
             {{/if}}
             <Tb.Group>
               <Plugins::Heading::HeadingMenu @controller={{this.editor}} />
@@ -89,12 +92,14 @@
           </:main>
           <:side as |Tb|>
             <Tb.Group>
-              <TableOfContentsPlugin::ToolbarButton @controller={{this.editor}} />
+              <TableOfContentsPlugin::ToolbarButton
+                @controller={{this.editor}}
+              />
               <Plugins::RdfaBlockRender::RdfaBlocksToggle
                 @controller={{this.editor}}
               />
             </Tb.Group>
-            {{#if (eq this.internalTypeName 'decision')}}
+            {{#if (eq this.internalTypeName "decision")}}
               <Tb.Group>
                 <BesluitTypePlugin::ToolbarDropdown
                   @controller={{this.editor}}
@@ -110,16 +115,21 @@
     <:aside>
       {{#if this.editor}}
         <Sidebar as |Sidebar|>
-          <Sidebar.Collapsible @title={{t "utility.insert"}} @expandedInitially={{true}}>
-            <this.StructureInsert @controller={{this.editor}}/>
-            {{#if (eq this.internalTypeName 'decision')}}
+          <Sidebar.Collapsible
+            @title={{t "utility.insert"}}
+            @expandedInitially={{true}}
+          >
+            <this.StructureInsert @controller={{this.editor}} />
+            {{#if (eq this.internalTypeName "decision")}}
               <RoadsignRegulationPlugin::RoadsignRegulationCard
                 @controller={{this.editor}}
                 @options={{this.config.roadsignRegulation}}
               />
             {{/if}}
-            {{#unless (eq this.internalTypeName 'decision')}}
-              <DocumentTitlePlugin::InsertTitleCard @controller={{this.editor}} />
+            {{#unless (eq this.internalTypeName "decision")}}
+              <DocumentTitlePlugin::InsertTitleCard
+                @controller={{this.editor}}
+              />
             {{/unless}}
             <ArticleStructurePlugin::ArticleStructureCard
               @controller={{this.editor}}
@@ -143,7 +153,7 @@
             {{/if}}
             <VariablePlugin::Address::Insert @controller={{this.editor}} />
           </Sidebar.Collapsible>
-          {{#if (eq this.internalTypeName 'decision')}}
+          {{#if (eq this.internalTypeName "decision")}}
             <DecisionPlugin::DecisionPluginCard @controller={{this.editor}} />
             <this.StructureControl @controller={{this.editor}} />
           {{/if}}
@@ -176,6 +186,10 @@
           <VariablePlugin::Date::Edit
             @controller={{this.editor}}
             @options={{this.config.date}}
+          />
+          <VariablePlugin::Person::Edit
+            @controller={{this.editor}}
+            @config={{this.config.lmb}}
           />
           <TemplateCommentsPlugin::EditCard @controller={{this.editor}} />
           {{! VariablePlugin::TemplateVariableCard is not added on purpose
