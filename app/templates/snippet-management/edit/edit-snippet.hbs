@@ -136,6 +136,10 @@
             @controller={{this.editor}}
             @options={{this.config.date}}
           />
+          <VariablePlugin::Person::Edit
+            @controller={{this.editor}}
+            @config={{this.config.lmb}}
+          />
           <TemplateCommentsPlugin::EditCard @controller={{this.editor}} />
         </Sidebar>
       {{/if}}
