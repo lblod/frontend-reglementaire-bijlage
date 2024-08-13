@@ -1,5 +1,21 @@
 # frontend-reglementaire-bijlage
 
+## 9.2.0
+
+### Minor Changes
+
+- [#250](https://github.com/lblod/frontend-reglementaire-bijlage/pull/250) [`48133ba`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/48133ba55564f327ae45a294ebfc328d348af3cf) Thanks [@abeforgit](https://github.com/abeforgit)! - Add mandatee table plugin
+
+- [#251](https://github.com/lblod/frontend-reglementaire-bijlage/pull/251) [`a0eb6a3`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/a0eb6a3d61057f1d29b305362ff1d8fc4546760c) Thanks [@abeforgit](https://github.com/abeforgit)! - configure alignment menu
+
+- [#249](https://github.com/lblod/frontend-reglementaire-bijlage/pull/249) [`1c5837d`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/1c5837da92e49cf44f6143df11b8f9a3f2151e29) Thanks [@abeforgit](https://github.com/abeforgit)! - Add person variable
+
+- [#252](https://github.com/lblod/frontend-reglementaire-bijlage/pull/252) [`7dd74e1`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/7dd74e1dcfc3761cf13ae6baf172c753b8e09ee3) Thanks [@abeforgit](https://github.com/abeforgit)! - Add location plugin
+
+### Patch Changes
+
+- [#248](https://github.com/lblod/frontend-reglementaire-bijlage/pull/248) [`9e8d423`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/9e8d423e16b0ed5c031f3b70e4aac2e333d733d9) Thanks [@elpoelma](https://github.com/elpoelma)! - Add `no-case` modifier to sorted string fields
+
 ## 9.1.0
 
 ### Minor Changes
