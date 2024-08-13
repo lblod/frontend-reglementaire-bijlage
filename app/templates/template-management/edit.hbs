@@ -90,9 +90,7 @@
               <Plugins::Heading::HeadingMenu @controller={{this.editor}} />
             </Tb.Group>
             <Tb.Group>
-              <Plugins::Alignment::AlignmentMenu
-                @controller={{this.editor}}
-              />
+              <Plugins::Alignment::AlignmentMenu @controller={{this.editor}} />
             </Tb.Group>
           </:main>
           <:side as |Tb|>
@@ -143,6 +141,11 @@
             <VariablePlugin::Date::Insert
               @controller={{this.editor}}
               @options={{this.config.date}}
+            />
+
+            <LocationPlugin::Insert
+              @controller={{this.editor}}
+              @config={{this.config.location}}
             />
             <CitationPlugin::CitationInsert
               @controller={{this.editor}}

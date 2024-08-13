@@ -110,6 +110,11 @@ import {
   mandateeTableView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/mandatee-table-plugin/node';
 
+import {
+  osloLocation,
+  osloLocationView,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin/node';
+
 const SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE = 'data-snippet-list-ids';
 const GEMEENTE_CLASSIFICATION_URI =
   'http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001';
@@ -163,6 +168,7 @@ export default class TemplateManagementEditController extends Controller {
       address,
       date: date(this.config.date),
       text_variable,
+      oslo_location: osloLocation(this.config.location),
       person_variable,
       number,
       codelist,
@@ -306,6 +312,15 @@ export default class TemplateManagementEditController extends Controller {
         tags: ['test-1', 'test-2', 'test-3'],
         defaultTag: 'test-1',
       },
+
+      location: {
+        defaultPointUriRoot:
+          'https://publicatie.gelinkt-notuleren.vlaanderen.be/id/geometrie/',
+        defaultPlaceUriRoot:
+          'https://publicatie.gelinkt-notuleren.vlaanderen.be/id/plaats/',
+        defaultAddressUriRoot:
+          'https://publicatie.gelinkt-notuleren.vlaanderen.be/id/adres/',
+      },
     };
   }
 
@@ -321,6 +336,7 @@ export default class TemplateManagementEditController extends Controller {
         number: numberView(controller),
         text_variable: textVariableView(controller),
         codelist: codelistView(controller),
+        oslo_location: osloLocationView(this.config.location)(controller),
         templateComment: templateCommentView(controller),
         person_variable: personVariableView(controller),
         inline_rdfa: inlineRdfaWithConfigView({ rdfaAware: true })(controller),
