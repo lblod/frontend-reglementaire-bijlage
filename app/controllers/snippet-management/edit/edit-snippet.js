@@ -68,6 +68,8 @@ import {
   numberView,
   textVariableView,
   text_variable,
+  personVariableView,
+  person_variable,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/variables';
 import { document_title } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/document-title-plugin/nodes';
 import {
@@ -82,6 +84,7 @@ import NumberInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/compon
 import DateInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/date/insert-variable';
 import CodelistInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/codelist/insert';
 import VariablePluginAddressInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/address/insert-variable';
+import PersonVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/person/insert';
 
 import {
   editableNodePlugin,
@@ -139,6 +142,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
       date: date(this.config.date),
       oslo_location: osloLocation(this.config.location),
       text_variable,
+      person_variable,
       number,
       codelist,
       ...STRUCTURE_NODES,
@@ -198,6 +202,10 @@ export default class SnippetManagementEditSnippetController extends Controller {
           publisher: this.currentSession.group?.uri,
         },
       },
+      {
+        label: this.intl.t('editor.variables.person'),
+        component: PersonVariableInsertComponent,
+      },
     ];
   }
 
@@ -251,6 +259,9 @@ export default class SnippetManagementEditSnippetController extends Controller {
         defaultAddressUriRoot:
           'https://publicatie.gelinkt-notuleren.vlaanderen.be/id/adres/',
       },
+      lmb: {
+        endpoint: '/vendor-proxy/query',
+      },
     };
   }
 
@@ -267,6 +278,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
         number: numberView(controller),
         codelist: codelistView(controller),
         templateComment: templateCommentView(controller),
+        person_variable: personVariableView(controller),
         inline_rdfa: inlineRdfaWithConfigView({ rdfaAware: true })(controller),
         oslo_location: osloLocationView(this.config.location)(controller),
       };
