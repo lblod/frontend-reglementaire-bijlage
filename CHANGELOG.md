@@ -1,5 +1,11 @@
 # frontend-reglementaire-bijlage
 
+## 9.2.1
+
+### Patch Changes
+
+- [#253](https://github.com/lblod/frontend-reglementaire-bijlage/pull/253) [`ecfe406`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/ecfe40638c7c0b57055c6fbcb96f0e579117c4d4) Thanks [@elpoelma](https://github.com/elpoelma)! - Exlude ember-leaflet assets from fingerprinting
+
 ## 9.2.0
 
 ### Minor Changes
