@@ -1,5 +1,5 @@
 ---
-'frontend-gelinkt-notuleren': patch
+'frontend-reglementaire-bijlage': patch
 ---
 
 Exlude ember-leaflet assets from fingerprinting
