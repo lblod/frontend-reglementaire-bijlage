@@ -14,6 +14,7 @@ import {
 } from '@lblod/ember-rdfa-editor/plugins/text-style';
 import {
   blockRdfaWithConfig,
+  docWithConfig,
   hard_break,
   horizontal_rule,
   invisibleRdfaWithConfig,
@@ -76,16 +77,7 @@ import {
   templateComment,
   templateCommentView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/template-comments-plugin';
-import { docWithConfig } from '@lblod/ember-rdfa-editor/nodes/doc';
 import { undo } from '@lblod/ember-rdfa-editor/plugins/history';
-
-import TextVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/text/insert';
-import NumberInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/number/insert';
-import DateInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/date/insert-variable';
-import CodelistInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/codelist/insert';
-import VariablePluginAddressInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/address/insert-variable';
-import PersonVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/person/insert';
-
 import {
   editableNodePlugin,
   getActiveEditableNode,
@@ -97,6 +89,12 @@ import {
   osloLocation,
   osloLocationView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin/node';
+import TextVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/text/insert';
+import NumberInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/number/insert';
+import DateInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/date/insert-variable';
+import CodelistInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/codelist/insert';
+import VariablePluginAddressInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/address/insert-variable';
+import PersonVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/person/insert';
 
 export default class SnippetManagementEditSnippetController extends Controller {
   AttributeEditor = AttributeEditor;
@@ -118,21 +116,19 @@ export default class SnippetManagementEditSnippetController extends Controller {
         content:
           'table_of_contents? document_title? ((block|chapter)+|(block|title)+|(block|article)+)',
         rdfaAware: true,
+        hasResourceImports: true,
       }),
       paragraph,
       document_title,
       repaired_block: repairedBlockWithConfig({ rdfaAware: true }),
 
       list_item: listItemWithConfig({
-        rdfaAware: true,
         enableHierarchicalList: true,
       }),
       ordered_list: orderedListWithConfig({
-        rdfaAware: true,
         enableHierarchicalList: true,
       }),
       bullet_list: bulletListWithConfig({
-        rdfaAware: true,
         enableHierarchicalList: true,
       }),
       templateComment,
