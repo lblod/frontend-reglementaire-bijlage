@@ -160,6 +160,7 @@ snippets:
     label: Label
     id: Id
     snippet: Fragment
+    imported: Ingevoerde Middelen
 
 editor-document-title:
   placeholder: Naamloos document

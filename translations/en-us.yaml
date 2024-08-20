@@ -160,6 +160,7 @@ snippets:
     label: Label
     id: Id
     snippet: Snippet
+    imported: Imported Resources
 
 editor-document-title:
   placeholder: Untitled document

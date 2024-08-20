@@ -89,6 +89,8 @@ import {
   osloLocation,
   osloLocationView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin/node';
+import { collateImportedResources } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/snippet-plugin/utils/collate-imported-resources';
+import { Snippet } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/snippet-plugin';
 import TextVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/text/insert';
 import NumberInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/number/insert';
 import DateInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/date/insert-variable';
@@ -340,7 +342,35 @@ export default class SnippetManagementEditSnippetController extends Controller {
     const documentContainer = this.model.documentContainer;
     documentContainer.currentVersion = editorDocument;
     await documentContainer.save();
-    await this.publishSnippet.perform();
+    await Promise.all([
+      this.publishSnippet.perform(),
+      this.updateImportedResourcesOnList.perform(),
+    ]);
+  });
+
+  updateImportedResourcesOnList = task(async () => {
+    const list = await this.store.findRecord(
+      'snippet-list',
+      this.model.snippetList.id,
+      {
+        include: 'snippets,snippets.current-version',
+      },
+    );
+    const snippetModels = await Promise.all(
+      (await list.snippets).map((snip) => snip.currentVersion),
+    );
+    const snippets = snippetModels.map(
+      (model) =>
+        new Snippet({
+          title: model.title,
+          content: model.content,
+          createdOn: model.createdOn.toISOString(),
+        }),
+    );
+    const importedResources = collateImportedResources(snippets);
+    list.importedResources = importedResources;
+
+    return list.save();
   });
 
   publishSnippet = task(async () => {
