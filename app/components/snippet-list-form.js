@@ -55,6 +55,10 @@ export default class SnippetListForm extends Component {
     return isBlank(this.args.model.label);
   }
 
+  get importedResources() {
+    return this.args.model.importedResources?.join(', ');
+  }
+
   showSavedTask = restartableTask(async () => {
     await timeout(3000);
   });

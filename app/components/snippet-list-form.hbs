@@ -26,6 +26,17 @@
       {{/if}}
     </div>
   </AuFormRow>
+  <AuFormRow>
+    <AuLabel for="imported-resources">
+      {{t "snippets.attr.imported"}}
+    </AuLabel>
+    <AuTextarea
+      id="imported-resources"
+      class="au-u-1-1"
+      @disabled={{true}}
+      value={{this.importedResources}}
+    />
+  </AuFormRow>
 </div>
 <div class="snippets-table">
   <AuDataTable
