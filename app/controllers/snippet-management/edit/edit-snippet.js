@@ -97,6 +97,10 @@ import {
   osloLocation,
   osloLocationView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin/node';
+import {
+  mandatee_table,
+  mandateeTableView,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/mandatee-table-plugin/node';
 
 export default class SnippetManagementEditSnippetController extends Controller {
   AttributeEditor = AttributeEditor;
@@ -146,6 +150,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
       number,
       codelist,
       ...STRUCTURE_NODES,
+      mandatee_table,
       heading: headingWithConfig({ rdfaAware: true }),
       blockquote,
 
@@ -262,6 +267,10 @@ export default class SnippetManagementEditSnippetController extends Controller {
       lmb: {
         endpoint: '/vendor-proxy/query',
       },
+      mandateeTable: {
+        tags: ['test-1', 'test-2', 'test-3'],
+        defaultTag: 'test-1',
+      },
     };
   }
 
@@ -281,6 +290,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
         person_variable: personVariableView(controller),
         inline_rdfa: inlineRdfaWithConfigView({ rdfaAware: true })(controller),
         oslo_location: osloLocationView(this.config.location)(controller),
+        mandatee_table: mandateeTableView(controller),
       };
     };
   }
