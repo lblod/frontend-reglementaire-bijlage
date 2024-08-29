@@ -110,8 +110,15 @@
             />
             <TemplateCommentsPlugin::Insert @controller={{this.editor}} />
             <VariablePlugin::Address::Insert @controller={{this.editor}} />
+            <MandateeTablePlugin::Insert
+              @controller={{this.editor}}
+              @defaultTag={{this.config.mandateeTable.defaultTag}}
+            />
           </Sidebar.Collapsible>
-
+          <MandateeTablePlugin::Configure
+            @controller={{this.editor}}
+            @supportedTags={{this.config.mandateeTable.tags}}
+          />
           {{#if this.activeNode}}
             <this.RdfaEditor
               @node={{this.activeNode}}
