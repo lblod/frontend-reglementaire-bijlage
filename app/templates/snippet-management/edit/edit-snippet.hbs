@@ -89,6 +89,10 @@
             @title={{t "utility.insert"}}
             @expandedInitially={{true}}
           >
+            <this.InsertArticle
+              @controller={{this.editor}}
+              @options={{hash insertFreely=true}}
+            />
             <DocumentTitlePlugin::InsertTitleCard @controller={{this.editor}} />
             <ArticleStructurePlugin::ArticleStructureCard
               @controller={{this.editor}}
@@ -115,6 +119,7 @@
               @defaultTag={{this.config.mandateeTable.defaultTag}}
             />
           </Sidebar.Collapsible>
+          <this.StructureControlCard @controller={{this.editor}} />
           <MandateeTablePlugin::Configure
             @controller={{this.editor}}
             @supportedTags={{this.config.mandateeTable.tags}}
