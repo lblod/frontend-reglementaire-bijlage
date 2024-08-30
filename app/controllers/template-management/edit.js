@@ -86,6 +86,7 @@ import NumberInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/compon
 import DateInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/date/insert-variable';
 import CodelistInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/codelist/insert';
 import VariablePluginAddressInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/address/insert-variable';
+import SnippetInsertRdfaComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/snippet-plugin/snippet-insert-rdfa';
 import { DECISION_STANDARD_FOLDER } from '../../utils/constants';
 import {
   editableNodePlugin,
@@ -99,6 +100,10 @@ import {
   snippetPlaceholder,
   snippetPlaceholderView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/snippet-plugin/nodes/snippet-placeholder';
+import {
+  snippet,
+  snippetView,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/snippet-plugin/nodes/snippet';
 import {
   structure,
   structureView,
@@ -132,6 +137,7 @@ export default class TemplateManagementEditController extends Controller {
   RdfaEditor = RdfaEditor;
   DebugInfo = DebugInfo;
   SnippetListSelect = SnippetListSelectRdfaComponent;
+  SnippetInsert = SnippetInsertRdfaComponent;
   StructureInsert = StructureInsert;
   StructureControl = StructureControl;
   schema = new Schema({
@@ -193,6 +199,7 @@ export default class TemplateManagementEditController extends Controller {
       invisible_rdfa: invisibleRdfaWithConfig({ rdfaAware: true }),
       link: link(this.config.link),
       snippet_placeholder: snippetPlaceholder,
+      snippet: snippet(this.config.snippet),
     },
     marks: {
       em,
@@ -343,6 +350,7 @@ export default class TemplateManagementEditController extends Controller {
         snippet_placeholder: snippetPlaceholderView(controller),
         mandatee_table: mandateeTableView(controller),
         structure: structureView(controller),
+        snippet: snippetView(this.config.snippet)(controller),
       };
     };
   }

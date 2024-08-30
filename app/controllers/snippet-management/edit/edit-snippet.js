@@ -85,6 +85,7 @@ import DateInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/
 import CodelistInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/codelist/insert';
 import VariablePluginAddressInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/address/insert-variable';
 import PersonVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/person/insert';
+import SnippetInsertRdfaComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/snippet-plugin/snippet-insert-rdfa';
 
 import {
   editableNodePlugin,
@@ -105,6 +106,16 @@ import {
   osloLocation,
   osloLocationView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin/node';
+import StructureControl from '@lblod/ember-rdfa-editor-lblod-plugins/components/structure-plugin/_private/control-card';
+import StructureInsert from '@lblod/ember-rdfa-editor-lblod-plugins/components/decision-plugin/insert-article';
+import {
+  snippetPlaceholder,
+  snippetPlaceholderView,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/snippet-plugin/nodes/snippet-placeholder';
+import {
+  snippet,
+  snippetView,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/snippet-plugin/nodes/snippet';
 import {
   mandatee_table,
   mandateeTableView,
@@ -124,6 +135,9 @@ export default class SnippetManagementEditSnippetController extends Controller {
   @service currentSession;
   @tracked citationPlugin = citationPlugin(this.config.citation);
   @service muTask;
+  SnippetInsert = SnippetInsertRdfaComponent;
+  StructureInsert = StructureInsert;
+  StructureControl = StructureControl;
 
   schema = new Schema({
     nodes: {
@@ -177,6 +191,8 @@ export default class SnippetManagementEditSnippetController extends Controller {
       table_of_contents: table_of_contents(this.config.tableOfContents),
       invisible_rdfa: invisibleRdfaWithConfig({ rdfaAware: true }),
       link: link(this.config.link),
+      snippet_placeholder: snippetPlaceholder,
+      snippet: snippet(this.config.snippet),
     },
     marks: {
       em,
@@ -266,6 +282,10 @@ export default class SnippetManagementEditSnippetController extends Controller {
         rdfaAware: true,
       },
 
+      snippet: {
+        endpoint: '/raw-sparql',
+      },
+
       location: {
         defaultPointUriRoot:
           'https://publicatie.gelinkt-notuleren.vlaanderen.be/id/geometrie/',
@@ -299,7 +319,9 @@ export default class SnippetManagementEditSnippetController extends Controller {
         templateComment: templateCommentView(controller),
         person_variable: personVariableView(controller),
         inline_rdfa: inlineRdfaWithConfigView({ rdfaAware: true })(controller),
+        snippet_placeholder: snippetPlaceholderView(controller),
         oslo_location: osloLocationView(this.config.location)(controller),
+        snippet: snippetView(this.config.snippet)(controller),
         structure: structureView(controller),
         mandatee_table: mandateeTableView(controller),
       };

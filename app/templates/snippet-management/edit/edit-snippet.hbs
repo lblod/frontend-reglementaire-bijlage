@@ -9,6 +9,8 @@
   @dirty={{this.dirty}}
   @onUpdateDocumentTitle={{perform this.publishSnippet}}
 />
+
+
 {{#if this.editorDocument}}
   <RdfaEditorContainer
     @rdfaEditorInit={{this.handleRdfaEditorInit}}
@@ -102,8 +104,19 @@
               @controller={{this.editor}}
               @config={{this.config.location}}
             />
+            <SnippetPlugin::SnippetInsertPlaceholder
+              @controller={{this.editor}}
+              @config={{this.config.snippet}}
+            />
             <TemplateCommentsPlugin::Insert @controller={{this.editor}} />
             <VariablePlugin::Address::Insert @controller={{this.editor}} />
+            {{#if this.activeNode}}
+              <this.SnippetInsert
+                @controller={{this.editor}}
+                @config={{this.config.snippet}}
+                @node={{this.activeNode}}
+              />
+            {{/if}}
           </Sidebar.Collapsible>
           <Sidebar.Collapsible
             @title={{t 'snippet-edit.sidebar.decision-nodes'}}

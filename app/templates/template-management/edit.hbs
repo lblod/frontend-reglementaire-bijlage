@@ -140,10 +140,19 @@
               <TemplateCommentsPlugin::Insert @controller={{this.editor}} />
             {{/if}}
             <VariablePlugin::Address::Insert @controller={{this.editor}} />
+
+
             <SnippetPlugin::SnippetInsertPlaceholder
               @controller={{this.editor}}
               @config={{this.config.snippet}}
             />
+            {{#if this.activeNode}}
+              <this.SnippetInsert
+                @controller={{this.editor}}
+                @config={{this.config.snippet}}
+                @node={{this.activeNode}}
+              />
+            {{/if}}
           </Sidebar.Collapsible>
           {{#if (eq this.internalTypeName "decision")}}
             <Sidebar.Collapsible
