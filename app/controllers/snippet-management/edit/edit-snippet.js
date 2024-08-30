@@ -94,6 +94,14 @@ import {
 import AttributeEditor from '@lblod/ember-rdfa-editor/components/_private/attribute-editor';
 import RdfaEditor from '@lblod/ember-rdfa-editor/components/_private/rdfa-editor';
 import DebugInfo from '@lblod/ember-rdfa-editor/components/_private/debug-info';
+
+import InsertArticleComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/decision-plugin/insert-article';
+import StructureControlCardComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/structure-plugin/_private/control-card';
+import {
+  structure,
+  structureView,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/structure-plugin/node';
+
 import {
   osloLocation,
   osloLocationView,
@@ -112,11 +120,12 @@ import {
   mandatee_table,
   mandateeTableView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/mandatee-table-plugin/node';
-
 export default class SnippetManagementEditSnippetController extends Controller {
   AttributeEditor = AttributeEditor;
   RdfaEditor = RdfaEditor;
   DebugInfo = DebugInfo;
+  InsertArticle = InsertArticleComponent;
+  StructureControlCard = StructureControlCardComponent;
 
   @service store;
   @service router;
@@ -138,6 +147,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
         rdfaAware: true,
       }),
       paragraph,
+      structure,
       document_title,
       repaired_block: repairedBlockWithConfig({ rdfaAware: true }),
 
@@ -312,6 +322,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
         snippet_placeholder: snippetPlaceholderView(controller),
         oslo_location: osloLocationView(this.config.location)(controller),
         snippet: snippetView(this.config.snippet)(controller),
+        structure: structureView(controller),
         mandatee_table: mandateeTableView(controller),
       };
     };

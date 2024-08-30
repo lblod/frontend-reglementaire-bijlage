@@ -118,31 +118,15 @@
     <:aside>
       {{#if this.editor}}
         <Sidebar as |Sidebar|>
+
           <Sidebar.Collapsible
-            @title={{t "utility.insert"}}
-            @expandedInitially={{true}}
+            @title={{t 'snippet-edit.sidebar.general-nodes'}}
+            @expandedInitially={{false}}
           >
-            <this.StructureInsert @controller={{this.editor}} />
-            {{#if (eq this.internalTypeName "decision")}}
-              <RoadsignRegulationPlugin::RoadsignRegulationCard
-                @controller={{this.editor}}
-                @options={{this.config.roadsignRegulation}}
-              />
-            {{/if}}
-            {{#unless (eq this.internalTypeName "decision")}}
-              <DocumentTitlePlugin::InsertTitleCard
-                @controller={{this.editor}}
-              />
-            {{/unless}}
-            <ArticleStructurePlugin::ArticleStructureCard
-              @controller={{this.editor}}
-              @options={{this.config.structures}}
-            />
             <VariablePlugin::Date::Insert
               @controller={{this.editor}}
               @options={{this.config.date}}
             />
-
             <LocationPlugin::Insert
               @controller={{this.editor}}
               @config={{this.config.location}}
@@ -152,15 +136,16 @@
               @plugin={{this.citationPlugin}}
               @config={{this.config.citation}}
             />
-            <SnippetPlugin::SnippetInsertPlaceholder
-              @controller={{this.editor}}
-              @config={{this.config.snippet}}
-            />
             {{#if this.supportsComments}}
               <TemplateCommentsPlugin::Insert @controller={{this.editor}} />
             {{/if}}
             <VariablePlugin::Address::Insert @controller={{this.editor}} />
 
+
+            <SnippetPlugin::SnippetInsertPlaceholder
+              @controller={{this.editor}}
+              @config={{this.config.snippet}}
+            />
             {{#if this.activeNode}}
               <this.SnippetInsert
                 @controller={{this.editor}}
@@ -168,18 +153,39 @@
                 @node={{this.activeNode}}
               />
             {{/if}}
-            {{#if (eq this.internalTypeName "decision")}}
+          </Sidebar.Collapsible>
+          {{#if (eq this.internalTypeName "decision")}}
+            <Sidebar.Collapsible
+              @title={{t 'snippet-edit.sidebar.decision-nodes'}}
+              @expandedInitially={{false}}
+            >
+              <this.StructureInsert @controller={{this.editor}} />
               <MandateeTablePlugin::Insert
                 @controller={{this.editor}}
                 @defaultTag={{this.config.mandateeTable.defaultTag}}
               />
-            {{/if}}
-          </Sidebar.Collapsible>
-          {{#if (eq this.internalTypeName "decision")}}
-            <DecisionPlugin::DecisionPluginCard @controller={{this.editor}} />
-            <this.StructureControl @controller={{this.editor}} />
+              <RoadsignRegulationPlugin::RoadsignRegulationCard
+                @controller={{this.editor}}
+                @options={{this.config.roadsignRegulation}}
+              />
+              <DecisionPlugin::DecisionPluginCard @controller={{this.editor}} />
 
+            </Sidebar.Collapsible>
           {{/if}}
+
+          {{#unless (eq this.internalTypeName "decision")}}
+            <Sidebar.Collapsible
+              @title={{t 'snippet-edit.sidebar.regulatory-statement-nodes'}}
+              @expandedInitially={{false}}>
+                <DocumentTitlePlugin::InsertTitleCard
+                  @controller={{this.editor}}
+                />
+                <ArticleStructurePlugin::ArticleStructureCard
+                  @controller={{this.editor}}
+                  @options={{this.config.structures}}
+                />
+            </Sidebar.Collapsible>
+          {{/unless}}
           <Plugins::Link::LinkEditor @controller={{this.editor}} />
           <this.RdfaEditor
             @node={{this.activeNode}}
@@ -192,6 +198,7 @@
             />
             <this.DebugInfo @node={{this.activeNode}} />
           {{/if}}
+          <this.StructureControl @controller={{this.editor}} />
           <MandateeTablePlugin::Configure
             @controller={{this.editor}}
             @supportedTags={{this.config.mandateeTable.tags}}
