@@ -161,6 +161,13 @@
             {{/if}}
             <VariablePlugin::Address::Insert @controller={{this.editor}} />
 
+            {{#if this.activeNode}}
+              <this.SnippetInsert
+                @controller={{this.editor}}
+                @config={{this.config.snippet}}
+                @node={{this.activeNode}}
+              />
+            {{/if}}
             {{#if (eq this.internalTypeName "decision")}}
               <MandateeTablePlugin::Insert
                 @controller={{this.editor}}
