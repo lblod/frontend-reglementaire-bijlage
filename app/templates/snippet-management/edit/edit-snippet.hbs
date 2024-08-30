@@ -1,4 +1,4 @@
-{{page-title (t "reglement-edit.edit")}}
+{{page-title (t "snippets.edit-snippet")}}
 <BreadcrumbsItem>
   {{t "snippets.edit-snippet"}}
 </BreadcrumbsItem>
@@ -124,9 +124,18 @@
                 @node={{this.activeNode}}
               />
             {{/if}}
+            <MandateeTablePlugin::Insert
+              @controller={{this.editor}}
+              @defaultTag={{this.config.mandateeTable.defaultTag}}
+            />
           </Sidebar.Collapsible>
             <this.StructureControl @controller={{this.editor}} />
 
+
+          <MandateeTablePlugin::Configure
+            @controller={{this.editor}}
+            @supportedTags={{this.config.mandateeTable.tags}}
+          />
           {{#if this.activeNode}}
             <this.RdfaEditor
               @node={{this.activeNode}}
