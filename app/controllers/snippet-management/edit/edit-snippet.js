@@ -95,8 +95,6 @@ import {
   osloLocation,
   osloLocationView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin/node';
-import { collateImportedResources } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/snippet-plugin/utils/collate-imported-resources';
-import { Snippet } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/snippet-plugin';
 import TextVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/text/insert';
 import NumberInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/number/insert';
 import DateInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/date/insert-variable';
@@ -116,6 +114,8 @@ import {
   mandatee_table,
   mandateeTableView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/mandatee-table-plugin/node';
+import { saveCollatedImportedResources } from '../../../utils/imported-resources';
+
 export default class SnippetManagementEditSnippetController extends Controller {
   AttributeEditor = AttributeEditor;
   RdfaEditor = RdfaEditor;
@@ -132,7 +132,6 @@ export default class SnippetManagementEditSnippetController extends Controller {
   @service currentSession;
   @tracked citationPlugin = citationPlugin(this.config.citation);
   @service muTask;
-
 
   schema = new Schema({
     nodes: {
@@ -394,21 +393,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
         include: 'snippets,snippets.current-version',
       },
     );
-    const snippetModels = await Promise.all(
-      (await list.snippets).map((snip) => snip.currentVersion),
-    );
-    const snippets = snippetModels.map(
-      (model) =>
-        new Snippet({
-          title: model.title,
-          content: model.content,
-          createdOn: model.createdOn.toISOString(),
-        }),
-    );
-    const importedResources = collateImportedResources(snippets);
-    list.importedResources = importedResources;
-
-    return list.save();
+    return saveCollatedImportedResources(list);
   });
 
   publishSnippet = task(async () => {
