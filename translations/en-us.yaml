@@ -162,6 +162,12 @@ snippets:
     snippet: Snippet
     imported: Imported Resources
 
+snippet-edit:
+  sidebar:
+    general-nodes: General nodes
+    decision-nodes: Decision nodes
+    regulatory-statement-nodes: Regulatory statement nodes
+
 editor-document-title:
   placeholder: Untitled document
   change-title: Change title

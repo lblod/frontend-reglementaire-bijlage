@@ -162,6 +162,12 @@ snippets:
     snippet: Fragment
     imported: Ingevoerde Middelen
 
+snippet-edit:
+  sidebar:
+    general-nodes: Algemene nodes
+    decision-nodes: Besluit nodes
+    regulatory-statement-nodes: Reglementaire Bijlage nodes
+
 editor-document-title:
   placeholder: Naamloos document
   change-title: Titel wijzigen

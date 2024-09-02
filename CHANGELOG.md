@@ -1,5 +1,27 @@
 # frontend-reglementaire-bijlage
 
+## 9.4.0
+
+### Minor Changes
+
+- [#267](https://github.com/lblod/frontend-reglementaire-bijlage/pull/267) [`12d4356`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/12d4356e3a80abafeb829906d7da1d95b7f261e8) Thanks [@elpoelma](https://github.com/elpoelma)! - Restructure snippet editor sidebar intro 3 sections:
+
+  - Algemene nodes (General nodes): contains actions such as inserting dates, citations etc.
+  - Besluit nodes (Decision nodes): contains actions such as inserting a mandatee table, decision article
+  - Reglementaire Bijlage nodes (Regulatory statement nodes): contains actions such as inserting article structures, document titles
+
+  This division should make it easier for the creator of the template to use the editor
+
+- [#268](https://github.com/lblod/frontend-reglementaire-bijlage/pull/268) [`4a48b1b`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/4a48b1b76ce30d158efc0c589cd97721ef350c3e) Thanks [@abeforgit](https://github.com/abeforgit)! - Add snippet tools in snippets
+
+- [#267](https://github.com/lblod/frontend-reglementaire-bijlage/pull/267) [`15b868a`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/15b868a2672164d2231b5a1a486b94b60a87e7fc) Thanks [@elpoelma](https://github.com/elpoelma)! - Add support for decision articles to snippets
+
+### Patch Changes
+
+- [`6453dd3`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/6453dd3b6d9c51afd65806a29a57b873414abcdc) Thanks [@elpoelma](https://github.com/elpoelma)! - Fix title of snippet editor page
+
+- [#264](https://github.com/lblod/frontend-reglementaire-bijlage/pull/264) [`782ca3a`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/782ca3a0f1d64006b53151393016301794ba70a7) Thanks [@elpoelma](https://github.com/elpoelma)! - Update `@lblod/ember-rdfa-editor-lblod-plugins` to version 22.3.0
+
 ## 9.3.0
 
 ### Minor Changes
