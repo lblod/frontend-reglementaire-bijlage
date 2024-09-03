@@ -71,6 +71,8 @@ import {
   text_variable,
   personVariableView,
   person_variable,
+  autofilled_variable,
+  autofilledVariableView
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/variables';
 import { document_title } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/document-title-plugin/nodes';
 import {
@@ -86,6 +88,7 @@ import NumberInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/compon
 import DateInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/date/insert-variable';
 import CodelistInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/codelist/insert';
 import VariablePluginAddressInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/address/insert-variable';
+import AutofilledInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/autofilled/insert';
 import { DECISION_STANDARD_FOLDER } from '../../utils/constants';
 import {
   editableNodePlugin,
@@ -170,6 +173,7 @@ export default class TemplateManagementEditController extends Controller {
       text_variable,
       oslo_location: osloLocation(this.config.location),
       person_variable,
+      autofilled_variable: autofilled_variable(this.config.autofilledVariable),
       number,
       codelist,
       ...STRUCTURE_NODES,
@@ -236,6 +240,10 @@ export default class TemplateManagementEditController extends Controller {
       {
         label: this.intl.t('editor.variables.person'),
         component: PersonVariableInsertComponent,
+      },
+      {
+        label: 'autofilled',
+        component: AutofilledInsertComponent
       },
     ];
   }
@@ -321,6 +329,9 @@ export default class TemplateManagementEditController extends Controller {
         defaultAddressUriRoot:
           'https://publicatie.gelinkt-notuleren.vlaanderen.be/id/adres/',
       },
+      autofilledVariable: {
+        autofilledValues: {}
+      }
     };
   }
 
@@ -343,6 +354,7 @@ export default class TemplateManagementEditController extends Controller {
         snippet_placeholder: snippetPlaceholderView(controller),
         mandatee_table: mandateeTableView(controller),
         structure: structureView(controller),
+        autofilled_variable: autofilledVariableView(this.config.autofilledVariable)(controller)
       };
     };
   }

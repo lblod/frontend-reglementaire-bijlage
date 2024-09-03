@@ -70,6 +70,8 @@ import {
   text_variable,
   personVariableView,
   person_variable,
+  autofilled_variable,
+  autofilledVariableView
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/variables';
 import { document_title } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/document-title-plugin/nodes';
 import {
@@ -85,6 +87,7 @@ import DateInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/
 import CodelistInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/codelist/insert';
 import VariablePluginAddressInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/address/insert-variable';
 import PersonVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/person/insert';
+import AutofilledInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/autofilled/insert';
 
 import {
   editableNodePlugin,
@@ -143,6 +146,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
       oslo_location: osloLocation(this.config.location),
       text_variable,
       person_variable,
+      autofilled_variable: autofilled_variable(this.config.autofilledVariable),
       number,
       codelist,
       ...STRUCTURE_NODES,
@@ -206,6 +210,10 @@ export default class SnippetManagementEditSnippetController extends Controller {
         label: this.intl.t('editor.variables.person'),
         component: PersonVariableInsertComponent,
       },
+      {
+        label: 'autofilled',
+        component: AutofilledInsertComponent
+      },
     ];
   }
 
@@ -262,6 +270,9 @@ export default class SnippetManagementEditSnippetController extends Controller {
       lmb: {
         endpoint: '/vendor-proxy/query',
       },
+      autofilledVariable: {
+        autofilledValues: {}
+      }
     };
   }
 
@@ -281,6 +292,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
         person_variable: personVariableView(controller),
         inline_rdfa: inlineRdfaWithConfigView({ rdfaAware: true })(controller),
         oslo_location: osloLocationView(this.config.location)(controller),
+        autofilled_variable: autofilledVariableView(this.config.autofilledVariable)(controller)
       };
     };
   }
