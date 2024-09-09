@@ -4,5 +4,8 @@
   "initialVersions": {
     "frontend-reglementaire-bijlage": "9.4.0"
   },
-  "changesets": []
+  "changesets": [
+    "calm-queens-switch",
+    "lovely-buckets-press"
+  ]
 }
