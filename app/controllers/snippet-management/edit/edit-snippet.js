@@ -100,6 +100,7 @@ import {
   osloLocation,
   osloLocationView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin/node';
+import { variableAutofillerPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/plugins/autofiller';
 
 export default class SnippetManagementEditSnippetController extends Controller {
   AttributeEditor = AttributeEditor;
@@ -146,7 +147,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
       oslo_location: osloLocation(this.config.location),
       text_variable,
       person_variable,
-      autofilled_variable: autofilled_variable(this.config.autofilledVariable),
+      autofilled_variable,
       number,
       codelist,
       ...STRUCTURE_NODES,
@@ -292,7 +293,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
         person_variable: personVariableView(controller),
         inline_rdfa: inlineRdfaWithConfigView({ rdfaAware: true })(controller),
         oslo_location: osloLocationView(this.config.location)(controller),
-        autofilled_variable: autofilledVariableView(this.config.autofilledVariable)(controller)
+        autofilled_variable: autofilledVariableView(controller)
       };
     };
   }
@@ -305,6 +306,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
       linkPasteHandler(this.schema.nodes.link),
       listTrackingPlugin(),
       editableNodePlugin(),
+      variableAutofillerPlugin(this.config.autofilledVariable),
     ];
   }
 

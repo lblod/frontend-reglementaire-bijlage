@@ -117,6 +117,7 @@ import {
   osloLocation,
   osloLocationView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin/node';
+import { variableAutofillerPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/plugins/autofiller';
 
 const SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE = 'data-snippet-list-ids';
 const GEMEENTE_CLASSIFICATION_URI =
@@ -173,7 +174,7 @@ export default class TemplateManagementEditController extends Controller {
       text_variable,
       oslo_location: osloLocation(this.config.location),
       person_variable,
-      autofilled_variable: autofilled_variable(this.config.autofilledVariable),
+      autofilled_variable,
       number,
       codelist,
       ...STRUCTURE_NODES,
@@ -354,7 +355,7 @@ export default class TemplateManagementEditController extends Controller {
         snippet_placeholder: snippetPlaceholderView(controller),
         mandatee_table: mandateeTableView(controller),
         structure: structureView(controller),
-        autofilled_variable: autofilledVariableView(this.config.autofilledVariable)(controller)
+        autofilled_variable: autofilledVariableView(controller)
       };
     };
   }
@@ -367,6 +368,7 @@ export default class TemplateManagementEditController extends Controller {
       linkPasteHandler(this.schema.nodes.link),
       listTrackingPlugin(),
       editableNodePlugin(),
+      variableAutofillerPlugin(this.config.autofilledVariable),
     ];
   }
   get activeNode() {
