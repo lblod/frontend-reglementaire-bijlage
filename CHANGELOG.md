@@ -1,5 +1,11 @@
 # frontend-reglementaire-bijlage
 
+## 9.4.1-next.1
+
+### Patch Changes
+
+- [#270](https://github.com/lblod/frontend-reglementaire-bijlage/pull/270) [`b302627326ee5ef95993d753b8bb5152dd547449`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/b302627326ee5ef95993d753b8bb5152dd547449) Thanks [@abeforgit](https://github.com/abeforgit)! - Also add lmb configs to snippets
+
 ## 9.4.1-next.0
 
 ### Patch Changes
