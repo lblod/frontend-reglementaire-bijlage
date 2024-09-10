@@ -1,0 +1,14 @@
+<form role="search" onsubmit={{@onSearch}} ...attributes>
+  <span class="search-form">
+    <input
+      name="query"
+      type="search"
+      aria-label={{t 'search-form.aria-label'}}
+      {{on "input" @onInput}}
+      value={{@value}}
+      placeholder={{@placeholder}}
+      class="search-form__input"
+    />
+    <button type="submit" class="search-form__submit"><AuIcon @icon="search"/></button>
+  </span>
+</form>

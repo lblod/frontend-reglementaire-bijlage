@@ -101,3 +101,51 @@ div.table-of-contents {
   display: flex;
   flex-direction: column;
 }
+
+
+.search-form {
+  border: 0.1rem solid var(--au-gray-300);
+  border-radius: 0.3rem;
+  color: var(--au-gray-1000);
+  font-size: var(--au-h6);
+  height: 3.6rem;
+  display: flex;
+  flex-direction: row;
+
+  &:focus-within {
+    outline: none;
+    border-width: 0.1rem;
+    border-color: var(--au-outline-color);
+    box-shadow: inset 0 0 0 0.2rem var(--au-outline-color);
+  }
+
+  &__input {
+    border: 0;
+    flex-grow: 1;
+    box-shadow: none;
+    background-color: transparent;
+
+    font-size: inherit;
+    padding-left: 1.2rem;
+
+    &:focus {
+      outline: none;
+      border: none;
+      box-shadow: none;
+    }
+  }
+
+  &__submit {
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 0.2rem;
+    margin-right: 1.2rem;
+    svg {
+      width: 1.6rem;
+      height: 100%;
+    }
+  }
+}
