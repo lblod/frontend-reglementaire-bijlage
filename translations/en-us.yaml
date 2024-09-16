@@ -180,3 +180,6 @@ editor:
     date: date
     codelist: codelist
     person: person
+
+search-form:
+  aria-label: Search

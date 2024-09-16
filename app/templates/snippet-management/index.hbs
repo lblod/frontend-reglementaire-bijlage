@@ -15,18 +15,14 @@
               {{t "snippets.manage-snippet-lists"}}
             </AuHeading>
           </Group>
-          <Group>
+          <Group class="au-c-toolbar__group--center">
             <div class="au-c-data-table__search">
-              <input
-                value={{this.label}}
-                placeholder={{t "snippets.crud.label-filter"}}
-                aria-label={{t "snippets.crud.label-filter"}}
-                class="au-c-input au-c-input--block"
-                {{on "input" (perform this.updateSearchFilterTask "label")}}
+              <SearchForm
+                @value={{this.searchQuery}}
+                @placeholder={{t "snippets.crud.label-filter"}}
+                @onInput={{this.updateSearchQuery}}
+                @onSearch={{this.search}}
               />
-              <span class="au-c-data-table__search-icon">
-                <AuIcon @icon="search" @size="large" />
-              </span>
             </div>
             <AuLink
               @skin="button"

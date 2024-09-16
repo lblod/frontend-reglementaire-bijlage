@@ -1,11 +1,11 @@
 import Controller from '@ember/controller';
-import { restartableTask, task, timeout } from 'ember-concurrency';
+import { task } from 'ember-concurrency';
 import { service } from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { isBlank } from '../../utils/strings';
 import { getTemplateType, getTemplateTypes } from '../../utils/template-type';
-
+import { localCopy } from 'tracked-toolbox';
 export default class TemplateManagementIndexController extends Controller {
   @service store;
   @service session;
@@ -14,16 +14,20 @@ export default class TemplateManagementIndexController extends Controller {
   @service muTask;
   @service intl;
 
+  // queryParams
+  queryParams = ['title', 'page', 'size', 'sort'];
   @tracked page = 0;
   @tracked size = 20;
   @tracked title = '';
-  @tracked debounceTime = 2000;
+  sort = '-current-version.created-on';
+
+  @localCopy('title', '') searchQuery;
+
   @tracked editorDocument;
   @tracked documentContainer;
   @tracked templateTypeToCreate = this.templateTypes[0];
   @tracked createTemplateModalIsOpen;
   @tracked removeTemplateModalIsOpen;
-  sort = '-current-version.created-on';
 
   templateTypes = getTemplateTypes(this.intl);
 
@@ -177,14 +181,18 @@ export default class TemplateManagementIndexController extends Controller {
     this.session.invalidate();
   }
 
-  updateSearchFilterTask = restartableTask(
-    async (queryParamProperty, event) => {
-      await timeout(300);
+  @action
+  updateSearchQuery(event) {
+    event.preventDefault();
+    this.searchQuery = event.target.value;
+  }
 
-      this[queryParamProperty] = event.target.value.trim();
-      this.resetPagination();
-    },
-  );
+  @action
+  search(event) {
+    event.preventDefault();
+    this.title = this.searchQuery;
+    this.resetPagination();
+  }
 
   resetPagination() {
     this.page = 0;
