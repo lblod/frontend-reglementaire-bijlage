@@ -1,7 +1,7 @@
 <div class="au-c-body-container au-c-body-container--scroll">
   <AuDataTable
     @content={{this.model}}
-    @fields="Label"
+    @fields="label importedResources"
     @noDataMessage={{t "snippets.crud.no-data"}}
     @size={{this.size}}
     @page={{this.page}}
@@ -42,6 +42,7 @@
           @label={{t "snippets.attr.label"}}
         />
         <th>{{t "snippets.attr.id"}}</th>
+        <th>{{t "snippets.attr.imported"}}</th>
         <th></th>
       </c.header>
       <c.body as |snippet|>
@@ -56,6 +57,9 @@
         </td>
         <td>
           {{snippet.id}}
+        </td>
+        <td>
+          {{snippet.importedResources}}
         </td>
         <td>
           <AuButton

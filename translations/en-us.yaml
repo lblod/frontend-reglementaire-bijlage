@@ -160,6 +160,7 @@ snippets:
     label: Label
     id: Id
     snippet: Snippet
+    imported: Imported Resources
 
 snippet-edit:
   sidebar:

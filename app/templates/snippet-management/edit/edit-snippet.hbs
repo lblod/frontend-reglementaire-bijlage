@@ -10,14 +10,13 @@
   @onUpdateDocumentTitle={{perform this.publishSnippet}}
 />
 
-
 {{#if this.editorDocument}}
   <RdfaEditorContainer
     @rdfaEditorInit={{this.handleRdfaEditorInit}}
     @editorDocument={{this.editorDocument}}
     @showToggleRdfaAnnotations={{true}}
     @busy={{or this.save.isRunning}}
-    @busyText={{t "reglement-edit.saving"}}
+    @busyText={{t "template-edit.saving"}}
     @schema={{this.schema}}
     @nodeViews={{this.nodeViews}}
     @plugins={{this.plugins}}
@@ -149,6 +148,7 @@
             <this.RdfaEditor
               @node={{this.activeNode}}
               @controller={{this.editor}}
+              @additionalImportedResources={{this.model.snippetList.importedResources}}
             />
             <this.AttributeEditor
               @node={{this.activeNode}}

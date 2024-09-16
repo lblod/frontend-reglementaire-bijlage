@@ -14,6 +14,7 @@ import {
 } from '@lblod/ember-rdfa-editor/plugins/text-style';
 import {
   blockRdfaWithConfig,
+  docWithConfig,
   hard_break,
   horizontal_rule,
   invisibleRdfaWithConfig,
@@ -76,17 +77,7 @@ import {
   templateComment,
   templateCommentView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/template-comments-plugin';
-import { docWithConfig } from '@lblod/ember-rdfa-editor/nodes/doc';
 import { undo } from '@lblod/ember-rdfa-editor/plugins/history';
-
-import TextVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/text/insert';
-import NumberInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/number/insert';
-import DateInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/date/insert-variable';
-import CodelistInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/codelist/insert';
-import VariablePluginAddressInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/address/insert-variable';
-import PersonVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/person/insert';
-import SnippetInsertRdfaComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/snippet-plugin/snippet-insert-rdfa';
-
 import {
   editableNodePlugin,
   getActiveEditableNode,
@@ -94,20 +85,23 @@ import {
 import AttributeEditor from '@lblod/ember-rdfa-editor/components/_private/attribute-editor';
 import RdfaEditor from '@lblod/ember-rdfa-editor/components/_private/rdfa-editor';
 import DebugInfo from '@lblod/ember-rdfa-editor/components/_private/debug-info';
-
 import InsertArticleComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/decision-plugin/insert-article';
 import StructureControlCardComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/structure-plugin/_private/control-card';
 import {
   structure,
   structureView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/structure-plugin/node';
-
 import {
   osloLocation,
   osloLocationView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin/node';
-import StructureControl from '@lblod/ember-rdfa-editor-lblod-plugins/components/structure-plugin/_private/control-card';
-import StructureInsert from '@lblod/ember-rdfa-editor-lblod-plugins/components/decision-plugin/insert-article';
+import TextVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/text/insert';
+import NumberInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/number/insert';
+import DateInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/date/insert-variable';
+import CodelistInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/codelist/insert';
+import VariablePluginAddressInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/address/insert-variable';
+import PersonVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/person/insert';
+import SnippetInsertRdfaComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/snippet-plugin/snippet-insert-rdfa';
 import {
   snippetPlaceholder,
   snippetPlaceholderView,
@@ -120,12 +114,15 @@ import {
   mandatee_table,
   mandateeTableView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/mandatee-table-plugin/node';
+import { saveCollatedImportedResources } from '../../../utils/imported-resources';
+
 export default class SnippetManagementEditSnippetController extends Controller {
   AttributeEditor = AttributeEditor;
   RdfaEditor = RdfaEditor;
   DebugInfo = DebugInfo;
   InsertArticle = InsertArticleComponent;
   StructureControlCard = StructureControlCardComponent;
+  SnippetInsert = SnippetInsertRdfaComponent;
 
   @service store;
   @service router;
@@ -135,9 +132,6 @@ export default class SnippetManagementEditSnippetController extends Controller {
   @service currentSession;
   @tracked citationPlugin = citationPlugin(this.config.citation);
   @service muTask;
-  SnippetInsert = SnippetInsertRdfaComponent;
-  StructureInsert = StructureInsert;
-  StructureControl = StructureControl;
 
   schema = new Schema({
     nodes: {
@@ -145,6 +139,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
         content:
           'table_of_contents? document_title? ((block|chapter)+|(block|title)+|(block|article)+)',
         rdfaAware: true,
+        hasResourceImports: true,
       }),
       paragraph,
       structure,
@@ -152,15 +147,12 @@ export default class SnippetManagementEditSnippetController extends Controller {
       repaired_block: repairedBlockWithConfig({ rdfaAware: true }),
 
       list_item: listItemWithConfig({
-        rdfaAware: true,
         enableHierarchicalList: true,
       }),
       ordered_list: orderedListWithConfig({
-        rdfaAware: true,
         enableHierarchicalList: true,
       }),
       bullet_list: bulletListWithConfig({
-        rdfaAware: true,
         enableHierarchicalList: true,
       }),
       templateComment,
@@ -387,7 +379,21 @@ export default class SnippetManagementEditSnippetController extends Controller {
     const documentContainer = this.model.documentContainer;
     documentContainer.currentVersion = editorDocument;
     await documentContainer.save();
-    await this.publishSnippet.perform();
+    await Promise.all([
+      this.publishSnippet.perform(),
+      this.updateImportedResourcesOnList.perform(),
+    ]);
+  });
+
+  updateImportedResourcesOnList = task(async () => {
+    const list = await this.store.findRecord(
+      'snippet-list',
+      this.model.snippetList.id,
+      {
+        include: 'snippets,snippets.current-version',
+      },
+    );
+    return saveCollatedImportedResources(list);
   });
 
   publishSnippet = task(async () => {

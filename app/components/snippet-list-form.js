@@ -4,6 +4,7 @@ import { action } from '@ember/object';
 import { restartableTask, task, timeout } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
 import { isBlank } from '../utils/strings';
+import { saveCollatedImportedResources } from '../utils/imported-resources';
 
 const SHOW_SAVED_PILL = 'showSavedPill';
 
@@ -55,6 +56,10 @@ export default class SnippetListForm extends Component {
     return isBlank(this.args.model.label);
   }
 
+  get importedResources() {
+    return this.args.model.importedResources?.join(', ');
+  }
+
   showSavedTask = restartableTask(async () => {
     await timeout(3000);
   });
@@ -79,6 +84,10 @@ export default class SnippetListForm extends Component {
     });
   });
 
+  updateImportedResourcesOnList = task(async () => {
+    return saveCollatedImportedResources(await this.args.model);
+  });
+
   removeSnippet = task(async () => {
     this.args.model.snippets.removeObject(this.deletingSnippet);
 
@@ -95,7 +104,10 @@ export default class SnippetListForm extends Component {
     await this.deletingSnippet.deleteRecord();
 
     await this.args.model.save();
-    await this.deletingSnippet.save();
+    await Promise.all([
+      this.deletingSnippet.save(),
+      this.updateImportedResourcesOnList.perform(),
+    ]);
     this.closeRemoveModal();
   });
 
