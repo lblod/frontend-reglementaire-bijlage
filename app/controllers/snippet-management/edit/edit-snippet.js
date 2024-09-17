@@ -335,7 +335,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
   handleRdfaEditorInit(editor) {
     this.editor = editor;
     if (this.editorDocument.content) {
-      editor.initialize(this.editorDocument.content);
+      editor.initialize(this.editorDocument.content, { doNotClean: true });
     }
   }
 
