@@ -383,7 +383,7 @@ export default class TemplateManagementEditController extends Controller {
   handleRdfaEditorInit(editor) {
     this.editor = editor;
     if (this.editorDocument.content) {
-      editor.initialize(this.editorDocument.content);
+      editor.initialize(this.editorDocument.content, { doNotClean: true });
       this.assignedSnippetListsIds = this.documentSnippetListIds;
     } else if (this.model?.templateTypeId === DECISION_STANDARD_FOLDER) {
       // This is a decision with no content, so we need to insert a decision (besluit) node so that
