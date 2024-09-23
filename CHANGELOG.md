@@ -1,5 +1,17 @@
 # frontend-reglementaire-bijlage
 
+## 9.5.0
+
+### Minor Changes
+
+- [#272](https://github.com/lblod/frontend-reglementaire-bijlage/pull/272) [`34601b8`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/34601b8944e872d7b12791adfb1f1b0118143512) Thanks [@elpoelma](https://github.com/elpoelma)! - Addition of `search-form` component containing explicit search button
+
+- [#263](https://github.com/lblod/frontend-reglementaire-bijlage/pull/263) [`e9d0173`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/e9d0173c59b6e8a5e2650b00ee1b9c2fee39c260) Thanks [@piemonkey](https://github.com/piemonkey)! - Add concept of resources imported to snippets and allow linking them
+
+### Patch Changes
+
+- [#269](https://github.com/lblod/frontend-reglementaire-bijlage/pull/269) [`c324231`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/c3242319618d799f2dd4ed687ce89cca4924647e) Thanks [@piemonkey](https://github.com/piemonkey)! - Disallow inserting a person into a person variable placeholder, as there is no meaningful list of people since the user is not linked to a municipality
+
 ## 9.4.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
   "name": "frontend-reglementaire-bijlage",
-  "version": "9.4.0",
+  "version": "9.5.0",
   "private": true,
   "description": "Small description for frontend-reglementaire-bijlage goes here",
   "repository": {
@@ -43,7 +43,7 @@
     "@lblod/ember-acmidm-login": "^2.1.0",
     "@lblod/ember-environment-banner": "^0.5.0",
     "@lblod/ember-mock-login": "^0.10.0",
-    "@lblod/ember-rdfa-editor": "10.4.0-dev.d5b99c1843ff85a4e03c2cb8de08d1329d8184e3",
+    "@lblod/ember-rdfa-editor": "^10.5.0",
     "@lblod/ember-rdfa-editor-lblod-plugins": "^22.5.1",
     "@release-it-plugins/lerna-changelog": "^6.0.0",
     "broccoli-asset-rev": "^3.0.0",
@@ -100,9 +100,6 @@
     "@appuniversum/ember-appuniversum": {
       "@floating-ui/dom": "^1.6.5",
       "tracked-toolbox": "^2.0.0"
-    },
-    "@lblod/ember-rdfa-editor-lblod-plugins": {
-      "@lblod/ember-rdfa-editor": "10.4.0-dev.d5b99c1843ff85a4e03c2cb8de08d1329d8184e3"
     },
     "ember-data-table": {
       "ember-auto-import": "^2.6.3",
