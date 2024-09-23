@@ -5,6 +5,7 @@ import { restartableTask, task, timeout } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
 import { isBlank } from '../utils/strings';
 import { saveCollatedImportedResources } from '../utils/imported-resources';
+import { trackedFunction } from 'ember-resources/util/function';
 
 const SHOW_SAVED_PILL = 'showSavedPill';
 
@@ -16,6 +17,26 @@ export default class SnippetListForm extends Component {
   @tracked label = '';
   @tracked isRemoveModalOpen = false;
   @tracked deletingSnippet;
+
+  snippets = trackedFunction(this, async () => {
+    const snippets = await this.args.model.snippets;
+    const snippetsWithCreationDate = await Promise.all(
+      snippets.slice().map(async (snippet) => {
+        const currentVersion = await snippet.currentVersion;
+        return {
+          snippet,
+          createdOn: currentVersion.createdOn,
+        };
+      }),
+    );
+    // Sorted snippets in descending order
+    const sortedSnippets = snippetsWithCreationDate.sort((a, b) => {
+      return a.createdOn > b.createdOn ? -1 : 1;
+    });
+    return sortedSnippets.map(
+      (snippetWithCreationDate) => snippetWithCreationDate.snippet,
+    );
+  });
 
   updateLabel = restartableTask(async (event) => {
     this.showSavedTask.cancelAll();

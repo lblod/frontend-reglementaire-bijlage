@@ -40,13 +40,16 @@
 </div>
 <div class="snippets-table">
   <AuDataTable
-    @content={{@model.snippets}}
+    @content={{this.snippets.value}}
     @noDataMessage={{t "snippets.edit-snippet-list.table.no-data"}}
+    @isLoading={{this.snippets.isLoading}}
     as |s|
   >
     <s.content as |c|>
       <c.header>
         <th>{{t "snippets.edit-snippet-list.table.columns.snippet"}}</th>
+        <th>{{t "template-management.created-on"}}</th>
+        <th>{{t "template-management.updated-on"}}</th>
         <th></th>
       </c.header>
       <c.body as |snippet|>
@@ -58,6 +61,12 @@
           >
             {{snippet.currentVersion.title}}
           </AuLink>
+        </td>
+        <td>
+          {{detailed-date snippet.currentVersion.createdOn}}
+        </td>
+        <td>
+          {{detailed-date snippet.currentVersion.updatedOn}}
         </td>
         <td>
           <AuButton
