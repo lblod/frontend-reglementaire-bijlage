@@ -1,5 +1,15 @@
 # frontend-reglementaire-bijlage
 
+## 9.5.1
+
+### Patch Changes
+
+- [`ad95d86`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/ad95d8683a77e3792c28a7c24e94c83f8400ffaa) Thanks [@elpoelma](https://github.com/elpoelma)! - Update `@lblod/ember-rdfa-editor` to version 10.5.0
+
+- [#278](https://github.com/lblod/frontend-reglementaire-bijlage/pull/278) [`ac9d2e8`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/ac9d2e89e7db0292462c35fe594727d7971c9d54) Thanks [@piemonkey](https://github.com/piemonkey)! - Fix removal of empty lines on save, they are now maintained
+
+- [`cb4eb1c`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/cb4eb1cfb64c9f8a5cbc02fdbdba1fe145698173) Thanks [@elpoelma](https://github.com/elpoelma)! - Update `@lblod/ember-rdfa-editor-lblod-plugins` to version 22.5.1
+
 ## 9.5.0
 
 ### Minor Changes
