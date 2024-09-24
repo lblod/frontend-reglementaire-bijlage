@@ -35,6 +35,7 @@ export default class AppChromeComponent extends Component {
   }
 
   updateDocumentTitle = task(async (title) => {
+    console.log('Update title: ', title);
     this.editorDocument.title = title;
     await this.editorDocument.save();
 

@@ -51,7 +51,6 @@ import { headingWithConfig } from '@lblod/ember-rdfa-editor/plugins/heading';
 import { blockquote } from '@lblod/ember-rdfa-editor/plugins/blockquote';
 import { code_block } from '@lblod/ember-rdfa-editor/plugins/code';
 import { image } from '@lblod/ember-rdfa-editor/plugins/image';
-import { generateTemplate } from '../../../utils/generate-template';
 import { getOwner } from '@ember/application';
 import { linkPasteHandler } from '@lblod/ember-rdfa-editor/plugins/link';
 import { citationPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/citation-plugin';
@@ -355,7 +354,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
   }
 
   currentVersion = trackedFunction(this, async () => {
-    return await this.model.documentContainer.currentVersion;
+    return await this.model.snippet.currentVersion;
   });
 
   get editorDocument() {
@@ -364,25 +363,21 @@ export default class SnippetManagementEditSnippetController extends Controller {
 
   save = task(async () => {
     const html = this.editor.htmlContent;
-    const templateVersion = generateTemplate(this.editor);
-    const editorDocument = this.store.createRecord('editor-document');
-    const currentVersion = this.editorDocument;
-    editorDocument.content = html;
-    editorDocument.templateVersion = templateVersion;
-
-    editorDocument.createdOn = currentVersion.createdOn;
-    editorDocument.updatedOn = new Date();
-    editorDocument.title = currentVersion.title;
-    editorDocument.previousVersion = currentVersion;
-    await editorDocument.save();
-
-    const documentContainer = this.model.documentContainer;
-    documentContainer.currentVersion = editorDocument;
-    await documentContainer.save();
-    await Promise.all([
-      this.publishSnippet.perform(),
-      this.updateImportedResourcesOnList.perform(),
-    ]);
+    const currentVersion = await this.currentVersion.promise;
+    const snippet = this.model.snippet;
+    const newVersion = this.store.createRecord('snippet-version', {
+      content: html,
+      createdOn: currentVersion.createdOn,
+      updatedOn: new Date(),
+      title: currentVersion.title,
+      previousVersion: currentVersion,
+      snippet,
+    });
+    currentVersion.validThrough = new Date();
+    await Promise.all([currentVersion.save(), newVersion.save()]);
+    snippet.currentVersion = newVersion;
+    await snippet.save();
+    await this.updateImportedResourcesOnList.perform();
   });
 
   updateImportedResourcesOnList = task(async () => {
@@ -394,37 +389,5 @@ export default class SnippetManagementEditSnippetController extends Controller {
       },
     );
     return saveCollatedImportedResources(list);
-  });
-
-  publishSnippet = task(async () => {
-    const body = {
-      data: {
-        relationships: {
-          'document-container': {
-            data: {
-              id: this.model.documentContainer.id,
-            },
-          },
-          'snippet-list': {
-            data: {
-              id: this.model.snippetList.id,
-            },
-          },
-        },
-      },
-    };
-
-    const taskId = await this.muTask.fetchTaskifiedEndpoint(
-      '/snippet-list-publication-tasks',
-      {
-        method: 'POST',
-        body: JSON.stringify(body),
-        headers: {
-          'Content-Type': 'application/vnd.api+json',
-        },
-      },
-    );
-
-    await this.muTask.waitForMuTaskTask.perform(taskId, 100);
   });
 }

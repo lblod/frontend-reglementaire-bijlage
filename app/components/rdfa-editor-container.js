@@ -11,7 +11,7 @@ export default class RdfaEditorContainerComponent extends Component {
   @tracked ready = false;
 
   get documentContext() {
-    if (this.args.editorDocument) {
+    if (this.args.editorDocument && this.args.editorDocument.context) {
       try {
         return JSON.parse(this.args.editorDocument.context);
       } catch (e) {

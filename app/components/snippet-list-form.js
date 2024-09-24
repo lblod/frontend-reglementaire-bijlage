@@ -6,6 +6,7 @@ import { tracked } from '@glimmer/tracking';
 import { isBlank } from '../utils/strings';
 import { saveCollatedImportedResources } from '../utils/imported-resources';
 import { trackedFunction } from 'ember-resources/util/function';
+import { localCopy } from 'tracked-toolbox';
 
 const SHOW_SAVED_PILL = 'showSavedPill';
 
@@ -18,39 +19,55 @@ export default class SnippetListForm extends Component {
   @tracked isRemoveModalOpen = false;
   @tracked deletingSnippet;
 
-  snippets = trackedFunction(this, async () => {
-    const snippets = await this.args.model.snippets;
-    const snippetsWithCreationDate = await Promise.all(
-      snippets.slice().map(async (snippet) => {
-        const currentVersion = await snippet.currentVersion;
-        return {
-          snippet,
-          createdOn: currentVersion.createdOn,
-        };
-      }),
-    );
-    // Sorted snippets in descending order
-    const sortedSnippets = snippetsWithCreationDate.sort((a, b) => {
-      return a.createdOn > b.createdOn ? -1 : 1;
+  @localCopy('snippetsRequest.value') snippets;
+
+  get snippetList() {
+    return this.args.snippetList;
+  }
+
+  snippetsRequest = trackedFunction(this, async () => {
+    const snippets = await this.store.countAndFetchAll('snippet', {
+      include: ['current-version'],
+      filter: {
+        'snippet-list': {
+          ':id:': this.snippetList.id,
+        },
+      },
+      sort: 'position,-current-version.created-on',
+      fields: {
+        'snippet-version': ['title', 'created-on', 'updated-on'].join(','),
+      },
     });
-    return sortedSnippets.map(
-      (snippetWithCreationDate) => snippetWithCreationDate.snippet,
-    );
+    return snippets.slice();
   });
+
+  @action
+  async reorderSnippets(newSnippets) {
+    this.snippets = newSnippets;
+    const promises = [];
+    for (let i = 0; i < this.snippets.length; i++) {
+      const snippet = this.snippets[i];
+      if (i !== snippet.position) {
+        snippet.position = i;
+        promises.push(snippet.save());
+      }
+    }
+    await Promise.all(promises);
+  }
 
   updateLabel = restartableTask(async (event) => {
     this.showSavedTask.cancelAll();
     const value = event.target.value;
-    this.args.model.label = value;
+    this.snippetList.label = value;
     if (this.invalidLabel) {
       return;
     }
-    const isNew = this.args.model.isNew;
+    const isNew = this.snippetList.isNew;
     await timeout(1000);
-    await this.args.model.save();
+    await this.snippetList.save();
     this.showSavedTask.perform();
     if (isNew) {
-      this.router.replaceWith('snippet-management.edit', this.args.model, {
+      this.router.replaceWith('snippet-management.edit', this.snippetList, {
         queryParams: { [SHOW_SAVED_PILL]: true },
       });
     }
@@ -67,18 +84,18 @@ export default class SnippetListForm extends Component {
       // doesn't show the saved message again.
       // Use `replaceWith` instead of `transitionTo` to avoid adding a new
       // history entry.
-      this.router.replaceWith('snippet-management.edit', this.args.model, {
+      this.router.replaceWith('snippet-management.edit', this.snippetList, {
         queryParams: { [SHOW_SAVED_PILL]: undefined },
       });
     }
   }
 
   get invalidLabel() {
-    return isBlank(this.args.model.label);
+    return isBlank(this.snippetList.label);
   }
 
   get importedResources() {
-    return this.args.model.importedResources?.join(', ');
+    return this.snippetList.importedResources?.join(', ');
   }
 
   showSavedTask = restartableTask(async () => {
@@ -86,49 +103,47 @@ export default class SnippetListForm extends Component {
   });
 
   createSnippet = task(async () => {
-    const documentContainer = this.store.createRecord('document-container');
-    const editorDocument = this.store.createRecord('editor-document');
-    editorDocument.content = '';
-    editorDocument.createdOn = new Date();
-    editorDocument.updatedOn = new Date();
-    editorDocument.title = `Snippet created on ${new Date().toDateString()}`;
-    documentContainer.currentVersion = editorDocument;
-    await this.args.model.snippets;
-    this.args.model.snippets.pushObject(documentContainer);
-    await editorDocument.save();
-    await documentContainer.save();
-    await this.args.model.save();
+    const snippets = await this.snippetsRequest.promise;
+    const snippetCount = snippets.length;
+    const snippetVersion = this.store.createRecord('snippet-version', {
+      title: `Snippet created on ${new Date().toDateString()}`,
+      createdOn: new Date(),
+      updatedOn: new Date(),
+      content: '',
+    });
+    const snippet = this.store.createRecord('snippet', {
+      position: snippetCount,
+      currentVersion: snippetVersion,
+      snippetList: this.snippetList,
+    });
+    snippetVersion.snippet = snippet;
+    await snippetVersion.save();
+    await snippet.save();
+
+    this.snippets = [...snippets, snippet];
 
     this.router.transitionTo('snippet-management.edit.edit-snippet', {
-      documentContainer,
-      snippetList: this.args.model,
+      snippet,
+      snippetList: this.snippetList,
     });
   });
 
   updateImportedResourcesOnList = task(async () => {
-    return saveCollatedImportedResources(await this.args.model);
+    return saveCollatedImportedResources(await this.snippetList);
   });
 
   removeSnippet = task(async () => {
-    this.args.model.snippets.removeObject(this.deletingSnippet);
-
-    const editorDocument = await this.deletingSnippet.currentVersion;
-
-    const publishedSnippetVersion =
-      await editorDocument.publishedSnippetVersion;
-
-    if (publishedSnippetVersion) {
-      publishedSnippetVersion.validThrough = new Date();
-      await publishedSnippetVersion.save();
+    this.snippets = this.snippets.filter(
+      (snippet) => snippet !== this.deletingSnippet,
+    );
+    const snippetVersion = await this.deletingSnippet.currentVersion;
+    if (snippetVersion) {
+      snippetVersion.validThrough = new Date();
+      await snippetVersion.save();
     }
-
-    await this.deletingSnippet.deleteRecord();
-
-    await this.args.model.save();
-    await Promise.all([
-      this.deletingSnippet.save(),
-      this.updateImportedResourcesOnList.perform(),
-    ]);
+    this.deletingSnippet.snippetList = null;
+    await this.deletingSnippet.save();
+    await this.updateImportedResourcesOnList.perform();
     this.closeRemoveModal();
   });
 
