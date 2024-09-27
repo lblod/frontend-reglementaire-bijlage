@@ -5,7 +5,6 @@ export default class SnippetVersionModel extends Model {
   @attr('string') title;
   @attr('string') content;
   @attr('datetime') createdOn;
-  @attr('datetime') updatedOn;
   @attr('datetime') validThrough;
 
   @belongsTo('snippet', { inverse: 'revisions', async: true }) snippet;

@@ -8,10 +8,10 @@
       <Group>
         <ul class="au-c-list-horizontal au-u-padding-right-tiny">
           {{#unless @editorDocument.isNew}}
-          {{#if (and @editorDocument.updatedOn (not @dirty))}}
+          {{#if (and this.updatedOn (not @dirty))}}
           <li class="au-c-list-horizontal__item">
             <span class="au-c-app-chrome__status">
-              {{t "utility.saved-on"}} {{human-friendly-date @editorDocument.updatedOn locale=this.intl.primaryLocale}}
+              {{t "utility.saved-on"}} {{human-friendly-date this.updatedOn locale=this.intl.primaryLocale}}
             </span>
           </li>
           {{else}}

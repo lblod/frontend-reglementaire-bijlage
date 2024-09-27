@@ -33,9 +33,10 @@ export default class SnippetListForm extends Component {
           ':id:': this.snippetList.id,
         },
       },
-      sort: 'position,-current-version.created-on',
+      sort: 'position,-created-on',
       fields: {
-        'snippet-version': ['title', 'created-on', 'updated-on'].join(','),
+        snippet: ['position', 'created-on'].join(','),
+        'snippet-version': ['title'].join(','),
       },
     });
     return snippets.slice();
@@ -105,14 +106,16 @@ export default class SnippetListForm extends Component {
   createSnippet = task(async () => {
     const snippets = await this.snippetsRequest.promise;
     const snippetCount = snippets.length;
+    const now = new Date();
     const snippetVersion = this.store.createRecord('snippet-version', {
       title: `Snippet created on ${new Date().toDateString()}`,
-      createdOn: new Date(),
-      updatedOn: new Date(),
+      createdOn: now,
       content: '',
     });
     const snippet = this.store.createRecord('snippet', {
       position: snippetCount,
+      createdOn: now,
+      updatedOn: now,
       currentVersion: snippetVersion,
       snippetList: this.snippetList,
     });

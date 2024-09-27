@@ -365,10 +365,10 @@ export default class SnippetManagementEditSnippetController extends Controller {
     const html = this.editor.htmlContent;
     const currentVersion = await this.currentVersion.promise;
     const snippet = this.model.snippet;
+    const now = new Date();
     const newVersion = this.store.createRecord('snippet-version', {
       content: html,
-      createdOn: currentVersion.createdOn,
-      updatedOn: new Date(),
+      createdOn: now,
       title: currentVersion.title,
       previousVersion: currentVersion,
       snippet,
@@ -376,6 +376,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
     currentVersion.validThrough = new Date();
     await Promise.all([currentVersion.save(), newVersion.save()]);
     snippet.currentVersion = newVersion;
+    snippet.updatedOn = now;
     await snippet.save();
     await this.updateImportedResourcesOnList.perform();
   });
