@@ -43,16 +43,12 @@ export default class SnippetManagementIndexController extends Controller {
 
     await Promise.all(
       snippets.map(async (snippet) => {
-        const editorDocument = await snippet.currentVersion;
-        const publishedSnippetVersion =
-          await editorDocument.publishedSnippetVersion;
+        const currentVersion = await snippet.currentVersion;
 
-        if (publishedSnippetVersion) {
-          publishedSnippetVersion.validThrough = new Date();
-          await publishedSnippetVersion.save();
+        if (currentVersion) {
+          currentVersion.validThrough = new Date();
+          await currentVersion.save();
         }
-
-        await snippet.destroyRecord();
       }),
     );
 
