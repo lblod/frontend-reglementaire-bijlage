@@ -27,7 +27,7 @@ export default class SnippetListForm extends Component {
 
   snippetsRequest = trackedFunction(this, async () => {
     const snippets = await this.store.countAndFetchAll('snippet', {
-      include: ['current-version'],
+      include: ['current-version'].join(','),
       filter: {
         'snippet-list': {
           ':id:': this.snippetList.id,
@@ -35,8 +35,7 @@ export default class SnippetListForm extends Component {
       },
       sort: 'position,-created-on',
       fields: {
-        snippet: ['position', 'created-on'].join(','),
-        'snippet-version': ['title'].join(','),
+        'snippet-versions': ['title'].join(','),
       },
     });
     return snippets.slice();
