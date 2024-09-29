@@ -1,0 +1,13 @@
+diff --git a/node_modules/ember-source/dist/ember-template-compiler.js b/node_modules/ember-source/dist/ember-template-compiler.js
+index b0e0e31..98a2739 100644
+--- a/node_modules/ember-source/dist/ember-template-compiler.js
++++ b/node_modules/ember-source/dist/ember-template-compiler.js
+@@ -7079,7 +7079,7 @@ define("@glimmer/syntax", ["exports", "@glimmer/util", "simple-html-tokenizer",
+       if (true /* DEBUG */) {
+         if (expected !== undefined && chars !== expected) {
+           // eslint-disable-next-line no-console
+-          console.warn("unexpectedly found " + JSON.stringify(chars) + " when slicing source, but expected " + JSON.stringify(expected));
++          // console.warn("unexpectedly found " + JSON.stringify(chars) + " when slicing source, but expected " + JSON.stringify(expected));
+         }
+       }
+       return new SourceSlice({

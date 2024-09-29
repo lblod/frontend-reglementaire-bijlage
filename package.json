@@ -25,7 +25,8 @@
     "start": "ember serve",
     "test": "concurrently \"npm:lint\" \"npm:test:*\" --names \"lint,test:\"",
     "test:ember": "ember test",
-    "release": "release-it"
+    "release": "release-it",
+    "postinstall": "patch-package"
   },
   "devDependencies": {
     "@appuniversum/ember-appuniversum": "^3.4.2",
@@ -88,6 +89,7 @@
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-qunit": "^8.0.0",
     "loader.js": "^4.7.0",
+    "patch-package": "^8.0.0",
     "prettier": "^3.0.1",
     "qunit": "^2.19.4",
     "qunit-dom": "^2.0.0",
