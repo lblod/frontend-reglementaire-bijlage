@@ -135,32 +135,51 @@ static-page:
   cookie-policy: Cookieverklaring
   accesibility-statement: Toegankelijkheidsverklaring
 snippets:
-  manage-snippet-lists: Beheer fragmentenlijsten
-  make-new: Maak nieuwe fragmentenlijst aan
-  create-snippet-list: Fragmentenlijsten aanmaken
-  edit-snippet-list: Fragmentenlijst bewerken
-  new-snippet-list: Nieuwe Fragmentenlijst
-  edit-snippet: Fragment bewerken
-  snippet-label: Fragment label
-  snippet-label-explanation: Kies een label om naar de fragmentenlijst te verwijzen
-  add-new-snippet: Nieuw fragment toevoegen
-  saved: Opgeslagen
-  crud:
-    label-filter: Label
-    no-data: Geen fragmenten gevonden
-    confirm-deletion: Bevestig om fragmentenlijst <strong>{name}</strong> te verwijderen
-    confirm-deletion-snippet: Bevestig om fragment <strong>{name}</strong> te verwijderen
-    delete: Fragmentenlijst verwijderen
-    delete-snippet: Fragment verwijderen
-  template:
-    heading: Beschikbaar in
-    table-header: Sjabloon
-    no-data: Geen sjablonen gekoppeld aan deze lijst met fragmenten
-  attr:
-    label: Label
-    id: Id
-    snippet: Fragment
-    imported: Ingevoerde Middelen
+  manage-snippet-lists:
+    title: Beheer fragmentlijsten
+    make-new: Maak nieuwe fragmentlijst aan
+    table:
+      columns:
+        label: Label
+        id: Id
+        imported: Geïmporteerde resources
+      no-data: Geen fragmentlijsten gevonden
+    snippet-list-deletion:
+      confirm: Bevestig om fragmentlijst <strong>{name}</strong> te verwijderen
+      action:
+        short: Verwijderen
+        long: Fragmentlijst verwijderen
+    search:
+      placeholder: Label
+  new-snippet-list:
+    title: Nieuwe fragmentlijst
+  edit-snippet-list:
+    title: Fragmentlijst bewerken
+    form:
+      label:
+        label: Label fragmentlijst
+        description: Kies een label om naar de fragmentlijst te verwijzen
+    imported-resources:
+      heading: Geïmporteerde resources
+    table:
+      columns:
+        snippet: Fragment
+      no-data: Geen fragmenten gevonden
+    connected-templates:
+      heading: Beschikbaar in
+      table:
+        columns:
+          template: Sjabloon
+        no-data: Geen sjablonen gekoppeld aan deze fragmentlijst
+    snippet-deletion:
+      confirm: Bevestig om fragment <strong>{name}</strong> te verwijderen
+      action:
+        short: Verwijderen
+        long: Fragment verwijderen
+    snippet-creation:
+      action: Fragment toevoegen
+  edit-snippet:
+    title: Fragment bewerken
 
 snippet-edit:
   sidebar:

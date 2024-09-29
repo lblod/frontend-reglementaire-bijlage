@@ -2,7 +2,7 @@
   <AuDataTable
     @content={{this.model}}
     @fields="label importedResources"
-    @noDataMessage={{t "snippets.crud.no-data"}}
+    @noDataMessage={{t "snippets.manage-snippet-lists.table.no-data"}}
     @size={{this.size}}
     @page={{this.page}}
     @sort={{this.sort}} as |s|
@@ -12,14 +12,14 @@
         <AuToolbar class="au-o-box" as |Group|>
           <Group>
             <AuHeading @skin="2">
-              {{t "snippets.manage-snippet-lists"}}
+              {{t "snippets.manage-snippet-lists.title"}}
             </AuHeading>
           </Group>
           <Group class="au-c-toolbar__group--center">
             <div class="au-c-data-table__search">
               <SearchForm
                 @value={{this.searchQuery}}
-                @placeholder={{t "snippets.crud.label-filter"}}
+                @placeholder={{t "snippets.manage-snippet-lists.search.placeholder"}}
                 @onInput={{this.updateSearchQuery}}
                 @onSearch={{this.search}}
               />
@@ -28,7 +28,7 @@
               @skin="button"
               @route="snippet-management.new"
             >
-              {{t "snippets.make-new"}}
+              {{t "snippets.manage-snippet-lists.make-new"}}
             </AuLink>
           </Group>
         </AuToolbar>
@@ -39,10 +39,10 @@
         <AuDataTableThSortable
           @field=":no-case:label"
           @currentSorting={{this.sort}}
-          @label={{t "snippets.attr.label"}}
+          @label={{t "snippets.manage-snippet-lists.table.columns.label"}}
         />
-        <th>{{t "snippets.attr.id"}}</th>
-        <th>{{t "snippets.attr.imported"}}</th>
+        <th>{{t "snippets.manage-snippet-lists.table.columns.id"}}</th>
+        <th>{{t "snippets.manage-snippet-lists.table.columns.imported"}}</th>
         <th></th>
       </c.header>
       <c.body as |snippet|>
@@ -82,7 +82,11 @@
 >
   <Modal.Body>
     <p>
-      {{t 'snippets.crud.confirm-deletion' name=this.deletingSnippetList.label htmlSafe=true}}
+      {{t
+        'snippets.manage-snippet-lists.snippet-list-deletion.confirm'
+        name=this.deletingSnippetList.label
+        htmlSafe=true
+      }}
     </p>
   </Modal.Body>
 <Modal.Footer>
@@ -92,7 +96,7 @@
     @loadingText={{t 'utility.deleting'}}
     {{on 'click' (perform this.removeSnippetList)}}
   >
-    {{t 'snippets.crud.delete'}}
+    {{t 'snippets.manage-snippet-lists.snippet-list-deletion.action.long'}}
   </AuButton>
   <AuButton @skin='secondary' {{on 'click' this.closeRemoveModal}}>
     {{t 'utility.cancel'}}
