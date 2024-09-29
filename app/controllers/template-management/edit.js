@@ -3,7 +3,7 @@ import { action } from '@ember/object';
 import { task } from 'ember-concurrency';
 import { service } from '@ember/service';
 import { tracked } from 'tracked-built-ins';
-import { trackedFunction } from 'ember-resources/util/function';
+import { trackedFunction } from 'reactiveweb/function';
 import { Schema } from '@lblod/ember-rdfa-editor';
 import { v4 as uuid } from 'uuid';
 import {
