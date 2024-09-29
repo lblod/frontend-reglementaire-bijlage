@@ -47,39 +47,51 @@
       </tr>
     </thead>
     <tbody {{sortable-group onChange=this.reorderSnippets}}>
-      {{#each this.snippets as |snippet|}}
-        <tr {{sortable-item distance=0 model=snippet}}>
-          <td class="drag-icon-cell" tabindex="-1" {{sortable-handle}}>
-            <AuIcon @icon="drag" size="large" class="au-c-button--drag" />
-          </td>
-          <td>
-            <AuLink
-              @skin="primary"
-              @route="snippet-management.edit.edit-snippet"
-              @models={{array @snippetList.id snippet.id}}
-            >
-              {{snippet.currentVersion.title}}
-            </AuLink>
-          </td>
-          <td>
-            {{detailed-date snippet.createdOn}}
-          </td>
-          <td>
-            {{detailed-date snippet.updatedOn}}
-          </td>
-          <td>
+      {{#if this.snippetsRequest.isLoading}}
+        <tr><td colspan="100%">{{t "utility.loading"}}</td></tr>
+      {{else if this.snippetsRequest.isError}}
+        <tr><td colspan="100%">{{t 'snippets.edit-snippet-list.table.loading-error'}}
             <AuButton
-              @skin="naked"
-              @icon="trash"
-              @alert={{true}}
-              @disabled={{this.invalidLabel}}
-              {{on "click" (fn this.openRemoveModal snippet)}}
-            >
-              {{t "utility.delete"}}
-            </AuButton>
-          </td>
-        </tr>
-      {{/each}}
+              @skin="link"
+              {{on "click" this.snippetsRequest.retry}}
+            >{{t 'utility.retry'}}</AuButton></td></tr>
+      {{else}}
+        {{#each this.snippets as |snippet|}}
+          <tr {{sortable-item distance=0 model=snippet}}>
+            <td class="drag-icon-cell" tabindex="-1" {{sortable-handle}}>
+              <AuIcon @icon="drag" size="large" class="au-c-button--drag" />
+            </td>
+            <td>
+              <AuLink
+                @skin="primary"
+                @route="snippet-management.edit.edit-snippet"
+                @models={{array @snippetList.id snippet.id}}
+              >
+                {{snippet.currentVersion.title}}
+              </AuLink>
+            </td>
+            <td>
+              {{detailed-date snippet.createdOn}}
+            </td>
+            <td>
+              {{detailed-date snippet.updatedOn}}
+            </td>
+            <td>
+              <AuButton
+                @skin="naked"
+                @icon="trash"
+                @alert={{true}}
+                @disabled={{this.invalidLabel}}
+                {{on "click" (fn this.openRemoveModal snippet)}}
+              >
+                {{t "utility.delete"}}
+              </AuButton>
+            </td>
+          </tr>
+        {{else}}
+          <tr><td colspan="100%">{{t "snippets.edit-snippet-list.table.no-data"}}</td></tr>
+        {{/each}}
+      {{/if}}
     </tbody>
   </table>
 </div>
