@@ -60,6 +60,7 @@ utility:
   field-required: Dit veld is verplicht
   type-something-placeholder: Typ iets...
   insert: Invoegen
+  saved: Opgeslagen
   loading: Aan het laden...
   retry: Probeer opnieuw
 landing-page:
