@@ -29,14 +29,6 @@ export default class AppChromeComponent extends Component {
     this.args.templateTypeId &&
     getTemplateType(this.args.templateTypeId, this.intl)?.label;
 
-  get showFileDropdown() {
-    return (
-      this.args.copyAgendapunt ||
-      this.args.exportHtmlFunction ||
-      this.args.sendToTrash
-    );
-  }
-
   updateDocumentTitle = task(async (title) => {
     this.editorDocument.title = title;
     await this.editorDocument.save();

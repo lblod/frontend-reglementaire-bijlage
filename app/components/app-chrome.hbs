@@ -42,30 +42,6 @@
         {{/if}}
       </Group>
       <Group>
-        {{#if this.showFileDropDown}}
-          <AuDropdown @title="Bestand acties" @buttonLabel="Bestand opties" @alignment="right">
-            {{#if @copyAgendapunt}}
-            {{!-- template-lint-disable require-context-role --}}
-            <AuButton {{on "click" @copyAgendapunt}} @skin="link" role="menuitem">
-              <AuIcon @icon="copy" @alignment="left" />
-              {{t "appChrome.copyAgendapoint"}}
-            </AuButton>
-            {{/if}}
-            {{#if @exportHtmlFunction}}
-            <AuButton {{on "click" @exportHtmlFunction}} @skin="link" role="menuitem">
-              <AuIcon @icon="export" @alignment="left" />
-              {{t "utility.export-to-html"}}
-            </AuButton>
-            {{/if}}
-            {{#if @sendToTrash}}
-            <AuButton {{on "click" @sendToTrash}} @skin="link" @alert="true" role="menuitem"
-              @disabled={{this.isNotAllowedToTrash}}>
-              <AuIcon @icon="bin" @alignment="left" />
-              {{t "utility.to-recycle-bin"}}
-            </AuButton>
-            {{/if}}
-          </AuDropdown>
-        {{/if}}
         {{#if @isPublished}}
         <AuPill @skin="success" @icon="eye">
           {{t "utility.available"}}
