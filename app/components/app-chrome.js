@@ -5,6 +5,23 @@ import { getTemplateType } from '../utils/template-type';
 import EditorDocumentModel from '../models/editor-document';
 import SnippetVersionModel from '../models/snippet-version';
 
+/**
+ * @typedef PublishSaveAction
+ * @property {async () => void} action
+ * @property {boolean} isRunning
+ */
+/**
+ * @typedef AppChromeComponentSignature
+ * @property {EditorDocumentModel | SnippetVersionModel} document
+ * @property {async () => void} onUpdateDocumentTitle
+ * @property {boolean|undefined} readonly
+ * @property {string|undefined} templateTypeId
+ * @property {boolean|undefined} dirty
+ * @property {boolean|undefined} isPublished
+ * @property {PublishSaveAction|undefined} save
+ * @property {PublishSaveAction|undefined} publish
+ */
+/** @extends {Component<AppChromeComponentSignature>} */
 export default class AppChromeComponent extends Component {
   @service currentSession;
   @service features;
