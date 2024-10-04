@@ -7,7 +7,7 @@
       </Group>
       <Group>
         <ul class="au-c-list-horizontal au-u-padding-right-tiny">
-          {{#unless @editorDocument.isNew}}
+          {{#unless @document.isNew}}
           {{#if (and this.updatedOn (not @dirty))}}
           <li class="au-c-list-horizontal__item">
             <span class="au-c-app-chrome__status">
@@ -28,13 +28,13 @@
     </AuToolbar>
     <AuToolbar @size="small" class="au-u-padding-top-none" as |Group|>
       <Group>
-        {{#if @editorDocument.isNew}}
+        {{#if @document.isNew}}
         <AuPill @skin="warning">
           <AuIcon @icon="alert-triangle" @alignment="left" />
           {{t "utility.unsaved-concept"}}
         </AuPill>
         {{/if}}
-        <EditorDocumentTitle @title={{@editorDocument.title}} @editActive={{@editorDocument.isNew}}
+        <EditorDocumentTitle @title={{@document.title}} @editActive={{@document.isNew}}
           @onSubmit={{perform this.updateDocumentTitle}} @onCancel={{perform this.resetDocument}}
           @readOnly={{@readOnly}} />
         {{#if this.templateTypeLabel}}

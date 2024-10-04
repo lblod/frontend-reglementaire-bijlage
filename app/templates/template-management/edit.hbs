@@ -10,7 +10,7 @@
 </BreadcrumbsItem>
 {{#if this.editorDocument}}
   <AppChrome
-    @editorDocument={{this.editorDocument}}
+    @document={{this.editorDocument}}
     @templateTypeId={{this.model.templateTypeId}}
     @save={{hash action=(perform this.save) isRunning=this.save.isRunning}}
     @dirty={{this.dirty}}

@@ -28,15 +28,15 @@ export default class AppChromeComponent extends Component {
   @service intl;
   @service router;
 
-  get editorDocument() {
-    return this.args.editorDocument;
+  get document() {
+    return this.args.document;
   }
 
   get updatedOn() {
-    if (this.editorDocument instanceof EditorDocumentModel) {
-      return this.editorDocument.updatedOn;
-    } else if (this.editorDocument instanceof SnippetVersionModel) {
-      return this.editorDocument.createdOn;
+    if (this.document instanceof EditorDocumentModel) {
+      return this.document.updatedOn;
+    } else if (this.document instanceof SnippetVersionModel) {
+      return this.document.createdOn;
     } else {
       return null;
     }
@@ -47,8 +47,8 @@ export default class AppChromeComponent extends Component {
     getTemplateType(this.args.templateTypeId, this.intl)?.label;
 
   updateDocumentTitle = task(async (title) => {
-    this.editorDocument.title = title;
-    await this.editorDocument.save();
+    this.document.title = title;
+    await this.document.save();
 
     if (this.args.onUpdateDocumentTitle) {
       await this.args.onUpdateDocumentTitle();
@@ -56,6 +56,6 @@ export default class AppChromeComponent extends Component {
   });
 
   resetDocument = task(async () => {
-    this.editorDocument.rollbackAttributes();
+    this.document.rollbackAttributes();
   });
 }
