@@ -15,15 +15,6 @@ export default class AppChromeComponent extends Component {
     return this.args.editorDocument;
   }
 
-  get documentContainer() {
-    return this.args.documentContainer;
-  }
-
-  get documentStatus() {
-    const status = this.documentContainer?.get('status');
-    return status;
-  }
-
   get updatedOn() {
     if (this.editorDocument instanceof EditorDocumentModel) {
       return this.editorDocument.updatedOn;
