@@ -386,6 +386,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
       'snippet-list',
       this.model.snippetList.id,
       {
+        reload: true,
         include: 'snippets,snippets.current-version',
       },
     );

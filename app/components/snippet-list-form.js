@@ -131,7 +131,15 @@ export default class SnippetListForm extends Component {
   });
 
   updateImportedResourcesOnList = task(async () => {
-    return saveCollatedImportedResources(await this.snippetList);
+    const list = await this.store.findRecord(
+      'snippet-list',
+      this.snippetList.id,
+      {
+        reload: true,
+        include: 'snippets,snippets.current-version',
+      },
+    );
+    return saveCollatedImportedResources(list);
   });
 
   removeSnippet = task(async () => {
