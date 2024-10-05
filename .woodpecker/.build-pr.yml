@@ -1,9 +1,9 @@
-pipeline:
-  build-pr:
-    image: plugins/docker
-    settings:
-      repo: "${CI_REPO_OWNER}/${CI_REPO_NAME}"
-      dry_run: true
 when:
-  event:
-    - pull_request
+  - event: pull_request
+
+steps:
+  build-pr:
+    image: woodpeckerci/plugin-docker-buildx
+    settings:
+      repo: ${CI_REPO}
+      dry-run: true
