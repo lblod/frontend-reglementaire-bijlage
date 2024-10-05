@@ -1,10 +1,10 @@
 <div class="au-u-margin-bottom">
   <AuFormRow>
     <AuLabel for="label">
-      {{t "snippets.snippet-label"}}
+      {{t "snippets.edit-snippet-list.form.label.label"}}
     </AuLabel>
     <p class="under-label-text">
-      {{t "snippets.snippet-label-explanation"}}
+      {{t "snippets.edit-snippet-list.form.label.description"}}
     </p>
     <div class="au-u-flex au-u-flex--vertical-center">
       <AuInput
@@ -20,7 +20,7 @@
             @skin="success"
             @icon="check"
           >
-            {{t "snippets.saved"}}
+            {{t "utility.saved"}}
           </AuPill>
         </div>
       {{/if}}
@@ -28,7 +28,7 @@
   </AuFormRow>
   <AuFormRow>
     <AuLabel for="imported-resources">
-      {{t "snippets.attr.imported"}}
+      {{t "snippets.edit-snippet-list.imported-resources.heading"}}
     </AuLabel>
     <AuTextarea
       id="imported-resources"
@@ -41,12 +41,12 @@
 <div class="snippets-table">
   <AuDataTable
     @content={{@model.snippets}}
-    @noDataMessage={{t "snippets.crud.no-data"}}
+    @noDataMessage={{t "snippets.edit-snippet-list.table.no-data"}}
     as |s|
   >
     <s.content as |c|>
       <c.header>
-        <th>{{t "snippets.attr.snippet"}}</th>
+        <th>{{t "snippets.edit-snippet-list.table.columns.snippet"}}</th>
         <th></th>
       </c.header>
       <c.body as |snippet|>
@@ -83,21 +83,21 @@
     {{on "click" (perform this.createSnippet)}}
     @loading={{this.createSnippet.isRunning}}
   >
-    {{t "snippets.add-new-snippet"}}
+    {{t "snippets.edit-snippet-list.snippet-creation.action"}}
   </AuButton>
 </div>
 <div class="snippet-list-template-table au-u-margin-top-huge">
   <AuHeading @skin="4" class="au-u-margin-bottom">
-    {{t "snippets.template.heading"}}
+    {{t 'snippets.edit-snippet-list.connected-templates.heading'}}
   </AuHeading>
   <AuDataTable
     @content={{@model.templates}}
-    @noDataMessage={{t "snippets.template.no-data"}}
+    @noDataMessage={{t 'snippets.edit-snippet-list.connected-templates.table.no-data'}}
     as |s|
   >
     <s.content as |c|>
       <c.header>
-        <th>{{t "snippets.template.table-header"}}</th>
+        <th>{{t 'snippets.edit-snippet-list.connected-templates.table.columns.template'}}</th>
       </c.header>
       <c.body as |template|>
         <td>
@@ -120,7 +120,11 @@
 >
   <Modal.Body>
     <p>
-      {{t 'snippets.crud.confirm-deletion-snippet' name=this.deletingSnippet.label htmlSafe=true}}
+      {{t
+        'snippets.edit-snippet-list.snippet-deletion.confirm'
+        name=this.deletingSnippet.label
+        htmlSafe=true
+      }}
     </p>
   </Modal.Body>
 <Modal.Footer>
@@ -130,7 +134,7 @@
     @loadingText={{t 'utility.deleting'}}
     {{on 'click' (perform this.removeSnippet)}}
   >
-    {{t 'snippets.crud.delete-snippet'}}
+    {{t 'snippets.edit-snippet-list.snippet-deletion.action.long'}}
   </AuButton>
   <AuButton @skin='secondary' {{on 'click' this.closeRemoveModal}}>
     {{t 'utility.cancel'}}
