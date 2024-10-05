@@ -1,5 +1,12 @@
 # frontend-reglementaire-bijlage
 
+## 9.6.1
+
+### Patch Changes
+
+- [#285](https://github.com/lblod/frontend-reglementaire-bijlage/pull/285) [`ab4e5c9`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/ab4e5c9c70904b3819b50fb68d7a1c129d6a4488) Thanks [@elpoelma](https://github.com/elpoelma)! - Modernize woodpecker syntax
+  Move to `woodpeckerci/plugin-docker-buildx` plugin for docker builds
+
 ## 9.6.0
 
 ### Minor Changes
