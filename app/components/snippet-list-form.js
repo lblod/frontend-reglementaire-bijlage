@@ -5,7 +5,7 @@ import { restartableTask, task, timeout } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
 import { isBlank } from '../utils/strings';
 import { saveCollatedImportedResources } from '../utils/imported-resources';
-import { trackedFunction } from 'ember-resources/util/function';
+import { trackedFunction } from 'reactiveweb/function';
 import { localCopy } from 'tracked-toolbox';
 
 const SHOW_SAVED_PILL = 'showSavedPill';
