@@ -4,8 +4,12 @@ export default class SnippetList extends Model {
   @attr label;
   @attr('datetime') createdOn;
   @attr importedResources;
-  @hasMany('document-container', { async: true, inverse: null }) snippets;
-  @hasMany('document-container', { async: true, inverse: 'snippetLists' })
+
+  @hasMany('snippet', { async: true, inverse: 'snippetList' }) snippets;
+  @hasMany('document-container', {
+    async: true,
+    inverse: 'snippetLists',
+  })
   templates;
   @belongsTo('administrative-unit', { async: true, inverse: null }) publisher;
 }

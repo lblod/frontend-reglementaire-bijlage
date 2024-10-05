@@ -60,6 +60,9 @@ utility:
   field-required: Dit veld is verplicht
   type-something-placeholder: Typ iets...
   insert: Invoegen
+  saved: Opgeslagen
+  loading: Aan het laden...
+  retry: Probeer opnieuw
 landing-page:
   templates:
     title: Sjabloonbeheer
@@ -165,6 +168,7 @@ snippets:
       columns:
         snippet: Fragment
       no-data: Geen fragmenten gevonden
+      loading-error: Er is een fout opgetreden tijdens het laden van fragmenten
     connected-templates:
       heading: Beschikbaar in
       table:

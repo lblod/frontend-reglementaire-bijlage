@@ -3,11 +3,9 @@
   {{t "snippets.edit-snippet.title"}}
 </BreadcrumbsItem>
 <AppChrome
-  @editorDocument={{this.editorDocument}}
-  @documentContainer={{this.model.documentContainer}}
+  @document={{this.editorDocument}}
   @save={{hash action=(perform this.save) isRunning=this.save.isRunning}}
   @dirty={{this.dirty}}
-  @onUpdateDocumentTitle={{perform this.publishSnippet}}
 />
 
 {{#if this.editorDocument}}
