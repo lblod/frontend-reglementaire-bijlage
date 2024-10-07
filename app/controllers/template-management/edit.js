@@ -3,7 +3,7 @@ import { action } from '@ember/object';
 import { task } from 'ember-concurrency';
 import { service } from '@ember/service';
 import { tracked } from 'tracked-built-ins';
-import { trackedFunction } from 'ember-resources/util/function';
+import { trackedFunction } from 'reactiveweb/function';
 import { Schema } from '@lblod/ember-rdfa-editor';
 import { v4 as uuid } from 'uuid';
 import {
@@ -88,6 +88,7 @@ import NumberInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/compon
 import DateInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/date/insert-variable';
 import CodelistInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/codelist/insert';
 import VariablePluginAddressInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/address/insert-variable';
+import SnippetInsertRdfaComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/snippet-plugin/snippet-insert-rdfa';
 import AutofilledInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/autofilled/insert';
 import { DECISION_STANDARD_FOLDER } from '../../utils/constants';
 import {
@@ -102,6 +103,10 @@ import {
   snippetPlaceholder,
   snippetPlaceholderView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/snippet-plugin/nodes/snippet-placeholder';
+import {
+  snippet,
+  snippetView,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/snippet-plugin/nodes/snippet';
 import {
   structure,
   structureView,
@@ -136,6 +141,7 @@ export default class TemplateManagementEditController extends Controller {
   RdfaEditor = RdfaEditor;
   DebugInfo = DebugInfo;
   SnippetListSelect = SnippetListSelectRdfaComponent;
+  SnippetInsert = SnippetInsertRdfaComponent;
   StructureInsert = StructureInsert;
   StructureControl = StructureControl;
   schema = new Schema({
@@ -198,6 +204,7 @@ export default class TemplateManagementEditController extends Controller {
       invisible_rdfa: invisibleRdfaWithConfig({ rdfaAware: true }),
       link: link(this.config.link),
       snippet_placeholder: snippetPlaceholder,
+      snippet: snippet(this.config.snippet),
     },
     marks: {
       em,
@@ -355,6 +362,7 @@ export default class TemplateManagementEditController extends Controller {
         snippet_placeholder: snippetPlaceholderView(controller),
         mandatee_table: mandateeTableView(controller),
         structure: structureView(controller),
+        snippet: snippetView(this.config.snippet)(controller),
         autofilled_variable: autofilledVariableView(controller)
       };
     };
@@ -389,7 +397,7 @@ export default class TemplateManagementEditController extends Controller {
   handleRdfaEditorInit(editor) {
     this.editor = editor;
     if (this.editorDocument.content) {
-      editor.initialize(this.editorDocument.content);
+      editor.initialize(this.editorDocument.content, { doNotClean: true });
       this.assignedSnippetListsIds = this.documentSnippetListIds;
     } else if (this.model?.templateTypeId === DECISION_STANDARD_FOLDER) {
       // This is a decision with no content, so we need to insert a decision (besluit) node so that

@@ -1,21 +1,20 @@
-{{page-title (t "reglement-edit.edit")}}
+{{page-title (t "snippets.edit-snippet.title")}}
 <BreadcrumbsItem>
-  {{t "snippets.edit-snippet"}}
+  {{t "snippets.edit-snippet.title"}}
 </BreadcrumbsItem>
 <AppChrome
-  @editorDocument={{this.editorDocument}}
-  @documentContainer={{this.model.documentContainer}}
+  @document={{this.editorDocument}}
   @save={{hash action=(perform this.save) isRunning=this.save.isRunning}}
   @dirty={{this.dirty}}
-  @onUpdateDocumentTitle={{perform this.publishSnippet}}
 />
+
 {{#if this.editorDocument}}
   <RdfaEditorContainer
     @rdfaEditorInit={{this.handleRdfaEditorInit}}
     @editorDocument={{this.editorDocument}}
     @showToggleRdfaAnnotations={{true}}
     @busy={{or this.save.isRunning}}
-    @busyText={{t "reglement-edit.saving"}}
+    @busyText={{t "template-edit.saving"}}
     @schema={{this.schema}}
     @nodeViews={{this.nodeViews}}
     @plugins={{this.plugins}}
@@ -86,14 +85,9 @@
       {{#if this.editor}}
         <Sidebar as |Sidebar|>
           <Sidebar.Collapsible
-            @title={{t "utility.insert"}}
-            @expandedInitially={{true}}
+            @title={{t 'snippet-edit.sidebar.general-nodes'}}
+            @expandedInitially={{false}}
           >
-            <DocumentTitlePlugin::InsertTitleCard @controller={{this.editor}} />
-            <ArticleStructurePlugin::ArticleStructureCard
-              @controller={{this.editor}}
-              @options={{this.config.structures}}
-            />
             <VariablePlugin::Date::Insert
               @controller={{this.editor}}
               @options={{this.config.date}}
@@ -103,19 +97,56 @@
               @plugin={{this.citationPlugin}}
               @config={{this.config.citation}}
             />
-
             <LocationPlugin::Insert
               @controller={{this.editor}}
               @config={{this.config.location}}
             />
+            <SnippetPlugin::SnippetInsertPlaceholder
+              @controller={{this.editor}}
+              @config={{this.config.snippet}}
+            />
             <TemplateCommentsPlugin::Insert @controller={{this.editor}} />
             <VariablePlugin::Address::Insert @controller={{this.editor}} />
+            {{#if this.activeNode}}
+              <this.SnippetInsert
+                @controller={{this.editor}}
+                @config={{this.config.snippet}}
+                @node={{this.activeNode}}
+              />
+            {{/if}}
           </Sidebar.Collapsible>
-
+          <Sidebar.Collapsible
+            @title={{t 'snippet-edit.sidebar.decision-nodes'}}
+            @expandedInitially={{false}}
+          >
+            <this.InsertArticle
+              @controller={{this.editor}}
+              @options={{hash insertFreely=true}}
+            />
+            <MandateeTablePlugin::Insert
+              @controller={{this.editor}}
+              @defaultTag={{this.config.mandateeTable.defaultTag}}
+            />
+          </Sidebar.Collapsible>
+          <Sidebar.Collapsible
+            @title={{t 'snippet-edit.sidebar.regulatory-statement-nodes'}}
+            @expandedInitially={{false}}>
+            <DocumentTitlePlugin::InsertTitleCard @controller={{this.editor}} />
+            <ArticleStructurePlugin::ArticleStructureCard
+              @controller={{this.editor}}
+              @options={{this.config.structures}}
+            />
+          </Sidebar.Collapsible>
+          <this.StructureControlCard @controller={{this.editor}} />
+          <MandateeTablePlugin::Configure
+            @controller={{this.editor}}
+            @supportedTags={{this.config.mandateeTable.tags}}
+          />
           {{#if this.activeNode}}
             <this.RdfaEditor
               @node={{this.activeNode}}
               @controller={{this.editor}}
+              @additionalImportedResources={{this.model.snippetList.importedResources}}
             />
             <this.AttributeEditor
               @node={{this.activeNode}}
@@ -140,10 +171,6 @@
           <VariablePlugin::Date::Edit
             @controller={{this.editor}}
             @options={{this.config.date}}
-          />
-          <VariablePlugin::Person::Edit
-            @controller={{this.editor}}
-            @config={{this.config.lmb}}
           />
           <TemplateCommentsPlugin::EditCard @controller={{this.editor}} />
         </Sidebar>

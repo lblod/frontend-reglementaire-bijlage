@@ -1,31 +1,38 @@
 import Controller from '@ember/controller';
-import { restartableTask, timeout } from 'ember-concurrency';
 import { service } from '@ember/service';
 import { task } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
+import { localCopy } from 'tracked-toolbox';
 
 export default class SnippetManagementIndexController extends Controller {
   @service store;
   @service router;
   @service currentSession;
-  queryParams = ['page', 'size', 'label', 'sort'];
 
+  queryParams = ['page', 'size', 'label', 'sort'];
   @tracked page = 0;
   @tracked size = 20;
   @tracked label = '';
   @tracked sort = '-created-on';
+
+  @localCopy('label', '') searchQuery;
+
   @tracked isRemoveModalOpen = false;
   @tracked deletingSnippetList;
 
-  updateSearchFilterTask = restartableTask(
-    async (queryParamProperty, event) => {
-      await timeout(300);
+  @action
+  updateSearchQuery(event) {
+    event.preventDefault();
+    this.searchQuery = event.target.value;
+  }
 
-      this[queryParamProperty] = event.target.value.trim();
-      this.resetPagination();
-    },
-  );
+  @action
+  search(event) {
+    event.preventDefault();
+    this.label = this.searchQuery;
+    this.resetPagination();
+  }
 
   resetPagination() {
     this.page = 0;
@@ -36,16 +43,12 @@ export default class SnippetManagementIndexController extends Controller {
 
     await Promise.all(
       snippets.map(async (snippet) => {
-        const editorDocument = await snippet.currentVersion;
-        const publishedSnippetVersion =
-          await editorDocument.publishedSnippetVersion;
+        const currentVersion = await snippet.currentVersion;
 
-        if (publishedSnippetVersion) {
-          publishedSnippetVersion.validThrough = new Date();
-          await publishedSnippetVersion.save();
+        if (currentVersion) {
+          currentVersion.validThrough = new Date();
+          await currentVersion.save();
         }
-
-        await snippet.destroyRecord();
       }),
     );
 

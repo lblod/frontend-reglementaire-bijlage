@@ -60,6 +60,9 @@ utility:
   field-required: This field is required
   type-something-placeholder: Type something...
   insert: Insert
+  saved: Saved
+  loading: Loading...
+  retry: Retry
 landing-page:
   templates:
     title: Template management
@@ -135,31 +138,58 @@ static-page:
   cookie-policy: Cookie Policy
   accesibility-statement: Accessibility Statement
 snippets:
-  manage-snippet-lists: Manage snippet lists
-  make-new: Create new snippet list
-  create-snippet-list: Create snippet list
-  edit-snippet-list: Edit snippet list
-  new-snippet-list: New snippet list
-  edit-snippet: Edit snippet
-  snippet-label: Snippet label
-  snippet-label-explanation: Choose a label to refer to the snippet list
-  add-new-snippet: Add new snippet
-  saved: Saved
-  crud:
-    label-filter: Label
-    no-data: No snippet lists were found
-    confirm-deletion: Confirm to delete snippet list <strong>{name}</strong>
-    confirm-deletion-snippet: Confirm to delete snippet <strong>{name}</strong>
-    delete: Delete snippet list
-    delete-snippet: Delete snippet
-  template:
-    heading: Available in
-    table-header: Template
-    no-data: No templates connected to this snippet list
-  attr:
-    label: Label
-    id: Id
-    snippet: Snippet
+  manage-snippet-lists:
+    title: Manage snippet lists
+    make-new: Create new snippet list
+    table:
+      columns:
+        label: Label
+        id: Id
+        imported: Imported resources
+      no-data: No snippet lists were found
+    snippet-list-deletion:
+      confirm: Confirm to delete snippet list <strong>{name}</strong>
+      action:
+        short: Delete
+        long: Delete snippet list
+    search:
+      placeholder: Label
+  new-snippet-list:
+    title: New snippet list
+  edit-snippet-list:
+    title: Edit snippet list
+    form:
+      label:
+        label: Snippet list label
+        description: Choose a label to refer to the snippet list
+    imported-resources:
+      heading: Imported resources
+    table:
+      columns:
+        snippet: Snippet
+      no-data: No snippets were found
+      loading-error: An error occurred while trying to load snippets
+    connected-templates:
+      heading: Available in
+      table:
+        columns:
+          template: Template
+        no-data: No templates connected to this snippet list
+    snippet-deletion:
+      confirm: Confirm to delete snippet <strong>{name}</strong>
+      action:
+        short: Delete
+        long: Delete snippet
+    snippet-creation:
+      action: Add new snippet
+  edit-snippet:
+    title: Edit snippet
+
+snippet-edit:
+  sidebar:
+    general-nodes: General nodes
+    decision-nodes: Decision nodes
+    regulatory-statement-nodes: Regulatory statement nodes
 
 editor-document-title:
   placeholder: Untitled document
@@ -173,3 +203,6 @@ editor:
     date: date
     codelist: codelist
     person: person
+
+search-form:
+  aria-label: Search

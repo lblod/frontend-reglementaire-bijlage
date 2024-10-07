@@ -8,9 +8,9 @@ export default class SnippetManagementEditSnippetRoute extends Route {
 
   async model(params) {
     return hash({
-      documentContainer: (
-        await this.store.query('document-container', {
-          'filter[id]': params.snippet_id,
+      snippet: (
+        await this.store.query('snippet', {
+          'filter[:id:]': params.snippet_id,
           include: 'current-version',
         })
       )[0],

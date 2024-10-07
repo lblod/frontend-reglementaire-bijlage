@@ -10,8 +10,7 @@
 </BreadcrumbsItem>
 {{#if this.editorDocument}}
   <AppChrome
-    @editorDocument={{this.editorDocument}}
-    @documentContainer={{this.model.documentContainer}}
+    @document={{this.editorDocument}}
     @templateTypeId={{this.model.templateTypeId}}
     @save={{hash action=(perform this.save) isRunning=this.save.isRunning}}
     @dirty={{this.dirty}}
@@ -118,31 +117,15 @@
     <:aside>
       {{#if this.editor}}
         <Sidebar as |Sidebar|>
+
           <Sidebar.Collapsible
-            @title={{t "utility.insert"}}
-            @expandedInitially={{true}}
+            @title={{t 'snippet-edit.sidebar.general-nodes'}}
+            @expandedInitially={{false}}
           >
-            <this.StructureInsert @controller={{this.editor}} />
-            {{#if (eq this.internalTypeName "decision")}}
-              <RoadsignRegulationPlugin::RoadsignRegulationCard
-                @controller={{this.editor}}
-                @options={{this.config.roadsignRegulation}}
-              />
-            {{/if}}
-            {{#unless (eq this.internalTypeName "decision")}}
-              <DocumentTitlePlugin::InsertTitleCard
-                @controller={{this.editor}}
-              />
-            {{/unless}}
-            <ArticleStructurePlugin::ArticleStructureCard
-              @controller={{this.editor}}
-              @options={{this.config.structures}}
-            />
             <VariablePlugin::Date::Insert
               @controller={{this.editor}}
               @options={{this.config.date}}
             />
-
             <LocationPlugin::Insert
               @controller={{this.editor}}
               @config={{this.config.location}}
@@ -152,27 +135,56 @@
               @plugin={{this.citationPlugin}}
               @config={{this.config.citation}}
             />
-            <SnippetPlugin::SnippetInsertPlaceholder
-              @controller={{this.editor}}
-              @config={{this.config.snippet}}
-            />
             {{#if this.supportsComments}}
               <TemplateCommentsPlugin::Insert @controller={{this.editor}} />
             {{/if}}
             <VariablePlugin::Address::Insert @controller={{this.editor}} />
 
-            {{#if (eq this.internalTypeName "decision")}}
-              <MandateeTablePlugin::Insert
+
+            <SnippetPlugin::SnippetInsertPlaceholder
+              @controller={{this.editor}}
+              @config={{this.config.snippet}}
+            />
+            {{#if this.activeNode}}
+              <this.SnippetInsert
                 @controller={{this.editor}}
-                @defaultTag={{this.config.mandateeTable.defaultTag}}
+                @config={{this.config.snippet}}
+                @node={{this.activeNode}}
               />
             {{/if}}
           </Sidebar.Collapsible>
           {{#if (eq this.internalTypeName "decision")}}
-            <DecisionPlugin::DecisionPluginCard @controller={{this.editor}} />
-            <this.StructureControl @controller={{this.editor}} />
+            <Sidebar.Collapsible
+              @title={{t 'snippet-edit.sidebar.decision-nodes'}}
+              @expandedInitially={{false}}
+            >
+              <this.StructureInsert @controller={{this.editor}} />
+              <MandateeTablePlugin::Insert
+                @controller={{this.editor}}
+                @defaultTag={{this.config.mandateeTable.defaultTag}}
+              />
+              <RoadsignRegulationPlugin::RoadsignRegulationCard
+                @controller={{this.editor}}
+                @options={{this.config.roadsignRegulation}}
+              />
+              <DecisionPlugin::DecisionPluginCard @controller={{this.editor}} />
 
+            </Sidebar.Collapsible>
           {{/if}}
+
+          {{#unless (eq this.internalTypeName "decision")}}
+            <Sidebar.Collapsible
+              @title={{t 'snippet-edit.sidebar.regulatory-statement-nodes'}}
+              @expandedInitially={{false}}>
+                <DocumentTitlePlugin::InsertTitleCard
+                  @controller={{this.editor}}
+                />
+                <ArticleStructurePlugin::ArticleStructureCard
+                  @controller={{this.editor}}
+                  @options={{this.config.structures}}
+                />
+            </Sidebar.Collapsible>
+          {{/unless}}
           <Plugins::Link::LinkEditor @controller={{this.editor}} />
           <this.RdfaEditor
             @node={{this.activeNode}}
@@ -185,6 +197,7 @@
             />
             <this.DebugInfo @node={{this.activeNode}} />
           {{/if}}
+          <this.StructureControl @controller={{this.editor}} />
           <MandateeTablePlugin::Configure
             @controller={{this.editor}}
             @supportedTags={{this.config.mandateeTable.tags}}
@@ -206,10 +219,6 @@
           <VariablePlugin::Date::Edit
             @controller={{this.editor}}
             @options={{this.config.date}}
-          />
-          <VariablePlugin::Person::Edit
-            @controller={{this.editor}}
-            @config={{this.config.lmb}}
           />
           <TemplateCommentsPlugin::EditCard @controller={{this.editor}} />
           {{! VariablePlugin::TemplateVariableCard is not added on purpose
