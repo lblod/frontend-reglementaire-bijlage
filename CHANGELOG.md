@@ -1,5 +1,11 @@
 # frontend-reglementaire-bijlage
 
+## 9.7.0
+
+### Minor Changes
+
+- [#271](https://github.com/lblod/frontend-reglementaire-bijlage/pull/271) [`7bdeffc`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/7bdeffcb851e69a9b64c1b6d585d13baa23b9e52) Thanks [@lagartoverde](https://github.com/lagartoverde)! - Implement autofill variable node
+
 ## 9.6.1
 
 ### Patch Changes
