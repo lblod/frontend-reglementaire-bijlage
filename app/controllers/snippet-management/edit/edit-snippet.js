@@ -71,7 +71,7 @@ import {
   personVariableView,
   person_variable,
   autofilled_variable,
-  autofilledVariableView
+  autofilledVariableView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/variables';
 import { document_title } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/document-title-plugin/nodes';
 import {
@@ -235,7 +235,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
       },
       {
         label: 'autofilled',
-        component: AutofilledInsertComponent
+        component: AutofilledInsertComponent,
       },
     ];
   }
@@ -302,8 +302,8 @@ export default class SnippetManagementEditSnippetController extends Controller {
         defaultTag: 'test-1',
       },
       autofilledVariable: {
-        autofilledValues: {}
-      }
+        autofilledValues: {},
+      },
     };
   }
 
@@ -327,7 +327,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
         snippet: snippetView(this.config.snippet)(controller),
         structure: structureView(controller),
         mandatee_table: mandateeTableView(controller),
-        autofilled_variable: autofilledVariableView(controller)
+        autofilled_variable: autofilledVariableView(controller),
       };
     };
   }
