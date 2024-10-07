@@ -70,6 +70,8 @@ import {
   text_variable,
   personVariableView,
   person_variable,
+  autofilled_variable,
+  autofilledVariableView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/variables';
 import { document_title } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/document-title-plugin/nodes';
 import {
@@ -77,6 +79,7 @@ import {
   templateCommentView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/template-comments-plugin';
 import { undo } from '@lblod/ember-rdfa-editor/plugins/history';
+import AutofilledInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/autofilled/insert';
 import {
   editableNodePlugin,
   getActiveEditableNode,
@@ -114,6 +117,7 @@ import {
   mandateeTableView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/mandatee-table-plugin/node';
 import { saveCollatedImportedResources } from '../../../utils/imported-resources';
+import { variableAutofillerPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/plugins/autofiller';
 
 export default class SnippetManagementEditSnippetController extends Controller {
   AttributeEditor = AttributeEditor;
@@ -162,6 +166,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
       oslo_location: osloLocation(this.config.location),
       text_variable,
       person_variable,
+      autofilled_variable,
       number,
       codelist,
       ...STRUCTURE_NODES,
@@ -228,6 +233,10 @@ export default class SnippetManagementEditSnippetController extends Controller {
         label: this.intl.t('editor.variables.person'),
         component: PersonVariableInsertComponent,
       },
+      {
+        label: 'autofilled',
+        component: AutofilledInsertComponent,
+      },
     ];
   }
 
@@ -292,6 +301,9 @@ export default class SnippetManagementEditSnippetController extends Controller {
         tags: ['test-1', 'test-2', 'test-3'],
         defaultTag: 'test-1',
       },
+      autofilledVariable: {
+        autofilledValues: {},
+      },
     };
   }
 
@@ -315,6 +327,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
         snippet: snippetView(this.config.snippet)(controller),
         structure: structureView(controller),
         mandatee_table: mandateeTableView(controller),
+        autofilled_variable: autofilledVariableView(controller),
       };
     };
   }
@@ -327,6 +340,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
       linkPasteHandler(this.schema.nodes.link),
       listTrackingPlugin(),
       editableNodePlugin(),
+      variableAutofillerPlugin(this.config.autofilledVariable),
     ];
   }
 
