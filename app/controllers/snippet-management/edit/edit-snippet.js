@@ -14,6 +14,7 @@ import {
 } from '@lblod/ember-rdfa-editor/plugins/text-style';
 import {
   blockRdfaWithConfig,
+  docWithConfig,
   hard_break,
   horizontal_rule,
   invisibleRdfaWithConfig,
@@ -50,13 +51,12 @@ import { headingWithConfig } from '@lblod/ember-rdfa-editor/plugins/heading';
 import { blockquote } from '@lblod/ember-rdfa-editor/plugins/blockquote';
 import { code_block } from '@lblod/ember-rdfa-editor/plugins/code';
 import { image } from '@lblod/ember-rdfa-editor/plugins/image';
-import { generateTemplate } from '../../../utils/generate-template';
 import { getOwner } from '@ember/application';
 import { linkPasteHandler } from '@lblod/ember-rdfa-editor/plugins/link';
 import { citationPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/citation-plugin';
 import { highlight } from '@lblod/ember-rdfa-editor/plugins/highlight/marks/highlight';
 import { color } from '@lblod/ember-rdfa-editor/plugins/color/marks/color';
-import { trackedFunction } from 'ember-resources/util/function';
+import { trackedFunction } from 'reactiveweb/function';
 import {
   address,
   addressView,
@@ -70,23 +70,16 @@ import {
   text_variable,
   personVariableView,
   person_variable,
+  autofilled_variable,
+  autofilledVariableView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/variables';
 import { document_title } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/document-title-plugin/nodes';
 import {
   templateComment,
   templateCommentView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/template-comments-plugin';
-import { docWithConfig } from '@lblod/ember-rdfa-editor/nodes/doc';
 import { undo } from '@lblod/ember-rdfa-editor/plugins/history';
-
-import TextVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/text/insert';
-import NumberInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/number/insert';
-import DateInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/date/insert-variable';
-import CodelistInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/codelist/insert';
-import VariablePluginAddressInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/address/insert-variable';
-import PersonVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/person/insert';
-import SnippetInsertRdfaComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/snippet-plugin/snippet-insert-rdfa';
-
+import AutofilledInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/autofilled/insert';
 import {
   editableNodePlugin,
   getActiveEditableNode,
@@ -94,20 +87,23 @@ import {
 import AttributeEditor from '@lblod/ember-rdfa-editor/components/_private/attribute-editor';
 import RdfaEditor from '@lblod/ember-rdfa-editor/components/_private/rdfa-editor';
 import DebugInfo from '@lblod/ember-rdfa-editor/components/_private/debug-info';
-
 import InsertArticleComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/decision-plugin/insert-article';
 import StructureControlCardComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/structure-plugin/_private/control-card';
 import {
   structure,
   structureView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/structure-plugin/node';
-
 import {
   osloLocation,
   osloLocationView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin/node';
-import StructureControl from '@lblod/ember-rdfa-editor-lblod-plugins/components/structure-plugin/_private/control-card';
-import StructureInsert from '@lblod/ember-rdfa-editor-lblod-plugins/components/decision-plugin/insert-article';
+import TextVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/text/insert';
+import NumberInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/number/insert';
+import DateInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/date/insert-variable';
+import CodelistInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/codelist/insert';
+import VariablePluginAddressInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/address/insert-variable';
+import PersonVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/person/insert';
+import SnippetInsertRdfaComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/snippet-plugin/snippet-insert-rdfa';
 import {
   snippetPlaceholder,
   snippetPlaceholderView,
@@ -120,12 +116,16 @@ import {
   mandatee_table,
   mandateeTableView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/mandatee-table-plugin/node';
+import { saveCollatedImportedResources } from '../../../utils/imported-resources';
+import { variableAutofillerPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/plugins/autofiller';
+
 export default class SnippetManagementEditSnippetController extends Controller {
   AttributeEditor = AttributeEditor;
   RdfaEditor = RdfaEditor;
   DebugInfo = DebugInfo;
   InsertArticle = InsertArticleComponent;
   StructureControlCard = StructureControlCardComponent;
+  SnippetInsert = SnippetInsertRdfaComponent;
 
   @service store;
   @service router;
@@ -135,9 +135,6 @@ export default class SnippetManagementEditSnippetController extends Controller {
   @service currentSession;
   @tracked citationPlugin = citationPlugin(this.config.citation);
   @service muTask;
-  SnippetInsert = SnippetInsertRdfaComponent;
-  StructureInsert = StructureInsert;
-  StructureControl = StructureControl;
 
   schema = new Schema({
     nodes: {
@@ -145,6 +142,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
         content:
           'table_of_contents? document_title? ((block|chapter)+|(block|title)+|(block|article)+)',
         rdfaAware: true,
+        hasResourceImports: true,
       }),
       paragraph,
       structure,
@@ -152,15 +150,12 @@ export default class SnippetManagementEditSnippetController extends Controller {
       repaired_block: repairedBlockWithConfig({ rdfaAware: true }),
 
       list_item: listItemWithConfig({
-        rdfaAware: true,
         enableHierarchicalList: true,
       }),
       ordered_list: orderedListWithConfig({
-        rdfaAware: true,
         enableHierarchicalList: true,
       }),
       bullet_list: bulletListWithConfig({
-        rdfaAware: true,
         enableHierarchicalList: true,
       }),
       templateComment,
@@ -171,6 +166,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
       oslo_location: osloLocation(this.config.location),
       text_variable,
       person_variable,
+      autofilled_variable,
       number,
       codelist,
       ...STRUCTURE_NODES,
@@ -236,6 +232,10 @@ export default class SnippetManagementEditSnippetController extends Controller {
       {
         label: this.intl.t('editor.variables.person'),
         component: PersonVariableInsertComponent,
+      },
+      {
+        label: 'autofilled',
+        component: AutofilledInsertComponent,
       },
     ];
   }
@@ -312,6 +312,9 @@ export default class SnippetManagementEditSnippetController extends Controller {
         ],
         defaultTag: 'test-1',
       },
+      autofilledVariable: {
+        autofilledValues: {},
+      },
     };
   }
 
@@ -335,6 +338,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
         snippet: snippetView(this.config.snippet)(controller),
         structure: structureView(controller),
         mandatee_table: mandateeTableView(controller),
+        autofilled_variable: autofilledVariableView(controller),
       };
     };
   }
@@ -347,6 +351,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
       linkPasteHandler(this.schema.nodes.link),
       listTrackingPlugin(),
       editableNodePlugin(),
+      variableAutofillerPlugin(this.config.autofilledVariable),
     ];
   }
 
@@ -354,7 +359,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
   handleRdfaEditorInit(editor) {
     this.editor = editor;
     if (this.editorDocument.content) {
-      editor.initialize(this.editorDocument.content);
+      editor.initialize(this.editorDocument.content, { doNotClean: true });
     }
   }
 
@@ -374,7 +379,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
   }
 
   currentVersion = trackedFunction(this, async () => {
-    return await this.model.documentContainer.currentVersion;
+    return await this.model.snippet.currentVersion;
   });
 
   get editorDocument() {
@@ -383,53 +388,33 @@ export default class SnippetManagementEditSnippetController extends Controller {
 
   save = task(async () => {
     const html = this.editor.htmlContent;
-    const templateVersion = generateTemplate(this.editor);
-    const editorDocument = this.store.createRecord('editor-document');
-    const currentVersion = this.editorDocument;
-    editorDocument.content = html;
-    editorDocument.templateVersion = templateVersion;
-
-    editorDocument.createdOn = currentVersion.createdOn;
-    editorDocument.updatedOn = new Date();
-    editorDocument.title = currentVersion.title;
-    editorDocument.previousVersion = currentVersion;
-    await editorDocument.save();
-
-    const documentContainer = this.model.documentContainer;
-    documentContainer.currentVersion = editorDocument;
-    await documentContainer.save();
-    await this.publishSnippet.perform();
+    const currentVersion = await this.currentVersion.promise;
+    const snippet = this.model.snippet;
+    const now = new Date();
+    const newVersion = this.store.createRecord('snippet-version', {
+      content: html,
+      createdOn: now,
+      title: currentVersion.title,
+      previousVersion: currentVersion,
+      snippet,
+    });
+    currentVersion.validThrough = new Date();
+    await Promise.all([currentVersion.save(), newVersion.save()]);
+    snippet.currentVersion = newVersion;
+    snippet.updatedOn = now;
+    await snippet.save();
+    await this.updateImportedResourcesOnList.perform();
   });
 
-  publishSnippet = task(async () => {
-    const body = {
-      data: {
-        relationships: {
-          'document-container': {
-            data: {
-              id: this.model.documentContainer.id,
-            },
-          },
-          'snippet-list': {
-            data: {
-              id: this.model.snippetList.id,
-            },
-          },
-        },
-      },
-    };
-
-    const taskId = await this.muTask.fetchTaskifiedEndpoint(
-      '/snippet-list-publication-tasks',
+  updateImportedResourcesOnList = task(async () => {
+    const list = await this.store.findRecord(
+      'snippet-list',
+      this.model.snippetList.id,
       {
-        method: 'POST',
-        body: JSON.stringify(body),
-        headers: {
-          'Content-Type': 'application/vnd.api+json',
-        },
+        reload: true,
+        include: 'snippets,snippets.current-version',
       },
     );
-
-    await this.muTask.waitForMuTaskTask.perform(taskId, 100);
+    return saveCollatedImportedResources(list);
   });
 }

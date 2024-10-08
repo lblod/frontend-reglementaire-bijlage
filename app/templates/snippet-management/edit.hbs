@@ -1,11 +1,11 @@
-{{page-title (t 'snippets.edit-snippet-list')}}
+{{page-title (t 'snippets.edit-snippet-list.title')}}
 <BreadcrumbsItem as |linkClass|>
   <AuLink
     @route='snippet-management.edit'
     @model={{this.model.id}}
     class={{linkClass}}
   >
-    {{t 'snippets.edit-snippet-list'}}
+    {{t 'snippets.edit-snippet-list.title'}}
   </AuLink>
 </BreadcrumbsItem>
 {{outlet}}

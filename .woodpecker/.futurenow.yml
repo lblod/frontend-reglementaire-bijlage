@@ -1,10 +1,14 @@
+when:
+  - event: push
+    branch: futurenow
+
 steps:
   build:
     image: woodpeckerci/plugin-docker-buildx
     settings:
       repo: ${CI_REPO}
       tags: futurenow
-    secrets: [ docker_username, docker_password ]
-when:
-  branch: futurenow
-  event: push
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password

@@ -17,16 +17,12 @@
         <Group class="au-c-toolbar__group--center">
           {{! Copied from the AuDataTable::TextSearch component since that doesn't support calling actions on input}}
           <div class="au-c-data-table__search">
-            <input
-              value={{this.label}}
-              placeholder={{t "codelist.crud.label-filter"}}
-              aria-label={{t "codelist.crud.label-filter"}}
-              class="au-c-input au-c-input--block"
-              {{on "input" (perform this.updateSearchFilterTask "label")}}
+            <SearchForm
+              @value={{this.searchQuery}}
+              @placeholder={{t "codelist.crud.label-filter"}}
+              @onInput={{this.updateSearchQuery}}
+              @onSearch={{this.search}}
             />
-            <span class="au-c-data-table__search-icon">
-              <AuIcon @icon="search" @size="large" />
-            </span>
           </div>
           <AuLink
             @route="codelist-management.new"

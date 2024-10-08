@@ -1,15 +1,12 @@
-{{page-title (t "snippets.edit-snippet")}}
+{{page-title (t "snippets.edit-snippet.title")}}
 <BreadcrumbsItem>
-  {{t "snippets.edit-snippet"}}
+  {{t "snippets.edit-snippet.title"}}
 </BreadcrumbsItem>
 <AppChrome
-  @editorDocument={{this.editorDocument}}
-  @documentContainer={{this.model.documentContainer}}
+  @document={{this.editorDocument}}
   @save={{hash action=(perform this.save) isRunning=this.save.isRunning}}
   @dirty={{this.dirty}}
-  @onUpdateDocumentTitle={{perform this.publishSnippet}}
 />
-
 
 {{#if this.editorDocument}}
   <RdfaEditorContainer
@@ -17,7 +14,7 @@
     @editorDocument={{this.editorDocument}}
     @showToggleRdfaAnnotations={{true}}
     @busy={{or this.save.isRunning}}
-    @busyText={{t "reglement-edit.saving"}}
+    @busyText={{t "template-edit.saving"}}
     @schema={{this.schema}}
     @nodeViews={{this.nodeViews}}
     @plugins={{this.plugins}}
@@ -149,6 +146,7 @@
             <this.RdfaEditor
               @node={{this.activeNode}}
               @controller={{this.editor}}
+              @additionalImportedResources={{this.model.snippetList.importedResources}}
             />
             <this.AttributeEditor
               @node={{this.activeNode}}
