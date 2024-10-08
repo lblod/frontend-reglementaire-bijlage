@@ -414,10 +414,10 @@ export default class TemplateManagementEditController extends Controller {
             },
           },
         ];
+        const decisionUuid = uuid();
         const decisionNode = decisionNodeType.create(
-          // This should just be needed for 'legacy' rdfa
           {
-            subject: 'http://example.net/new-decision',
+            subject: `http://data.lblod.info/id/besluiten/--ref-uuid4-${decisionUuid}`,
             properties: outgoingProps,
             rdfaNodeType: 'resource',
           },
