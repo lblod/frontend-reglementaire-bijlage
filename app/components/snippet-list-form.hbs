@@ -1,26 +1,23 @@
 <div class="au-u-margin-bottom">
   <AuFormRow>
     <AuLabel for="label">
-      {{t "snippets.snippet-label"}}
+      {{t "snippets.edit-snippet-list.form.label.label"}}
     </AuLabel>
     <p class="under-label-text">
-      {{t "snippets.snippet-label-explanation"}}
+      {{t "snippets.edit-snippet-list.form.label.description"}}
     </p>
     <div class="au-u-flex au-u-flex--vertical-center">
       <AuInput
         @error={{this.invalidLabel}}
         id="label"
         required="required"
-        value={{@model.label}}
+        value={{@snippetList.label}}
         {{on "input" (perform this.updateLabel)}}
       />
       {{#if this.showSavedTask.isRunning}}
         <div class="snippets-pill-container">
-          <AuPill
-            @skin="success"
-            @icon="check"
-          >
-            {{t "snippets.saved"}}
+          <AuPill @skin="success" @icon="check">
+            {{t "utility.saved"}}
           </AuPill>
         </div>
       {{/if}}
@@ -28,7 +25,7 @@
   </AuFormRow>
   <AuFormRow>
     <AuLabel for="imported-resources">
-      {{t "snippets.attr.imported"}}
+      {{t "snippets.edit-snippet-list.imported-resources.heading"}}
     </AuLabel>
     <AuTextarea
       id="imported-resources"
@@ -39,65 +36,106 @@
   </AuFormRow>
 </div>
 <div class="snippets-table">
-  <AuDataTable
-    @content={{@model.snippets}}
-    @noDataMessage={{t "snippets.crud.no-data"}}
-    as |s|
-  >
-    <s.content as |c|>
-      <c.header>
-        <th>{{t "snippets.attr.snippet"}}</th>
+  <table class="au-c-data-table__table">
+    <thead>
+      <tr class="au-c-data-table__header">
         <th></th>
-      </c.header>
-      <c.body as |snippet|>
-        <td>
-          <AuLink
-            @skin="primary"
-            @route="snippet-management.edit.edit-snippet"
-            @models={{array @model.id snippet.id}}
-          >
-            {{snippet.currentVersion.title}}
-          </AuLink>
-        </td>
-        <td>
-          <AuButton
-            @skin="naked"
-            @icon="trash"
-            @alert={{true}}
-            @disabled={{this.invalidLabel}}
-            {{on "click" (fn this.openRemoveModal snippet)}}
-          >
-            {{t "utility.delete"}}
-          </AuButton>
-        </td>
-      </c.body>
-    </s.content>
-  </AuDataTable>
+        <th>{{t "snippets.edit-snippet-list.table.columns.snippet"}}</th>
+        <th>{{t "template-management.created-on"}}</th>
+        <th>{{t "template-management.updated-on"}}</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody {{sortable-group onChange=this.reorderSnippets}}>
+      {{#if this.snippetsRequest.isLoading}}
+        <tr><td colspan="100%">{{t "utility.loading"}}</td></tr>
+      {{else if this.snippetsRequest.isError}}
+        <tr>
+          <td colspan="100%">
+            <AuAlert
+              @icon="alert-triangle"
+              @skin="info"
+              @size="small"
+              @closable={{false}}
+              @title={{t "snippets.edit-snippet-list.table.loading-error"}}
+            >
+              <AuButton @skin="link" {{on "click" this.snippetsRequest.retry}} class="au-u-padding-none">
+                {{t "utility.retry"}}
+              </AuButton>
+            </AuAlert>
+
+          </td>
+        </tr>
+      {{else}}
+        {{#each this.snippets as |snippet|}}
+          <tr {{sortable-item distance=0 model=snippet}}>
+            <td class="drag-icon-cell" tabindex="-1" {{sortable-handle}}>
+              <AuIcon @icon="drag" size="large" class="au-c-button--drag" />
+            </td>
+            <td>
+              <AuLink
+                @skin="primary"
+                @route="snippet-management.edit.edit-snippet"
+                @models={{array @snippetList.id snippet.id}}
+              >
+                {{snippet.currentVersion.title}}
+              </AuLink>
+            </td>
+            <td>
+              {{detailed-date snippet.createdOn}}
+            </td>
+            <td>
+              {{detailed-date snippet.updatedOn}}
+            </td>
+            <td>
+              <AuButton
+                @skin="naked"
+                @icon="trash"
+                @alert={{true}}
+                @disabled={{this.invalidLabel}}
+                {{on "click" (fn this.openRemoveModal snippet)}}
+              >
+                {{t "utility.delete"}}
+              </AuButton>
+            </td>
+          </tr>
+        {{else}}
+          <tr><td colspan="100%">{{t
+                "snippets.edit-snippet-list.table.no-data"
+              }}</td></tr>
+        {{/each}}
+      {{/if}}
+    </tbody>
+  </table>
 </div>
 <div class="snippets-add-button-container">
   <AuButton
     @icon="add"
     @skin="secondary"
     @width="block"
-    @disabled={{or this.invalidLabel @model.isNew}}
+    @disabled={{or this.invalidLabel @snippetList.isNew}}
     {{on "click" (perform this.createSnippet)}}
     @loading={{this.createSnippet.isRunning}}
   >
-    {{t "snippets.add-new-snippet"}}
+    {{t "snippets.edit-snippet-list.snippet-creation.action"}}
   </AuButton>
 </div>
 <div class="snippet-list-template-table au-u-margin-top-huge">
   <AuHeading @skin="4" class="au-u-margin-bottom">
-    {{t "snippets.template.heading"}}
+    {{t "snippets.edit-snippet-list.connected-templates.heading"}}
   </AuHeading>
   <AuDataTable
-    @content={{@model.templates}}
-    @noDataMessage={{t "snippets.template.no-data"}}
+    @content={{@snippetList.templates}}
+    @noDataMessage={{t
+      "snippets.edit-snippet-list.connected-templates.table.no-data"
+    }}
     as |s|
   >
     <s.content as |c|>
       <c.header>
-        <th>{{t "snippets.template.table-header"}}</th>
+        <th>{{t
+            "snippets.edit-snippet-list.connected-templates.table.columns.template"
+          }}</th>
       </c.header>
       <c.body as |template|>
         <td>
@@ -114,26 +152,31 @@
   </AuDataTable>
 </div>
 <AuModal
-  @title={{t 'utility.confirmation.body'}}
+  @title={{t "utility.confirmation.body"}}
   @modalOpen={{this.isRemoveModalOpen}}
-  @closeModal={{this.closeRemoveModal}} as |Modal|
+  @closeModal={{this.closeRemoveModal}}
+  as |Modal|
 >
   <Modal.Body>
     <p>
-      {{t 'snippets.crud.confirm-deletion-snippet' name=this.deletingSnippet.label htmlSafe=true}}
+      {{t
+        "snippets.edit-snippet-list.snippet-deletion.confirm"
+        name=this.deletingSnippet.label
+        htmlSafe=true
+      }}
     </p>
   </Modal.Body>
-<Modal.Footer>
-  <AuButton
-    @alert={{true}}
-    @loading={{this.removeSnippet.isRunning}}
-    @loadingText={{t 'utility.deleting'}}
-    {{on 'click' (perform this.removeSnippet)}}
-  >
-    {{t 'snippets.crud.delete-snippet'}}
-  </AuButton>
-  <AuButton @skin='secondary' {{on 'click' this.closeRemoveModal}}>
-    {{t 'utility.cancel'}}
-  </AuButton>
-</Modal.Footer>
+  <Modal.Footer>
+    <AuButton
+      @alert={{true}}
+      @loading={{this.removeSnippet.isRunning}}
+      @loadingText={{t "utility.deleting"}}
+      {{on "click" (perform this.removeSnippet)}}
+    >
+      {{t "snippets.edit-snippet-list.snippet-deletion.action.long"}}
+    </AuButton>
+    <AuButton @skin="secondary" {{on "click" this.closeRemoveModal}}>
+      {{t "utility.cancel"}}
+    </AuButton>
+  </Modal.Footer>
 </AuModal>

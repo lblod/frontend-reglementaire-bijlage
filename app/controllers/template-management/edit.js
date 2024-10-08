@@ -71,6 +71,8 @@ import {
   text_variable,
   personVariableView,
   person_variable,
+  autofilled_variable,
+  autofilledVariableView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/variables';
 import { document_title } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/document-title-plugin/nodes';
 import {
@@ -87,6 +89,7 @@ import DateInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/
 import CodelistInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/codelist/insert';
 import VariablePluginAddressInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/address/insert-variable';
 import SnippetInsertRdfaComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/snippet-plugin/snippet-insert-rdfa';
+import AutofilledInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/autofilled/insert';
 import { DECISION_STANDARD_FOLDER } from '../../utils/constants';
 import {
   editableNodePlugin,
@@ -119,6 +122,7 @@ import {
   osloLocation,
   osloLocationView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin/node';
+import { variableAutofillerPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/plugins/autofiller';
 
 const SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE = 'data-snippet-list-ids';
 const GEMEENTE_CLASSIFICATION_URI =
@@ -176,6 +180,7 @@ export default class TemplateManagementEditController extends Controller {
       text_variable,
       oslo_location: osloLocation(this.config.location),
       person_variable,
+      autofilled_variable,
       number,
       codelist,
       ...STRUCTURE_NODES,
@@ -243,6 +248,10 @@ export default class TemplateManagementEditController extends Controller {
       {
         label: this.intl.t('editor.variables.person'),
         component: PersonVariableInsertComponent,
+      },
+      {
+        label: 'autofilled',
+        component: AutofilledInsertComponent,
       },
     ];
   }
@@ -328,6 +337,9 @@ export default class TemplateManagementEditController extends Controller {
         defaultAddressUriRoot:
           'https://publicatie.gelinkt-notuleren.vlaanderen.be/id/adres/',
       },
+      autofilledVariable: {
+        autofilledValues: {},
+      },
     };
   }
 
@@ -351,6 +363,7 @@ export default class TemplateManagementEditController extends Controller {
         mandatee_table: mandateeTableView(controller),
         structure: structureView(controller),
         snippet: snippetView(this.config.snippet)(controller),
+        autofilled_variable: autofilledVariableView(controller),
       };
     };
   }
@@ -363,6 +376,7 @@ export default class TemplateManagementEditController extends Controller {
       linkPasteHandler(this.schema.nodes.link),
       listTrackingPlugin(),
       editableNodePlugin(),
+      variableAutofillerPlugin(this.config.autofilledVariable),
     ];
   }
   get activeNode() {

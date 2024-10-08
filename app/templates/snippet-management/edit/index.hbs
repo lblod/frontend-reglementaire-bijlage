@@ -4,11 +4,11 @@
       <div class='au-o-grid__item au-u-2-5@medium'>
         <div class='au-c-content au-u-margin-bottom'>
           <AuHeading @skin='2'>
-            {{t 'snippets.edit-snippet-list'}}
+            {{t 'snippets.edit-snippet-list.title'}}
           </AuHeading>
         </div>
       </div>
     </div>
-    <SnippetListForm @model={{this.model}} />
+    <SnippetListForm @snippetList={{this.model}} />
   </div>
 </div>

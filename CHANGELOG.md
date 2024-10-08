@@ -1,5 +1,40 @@
 # frontend-reglementaire-bijlage
 
+## 9.7.0
+
+### Minor Changes
+
+- [#271](https://github.com/lblod/frontend-reglementaire-bijlage/pull/271) [`7bdeffc`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/7bdeffcb851e69a9b64c1b6d585d13baa23b9e52) Thanks [@lagartoverde](https://github.com/lagartoverde)! - Implement autofill variable node
+
+## 9.6.1
+
+### Patch Changes
+
+- [#285](https://github.com/lblod/frontend-reglementaire-bijlage/pull/285) [`ab4e5c9`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/ab4e5c9c70904b3819b50fb68d7a1c129d6a4488) Thanks [@elpoelma](https://github.com/elpoelma)! - Modernize woodpecker syntax
+  Move to `woodpeckerci/plugin-docker-buildx` plugin for docker builds
+
+## 9.6.0
+
+### Minor Changes
+
+- [#279](https://github.com/lblod/frontend-reglementaire-bijlage/pull/279) [`77cb3fb`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/77cb3fba04fb60f367bd90b7f117784fe9e8eff4) Thanks [@elpoelma](https://github.com/elpoelma)! - Rework and simplify snippet data models and add support for reordering snippets in a snippet-list
+
+### Patch Changes
+
+- [#281](https://github.com/lblod/frontend-reglementaire-bijlage/pull/281) [`57a7d9d`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/57a7d9dce69474eb1b1199643c17eee4bfc12dcc) Thanks [@elpoelma](https://github.com/elpoelma)! - Update `ember-cli-babel` to 8.2.0
+
+- [#281](https://github.com/lblod/frontend-reglementaire-bijlage/pull/281) [`57a7d9d`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/57a7d9dce69474eb1b1199643c17eee4bfc12dcc) Thanks [@elpoelma](https://github.com/elpoelma)! - Update `ember-resources` to 7.0.2
+
+- [#281](https://github.com/lblod/frontend-reglementaire-bijlage/pull/281) [`57a7d9d`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/57a7d9dce69474eb1b1199643c17eee4bfc12dcc) Thanks [@elpoelma](https://github.com/elpoelma)! - Update `ember-auto-import` to 2.8.1
+
+- [#279](https://github.com/lblod/frontend-reglementaire-bijlage/pull/279) [`b76e6ce`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/b76e6ce1f87468f43e90f7d08a0bbc4091b9ea6d) Thanks [@elpoelma](https://github.com/elpoelma)! - Add `ember-sortable` package
+
+- [#279](https://github.com/lblod/frontend-reglementaire-bijlage/pull/279) [`1c7e977`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/1c7e977a080f0a907d8c81b60dddb80eb2c7b5ae) Thanks [@elpoelma](https://github.com/elpoelma)! - Update `@lblod/ember-rdfa-editor-plugins` to 24.0.0
+
+- [#281](https://github.com/lblod/frontend-reglementaire-bijlage/pull/281) [`57a7d9d`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/57a7d9dce69474eb1b1199643c17eee4bfc12dcc) Thanks [@elpoelma](https://github.com/elpoelma)! - Add `reactiveweb` dependency
+
+- [#280](https://github.com/lblod/frontend-reglementaire-bijlage/pull/280) [`339b67d`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/339b67d6417b9cd45f0dcd7971c26308e1c3cf3b) Thanks [@elpoelma](https://github.com/elpoelma)! - Restructure snippet translations and improve/correct some snippet translations
+
 ## 9.5.1
 
 ### Patch Changes

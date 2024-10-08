@@ -51,7 +51,6 @@ import { headingWithConfig } from '@lblod/ember-rdfa-editor/plugins/heading';
 import { blockquote } from '@lblod/ember-rdfa-editor/plugins/blockquote';
 import { code_block } from '@lblod/ember-rdfa-editor/plugins/code';
 import { image } from '@lblod/ember-rdfa-editor/plugins/image';
-import { generateTemplate } from '../../../utils/generate-template';
 import { getOwner } from '@ember/application';
 import { linkPasteHandler } from '@lblod/ember-rdfa-editor/plugins/link';
 import { citationPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/citation-plugin';
@@ -71,6 +70,8 @@ import {
   text_variable,
   personVariableView,
   person_variable,
+  autofilled_variable,
+  autofilledVariableView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/variables';
 import { document_title } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/document-title-plugin/nodes';
 import {
@@ -78,6 +79,7 @@ import {
   templateCommentView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/template-comments-plugin';
 import { undo } from '@lblod/ember-rdfa-editor/plugins/history';
+import AutofilledInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/autofilled/insert';
 import {
   editableNodePlugin,
   getActiveEditableNode,
@@ -115,6 +117,7 @@ import {
   mandateeTableView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/mandatee-table-plugin/node';
 import { saveCollatedImportedResources } from '../../../utils/imported-resources';
+import { variableAutofillerPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/plugins/autofiller';
 
 export default class SnippetManagementEditSnippetController extends Controller {
   AttributeEditor = AttributeEditor;
@@ -163,6 +166,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
       oslo_location: osloLocation(this.config.location),
       text_variable,
       person_variable,
+      autofilled_variable,
       number,
       codelist,
       ...STRUCTURE_NODES,
@@ -229,6 +233,10 @@ export default class SnippetManagementEditSnippetController extends Controller {
         label: this.intl.t('editor.variables.person'),
         component: PersonVariableInsertComponent,
       },
+      {
+        label: 'autofilled',
+        component: AutofilledInsertComponent,
+      },
     ];
   }
 
@@ -293,6 +301,9 @@ export default class SnippetManagementEditSnippetController extends Controller {
         tags: ['test-1', 'test-2', 'test-3'],
         defaultTag: 'test-1',
       },
+      autofilledVariable: {
+        autofilledValues: {},
+      },
     };
   }
 
@@ -316,6 +327,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
         snippet: snippetView(this.config.snippet)(controller),
         structure: structureView(controller),
         mandatee_table: mandateeTableView(controller),
+        autofilled_variable: autofilledVariableView(controller),
       };
     };
   }
@@ -328,6 +340,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
       linkPasteHandler(this.schema.nodes.link),
       listTrackingPlugin(),
       editableNodePlugin(),
+      variableAutofillerPlugin(this.config.autofilledVariable),
     ];
   }
 
@@ -355,7 +368,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
   }
 
   currentVersion = trackedFunction(this, async () => {
-    return await this.model.documentContainer.currentVersion;
+    return await this.model.snippet.currentVersion;
   });
 
   get editorDocument() {
@@ -364,25 +377,22 @@ export default class SnippetManagementEditSnippetController extends Controller {
 
   save = task(async () => {
     const html = this.editor.htmlContent;
-    const templateVersion = generateTemplate(this.editor);
-    const editorDocument = this.store.createRecord('editor-document');
-    const currentVersion = this.editorDocument;
-    editorDocument.content = html;
-    editorDocument.templateVersion = templateVersion;
-
-    editorDocument.createdOn = currentVersion.createdOn;
-    editorDocument.updatedOn = new Date();
-    editorDocument.title = currentVersion.title;
-    editorDocument.previousVersion = currentVersion;
-    await editorDocument.save();
-
-    const documentContainer = this.model.documentContainer;
-    documentContainer.currentVersion = editorDocument;
-    await documentContainer.save();
-    await Promise.all([
-      this.publishSnippet.perform(),
-      this.updateImportedResourcesOnList.perform(),
-    ]);
+    const currentVersion = await this.currentVersion.promise;
+    const snippet = this.model.snippet;
+    const now = new Date();
+    const newVersion = this.store.createRecord('snippet-version', {
+      content: html,
+      createdOn: now,
+      title: currentVersion.title,
+      previousVersion: currentVersion,
+      snippet,
+    });
+    currentVersion.validThrough = new Date();
+    await Promise.all([currentVersion.save(), newVersion.save()]);
+    snippet.currentVersion = newVersion;
+    snippet.updatedOn = now;
+    await snippet.save();
+    await this.updateImportedResourcesOnList.perform();
   });
 
   updateImportedResourcesOnList = task(async () => {
@@ -390,41 +400,10 @@ export default class SnippetManagementEditSnippetController extends Controller {
       'snippet-list',
       this.model.snippetList.id,
       {
+        reload: true,
         include: 'snippets,snippets.current-version',
       },
     );
     return saveCollatedImportedResources(list);
-  });
-
-  publishSnippet = task(async () => {
-    const body = {
-      data: {
-        relationships: {
-          'document-container': {
-            data: {
-              id: this.model.documentContainer.id,
-            },
-          },
-          'snippet-list': {
-            data: {
-              id: this.model.snippetList.id,
-            },
-          },
-        },
-      },
-    };
-
-    const taskId = await this.muTask.fetchTaskifiedEndpoint(
-      '/snippet-list-publication-tasks',
-      {
-        method: 'POST',
-        body: JSON.stringify(body),
-        headers: {
-          'Content-Type': 'application/vnd.api+json',
-        },
-      },
-    );
-
-    await this.muTask.waitForMuTaskTask.perform(taskId, 100);
   });
 }

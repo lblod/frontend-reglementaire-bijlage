@@ -149,3 +149,17 @@ div.table-of-contents {
     }
   }
 }
+
+tr.sortable-item {
+  position: relative;
+  transition: all 0.125s;
+}
+
+tr.sortable-item.is-dragging {
+  transition-duration: 0s;
+  z-index: 10;
+}
+
+.drag-icon-cell {
+  cursor: move;
+}
