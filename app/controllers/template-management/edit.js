@@ -187,7 +187,7 @@ export default class TemplateManagementEditController extends Controller {
       roadsign_regulation,
       mandatee_table,
 
-      heading: headingWithConfig({ rdfaAware: true }),
+      heading: headingWithConfig({ rdfaAware: false }),
       blockquote,
 
       horizontal_rule,
@@ -325,8 +325,19 @@ export default class TemplateManagementEditController extends Controller {
         endpoint: '/vendor-proxy/query',
       },
       mandateeTable: {
-        tags: ['test-1', 'test-2', 'test-3'],
-        defaultTag: 'test-1',
+        tags: [
+          'IVGR2-LMB-1-geloofsbrieven',
+          'IVGR3-LMB-1-eedafleggingen',
+          'IVGR4-LMB-1-rangorde-gemeenteraadsleden',
+          //'IVGR5-LMB-1-splitsing-fracties', not implemented yet
+          'IVGR5-LMB-2-grootte-fracties',
+          'IVGR5-LMB-3-samenstelling-fracties',
+          'IVGR7-LMB-1-kandidaat-schepenen',
+          'IVGR7-LMB-2-ontvankelijkheid-schepenen',
+          'IVGR8-LMB-1-verkozen-schepenen',
+          'IVGR8-LMB-2-coalitie',
+        ],
+        defaultTag: 'IVGR2-LMB-1-geloofsbrieven',
       },
 
       location: {
@@ -414,10 +425,10 @@ export default class TemplateManagementEditController extends Controller {
             },
           },
         ];
+        const decisionUuid = uuid();
         const decisionNode = decisionNodeType.create(
-          // This should just be needed for 'legacy' rdfa
           {
-            subject: 'http://example.net/new-decision',
+            subject: `http://data.lblod.info/id/besluiten/--ref-uuid4-${decisionUuid}`,
             properties: outgoingProps,
             rdfaNodeType: 'resource',
           },

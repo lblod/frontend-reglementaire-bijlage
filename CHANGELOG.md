@@ -1,5 +1,15 @@
 # frontend-reglementaire-bijlage
 
+## 9.7.1
+
+### Patch Changes
+
+- [#270](https://github.com/lblod/frontend-reglementaire-bijlage/pull/270) [`26f0486`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/26f048606caa834a9383b8f22d0adba84722d4fe) Thanks [@abeforgit](https://github.com/abeforgit)! - Replace the dummy LMB table keys with the ones used in gn
+
+- [#270](https://github.com/lblod/frontend-reglementaire-bijlage/pull/270) [`b302627`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/b302627326ee5ef95993d753b8bb5152dd547449) Thanks [@abeforgit](https://github.com/abeforgit)! - Also add lmb configs to snippets
+
+- [#283](https://github.com/lblod/frontend-reglementaire-bijlage/pull/283) [`54a5712`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/54a5712c88bb65137799d3aea468261bdc7cf01b) Thanks [@lagartoverde](https://github.com/lagartoverde)! - Change besluit uri so it can be instatiated by GN
+
 ## 9.7.0
 
 ### Minor Changes
@@ -56,6 +66,20 @@
 ### Patch Changes
 
 - [#269](https://github.com/lblod/frontend-reglementaire-bijlage/pull/269) [`c324231`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/c3242319618d799f2dd4ed687ce89cca4924647e) Thanks [@piemonkey](https://github.com/piemonkey)! - Disallow inserting a person into a person variable placeholder, as there is no meaningful list of people since the user is not linked to a municipality
+
+## 9.4.1-next.1
+
+### Patch Changes
+
+- [#270](https://github.com/lblod/frontend-reglementaire-bijlage/pull/270) [`b302627326ee5ef95993d753b8bb5152dd547449`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/b302627326ee5ef95993d753b8bb5152dd547449) Thanks [@abeforgit](https://github.com/abeforgit)! - Also add lmb configs to snippets
+
+## 9.4.1-next.0
+
+### Patch Changes
+
+- [#270](https://github.com/lblod/frontend-reglementaire-bijlage/pull/270) [`26f048606caa834a9383b8f22d0adba84722d4fe`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/26f048606caa834a9383b8f22d0adba84722d4fe) Thanks [@abeforgit](https://github.com/abeforgit)! - Replace the dummy LMB table keys with the ones used in gn
+
+- [#269](https://github.com/lblod/frontend-reglementaire-bijlage/pull/269) [`c3242319618d799f2dd4ed687ce89cca4924647e`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/c3242319618d799f2dd4ed687ce89cca4924647e) Thanks [@piemonkey](https://github.com/piemonkey)! - Disallow inserting a person into a person variable placeholder, as there is no meaningful list of people since the user is not linked to a municipality
 
 ## 9.4.0
 

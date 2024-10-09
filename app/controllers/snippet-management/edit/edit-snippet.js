@@ -298,7 +298,18 @@ export default class SnippetManagementEditSnippetController extends Controller {
         endpoint: '/vendor-proxy/query',
       },
       mandateeTable: {
-        tags: ['test-1', 'test-2', 'test-3'],
+        tags: [
+          'IVGR2-LMB-1-geloofsbrieven',
+          'IVGR3-LMB-1-eedafleggingen',
+          'IVGR4-LMB-1-rangorde-gemeenteraadsleden',
+          //'IVGR5-LMB-1-splitsing-fracties', not implemented yet
+          'IVGR5-LMB-2-grootte-fracties',
+          'IVGR5-LMB-3-samenstelling-fracties',
+          'IVGR7-LMB-1-kandidaat-schepenen',
+          'IVGR7-LMB-2-ontvankelijkheid-schepenen',
+          'IVGR8-LMB-1-verkozen-schepenen',
+          'IVGR8-LMB-2-coalitie',
+        ],
         defaultTag: 'test-1',
       },
       autofilledVariable: {
