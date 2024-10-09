@@ -1,5 +1,11 @@
 # frontend-reglementaire-bijlage
 
+## 9.7.2
+
+### Patch Changes
+
+- [`47983dd`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/47983ddbb2c26150bd5d087a5defb08046e73a6a) Thanks [@lagartoverde](https://github.com/lagartoverde)! - Add missing edit autofill variable card
+
 ## 9.7.1
 
 ### Patch Changes
