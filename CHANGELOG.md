@@ -1,5 +1,11 @@
 # frontend-reglementaire-bijlage
 
+## 9.8.1
+
+### Patch Changes
+
+- [`9f1b7d0`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/9f1b7d03c2b63ce9ea2cf36b285d254d184e467e) Thanks [@abeforgit](https://github.com/abeforgit)! - bump plugins to [24.1.2](https://github.com/lblod/ember-rdfa-editor-lblod-plugins/releases/tag/v24.1.2)
+
 ## 9.8.0
 
 ### Minor Changes
