@@ -1,0 +1,85 @@
+{{page-title "Import"}}
+<BreadcrumbsItem>
+  Import
+</BreadcrumbsItem>
+<div class="au-c-body-container au-c-body-container--scroll">
+  <div class="au-o-box">
+    <div class="au-c-content au-u-margin-bottom">
+      <AuHeading @skin="2">
+        Import manager
+      </AuHeading>
+    </div>
+    <form class="au-c-form">
+      <AuFormRow @alignment="inline">
+        <AuLabel for="endpoint" @required={{true}} @inline={{true}}  class="au-u-1-6">
+          Endpoint
+        </AuLabel>
+          <AuInput
+            value={{this.endpoint}}
+            name="endpoint"
+            {{on "input" (fn this.updateParam 'endpoint')}}
+          />
+      </AuFormRow>
+      <AuFormRow @alignment="inline">
+        <AuLabel @required={{true}} @inline={{true}}  class="au-u-1-6">
+          Template Type
+        </AuLabel>
+        <PowerSelect
+          class="au-u-3-5"
+          @allowClear={{true}}
+          @searchEnabled={{false}}
+          @options={{this.typeOptions}}
+          @selected={{this.type}}
+          @onChange={{fn (mut this.type)}}
+          as |singleselect|>
+          {{singleselect.label}}
+        </PowerSelect>
+      </AuFormRow>
+      <AuFormRow @alignment="inline">
+        <AuLabel for="name" @required={{true}} @inline={{true}}  class="au-u-1-6">
+          Template Name
+        </AuLabel>
+        <AuInput
+          value={{this.name}}
+          name="name"
+          {{on "input" (fn this.updateParam 'name')}}
+        />
+      </AuFormRow>
+      <AuFormRow>
+        <div class="au-u-flex au-u-flex--vertical-center ">
+          <AuButton
+            {{on "click" (perform this.connectToEndpoint)}}
+            disabled={{this.connectToEndpoint.isRunning}}
+            @loading={{this.connectToEndpoint.isRunning}}
+          >
+            Search
+          </AuButton>
+        </div>
+      </AuFormRow>
+
+      {{#if this.options.length}}
+        <AuTable>
+          <:header>
+            <tr><th>Title</th><th>Type</th></tr>
+          </:header>
+          <:body>
+            {{#each this.options as |option|}}
+              <tr>
+                <td>
+                  <AuButton
+                    @skin="link"
+                    {{on "click"  (fn this.importUri option.uri)}}
+                    >
+                    {{option.title}}<br>
+                    <AuHelpText>{{option.uri}}</AuHelpText>
+                  </AuButton>
+                </td>
+                <td>{{option.type}}</td>
+                </tr>
+            {{/each}}
+          </:body>
+        </AuTable>
+      {{/if}}
+    </form>
+  </div>
+</div>
