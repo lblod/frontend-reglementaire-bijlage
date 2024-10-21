@@ -1,0 +1,47 @@
+{{page-title "Import"}}
+<BreadcrumbsItem>
+Import
+</BreadcrumbsItem>
+<div class="au-c-body-container au-c-body-container--scroll">
+  <div class="au-o-box">
+    <div class="au-o-grid au-o-grid--small">
+      <div class="au-o-grid__item au-u-2-5@medium">
+        <div class="au-c-content au-u-margin-bottom">
+          <AuHeading @skin="2">
+            Import manager
+          </AuHeading>
+        </div>
+        <div class="au-u-margin-bottom">
+  <AuFormRow>
+    <AuLabel for="endpoint">
+      Endpoint
+    </AuLabel>
+    <div class="au-u-flex au-u-flex--vertical-center ">
+      <AuInput
+        value={{this.endpoint}}
+        {{on "input" this.updateEndpoint}}
+      />
+      <AuButton
+        {{on "click" (perform this.connectToEndpoint)}}
+        disabled={{this.connectToEndpoint.isRunning}}
+        @loading={{this.connectToEndpoint.isRunning}}
+      >
+        Connect
+      </AuButton>
+
+    </div>
+  </AuFormRow>
+  {{#if this.options.length}}
+    <table>
+      <thead>
+        <tr><th>Title</th><th>Type</th><th>Actions</th></tr>
+      </thead>
+      <tbody>
+      {{#each this.options as |option|}}
+        <tr><td>{{option.title}}</td><td>{{option.type}}</td><td></td></tr>
+      {{/each}}
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>

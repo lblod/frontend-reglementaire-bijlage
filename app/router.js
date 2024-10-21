@@ -32,4 +32,5 @@ Router.map(function () {
       this.route('edit-snippet', { path: '/:snippet_id/edit-snippet' });
     });
   });
+  this.route('import');
 });
