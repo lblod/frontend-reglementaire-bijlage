@@ -1,0 +1,39 @@
+{{page-title "Import template"}}
+<AuBodyContainer @scroll='true'>
+  <div class='au-o-box'>
+    <AuButton>Import as new template</AuButton>
+    <div
+      class='au-o-grid au-o-grid--small au-u-margin-top-small'
+    >
+
+      <div class='au-o-grid__item au-u-1-2@large'>
+        <AuCard @flex={{true}} as |c|>
+          <c.header>
+            <AuHeading @level='2' @skin='4'>
+              {{this.model.currentVersion.title}}
+            </AuHeading>
+          </c.header>
+          <c.content>
+            <div
+              class='say-editor say-content rdfa-annotations rdfa-annotations-highlight rdfa-annotations-hover'
+            >
+              {{{this.model.currentVersion.htmlSafeContent}}}
+            </div>
+          </c.content>
+        </AuCard>
+      </div>
+      <div class='au-o-grid__item au-u-1-2@large'>
+        <AuCard @flex={{true}} as |c|>
+          <c.header>
+            <AuHeading @level='2' @skin='4'>
+              Snippets
+            </AuHeading>
+          </c.header>
+          <c.content>
+            TODO
+          </c.content>
+        </AuCard>
+      </div>
+    </div>
+  </div>
+</AuBodyContainer>
