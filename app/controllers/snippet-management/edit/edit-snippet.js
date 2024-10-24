@@ -118,6 +118,7 @@ import {
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/mandatee-table-plugin/node';
 import { saveCollatedImportedResources } from '../../../utils/imported-resources';
 import { variableAutofillerPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/plugins/autofiller';
+import { IVGR_TAGS, RMW_TAGS } from '../../../utils/constants';
 
 export default class SnippetManagementEditSnippetController extends Controller {
   AttributeEditor = AttributeEditor;
@@ -298,19 +299,8 @@ export default class SnippetManagementEditSnippetController extends Controller {
         endpoint: '/vendor-proxy/query',
       },
       mandateeTable: {
-        tags: [
-          'IVGR2-LMB-1-geloofsbrieven',
-          'IVGR3-LMB-1-eedafleggingen',
-          'IVGR4-LMB-1-rangorde-gemeenteraadsleden',
-          //'IVGR5-LMB-1-splitsing-fracties', not implemented yet
-          'IVGR5-LMB-2-grootte-fracties',
-          'IVGR5-LMB-3-samenstelling-fracties',
-          'IVGR7-LMB-1-kandidaat-schepenen',
-          'IVGR7-LMB-2-ontvankelijkheid-schepenen',
-          'IVGR8-LMB-1-verkozen-schepenen',
-          'IVGR8-LMB-2-coalitie',
-        ],
-        defaultTag: 'test-1',
+        tags: [...IVGR_TAGS, ...RMW_TAGS],
+        defaultTag: IVGR_TAGS[0],
       },
       autofilledVariable: {
         autofilledValues: {},
