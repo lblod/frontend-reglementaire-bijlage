@@ -1,5 +1,11 @@
 # frontend-reglementaire-bijlage
 
+## 9.8.2
+
+### Patch Changes
+
+- [`4ab404b`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/4ab404b9f82b11d3b8a47024fcffb3cab3c692dd) Thanks [@abeforgit](https://github.com/abeforgit)! - Add new lmb config strings
+
 ## 9.8.1
 
 ### Patch Changes
