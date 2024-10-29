@@ -172,7 +172,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
       codelist,
       ...STRUCTURE_NODES,
       mandatee_table,
-      heading: headingWithConfig({ rdfaAware: true }),
+      heading: headingWithConfig({ rdfaAware: false }),
       blockquote,
 
       horizontal_rule,
