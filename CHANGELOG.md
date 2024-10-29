@@ -1,5 +1,11 @@
 # frontend-reglementaire-bijlage
 
+## 9.8.5
+
+### Patch Changes
+
+- [#291](https://github.com/lblod/frontend-reglementaire-bijlage/pull/291) [`7e2ed6f`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/7e2ed6f6fefdd345c19744263d390ab3036cc75d) Thanks [@elpoelma](https://github.com/elpoelma)! - Disable `rdfaAware` setting for heading nodes in snippets
+
 ## 9.8.4
 
 ### Patch Changes
