@@ -23,6 +23,7 @@ import {
   repairedBlockWithConfig,
   text,
 } from '@lblod/ember-rdfa-editor/nodes';
+import { BlockRDFaView } from '@lblod/ember-rdfa-editor/nodes/block-rdfa';
 import {
   tableKeymap,
   tableNodes,
@@ -363,6 +364,7 @@ export default class TemplateManagementEditController extends Controller {
         templateComment: templateCommentView(controller),
         person_variable: personVariableView(controller),
         inline_rdfa: inlineRdfaWithConfigView({ rdfaAware: true })(controller),
+        block_rdfa: (node) => new BlockRDFaView(node),
         snippet_placeholder: snippetPlaceholderView(controller),
         mandatee_table: mandateeTableView(controller),
         structure: structureView(controller),

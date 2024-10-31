@@ -73,6 +73,7 @@ import {
   autofilled_variable,
   autofilledVariableView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/variables';
+import { BlockRDFaView } from '@lblod/ember-rdfa-editor/nodes/block-rdfa';
 import { document_title } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/document-title-plugin/nodes';
 import {
   templateComment,
@@ -323,6 +324,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
         templateComment: templateCommentView(controller),
         person_variable: personVariableView(controller),
         inline_rdfa: inlineRdfaWithConfigView({ rdfaAware: true })(controller),
+        block_rdfa: (node) => new BlockRDFaView(node),
         snippet_placeholder: snippetPlaceholderView(controller),
         oslo_location: osloLocationView(this.config.location)(controller),
         snippet: snippetView(this.config.snippet)(controller),
