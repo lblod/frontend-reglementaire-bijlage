@@ -5,6 +5,8 @@ import { firefoxCursorFix } from '@lblod/ember-rdfa-editor/plugins/firefox-curso
 import { lastKeyPressedPlugin } from '@lblod/ember-rdfa-editor/plugins/last-key-pressed';
 import recreateUuidsOnPaste from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/recreateUuidsOnPaste';
 import { chromeHacksPlugin } from '@lblod/ember-rdfa-editor/plugins/chrome-hacks-plugin';
+import { emberApplication } from '@lblod/ember-rdfa-editor/plugins/ember-application';
+import { getOwner } from '@ember/application';
 
 export default class RdfaEditorContainerComponent extends Component {
   @tracked editor;
@@ -36,6 +38,7 @@ export default class RdfaEditorContainerComponent extends Component {
       lastKeyPressedPlugin,
       chromeHacksPlugin(),
       recreateUuidsOnPaste,
+      emberApplication({ application: getOwner(this) }),
     );
   }
 
