@@ -1,5 +1,12 @@
 # frontend-reglementaire-bijlage
 
+## 9.9.1
+
+### Patch Changes
+
+- [#294](https://github.com/lblod/frontend-reglementaire-bijlage/pull/294) [`ee3e4cf`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/ee3e4cfc8e4d3a94bef56ae189f31901bdcddf42) Thanks [@elpoelma](https://github.com/elpoelma)! - `rdfa-editor-container` component: include `emberApplication` prosemirror plugin by default.
+  This ensures that the serialization method of prosemirror nodes will be able to leverage `ember-intl` to provide an internationalized node serialization.
+
 ## 9.9.0
 
 ### Minor Changes
