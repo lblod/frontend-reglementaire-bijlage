@@ -189,7 +189,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
       table_of_contents: table_of_contents(this.config.tableOfContents),
       invisible_rdfa: invisibleRdfaWithConfig({ rdfaAware: true }),
       link: link(this.config.link),
-      snippet_placeholder: snippetPlaceholder,
+      snippet_placeholder: snippetPlaceholder(this.config.snippet),
       snippet: snippet(this.config.snippet),
     },
     marks: {
@@ -325,7 +325,9 @@ export default class SnippetManagementEditSnippetController extends Controller {
         person_variable: personVariableView(controller),
         inline_rdfa: inlineRdfaWithConfigView({ rdfaAware: true })(controller),
         block_rdfa: (node) => new BlockRDFaView(node),
-        snippet_placeholder: snippetPlaceholderView(controller),
+        snippet_placeholder: snippetPlaceholderView(this.config.snippet)(
+          controller,
+        ),
         oslo_location: osloLocationView(this.config.location)(controller),
         snippet: snippetView(this.config.snippet)(controller),
         structure: structureView(controller),

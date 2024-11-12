@@ -208,7 +208,7 @@ export default class TemplateManagementEditController extends Controller {
       table_of_contents: table_of_contents(this.config.tableOfContents),
       invisible_rdfa: invisibleRdfaWithConfig({ rdfaAware: true }),
       link: link(this.config.link),
-      snippet_placeholder: snippetPlaceholder,
+      snippet_placeholder: snippetPlaceholder(this.config.snippet),
       snippet: snippet(this.config.snippet),
     },
     marks: {
@@ -365,7 +365,9 @@ export default class TemplateManagementEditController extends Controller {
         person_variable: personVariableView(controller),
         inline_rdfa: inlineRdfaWithConfigView({ rdfaAware: true })(controller),
         block_rdfa: (node) => new BlockRDFaView(node),
-        snippet_placeholder: snippetPlaceholderView(controller),
+        snippet_placeholder: snippetPlaceholderView(this.config.snippet)(
+          controller,
+        ),
         mandatee_table: mandateeTableView(controller),
         structure: structureView(controller),
         snippet: snippetView(this.config.snippet)(controller),
