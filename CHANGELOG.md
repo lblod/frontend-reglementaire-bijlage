@@ -1,5 +1,11 @@
 # frontend-reglementaire-bijlage
 
+## 9.10.2
+
+### Patch Changes
+
+- [`012c2f4`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/012c2f4b30ba22030f9e897b92fa8ebb952eabdd) Thanks [@elpoelma](https://github.com/elpoelma)! - Fix configuration of `snippet_placeholder` node and nodeview
+
 ## 9.10.1
 
 ### Patch Changes
