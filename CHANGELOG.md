@@ -1,5 +1,11 @@
 # frontend-reglementaire-bijlage
 
+## 9.10.3
+
+### Patch Changes
+
+- [`1a370c4`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/1a370c4edb6a64f3b0db320e2c42d686c021f77f) Thanks [@lagartoverde](https://github.com/lagartoverde)! - Update ember-rdfa-editor to 10.7.4 and ember-rdfa-editor-lblod-plugins to 25.2.2
+
 ## 9.10.2
 
 ### Patch Changes
