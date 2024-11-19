@@ -119,16 +119,18 @@
         <Sidebar as |Sidebar|>
 
           <Sidebar.Collapsible
-            @title={{t 'snippet-edit.sidebar.general-nodes'}}
+            @title={{t "snippet-edit.sidebar.general-nodes"}}
             @expandedInitially={{false}}
           >
             <VariablePlugin::Date::Insert
               @controller={{this.editor}}
               @options={{this.config.date}}
+              @templateMode={{true}}
             />
             <LocationPlugin::Insert
               @controller={{this.editor}}
               @config={{this.config.location}}
+              @templateMode={{true}}
             />
             <CitationPlugin::CitationInsert
               @controller={{this.editor}}
@@ -138,8 +140,10 @@
             {{#if this.supportsComments}}
               <TemplateCommentsPlugin::Insert @controller={{this.editor}} />
             {{/if}}
-            <VariablePlugin::Address::Insert @controller={{this.editor}} />
-
+            <VariablePlugin::Address::Insert
+              @controller={{this.editor}}
+              @templateMode={{true}}
+            />
 
             <SnippetPlugin::SnippetInsertPlaceholder
               @controller={{this.editor}}
@@ -155,7 +159,7 @@
           </Sidebar.Collapsible>
           {{#if (eq this.internalTypeName "decision")}}
             <Sidebar.Collapsible
-              @title={{t 'snippet-edit.sidebar.decision-nodes'}}
+              @title={{t "snippet-edit.sidebar.decision-nodes"}}
               @expandedInitially={{false}}
             >
               <this.StructureInsert @controller={{this.editor}} />
@@ -174,15 +178,16 @@
 
           {{#unless (eq this.internalTypeName "decision")}}
             <Sidebar.Collapsible
-              @title={{t 'snippet-edit.sidebar.regulatory-statement-nodes'}}
-              @expandedInitially={{false}}>
-                <DocumentTitlePlugin::InsertTitleCard
-                  @controller={{this.editor}}
-                />
-                <ArticleStructurePlugin::ArticleStructureCard
-                  @controller={{this.editor}}
-                  @options={{this.config.structures}}
-                />
+              @title={{t "snippet-edit.sidebar.regulatory-statement-nodes"}}
+              @expandedInitially={{false}}
+            >
+              <DocumentTitlePlugin::InsertTitleCard
+                @controller={{this.editor}}
+              />
+              <ArticleStructurePlugin::ArticleStructureCard
+                @controller={{this.editor}}
+                @options={{this.config.structures}}
+              />
             </Sidebar.Collapsible>
           {{/unless}}
           <Plugins::Link::LinkEditor @controller={{this.editor}} />
@@ -205,6 +210,7 @@
           <VariablePlugin::InsertVariableCard
             @controller={{this.editor}}
             @variableTypes={{this.variableTypes}}
+            @templateMode={{true}}
           />
           <VariablePlugin::Address::Edit @controller={{this.editor}} />
           <ArticleStructurePlugin::StructureCard
@@ -220,9 +226,7 @@
             @controller={{this.editor}}
             @options={{this.config.date}}
           />
-          <VariablePlugin::Autofilled::Edit
-            @controller={{this.editor}}
-          />
+          <VariablePlugin::Autofilled::Edit @controller={{this.editor}} />
           <TemplateCommentsPlugin::EditCard @controller={{this.editor}} />
           {{! VariablePlugin::TemplateVariableCard is not added on purpose
           as an RB-document creator should not be able to set a "default" codelist option.}}
