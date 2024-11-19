@@ -1,5 +1,13 @@
 # frontend-reglementaire-bijlage
 
+## 9.10.4
+
+### Patch Changes
+
+- [#298](https://github.com/lblod/frontend-reglementaire-bijlage/pull/298) [`ed24a5d`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/ed24a5d1f17a9b24c8e08ab190e2cfa1e5bb3749) Thanks [@elpoelma](https://github.com/elpoelma)! - Ensure `templateMode` is enabled in variable-insertion components
+
+- [#298](https://github.com/lblod/frontend-reglementaire-bijlage/pull/298) [`ed24a5d`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/ed24a5d1f17a9b24c8e08ab190e2cfa1e5bb3749) Thanks [@elpoelma](https://github.com/elpoelma)! - Update editor-plugins to version [26.0.1](https://github.com/lblod/ember-rdfa-editor-lblod-plugins/releases/tag/v26.0.1)
+
 ## 9.10.3
 
 ### Patch Changes
