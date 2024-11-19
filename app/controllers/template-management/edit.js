@@ -128,6 +128,7 @@ import {
   osloLocationView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin/node';
 import { variableAutofillerPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/plugins/autofiller';
+import { extractSnippetListUris } from '../../utils/extract-snippet-lists';
 
 const SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE = 'data-snippet-list-ids';
 const GEMEENTE_CLASSIFICATION_URI =
@@ -494,6 +495,12 @@ export default class TemplateManagementEditController extends Controller {
 
     const documentContainer = this.model.documentContainer;
     documentContainer.currentVersion = editorDocument;
+
+    const snippetListUris = extractSnippetListUris(html);
+    const snippetListObjects = await Promise.all(
+      snippetListUris.map((uri) => this.store.findByUri('snippet-list', uri)),
+    );
+    documentContainer.linkedSnippetLists = snippetListObjects;
     await documentContainer.save();
     this._editorDocument = editorDocument;
   });

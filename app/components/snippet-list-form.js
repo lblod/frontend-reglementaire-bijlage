@@ -41,6 +41,36 @@ export default class SnippetListForm extends Component {
     return snippets.slice();
   });
 
+  linkedTemplates = trackedFunction(this, async () => {
+    return this.store.countAndFetchAll('document-container', {
+      include: ['current-version'].join(','),
+      filter: {
+        'linked-snippet-lists': {
+          ':id:': this.snippetList.id,
+        },
+      },
+      fields: {
+        'editor-documents': ['title'].join(','),
+      },
+      sort: ':no-case:current-version.title',
+    });
+  });
+
+  linkedSnippets = trackedFunction(this, async () => {
+    return this.store.countAndFetchAll('snippet', {
+      include: ['current-version'].join(','),
+      filter: {
+        'linked-snippet-lists': {
+          ':id:': this.snippetList.id,
+        },
+      },
+      fields: {
+        'snippet-versions': ['title'].join(','),
+      },
+      sort: ':no-case:current-version.title',
+    });
+  });
+
   @action
   async reorderSnippets(newSnippets) {
     this.snippets = newSnippets;
