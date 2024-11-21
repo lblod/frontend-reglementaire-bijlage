@@ -15,14 +15,14 @@ function extractTriplesFromDocument(html) {
   const node = document.createElement('body');
   node.innerHTML = html;
   const contexts = analyse(node).map((c) => c.context);
-  return cleanupTriples(contexts.flat());
+  return dedupTriples(contexts.flat());
 }
 
-function cleanupTriples(triples) {
-  const cleantriples = {};
+function dedupTriples(triples) {
+  const dedupedTriples = {};
   for (const triple of triples) {
     const hash = JSON.stringify(triple);
-    cleantriples[hash] = triple;
+    dedupedTriples[hash] = triple;
   }
-  return Object.keys(cleantriples).map((k) => cleantriples[k]);
+  return Object.values(dedupedTriples);
 }
