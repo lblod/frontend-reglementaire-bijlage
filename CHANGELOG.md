@@ -1,5 +1,17 @@
 # frontend-reglementaire-bijlage
 
+## 9.12.0
+
+### Minor Changes
+
+- [#299](https://github.com/lblod/frontend-reglementaire-bijlage/pull/299) [`d282f72`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/d282f72d9c5cafa06b8787d59271990f74f044a2) Thanks [@elpoelma](https://github.com/elpoelma)! - Re-enable/extend connected documents feature:
+  - `SnippetList` model: remove unnecessary `templates` relationship
+  - `DocumentContainer` model: rename `snippetLists` relationship to `linkedSnippetLists`
+  - `Snippet` model: add `linkedSnippetLists` relationship
+  - Extend `snippet-list` edit page to include both connected templates _and_ connected snippets
+  - Add `@lblod/marawa` dependency to allow for RDFa document parsing
+  - Ensure the connected snippet-lists are extracted and stored on saving templates/snippets
+
 ## 9.11.0
 
 ### Minor Changes
