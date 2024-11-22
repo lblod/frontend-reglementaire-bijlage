@@ -8,5 +8,7 @@ export default class SnippetModel extends Model {
 
   @belongsTo('snippet-version', { inverse: null, async: true }) currentVersion;
   @belongsTo('snippet-list', { inverse: 'snippets', async: true }) snippetList;
+
   @hasMany('snippet-version', { inverse: 'snippet', async: true }) revisions;
+  @hasMany('snippet-list', { inverse: null, async: true }) linkedSnippetLists;
 }

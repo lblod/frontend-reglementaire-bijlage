@@ -48,4 +48,15 @@ export default class extends Store {
       },
     });
   }
+
+  async findByUri(modelName, uri) {
+    const query = {
+      filter: {
+        ':uri:': uri,
+      },
+    };
+
+    const results = await this.query(modelName, query);
+    return results[0];
+  }
 }
