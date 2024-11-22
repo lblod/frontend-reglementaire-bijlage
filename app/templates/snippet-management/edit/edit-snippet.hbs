@@ -84,6 +84,10 @@
     <:aside>
       {{#if this.editor}}
         <Sidebar as |Sidebar|>
+          <ConnectArticlesToImportedResource
+            @controller={{this.editor}}
+            @importedResource={{this.importedDecisionUri}}
+          />
           <Sidebar.Collapsible
             @title={{t "snippet-edit.sidebar.general-nodes"}}
             @expandedInitially={{false}}
