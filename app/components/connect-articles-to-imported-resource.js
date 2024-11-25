@@ -44,7 +44,7 @@ export default class ConnectArticlesToImportedResourceComponent extends Componen
             object: sayDataFactory.resourceNode(uri),
           },
           isNewImportedResource: !this.documentImportedResources.includes(
-            this.importedResourceURI,
+            this.importedResource,
           ),
         }),
       );
