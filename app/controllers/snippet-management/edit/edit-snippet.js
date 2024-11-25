@@ -120,6 +120,7 @@ import {
 import { saveCollatedImportedResources } from '../../../utils/imported-resources';
 import { variableAutofillerPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/plugins/autofiller';
 import { IVGR_TAGS, RMW_TAGS } from '../../../utils/constants';
+import { extractSnippetListUris } from '../../../utils/extract-snippet-lists';
 
 export default class SnippetManagementEditSnippetController extends Controller {
   AttributeEditor = AttributeEditor;
@@ -396,6 +397,11 @@ export default class SnippetManagementEditSnippetController extends Controller {
     await Promise.all([currentVersion.save(), newVersion.save()]);
     snippet.currentVersion = newVersion;
     snippet.updatedOn = now;
+    const snippetListUris = extractSnippetListUris(html);
+    const snippetListObjects = await Promise.all(
+      snippetListUris.map((uri) => this.store.findByUri('snippet-list', uri)),
+    );
+    snippet.linkedSnippetLists = snippetListObjects;
     await snippet.save();
     await this.updateImportedResourcesOnList.perform();
   });

@@ -169,12 +169,16 @@ snippets:
         snippet: Fragment
       no-data: Geen fragmenten gevonden
       loading-error: Er is een fout opgetreden tijdens het laden van fragmenten
-    connected-templates:
+    connected-documents:
       heading: Beschikbaar in
-      table:
+      templates-table:
         columns:
           template: Sjabloon
         no-data: Geen sjablonen gekoppeld aan deze fragmentlijst
+      snippets-table:
+        columns:
+          snippet: Fragment
+        no-data: Geen fragmenten gekoppeld aan deze fragmentlijst
     snippet-deletion:
       confirm: Bevestig om fragment <strong>{name}</strong> te verwijderen
       action:
