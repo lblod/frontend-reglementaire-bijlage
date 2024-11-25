@@ -190,6 +190,7 @@
               />
             </Sidebar.Collapsible>
           {{/unless}}
+          <RegenerateVariableUris @controller={{this.editor}} />
           <Plugins::Link::LinkEditor @controller={{this.editor}} />
           <this.RdfaEditor
             @node={{this.activeNode}}
@@ -202,6 +203,7 @@
             />
             <this.DebugInfo @node={{this.activeNode}} />
           {{/if}}
+
           <this.StructureControl @controller={{this.editor}} />
           <MandateeTablePlugin::Configure
             @controller={{this.editor}}
@@ -228,6 +230,7 @@
           />
           <VariablePlugin::Autofilled::Edit @controller={{this.editor}} />
           <TemplateCommentsPlugin::EditCard @controller={{this.editor}} />
+
           {{! VariablePlugin::TemplateVariableCard is not added on purpose
           as an RB-document creator should not be able to set a "default" codelist option.}}
         </Sidebar>

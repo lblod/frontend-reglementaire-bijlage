@@ -22,8 +22,8 @@ codelist:
     options: "Options"
     id: Id
     types:
-      singleSelect: 'Single select'
-      multiSelect: 'Multi select'
+      singleSelect: "Single select"
+      multiSelect: "Multi select"
   options:
     label: Label
     label-explanation: Optional shorter description
@@ -216,3 +216,7 @@ editor:
 
 search-form:
   aria-label: Search
+
+regenerate-variable-uris:
+  modal-title: Regenerate variable URIs
+  button: Regenerate

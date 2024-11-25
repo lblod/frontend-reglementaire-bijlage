@@ -1,0 +1,22 @@
+<AuCard
+  @flex={{true}}
+  @divided={{true}}
+  @isOpenInitially={{true}}
+  @expandable={{true}}
+  @shadow={{true}}
+  @size='small'
+  as |c|
+>
+  <c.header>
+    <AuHeading @level='3' @skin='6'>
+      {{t 'regenerate-variable-uris.modal-title'}}
+    </AuHeading>
+  </c.header>
+  <c.content>
+  <AuButton
+      {{on 'click' this.regenerate}}
+    >
+      {{t 'regenerate-variable-uris.button'}}
+    </AuButton>
+  </c.content>
+</AuCard>
