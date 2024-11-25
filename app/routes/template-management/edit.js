@@ -14,7 +14,7 @@ export default class TemplateManagementEditRoute extends Route {
       'document-container',
       params.id,
       {
-        include: 'current-version,snippet-lists,snippet-lists.snippets,folder',
+        include: 'current-version,folder',
       },
     );
     return hash({
