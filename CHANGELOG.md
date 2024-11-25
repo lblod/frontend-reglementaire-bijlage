@@ -1,5 +1,13 @@
 # frontend-reglementaire-bijlage
 
+## 9.13.0
+
+### Minor Changes
+
+- [#302](https://github.com/lblod/frontend-reglementaire-bijlage/pull/302) [`8727b6c`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/8727b6c9fad59e87c406b96ea69e59085e2edd54) Thanks [@elpoelma](https://github.com/elpoelma)! - Add utility button to quickly connect all articles in a snippet to an imported resource
+
+- [#301](https://github.com/lblod/frontend-reglementaire-bijlage/pull/301) [`726270b`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/726270b4ed6b9eedc0cdef0f5889a7813e7a8a32) Thanks [@lagartoverde](https://github.com/lagartoverde)! - Add a card to regenerate variable uris
+
 ## 9.12.1
 
 ### Patch Changes
