@@ -1,0 +1,29 @@
+<AuCard
+  @flex={{true}}
+  @divided={{true}}
+  @isOpenInitially={{true}}
+  @expandable={{true}}
+  @shadow={{true}}
+  @size='small'
+  as |c|
+>
+  <c.header>
+    {{!-- template-lint-disable no-bare-strings --}}
+    <AuHeading @level='3' @skin='6'>
+      Connect articles to imported resource
+    </AuHeading>
+  </c.header>
+  <c.content>
+  <AuButton
+      @disabled={{this.docIsConnected}}
+      {{on 'click' this.connect}}
+    >
+      {{!-- template-lint-disable no-bare-strings --}}
+      {{#if this.docIsConnected}}
+        Connected
+      {{else}}
+        Connect
+      {{/if}}
+    </AuButton>
+  </c.content>
+</AuCard>

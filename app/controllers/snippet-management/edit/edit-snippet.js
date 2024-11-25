@@ -417,4 +417,8 @@ export default class SnippetManagementEditSnippetController extends Controller {
     );
     return saveCollatedImportedResources(list);
   });
+
+  get importedDecisionUri() {
+    return `http://example.org/imported-decision-${this.model.snippetList.id}`;
+  }
 }
