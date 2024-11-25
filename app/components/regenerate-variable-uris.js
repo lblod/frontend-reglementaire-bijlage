@@ -35,7 +35,6 @@ export default class RegenerateVariableUrisComponent extends Component {
   }
   recreateUris(node, pos) {
     const newAttrs = { ...node.attrs };
-    console.log();
     if (newAttrs.subject) {
       newAttrs.subject = `http://data.lblod.info/mappings/--ref-uuid4-${uuidv4()}`;
     }
