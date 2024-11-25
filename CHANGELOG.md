@@ -1,5 +1,11 @@
 # frontend-reglementaire-bijlage
 
+## 9.12.1
+
+### Patch Changes
+
+- [#303](https://github.com/lblod/frontend-reglementaire-bijlage/pull/303) [`835d241`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/835d241c1fb030fed6b006b013f283b2b494e831) Thanks [@elpoelma](https://github.com/elpoelma)! - `TemplateManagementEditRoute`: remove erroneous `snippet-lists` include from `document-container` query
+
 ## 9.12.0
 
 ### Minor Changes
