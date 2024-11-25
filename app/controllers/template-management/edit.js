@@ -521,25 +521,4 @@ export default class TemplateManagementEditController extends Controller {
     );
     this.assignedSnippetListsIds = snippetIds;
   }
-
-  setDocumentContainerSnippetLists = task(async (snippetIds) => {
-    if (!snippetIds || !snippetIds.length) {
-      this.documentSnippetListIds = [];
-      this.model.documentContainer.snippetLists.setObjects([]);
-
-      return this.save.perform();
-    }
-
-    const snippetLists = await this.store.query('snippet-list', {
-      filter: {
-        ':id:': snippetIds.join(','),
-      },
-      include: 'snippets',
-    });
-
-    this.documentSnippetListIds = snippetIds;
-    this.model.documentContainer.snippetLists.setObjects(snippetLists);
-
-    return this.save.perform();
-  });
 }
