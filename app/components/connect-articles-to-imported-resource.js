@@ -57,7 +57,7 @@ export default class ConnectArticlesToImportedResourceComponent extends Componen
 
   isConnected(articleNode) {
     return Boolean(
-      (articleNode.attrs.backlinks ?? []).find(
+      (articleNode.attrs.backlinks ?? []).some(
         (backlink) =>
           backlink.predicate == 'http://data.europa.eu/eli/ontology#has_part',
       ),
