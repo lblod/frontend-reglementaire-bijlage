@@ -109,6 +109,7 @@ import {
   snippetPlaceholder,
   snippetPlaceholderView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/snippet-plugin/nodes/snippet-placeholder';
+import SnippetListSelectRdfaComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/snippet-plugin/snippet-list-select-rdfa';
 import {
   snippet,
   snippetView,
@@ -129,6 +130,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
   InsertArticle = InsertArticleComponent;
   StructureControlCard = StructureControlCardComponent;
   SnippetInsert = SnippetInsertRdfaComponent;
+  SnippetListSelect = SnippetListSelectRdfaComponent;
 
   @service store;
   @service router;

@@ -6,7 +6,17 @@
   @document={{this.editorDocument}}
   @save={{hash action=(perform this.save) isRunning=this.save.isRunning}}
   @dirty={{this.dirty}}
-/>
+>
+ <:leadingButtons>
+    {{#if this.activeNode}}
+      <this.SnippetListSelect
+        @node={{this.activeNode}}
+        @controller={{this.editor}}
+        @config={{this.config.snippet}}
+      />
+    {{/if}}
+  </:leadingButtons>
+</AppChrome>
 
 {{#if this.editorDocument}}
   <RdfaEditorContainer
