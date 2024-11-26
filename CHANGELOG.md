@@ -1,5 +1,11 @@
 # frontend-reglementaire-bijlage
 
+## 9.13.3
+
+### Patch Changes
+
+- [`ba4c665`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/ba4c6659e8d45c00cc413b0ae0fe78c74dbc1b3c) Thanks [@elpoelma](https://github.com/elpoelma)! - Add `reload: true` to `findRecord` call in template-edit route to ensure latest content of template is correctly loaded
+
 ## 9.13.2
 
 ### Patch Changes
