@@ -15,6 +15,7 @@ export default class TemplateManagementEditRoute extends Route {
       params.id,
       {
         include: 'current-version,folder',
+        reload: true,
       },
     );
     return hash({
