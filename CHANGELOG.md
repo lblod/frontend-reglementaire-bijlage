@@ -1,5 +1,11 @@
 # frontend-reglementaire-bijlage
 
+## 9.13.2
+
+### Patch Changes
+
+- [`f88e759`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/f88e759acdcd05b7a4d838a2b3abdb93b4fe8c37) Thanks [@elpoelma](https://github.com/elpoelma)! - Enable `SnippetListSelect` button in snippet-editor to ensure snippet placeholder may be reconfigured
+
 ## 9.13.1
 
 ### Patch Changes
