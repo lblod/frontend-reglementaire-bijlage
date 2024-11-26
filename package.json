@@ -102,7 +102,7 @@
     "sass": "^1.69.0",
     "tracked-built-ins": "^3.1.1",
     "typescript": "^5.6.3",
-    "webpack": "^5.88.2"
+    "webpack": "^5.96.1"
   },
   "overrides": {
     "@appuniversum/ember-appuniversum": {
