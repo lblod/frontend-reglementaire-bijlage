@@ -76,6 +76,10 @@ landing-page:
     title: Fragmentenlijsten
     content: Beheer fragmentenlijsten die gebruikt worden in sjablonen
     button: Ga naar fragmentenlijsten
+  import:
+    title: Import
+    content: Importeer templates uit een andere omgeving
+    button: Ga naar import manager
 legal:
   accessibility-statement: Toegankelijkheidsverklaring
   cookie-statement: Cookieverklaring

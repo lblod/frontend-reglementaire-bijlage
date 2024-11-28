@@ -76,6 +76,10 @@ landing-page:
     title: Snippets
     content: Manage snippets that are used in a template
     button: Go to snippets
+  import:
+    title: Import
+    content: Import templates from another environment
+    button: Go to import manager
 legal:
   accessibility-statement: Accessibility statement
   cookie-statement: Cookie statement
