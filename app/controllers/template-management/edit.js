@@ -3,9 +3,8 @@ import { action } from '@ember/object';
 import { task } from 'ember-concurrency';
 import { service } from '@ember/service';
 import { tracked } from 'tracked-built-ins';
-import { trackedFunction } from 'reactiveweb/function';
-import { Schema } from '@lblod/ember-rdfa-editor';
 import { v4 as uuid } from 'uuid';
+import { Schema } from '@lblod/ember-rdfa-editor';
 import {
   em,
   strikethrough,
@@ -444,17 +443,6 @@ export default class TemplateManagementEditController extends Controller {
       );
     }
   }
-
-  isPublished = trackedFunction(this, async () => {
-    const publishedTemplate = await this.store.query('template-version', {
-      filter: {
-        'derived-from': {
-          id: this.editorDocument.id,
-        },
-      },
-    })[0];
-    return Boolean(publishedTemplate);
-  });
 
   get dirty() {
     // Since we clear the undo history when saving, this works. If we want to maintain undo history
