@@ -142,9 +142,13 @@ export default class TemplateManagementIndexController extends Controller {
   }
 
   @action
+  closeRemoveTemplateModal() {
+    this.removeTemplateModalIsOpen = false;
+  }
+
+  @action
   cancelRemoveTemplate() {
     this.editorDocument = undefined;
-    this.removeTemplateModalIsOpen = false;
   }
 
   submitRemoveTemplate = task(async () => {
@@ -170,7 +174,6 @@ export default class TemplateManagementIndexController extends Controller {
       }
     }
 
-    this.removeTemplateModalIsOpen = false;
     await this.documentContainer.deleteRecord();
     await this.documentContainer.save();
     this.refresh();
