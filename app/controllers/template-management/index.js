@@ -3,9 +3,11 @@ import { task } from 'ember-concurrency';
 import { service } from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
+import { localCopy } from 'tracked-toolbox';
+import isAfter from 'date-fns/isAfter';
 import { isBlank } from '../../utils/strings';
 import { getTemplateType, getTemplateTypes } from '../../utils/template-type';
-import { localCopy } from 'tracked-toolbox';
+
 export default class TemplateManagementIndexController extends Controller {
   @service store;
   @service session;
@@ -85,7 +87,12 @@ export default class TemplateManagementIndexController extends Controller {
       // params you add
       const templateVersion = await publishedTemplate.currentVersion;
       // end of shenanigans
-      return templateVersion.created;
+      let validThrough = templateVersion.validThrough && new Date(templateVersion.validThrough);
+      if (validThrough && isAfter(validThrough, Date.now())) {
+        // Only display as unpublished when it actually is
+        validThrough = undefined;
+      }
+      return { created: templateVersion.created, validThrough };
     } else {
       return;
     }

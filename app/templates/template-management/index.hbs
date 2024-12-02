@@ -76,7 +76,12 @@
           as |lastPublicationDate|
         }}
           {{#if lastPublicationDate}}
-            {{detailed-date lastPublicationDate}}
+            {{#if lastPublicationDate.validThrough}}
+              <del datetime={{lastPublicationDate.validThrough}}>{{detailed-date
+  lastPublicationDate.created}}</del>
+            {{else}}
+              {{detailed-date lastPublicationDate.created}}
+            {{/if}}
           {{else}}
             {{t "template-management.not-found"}}
           {{/if}}
