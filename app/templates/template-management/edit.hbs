@@ -20,7 +20,23 @@
     }}
   >
     <:leadingButtons>
-
+      <AuPill
+        @skin={{if this.isPublished "success" "default"}}
+        @icon="eye"
+        @onClickAction={{if this.isPublished this.openConfirmUnpublish}}
+        @actionIcon="cross"
+        @actionText={{t "template-edit.unpublish"}}
+      >
+        {{#if this.isPublished}}
+          {{#if this.model.templateVersion.validThrough}}
+            {{t "template-management.available-until" date=(human-friendly-date this.unpublishDate)}}
+          {{else}}
+            {{t "template-management.available"}}
+          {{/if}}
+        {{else}}
+          {{t "template-management.not-published"}}
+        {{/if}}
+      </AuPill>
       {{#if this.activeNode}}
         <this.SnippetListSelect
           @node={{this.activeNode}}
@@ -238,3 +254,11 @@
   </RdfaEditorContainer>
 {{/if}}
 <ConfirmRouteLeave @enabled={{this.dirty}} />
+<ConfirmModal
+  @title={{t "template-edit.unpublish-confirm"}}
+  @confirmMessage={{t "template-edit.unpublish"}}
+  @isAlert={{true}}
+  @modalOpen={{this.isConfirmUnpublishOpen}}
+  @closeModal={{this.closeConfirmUnpublish}}
+  @onConfirm={{perform this.unpublishTemplate}}
+/>

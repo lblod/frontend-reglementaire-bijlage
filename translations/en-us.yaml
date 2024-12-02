@@ -51,7 +51,6 @@ utility:
   remove-concept: Remove concept
   export-to-html: "Export to HTML"
   to-recycle-bin: "Move to recycle bin"
-  available: Available
   confirmation:
     title: Confirm
     body: Are you sure?
@@ -90,6 +89,9 @@ template-management:
   updated-on: Updated On
   not-found: N/A
   publish-date: Published on
+  not-published: Not published
+  available: Available
+  available-until: Available until {date}
   template-type:
     label: Template type
     decision: Decision
@@ -111,6 +113,8 @@ template-edit:
   saving: Saving
   document-title-placeholder: Enter document title
   insert-title: Insert document title
+  unpublish: Unpublish
+  unpublish-confirm: Are you sure you want to unpublish this template?
 auth:
   acmidm: Log in with acm/idm
   login: Log in

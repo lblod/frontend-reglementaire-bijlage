@@ -4,6 +4,7 @@ import { task } from 'ember-concurrency';
 import { service } from '@ember/service';
 import { tracked } from 'tracked-built-ins';
 import { v4 as uuid } from 'uuid';
+import isAfter from 'date-fns/isAfter';
 import { Schema } from '@lblod/ember-rdfa-editor';
 import {
   em,
@@ -142,6 +143,8 @@ export default class TemplateManagementEditController extends Controller {
   @service currentSession;
   @tracked citationPlugin = citationPlugin(this.config.citation);
   @tracked assignedSnippetListsIds = [];
+  @tracked isConfirmUnpublishOpen = false;
+
   AttributeEditor = AttributeEditor;
   RdfaEditor = RdfaEditor;
   DebugInfo = DebugInfo;
@@ -149,6 +152,7 @@ export default class TemplateManagementEditController extends Controller {
   SnippetInsert = SnippetInsertRdfaComponent;
   StructureInsert = StructureInsert;
   StructureControl = StructureControl;
+
   schema = new Schema({
     nodes: {
       doc: docWithConfig({
@@ -509,4 +513,34 @@ export default class TemplateManagementEditController extends Controller {
     );
     this.assignedSnippetListsIds = snippetIds;
   }
+
+  get isPublished() {
+    const version = this.model.templateVersion;
+    return (
+      version &&
+      (!this.unpublishDate || isAfter(this.unpublishDate, Date.now()))
+    );
+  }
+  get unpublishDate() {
+    const validThrough = this.model.templateVersion?.validThrough;
+    return (
+      validThrough &&
+      (validThrough instanceof Date ? validThrough : new Date(validThrough))
+    );
+  }
+
+  @action
+  openConfirmUnpublish() {
+    this.isConfirmUnpublishOpen = true;
+  }
+
+  @action
+  closeConfirmUnpublish() {
+    this.isConfirmUnpublishOpen = false;
+  }
+
+  unpublishTemplate = task(async () => {
+    this.model.templateVersion.validThrough = new Date();
+    await this.model.templateVersion.save();
+  });
 }
