@@ -127,6 +127,7 @@ publish-page:
   back: Terug naar sjabloon
   latestversion: Laatste versie
   publishedversion: Publieke versie
+  published-until: Versie publiek tot {date}
   publish: Maak beschikbaar
   notification-title: Geslaagd
   notification-content: Sjabloon beschikbaar gemaakt

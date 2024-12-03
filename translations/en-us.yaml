@@ -127,6 +127,7 @@ publish-page:
   back: Back to document template
   latestversion: Latest version
   publishedversion: Published version
+  published-until: Version published up until {date}
   publish: Publish
   notification-title: Success
   notification-content: Template successfully published

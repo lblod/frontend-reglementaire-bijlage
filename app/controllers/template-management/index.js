@@ -87,7 +87,8 @@ export default class TemplateManagementIndexController extends Controller {
       // params you add
       const templateVersion = await publishedTemplate.currentVersion;
       // end of shenanigans
-      let validThrough = templateVersion.validThrough && new Date(templateVersion.validThrough);
+      let validThrough =
+        templateVersion.validThrough && new Date(templateVersion.validThrough);
       if (validThrough && isAfter(validThrough, Date.now())) {
         // Only display as unpublished when it actually is
         validThrough = undefined;
