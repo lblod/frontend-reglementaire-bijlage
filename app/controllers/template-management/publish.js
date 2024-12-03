@@ -14,13 +14,11 @@ export default class TemplateManagementPublishController extends Controller {
   @service intl;
 
   @tracked currentVersion;
-
-  constructor() {
-    super(...arguments);
-  }
+  @tracked currentVersionValidThrough;
 
   fetchPreview = task(async () => {
     this.currentVersion = '';
+    this.currentVersionValidThrough = undefined;
     const currentPublishedTemplate = (
       await this.store.query('template', {
         filter: {
@@ -34,6 +32,9 @@ export default class TemplateManagementPublishController extends Controller {
     if (currentPublishedTemplate) {
       const publishedVersion = await currentPublishedTemplate.currentVersion;
       const response = await fetch(publishedVersion.downloadLink);
+      this.currentVersionValidThrough =
+        publishedVersion.validThrough &&
+        new Date(publishedVersion.validThrough);
       this.currentVersion = await response.text();
     }
   });

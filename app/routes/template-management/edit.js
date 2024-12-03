@@ -18,10 +18,23 @@ export default class TemplateManagementEditRoute extends Route {
         reload: true,
       },
     );
+    const templateVersion = await this.store
+      .query('template', {
+        filter: {
+          'derived-from': {
+            id: documentContainer.id,
+          },
+        },
+        // See template-management/index.js for details of this hack
+        avoid_cache: new Date().toISOString(),
+        include: 'current-version',
+      })
+      .then((templates) => templates[0]?.currentVersion);
     return hash({
       documentContainer,
       editorDocument: documentContainer.currentVersion,
       templateTypeId: documentContainer.templateTypeId,
+      templateVersion,
     });
   }
 
