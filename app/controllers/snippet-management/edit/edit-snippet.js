@@ -118,6 +118,7 @@ import {
   mandatee_table,
   mandateeTableView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/mandatee-table-plugin/node';
+import { BESLUIT } from '@lblod/ember-rdfa-editor-lblod-plugins/utils/constants';
 import { saveCollatedImportedResources } from '../../../utils/imported-resources';
 import { variableAutofillerPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/plugins/autofiller';
 import { IVGR_TAGS, RMW_TAGS } from '../../../utils/constants';
@@ -298,6 +299,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
           'https://publicatie.gelinkt-notuleren.vlaanderen.be/id/plaats/',
         defaultAddressUriRoot:
           'https://publicatie.gelinkt-notuleren.vlaanderen.be/id/adres/',
+        subjectTypesToLinkTo: [BESLUIT('Artikel'), BESLUIT('Besluit')],
       },
       lmb: {
         endpoint: '/vendor-proxy/query',
