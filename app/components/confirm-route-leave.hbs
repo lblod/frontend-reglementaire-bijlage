@@ -1,19 +1,10 @@
-<AuModal
+<ConfirmModal
   @title={{t 'utility.confirmation.body'}}
+  @message={{or @message (t 'utility.confirm-leave-without-saving')}}
+  @confirmMessage={{or @confirmMessage (t 'utility.discard-changes')}}
+  @isAlert={{true}}
   @modalOpen={{and this.showConfirmModal @enabled}}
-  @closeModal={{this.onCancel}} as |Modal|
->
-  <Modal.Body>
-    <p>
-      {{or @message (t 'utility.confirm-leave-without-saving')}}
-    </p>
-  </Modal.Body>
-  <Modal.Footer>
-    <AuButton @alert={{true}} {{on 'click' this.onConfirm}}>
-      {{or @confirmMessage (t 'utility.discard-changes')}}
-    </AuButton>
-    <AuButton @skin='secondary' {{on 'click' this.onCancel}}>
-      {{t 'utility.cancel'}}
-    </AuButton>
-  </Modal.Footer>
-</AuModal>
+  @closeModal={{this.onCancel}}
+  @onConfirm={{this.onConfirm}}
+  @onCancel={{this.onCancel}}
+/>

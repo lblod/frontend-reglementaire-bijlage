@@ -3,9 +3,9 @@ import { action } from '@ember/object';
 import { task } from 'ember-concurrency';
 import { service } from '@ember/service';
 import { tracked } from 'tracked-built-ins';
-import { trackedFunction } from 'reactiveweb/function';
-import { Schema } from '@lblod/ember-rdfa-editor';
 import { v4 as uuid } from 'uuid';
+import isAfter from 'date-fns/isAfter';
+import { Schema } from '@lblod/ember-rdfa-editor';
 import {
   em,
   strikethrough,
@@ -143,6 +143,8 @@ export default class TemplateManagementEditController extends Controller {
   @service currentSession;
   @tracked citationPlugin = citationPlugin(this.config.citation);
   @tracked assignedSnippetListsIds = [];
+  @tracked isConfirmUnpublishOpen = false;
+
   AttributeEditor = AttributeEditor;
   RdfaEditor = RdfaEditor;
   DebugInfo = DebugInfo;
@@ -150,6 +152,7 @@ export default class TemplateManagementEditController extends Controller {
   SnippetInsert = SnippetInsertRdfaComponent;
   StructureInsert = StructureInsert;
   StructureControl = StructureControl;
+
   schema = new Schema({
     nodes: {
       doc: docWithConfig({
@@ -445,17 +448,6 @@ export default class TemplateManagementEditController extends Controller {
     }
   }
 
-  isPublished = trackedFunction(this, async () => {
-    const publishedTemplate = await this.store.query('template-version', {
-      filter: {
-        'derived-from': {
-          id: this.editorDocument.id,
-        },
-      },
-    })[0];
-    return Boolean(publishedTemplate);
-  });
-
   get dirty() {
     // Since we clear the undo history when saving, this works. If we want to maintain undo history
     // on save, we would need to add functionality to the editor to track what is the 'saved' state
@@ -521,4 +513,34 @@ export default class TemplateManagementEditController extends Controller {
     );
     this.assignedSnippetListsIds = snippetIds;
   }
+
+  get isPublished() {
+    const version = this.model.templateVersion;
+    return (
+      version &&
+      (!this.unpublishDate || isAfter(this.unpublishDate, Date.now()))
+    );
+  }
+  get unpublishDate() {
+    const validThrough = this.model.templateVersion?.validThrough;
+    return (
+      validThrough &&
+      (validThrough instanceof Date ? validThrough : new Date(validThrough))
+    );
+  }
+
+  @action
+  openConfirmUnpublish() {
+    this.isConfirmUnpublishOpen = true;
+  }
+
+  @action
+  closeConfirmUnpublish() {
+    this.isConfirmUnpublishOpen = false;
+  }
+
+  unpublishTemplate = task(async () => {
+    this.model.templateVersion.validThrough = new Date();
+    await this.model.templateVersion.save();
+  });
 }
