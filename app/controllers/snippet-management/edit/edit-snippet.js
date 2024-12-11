@@ -102,7 +102,6 @@ import TextVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/
 import NumberInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/number/insert';
 import DateInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/date/insert-variable';
 import CodelistInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/codelist/insert';
-import VariablePluginAddressInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/address/insert-variable';
 import PersonVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/person/insert';
 import SnippetInsertRdfaComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/snippet-plugin/snippet-insert-rdfa';
 import {
@@ -218,10 +217,6 @@ export default class SnippetManagementEditSnippetController extends Controller {
       {
         label: this.intl.t('editor.variables.number'),
         component: NumberInsertComponent,
-      },
-      {
-        label: this.intl.t('editor.variables.address'),
-        component: VariablePluginAddressInsertVariableComponent,
       },
       {
         label: this.intl.t('editor.variables.date'),

@@ -155,11 +155,6 @@
             {{#if this.supportsComments}}
               <TemplateCommentsPlugin::Insert @controller={{this.editor}} />
             {{/if}}
-            <VariablePlugin::Address::Insert
-              @controller={{this.editor}}
-              @templateMode={{true}}
-            />
-
             <SnippetPlugin::SnippetInsertPlaceholder
               @controller={{this.editor}}
               @config={{this.config.snippet}}
@@ -229,7 +224,6 @@
             @variableTypes={{this.variableTypes}}
             @templateMode={{true}}
           />
-          <VariablePlugin::Address::Edit @controller={{this.editor}} />
           <ArticleStructurePlugin::StructureCard
             @controller={{this.editor}}
             @options={{this.config.structures}}
