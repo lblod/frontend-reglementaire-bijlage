@@ -128,6 +128,10 @@ import {
   osloLocationView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin/node';
 import { variableAutofillerPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/plugins/autofiller';
+import {
+  BESLUIT,
+  SAY,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/utils/constants';
 import { extractSnippetListUris } from '../../utils/extract-snippet-lists';
 
 const SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE = 'data-snippet-list-ids';
@@ -345,6 +349,15 @@ export default class TemplateManagementEditController extends Controller {
           'https://publicatie.gelinkt-notuleren.vlaanderen.be/id/plaats/',
         defaultAddressUriRoot:
           'https://publicatie.gelinkt-notuleren.vlaanderen.be/id/adres/',
+        subjectTypesToLinkTo:
+          this.internalTypeName === 'decision'
+            ? [BESLUIT('Artikel'), BESLUIT('Besluit')]
+            : [
+                SAY('Article'),
+                SAY('Subsection'),
+                SAY('Section'),
+                SAY('Chapter'),
+              ],
       },
       autofilledVariable: {
         autofilledValues: {},
