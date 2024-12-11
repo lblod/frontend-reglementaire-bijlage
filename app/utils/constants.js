@@ -25,3 +25,11 @@ export const RMW_TAGS = /** @type {const} */ ([
   'IVRMW2-LBM-4-geloofsbrieven-leden',
   'IVRMW2-LBM-5-eed-leden',
 ]);
+
+export const JOB_STATUSES = {
+  scheduled: 'http://redpencil.data.gift/id/concept/JobStatus/scheduled',
+  busy: 'http://redpencil.data.gift/id/concept/JobStatus/busy',
+  success: 'http://redpencil.data.gift/id/concept/JobStatus/success',
+  failed: 'http://redpencil.data.gift/id/concept/JobStatus/failed',
+  canceled: 'http://redpencil.data.gift/id/concept/JobStatus/canceled',
+};

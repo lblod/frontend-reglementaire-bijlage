@@ -1,20 +1,17 @@
 import Service from '@ember/service';
 import { task, timeout } from 'ember-concurrency';
-
-const TASK_ENDPOINT = '/tasks';
-export const TASK_STATUS_FAILURE =
-  'http://lblod.data.gift/besluit-publicatie-melding-statuses/failure';
-export const TASK_STATUS_CREATED =
-  'http://lblod.data.gift/besluit-publicatie-melding-statuses/created';
-export const TASK_STATUS_SUCCESS =
-  'http://lblod.data.gift/besluit-publicatie-melding-statuses/success';
-export const TASK_STATUS_RUNNING =
-  'http://lblod.data.gift/besluit-publicatie-melding-statuses/ongoing';
+import { JOB_STATUSES } from '../utils/constants';
+import { service } from '@ember/service';
 
 export default class MuTaskService extends Service {
+  @service store;
+
   fetchMuTask(taskId) {
-    // TODO do this with ember-data and mu-cl-resource
-    return fetch(`${TASK_ENDPOINT}/${taskId}`);
+    try {
+      return this.store.findRecord('task', taskId);
+    } catch (e) {
+      throw new Error(`An error occured while fetching task ${taskId}`);
+    }
   }
 
   /**
@@ -24,35 +21,22 @@ export default class MuTaskService extends Service {
    * */
   waitForMuTaskTask = task(
     async (taskId, pollDelayMs = 1000, timeoutMs = 300000) => {
-      let resp;
-      let jsonBody;
-      let currentStatus;
       const startTime = Date.now();
+      let task;
       do {
         await timeout(pollDelayMs);
-        resp = await this.fetchMuTask(taskId);
-        if (resp.ok) {
-          jsonBody = await resp.json();
-          currentStatus = jsonBody.data.status;
-        } else {
-          currentStatus = null;
-        }
+        task = await this.fetchMuTask(taskId);
       } while (
-        resp.ok &&
-        (currentStatus === TASK_STATUS_RUNNING ||
-          currentStatus === TASK_STATUS_CREATED) &&
+        (task.status === JOB_STATUSES.busy ||
+          task.status === JOB_STATUSES.scheduled) &&
         Date.now() - startTime < timeoutMs
       );
 
-      if (!resp.ok) {
-        const reason = await resp.text();
-        throw new Error(reason);
-      }
-      if (currentStatus === TASK_STATUS_SUCCESS) {
-        return jsonBody;
-      } else if (currentStatus === TASK_STATUS_FAILURE) {
+      if (task.status === JOB_STATUSES.success) {
+        return task;
+      } else if (task.status === JOB_STATUSES.failed) {
         throw new Error('Task failed.');
-      } else if (currentStatus === TASK_STATUS_RUNNING) {
+      } else if (task.status === JOB_STATUSES.busy) {
         throw new Error('Task timed out.');
       } else {
         throw new Error('Task in unexpected state');
