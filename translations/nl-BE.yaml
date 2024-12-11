@@ -51,7 +51,6 @@ utility:
   remove-concept: Verwijder concept
   export-to-html: "Exporteer als HTML"
   to-recycle-bin: "Naar prullenmand"
-  available: Beschikbaar
   confirmation:
     title: Bevestigen
     body: Ben je zeker?
@@ -90,6 +89,9 @@ template-management:
   updated-on: Bijgewerkt op
   not-found: n.v.t.
   publish-date: Beschikbaar gemaakt op
+  not-published: Niet uitgegeven
+  available: Beschikbaar
+  available-until: Beschikbaar tot {date}
   template-type:
     label: Sjabloontype
     decision: Besluit
@@ -111,6 +113,8 @@ template-edit:
   saving: Bezig met opslaan
   document-title-placeholder: Geef document-titel op
   insert-title: Document-titel invoegen
+  unpublish: Uitgave ongedaan maken
+  unpublish-confirm: Weet je zeker dat je het uitgeven van deze sjabloon ongedaan wilt maken?
 auth:
   acmidm: Log in met acm/idm
   login: Meld u aan
@@ -123,6 +127,7 @@ publish-page:
   back: Terug naar sjabloon
   latestversion: Laatste versie
   publishedversion: Publieke versie
+  published-until: Versie publiek tot {date}
   publish: Maak beschikbaar
   notification-title: Geslaagd
   notification-content: Sjabloon beschikbaar gemaakt

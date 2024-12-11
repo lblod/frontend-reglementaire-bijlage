@@ -1,5 +1,15 @@
 # frontend-reglementaire-bijlage
 
+## 9.14.0
+
+### Minor Changes
+
+- [#305](https://github.com/lblod/frontend-reglementaire-bijlage/pull/305) [`03a357a`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/03a357afb197beb362b99619650f1240486a4116) Thanks [@piemonkey](https://github.com/piemonkey)! - Add functionality to unpublish templates
+
+### Patch Changes
+
+- [`f1daa2a`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/f1daa2a3067c401cec1de7c317ed42170d7045ca) Thanks [@piemonkey](https://github.com/piemonkey)! - Update @lblod/ember-rdfa-editor to v10.9.1
+
 ## 9.13.3
 
 ### Patch Changes

@@ -17,7 +17,6 @@ import SnippetVersionModel from '../models/snippet-version';
  * @property {boolean|undefined} readonly
  * @property {string|undefined} templateTypeId
  * @property {boolean|undefined} dirty
- * @property {boolean|undefined} isPublished
  * @property {PublishSaveAction|undefined} save
  * @property {PublishSaveAction|undefined} publish
  */

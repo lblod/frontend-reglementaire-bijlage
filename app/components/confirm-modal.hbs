@@ -1,0 +1,26 @@
+<AuModal
+  @title={{or @title (t 'utility.confirmation.body')}}
+  @modalOpen={{@modalOpen}}
+  @closeModal={{this.onCancel}}
+  as |Modal|
+>
+  {{#if @message}}
+    <Modal.Body>
+      <p>{{@message}}</p>
+    </Modal.Body>
+  {{/if}}
+  <Modal.Footer>
+    <AuButtonGroup>
+      <AuButton
+        @skin='primary'
+        @alert={{@isAlert}}
+        {{on 'click' this.onConfirm}}
+      >
+        {{or @confirmMessage (t 'utility.confirm')}}
+      </AuButton>
+      <AuButton @skin='secondary' {{on 'click' this.onCancel}}>
+        {{t 'utility.cancel'}}
+      </AuButton>
+    </AuButtonGroup>
+  </Modal.Footer>
+</AuModal>

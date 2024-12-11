@@ -76,7 +76,12 @@
           as |lastPublicationDate|
         }}
           {{#if lastPublicationDate}}
-            {{detailed-date lastPublicationDate}}
+            {{#if lastPublicationDate.validThrough}}
+              <del datetime={{lastPublicationDate.validThrough}}>{{detailed-date
+  lastPublicationDate.created}}</del>
+            {{else}}
+              {{detailed-date lastPublicationDate.created}}
+            {{/if}}
           {{else}}
             {{t "template-management.not-found"}}
           {{/if}}
@@ -149,23 +154,11 @@
     </AuButtonGroup>
   </Modal.Footer>
 </AuModal>
-<AuModal
+<ConfirmModal
   @title={{t "template-management.remove-modal.title"}}
+  @confirmMessage={{t "template-management.remove-modal.remove"}}
   @modalOpen={{this.removeTemplateModalIsOpen}}
-  @closeModal={{this.cancelRemoveTemplate}}
-  as |Modal|
->
-  <Modal.Footer>
-    <AuButtonGroup>
-      <AuButton
-        {{on "click" (perform this.submitRemoveTemplate)}}
-        @skin="primary"
-      >
-        {{t "template-management.remove-modal.remove"}}
-      </AuButton>
-      <AuButton {{on "click" this.cancelRemoveTemplate}} @skin="secondary">
-        {{t "template-management.remove-modal.cancel"}}
-      </AuButton>
-    </AuButtonGroup>
-  </Modal.Footer>
-</AuModal>
+  @closeModal={{this.closeRemoveTemplateModal}}
+  @onConfirm={{perform this.submitRemoveTemplate}}
+  @onCancel={{this.cancelRemoveTemplate}}
+/>
