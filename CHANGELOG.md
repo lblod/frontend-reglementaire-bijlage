@@ -1,5 +1,13 @@
 # frontend-reglementaire-bijlage
 
+## 9.15.0
+
+### Minor Changes
+
+- [#306](https://github.com/lblod/frontend-reglementaire-bijlage/pull/306) [`47c2352`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/47c23524932b10dfe2e1b7bc86273dc57bc481d8) Thanks [@piemonkey](https://github.com/piemonkey)! - Link locations to the surrounding article or decision on insertion
+
+- [#308](https://github.com/lblod/frontend-reglementaire-bijlage/pull/308) [`c45e45e`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/c45e45e429e691046dc142cbaf0f521f68c12670) Thanks [@piemonkey](https://github.com/piemonkey)! - Remove deprecated address variable and update to @lblod/ember-rdfa-editor-lblod-plugins version with corrected RDFa output
+
 ## 9.14.0
 
 ### Minor Changes
