@@ -60,8 +60,6 @@ import { citationPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/c
 import { highlight } from '@lblod/ember-rdfa-editor/plugins/highlight/marks/highlight';
 import { color } from '@lblod/ember-rdfa-editor/plugins/color/marks/color';
 import {
-  address,
-  addressView,
   codelist,
   codelistView,
   date,
@@ -88,7 +86,6 @@ import PersonVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugin
 import NumberInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/number/insert';
 import DateInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/date/insert-variable';
 import CodelistInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/codelist/insert';
-import VariablePluginAddressInsertVariableComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/address/insert-variable';
 import SnippetInsertRdfaComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/snippet-plugin/snippet-insert-rdfa';
 import AutofilledInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/autofilled/insert';
 import {
@@ -188,7 +185,6 @@ export default class TemplateManagementEditController extends Controller {
         tableGroup: 'block',
         cellContent: 'block+',
       }),
-      address,
       date: date(this.config.date),
       text_variable,
       oslo_location: osloLocation(this.config.location),
@@ -241,10 +237,6 @@ export default class TemplateManagementEditController extends Controller {
       {
         label: this.intl.t('editor.variables.number'),
         component: NumberInsertComponent,
-      },
-      {
-        label: this.intl.t('editor.variables.address'),
-        component: VariablePluginAddressInsertVariableComponent,
       },
       {
         label: this.intl.t('editor.variables.date'),
@@ -372,7 +364,6 @@ export default class TemplateManagementEditController extends Controller {
           controller,
         ),
         link: linkView(this.config.link)(controller),
-        address: addressView(controller),
         date: dateView(this.config.date)(controller),
         number: numberView(controller),
         text_variable: textVariableView(controller),

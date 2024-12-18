@@ -123,10 +123,6 @@
               @config={{this.config.snippet}}
             />
             <TemplateCommentsPlugin::Insert @controller={{this.editor}} />
-            <VariablePlugin::Address::Insert
-              @controller={{this.editor}}
-              @templateMode={{true}}
-            />
             {{#if this.activeNode}}
               <this.SnippetInsert
                 @controller={{this.editor}}
@@ -180,7 +176,6 @@
             @variableTypes={{this.variableTypes}}
             @templateMode={{true}}
           />
-          <VariablePlugin::Address::Edit @controller={{this.editor}} />
           <ArticleStructurePlugin::StructureCard
             @controller={{this.editor}}
             @options={{this.config.structures}}
