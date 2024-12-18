@@ -2,7 +2,7 @@ import Controller from '@ember/controller';
 import { task } from 'ember-concurrency';
 import { service } from '@ember/service';
 import { action } from '@ember/object';
-import { tracked } from '@glimmer/tracking';
+import { tracked } from 'tracked-built-ins';
 import { localCopy } from 'tracked-toolbox';
 import isAfter from 'date-fns/isAfter';
 import { isBlank } from '../../utils/strings';
@@ -30,6 +30,8 @@ export default class TemplateManagementIndexController extends Controller {
   @tracked templateTypeToCreate = this.templateTypes[0];
   @tracked createTemplateModalIsOpen;
   @tracked removeTemplateModalIsOpen;
+  @tracked selectedTemplates = tracked(Set);
+  @tracked lastCheckedTemplate;
 
   templateTypes = getTemplateTypes(this.intl);
 
@@ -216,5 +218,36 @@ export default class TemplateManagementIndexController extends Controller {
   @action
   handleTitleUpdate(event) {
     this.editorDocument.title = event.target.value;
+  }
+
+  isSelected = (uri) => {
+    return this.selectedTemplates.has(uri);
+  };
+
+  @action
+  onTemplateSelectionChange(event) {
+    const value = event.target.value;
+    if (event.target.checked) {
+      if (event.shiftKey && this.lastCheckedTemplate) {
+        const documentContainers = [...this.model];
+        const index1 = documentContainers.findIndex(
+          (container) => container.uri === this.lastCheckedTemplate,
+        );
+        const index2 = documentContainers.findIndex((container) => {
+          return container.uri === value;
+        });
+        const startIndex = Math.min(index1, index2);
+        const endIndex = Math.max(index1, index2);
+        for (let i = startIndex; i <= endIndex; i++) {
+          const container = documentContainers[i];
+          this.selectedTemplates.add(container.uri);
+        }
+      } else {
+        this.selectedTemplates.add(value);
+      }
+      this.lastCheckedTemplate = value;
+    } else {
+      this.selectedTemplates.delete(value);
+    }
   }
 }
