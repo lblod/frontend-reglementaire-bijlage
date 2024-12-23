@@ -17,8 +17,8 @@
           </AuHeading>
         </Group>
         <Group>
-          <TemplateExporter/>
-          <TemplateImporter/>
+          <TemplateExporter @templateUris={{this.selectedTemplates}} />
+          <TemplateImporter />
           <div class="au-c-data-table__search">
             <SearchForm
               @value={{this.searchQuery}}

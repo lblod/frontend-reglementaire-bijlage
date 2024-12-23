@@ -1,34 +1,41 @@
 import Component from '@glimmer/component';
 import AuButton from '@appuniversum/ember-appuniversum/components/au-button';
-import { task, timeout } from 'ember-concurrency';
+import { task } from 'ember-concurrency';
 import { service } from '@ember/service';
 import { on } from '@ember/modifier';
-import { NotImplementedError } from '@lblod/ember-rdfa-editor/utils/_private/errors';
 
 export default class TemplateExporter extends Component {
   @service toaster;
   @service intl;
-
-  get templateURIs() {
-    return this.args.templateURIs ?? [];
-  }
-
-  get snippetListURIs() {
-    return this.args.snippetListURIs ?? [];
-  }
+  @service muTask;
 
   get disabled() {
-    if (!this.snippetListURIs && !this.templateURIs) {
-      return true;
-    }
-    if (this.download.isRunning) {
-      return true;
-    }
-    return false;
+    return this.args.templateUris.size === 0;
   }
 
   download = task(async () => {
-    throw new NotImplementedError();
+    try {
+      const taskId = await this.muTask.fetchTaskifiedEndpoint(
+        '/export-templates',
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            documentContainerUris: [...this.args.templateUris.values()],
+            snippetListUris: this.args.snippetListUris
+              ? [...this.args.snippetListUris.values()]
+              : [],
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      const task = await this.muTask.waitForMuTaskTask.perform(taskId, 400);
+      console.log('Successfully exported', task);
+    } catch (err) {
+      console.warn('failed export!', err);
+      this.toaster.error('failed export!', { timeOut: 1000 });
+    }
   });
 
   <template>
