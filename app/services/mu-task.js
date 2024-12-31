@@ -1,9 +1,9 @@
-import Service from '@ember/service';
+import Service, { service } from '@ember/service';
 import { task, timeout } from 'ember-concurrency';
 import { JOB_STATUSES } from '../utils/constants';
-import { service } from '@ember/service';
 
 export default class MuTaskService extends Service {
+  /** @type {import('./store').default} */
   @service store;
 
   fetchMuTask(taskId) {

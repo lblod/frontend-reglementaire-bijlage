@@ -1,4 +1,4 @@
-import Model, { attr } from '@ember-data/model';
+import Model, { attr, belongsTo } from '@ember-data/model';
 
 export default class TaskModel extends Model {
   @attr uri;
@@ -6,4 +6,10 @@ export default class TaskModel extends Model {
   @attr operation;
   @attr created;
   @attr modified;
+
+  @belongsTo('archive', {
+    async: true,
+    inverse: null,
+  })
+  result;
 }

@@ -30,11 +30,14 @@ export default class TemplateExporter extends Component {
           },
         },
       );
+      // TODO add extra params so that we can `include` result and file
       const task = await this.muTask.waitForMuTaskTask.perform(taskId, 400);
-      console.log('Successfully exported', task);
+      const result = await task.result;
+      const file = await result.file;
+      console.log('Successfully exported', task, file.downloadLink);
     } catch (err) {
       console.warn('failed export!', err);
-      this.toaster.error('failed export!', { timeOut: 1000 });
+      this.toaster.error('Error exporting templates', { timeOut: 1000 });
     }
   });
 
