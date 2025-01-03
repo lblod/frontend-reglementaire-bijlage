@@ -219,3 +219,16 @@ search-form:
 regenerate-variable-uris:
   modal-title: Variabele URI's opnieuw genereren
   button: Regenereer
+
+template-export:
+  button: Exporteren
+  toast:
+    loading:
+      title: Sjablonen exporteren
+      message: Exportbestand aan het voorbereiden
+    success:
+      title: Sjablonen succesvol geëxporteerd
+      message: Exportbestand aan het downloaden
+    error:
+      title: Exporteren mislukt
+      message: Er is een probleem opgetreden bij het exporteren van de geselecteerde sjablonen

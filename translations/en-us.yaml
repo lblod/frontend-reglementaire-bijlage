@@ -225,3 +225,16 @@ search-form:
 regenerate-variable-uris:
   modal-title: Regenerate variable URIs
   button: Regenerate
+
+template-export:
+  button: Export
+  toast:
+    loading:
+      title: Exporting templates
+      message: Preparing export-archive
+    success:
+      title: Templates successfully exported
+      message: Downloading export-archive
+    error:
+      title: Template-export failed
+      message: An error occured while exporting the selected templates
