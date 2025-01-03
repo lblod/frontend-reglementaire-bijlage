@@ -7,9 +7,10 @@ export default class TaskModel extends Model {
   @attr created;
   @attr modified;
 
-  @belongsTo('archive', {
+  @belongsTo('data-container', {
     async: true,
-    inverse: null,
+    inverse: 'task',
+    polymorphic: true,
   })
   result;
 }
