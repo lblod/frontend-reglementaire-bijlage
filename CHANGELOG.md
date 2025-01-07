@@ -1,5 +1,12 @@
 # frontend-reglementaire-bijlage
 
+## 9.15.2
+
+### Patch Changes
+
+- [#307](https://github.com/lblod/frontend-reglementaire-bijlage/pull/307) [`7a2c37f`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/7a2c37ff5dcbc8ba695dcda5b88b0e26288537c2) Thanks [@elpoelma](https://github.com/elpoelma)! - - Fetch tasks using `ember-data` and `mu-cl-resources` endpoint
+  - Use generic task statuses
+
 ## 9.15.1
 
 ### Patch Changes
