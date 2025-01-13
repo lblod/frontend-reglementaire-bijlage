@@ -238,3 +238,14 @@ template-export:
     error:
       title: Template-export failed
       message: An error occured while exporting the selected templates
+
+template-import:
+  button: Import
+  modal:
+    title: Import templates
+    form:
+      fields:
+        file: Choose .zip file
+      actions:
+        submit: Upload
+        cancel: Cancel

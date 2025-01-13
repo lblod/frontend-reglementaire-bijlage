@@ -232,3 +232,14 @@ template-export:
     error:
       title: Exporteren mislukt
       message: Er is een probleem opgetreden bij het exporteren van de geselecteerde sjablonen
+
+template-import:
+  button: Importeren
+  modal:
+    title: Sjablonen importeren
+    form:
+      fields:
+        file: Kies .zip bestand
+      actions:
+        submit: Uploaden
+        cancel: Annuleren
