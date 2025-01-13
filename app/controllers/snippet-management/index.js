@@ -102,4 +102,20 @@ export default class SnippetManagementIndexController extends Controller {
     }
     console.log(this.selectedSnippetLists);
   }
+
+  get selectAllChecked() {
+    return this.selectedSnippetLists.size > 0;
+  }
+
+  @action
+  onSelectAllChange() {
+    if (event.target.checked) {
+      const snippetLists = [...this.model];
+      this.selectedSnippetLists = tracked(
+        new Set(snippetLists.map((list) => list.uri)),
+      );
+    } else {
+      this.selectedSnippetLists = tracked(new Set());
+    }
+  }
 }

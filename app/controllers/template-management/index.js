@@ -250,4 +250,20 @@ export default class TemplateManagementIndexController extends Controller {
       this.selectedTemplates.delete(value);
     }
   }
+
+  get selectAllChecked() {
+    return this.selectedTemplates.size > 0;
+  }
+
+  @action
+  onSelectAllChange() {
+    if (event.target.checked) {
+      const documentContainers = [...this.model];
+      this.selectedTemplates = tracked(
+        new Set(documentContainers.map((container) => container.uri)),
+      );
+    } else {
+      this.selectedTemplates = tracked(new Set());
+    }
+  }
 }

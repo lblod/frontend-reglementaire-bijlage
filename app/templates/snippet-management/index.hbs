@@ -38,7 +38,15 @@
     </s.menu>
     <s.content as |c|>
       <c.header>
-        <th></th>
+        <th>
+          {{#let (unique-id) as |id|}}
+            <AuCheckbox
+              id={{id}}
+              @checked={{this.selectAllChecked}}
+              {{on "click" this.onSelectAllChange}}
+            />
+          {{/let}}
+        </th>
         <AuDataTableThSortable
           @field=":no-case:label"
           @currentSorting={{this.sort}}
