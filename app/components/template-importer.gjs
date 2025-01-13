@@ -1,14 +1,9 @@
 import Component from '@glimmer/component';
-import AuButton from '@appuniversum/ember-appuniversum/components/au-button';
-import AuModal from '@appuniversum/ember-appuniversum/components/au-modal';
-import AuLabel from '@appuniversum/ember-appuniversum/components/au-label';
 import { task } from 'ember-concurrency';
 import { service } from '@ember/service';
-import { on } from '@ember/modifier';
-import { tracked } from 'tracked-built-ins';
 import { action } from '@ember/object';
 import { v4 as uuid } from 'uuid';
-import { not } from 'ember-truth-helpers';
+import FileUploadButton from './file-upload-button';
 import t from 'ember-intl/helpers/t';
 
 export default class TemplateImporter extends Component {
@@ -16,8 +11,6 @@ export default class TemplateImporter extends Component {
   @service toaster;
   @service muTask;
 
-  @tracked showDialog = false;
-  @tracked selectedFile = null;
   formId = uuid();
 
   createLoadingToast() {
@@ -55,11 +48,11 @@ export default class TemplateImporter extends Component {
     this.toaster.close(toast);
   }
 
-  upload = task(async () => {
+  upload = task(async (file) => {
     const loadingToast = this.createLoadingToast();
     try {
       const formData = new FormData();
-      formData.set('file', this.selectedFile);
+      formData.set('file', file);
 
       const taskId = await this.muTask.fetchTaskifiedEndpoint(
         '/import-templates',
@@ -79,74 +72,20 @@ export default class TemplateImporter extends Component {
   });
 
   @action
-  selectFile(event) {
-    console.log('File: ', event.target.files[0]);
-    this.selectedFile = event.target.files[0];
-  }
-
-  @action
-  openDialog() {
-    this.showDialog = true;
-  }
-
-  @action
-  closeDialog() {
-    this.showDialog = false;
-  }
-
-  @action
-  cancel() {
-    this.selectedFile = null;
-    this.closeDialog();
-  }
-
-  @action
-  async submit() {
-    this.closeDialog();
-    await this.upload.perform();
+  async selectFile(event) {
+    const selectedFile = event.target.files[0];
+    await this.upload.perform(selectedFile);
   }
 
   <template>
-    <AuButton
+    <FileUploadButton
       @icon='import'
-      {{on 'click' this.openDialog}}
+      @multiple={{false}}
+      @accept='.zip'
+      @onChange={{this.selectFile}}
       @loading={{this.upload.isRunning}}
     >
       {{t 'template-import.button'}}
-    </AuButton>
-    {{#if this.showDialog}}
-      <AuModal @modalOpen={{true}}>
-        <:title>{{t 'template-import.modal.title'}}</:title>
-        <:body>
-          <form id={{this.formId}} {{on 'submit' this.submit}}>
-            <div>
-              {{#let (uuid) as |id|}}
-                <AuLabel for={{id}}>
-                  {{t 'template-import.modal.form.fields.file'}}
-                </AuLabel>
-                <input
-                  type='file'
-                  id={{id}}
-                  accept='.zip'
-                  {{on 'change' this.selectFile}}
-                />
-              {{/let}}
-            </div>
-          </form>
-        </:body>
-        <:footer>
-          <AuButton
-            form={{this.formId}}
-            type='submit'
-            disabled={{not this.selectedFile}}
-          >
-            {{t 'template-import.modal.form.actions.submit'}}
-          </AuButton>
-          <AuButton type='button' {{on 'click' this.cancel}} @skin='secondary'>
-            {{t 'template-import.modal.form.actions.cancel'}}
-          </AuButton>
-        </:footer>
-      </AuModal>
-    {{/if}}
+    </FileUploadButton>
   </template>
 }
