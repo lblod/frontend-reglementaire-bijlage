@@ -5,7 +5,8 @@
     @noDataMessage={{t "snippets.manage-snippet-lists.table.no-data"}}
     @size={{this.size}}
     @page={{this.page}}
-    @sort={{this.sort}} as |s|
+    @sort={{this.sort}}
+    as |s|
   >
     <s.menu as |menu|>
       <menu.general>
@@ -16,18 +17,19 @@
             </AuHeading>
           </Group>
           <Group class="au-c-toolbar__group--center">
+            <TemplateExporter @snippetListUris={{this.selectedSnippetLists}} />
+            <TemplateImporter />
             <div class="au-c-data-table__search">
               <SearchForm
                 @value={{this.searchQuery}}
-                @placeholder={{t "snippets.manage-snippet-lists.search.placeholder"}}
+                @placeholder={{t
+                  "snippets.manage-snippet-lists.search.placeholder"
+                }}
                 @onInput={{this.updateSearchQuery}}
                 @onSearch={{this.search}}
               />
             </div>
-            <AuLink
-              @skin="button"
-              @route="snippet-management.new"
-            >
+            <AuLink @skin="button" @route="snippet-management.new">
               {{t "snippets.manage-snippet-lists.make-new"}}
             </AuLink>
           </Group>
@@ -36,6 +38,7 @@
     </s.menu>
     <s.content as |c|>
       <c.header>
+        <th></th>
         <AuDataTableThSortable
           @field=":no-case:label"
           @currentSorting={{this.sort}}
@@ -45,28 +48,38 @@
         <th>{{t "snippets.manage-snippet-lists.table.columns.imported"}}</th>
         <th></th>
       </c.header>
-      <c.body as |snippet|>
+      <c.body as |snippetList|>
+        <td>
+          {{#let (unique-id) as |id|}}
+            <AuCheckbox
+              id={{id}}
+              value={{snippetList.uri}}
+              @checked={{this.isSelected snippetList.uri}}
+              {{on "click" this.onSnippetListSelectionChange}}
+            />
+          {{/let}}
+        </td>
         <td>
           <AuLink
             @skin="primary"
             @route="snippet-management.edit"
-            @model={{snippet.id}}
+            @model={{snippetList.id}}
           >
-            {{snippet.label}}
+            {{snippetList.label}}
           </AuLink>
         </td>
         <td>
-          {{snippet.id}}
+          {{snippetList.id}}
         </td>
         <td>
-          {{snippet.importedResources}}
+          {{snippetList.importedResources}}
         </td>
         <td>
           <AuButton
             @skin="naked"
             @icon="trash"
             @alert={{true}}
-            {{on "click" (fn this.openRemoveModal snippet)}}
+            {{on "click" (fn this.openRemoveModal snippetList)}}
           >
             {{t "utility.delete"}}
           </AuButton>
@@ -76,30 +89,31 @@
   </AuDataTable>
 </div>
 <AuModal
-  @title={{t 'utility.confirmation.body'}}
+  @title={{t "utility.confirmation.body"}}
   @modalOpen={{this.isRemoveModalOpen}}
-  @closeModal={{this.closeRemoveModal}} as |Modal|
+  @closeModal={{this.closeRemoveModal}}
+  as |Modal|
 >
   <Modal.Body>
     <p>
       {{t
-        'snippets.manage-snippet-lists.snippet-list-deletion.confirm'
+        "snippets.manage-snippet-lists.snippet-list-deletion.confirm"
         name=this.deletingSnippetList.label
         htmlSafe=true
       }}
     </p>
   </Modal.Body>
-<Modal.Footer>
-  <AuButton
-    @alert={{true}}
-    @loading={{this.removeSnippetList.isRunning}}
-    @loadingText={{t 'utility.deleting'}}
-    {{on 'click' (perform this.removeSnippetList)}}
-  >
-    {{t 'snippets.manage-snippet-lists.snippet-list-deletion.action.long'}}
-  </AuButton>
-  <AuButton @skin='secondary' {{on 'click' this.closeRemoveModal}}>
-    {{t 'utility.cancel'}}
-  </AuButton>
-</Modal.Footer>
+  <Modal.Footer>
+    <AuButton
+      @alert={{true}}
+      @loading={{this.removeSnippetList.isRunning}}
+      @loadingText={{t "utility.deleting"}}
+      {{on "click" (perform this.removeSnippetList)}}
+    >
+      {{t "snippets.manage-snippet-lists.snippet-list-deletion.action.long"}}
+    </AuButton>
+    <AuButton @skin="secondary" {{on "click" this.closeRemoveModal}}>
+      {{t "utility.cancel"}}
+    </AuButton>
+  </Modal.Footer>
 </AuModal>
