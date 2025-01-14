@@ -241,11 +241,3 @@ template-export:
 
 template-import:
   button: Import
-  modal:
-    title: Import templates
-    form:
-      fields:
-        file: Choose .zip file
-      actions:
-        submit: Upload
-        cancel: Cancel
