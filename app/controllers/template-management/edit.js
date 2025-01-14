@@ -487,7 +487,6 @@ export default class TemplateManagementEditController extends Controller {
       createdOn: this.model.editorDocument.createdOn,
       updatedOn: new Date(),
       documentContainer: this.model.documentContainer,
-      previousVersion: this.model.editorDocument,
     });
     await editorDocument.save();
 

@@ -8,5 +8,4 @@ export default class SnippetVersionModel extends Model {
   @attr('datetime') validThrough;
 
   @belongsTo('snippet', { inverse: 'revisions', async: true }) snippet;
-  @belongsTo('snippet-version', { inverse: null, async: true }) previousVersion;
 }

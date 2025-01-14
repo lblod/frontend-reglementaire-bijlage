@@ -389,7 +389,6 @@ export default class SnippetManagementEditSnippetController extends Controller {
       content: html,
       createdOn: now,
       title: currentVersion.title,
-      previousVersion: currentVersion,
       snippet,
     });
     currentVersion.validThrough = new Date();
