@@ -1,5 +1,11 @@
 # frontend-reglementaire-bijlage
 
+## 9.15.3
+
+### Patch Changes
+
+- [#310](https://github.com/lblod/frontend-reglementaire-bijlage/pull/310) [`49e1408`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/49e1408c796f6f006baba4991cd4cd4d2966c278) Thanks [@elpoelma](https://github.com/elpoelma)! - Store link between document-container and editor-document when saving a new version
+
 ## 9.15.2
 
 ### Patch Changes
