@@ -136,28 +136,31 @@ export default class SnippetListForm extends Component {
     const snippets = await this.snippetsRequest.promise;
     const snippetCount = snippets.length;
     const now = new Date();
+
     const snippetVersion = this.store.createRecord('snippet-version', {
       title: `Snippet created on ${new Date().toDateString()}`,
       createdOn: now,
       content: '',
     });
+    await snippetVersion.save();
+
     const snippet = this.store.createRecord('snippet', {
       position: snippetCount,
       createdOn: now,
       updatedOn: now,
-      currentVersion: snippetVersion,
       snippetList: this.snippetList,
+      currentVersion: snippetVersion,
     });
-    snippetVersion.snippet = snippet;
-    await snippetVersion.save();
     await snippet.save();
 
-    this.snippets = [...snippets, snippet];
+    snippetVersion.snippet = snippet;
+    await snippetVersion.save();
 
-    this.router.transitionTo('snippet-management.edit.edit-snippet', {
-      snippet,
-      snippetList: this.snippetList,
-    });
+    this.snippets = [...snippets, snippet];
+    this.router.transitionTo(
+      'snippet-management.edit.edit-snippet',
+      snippet.id,
+    );
   });
 
   updateImportedResourcesOnList = task(async () => {

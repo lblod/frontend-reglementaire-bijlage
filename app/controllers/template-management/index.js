@@ -102,15 +102,14 @@ export default class TemplateManagementIndexController extends Controller {
   @action
   startCreateTemplateFlow() {
     const documentContainer = this.store.createRecord('document-container');
-    const editorDocument = this.store.createRecord('editor-document');
-    editorDocument.content = '';
-    editorDocument.createdOn = new Date();
-    editorDocument.updatedOn = new Date();
-    editorDocument.title = '';
+    const editorDocument = this.store.createRecord('editor-document', {
+      title: '',
+      content: '',
+      createdOn: new Date(),
+      updatedOn: new Date(),
+    });
     this.editorDocument = editorDocument;
     this.documentContainer = documentContainer;
-
-    documentContainer.currentVersion = editorDocument;
 
     this.createTemplateModalIsOpen = true;
   }
@@ -130,12 +129,17 @@ export default class TemplateManagementIndexController extends Controller {
   saveTemplate = task(async (event) => {
     event.preventDefault();
     await this.editorDocument.save();
-    const folder = await this.store.findRecord(
+
+    this.documentContainer.folder = await this.store.findRecord(
       'editor-document-folder',
       this.templateTypeToCreate.folder,
     );
-    this.documentContainer.folder = folder;
+    this.documentContainer.currentVersion = this.editorDocument;
     await this.documentContainer.save();
+
+    this.editorDocument.documentContainer = this.documentContainer;
+    await this.editorDocument.save();
+
     this.createTemplateModalIsOpen = false;
     this.router.transitionTo(
       'template-management.edit',

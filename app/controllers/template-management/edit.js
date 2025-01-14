@@ -480,13 +480,15 @@ export default class TemplateManagementEditController extends Controller {
   save = task(async () => {
     const html = this.editor.htmlContent;
     const templateVersion = generateTemplate(this.editor);
-    const editorDocument = this.store.createRecord('editor-document');
-    editorDocument.content = html;
-    editorDocument.templateVersion = templateVersion;
-    editorDocument.createdOn = this.model.editorDocument.createdOn;
-    editorDocument.updatedOn = new Date();
-    editorDocument.title = this.model.editorDocument.title;
-    editorDocument.previousVersion = this.model.editorDocument;
+    const editorDocument = this.store.createRecord('editor-document', {
+      title: this.model.editorDocument.title,
+      content: html,
+      templateVersion: templateVersion,
+      createdOn: this.model.editorDocument.createdOn,
+      updatedOn: new Date(),
+      documentContainer: this.model.documentContainer,
+      previousVersion: this.model.editorDocument,
+    });
     await editorDocument.save();
 
     const documentContainer = this.model.documentContainer;
