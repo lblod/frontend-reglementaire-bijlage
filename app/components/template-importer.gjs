@@ -15,8 +15,8 @@ export default class TemplateImporter extends Component {
 
   createLoadingToast() {
     return this.toaster.loading(
-      this.intl.t('template-export.toast.loading.message'),
-      this.intl.t('template-export.toast.loading.title'),
+      this.intl.t('template-import.toast.loading.message'),
+      this.intl.t('template-import.toast.loading.title'),
       {
         closable: false,
       },
@@ -25,8 +25,8 @@ export default class TemplateImporter extends Component {
 
   createSuccessToast() {
     return this.toaster.success(
-      this.intl.t('template-export.toast.success.message'),
-      this.intl.t('template-export.toast.success.title'),
+      this.intl.t('template-import.toast.success.message'),
+      this.intl.t('template-import.toast.success.title'),
       {
         timeOut: 2000,
         closable: true,
@@ -36,8 +36,8 @@ export default class TemplateImporter extends Component {
 
   createErrorToast() {
     return this.toaster.error(
-      this.intl.t('template-export.toast.error.message'),
-      this.intl.t('template-export.toast.error.title'),
+      this.intl.t('template-import.toast.error.message'),
+      this.intl.t('template-import.toast.error.title'),
       {
         closable: true,
       },

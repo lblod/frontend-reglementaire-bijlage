@@ -235,3 +235,13 @@ template-export:
 
 template-import:
   button: Importeren
+  toast:
+    loading:
+      title: Sjablonen importeren
+      message: Zip-archief aan het importeren
+    success:
+      title: Sjablonen succesvol geïmporteerd
+      message: De geüploade sjablonen zijn klaar voor gebruik
+    error:
+      title: Importeren mislukt
+      message: Er is een probleem opgetreden bij het importeren van de sjablonen
