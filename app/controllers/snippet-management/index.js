@@ -100,7 +100,6 @@ export default class SnippetManagementIndexController extends Controller {
     } else {
       this.selectedSnippetLists.delete(value);
     }
-    console.log(this.selectedSnippetLists);
   }
 
   get selectAllChecked() {

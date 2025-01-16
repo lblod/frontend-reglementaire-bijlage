@@ -9,7 +9,6 @@ export default class FileUploadButton extends Component {
 
   @action
   onClick() {
-    console.log(this.hiddenFileInput);
     this.hiddenFileInput.click();
   }
 
