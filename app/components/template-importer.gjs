@@ -6,6 +6,15 @@ import { v4 as uuid } from 'uuid';
 import FileUploadButton from './file-upload-button';
 import t from 'ember-intl/helpers/t';
 
+/**
+ * @typedef Args
+ * @property {() => void} [onSuccess]
+ * @property {(error?: unknown) => void} [onError]
+ */
+
+/**
+ * @extends {Component<Args>}
+ */
 export default class TemplateImporter extends Component {
   @service intl;
   @service toaster;
@@ -64,10 +73,12 @@ export default class TemplateImporter extends Component {
       await this.muTask.waitForMuTaskTask.perform(taskId, {}, 400);
       this.closeToast(loadingToast);
       this.createSuccessToast();
+      this.args.onSuccess?.();
     } catch (e) {
       console.error(e);
       this.closeToast(loadingToast);
       this.createErrorToast();
+      this.args.onError?.(e);
     }
   });
 
