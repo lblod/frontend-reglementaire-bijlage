@@ -11,7 +11,7 @@
   </Group>
   <AuButtonGroup>
     <AuButton
-      @disabled={{(or this.allPristine (not this.allValid))}}
+      @disabled={{or this.allPristine (not this.allValid)}}
       @loading = {{this.isSaving}}
       @loadingMessage = {{t 'utility.saving'}}
       {{on 'click' (perform this.saveChangesetTask)}}
@@ -91,7 +91,7 @@
         </tr>
       </thead>
       <SortableObjects
-        @tagName={{'tbody'}}
+        @tagName='tbody'
         @sortableObjectList={{this.optionsChangesetList.changesets}}
         @sortEndAction={{this.sortEndAction}}
         @enableSort={{true}}

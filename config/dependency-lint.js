@@ -1,3 +1,7 @@
 'use strict';
 
-module.exports = {};
+module.exports = {
+  allowedVersions: {
+    'ember-template-imports': '*',
+  },
+};
