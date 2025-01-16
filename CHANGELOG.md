@@ -1,5 +1,11 @@
 # frontend-reglementaire-bijlage
 
+## 9.15.4
+
+### Patch Changes
+
+- [#313](https://github.com/lblod/frontend-reglementaire-bijlage/pull/313) [`6248d6a`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/6248d6a5418d41597d0f314f76de6fc0db9e8099) Thanks [@elpoelma](https://github.com/elpoelma)! - Remove references of unneeded `previousVersion` and `nextVersion` relationships
+
 ## 9.15.3
 
 ### Patch Changes
