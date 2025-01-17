@@ -32,14 +32,10 @@
     {{#if this.ready}}
       <EditorContainer
         @editorOptions={{hash
-          showRdfa='false'
           editRdfa='true'
-          showRdfaHighlight='true'
-          showRdfaHover='true'
           showPaper='true'
           showToolbarBottom=null
         }}
-        @showRdfaBlocks={{this.editor.showRdfaBlocks}}
       >
         <:top>
           {{yield to='top'}}

@@ -22,7 +22,6 @@
   <RdfaEditorContainer
     @rdfaEditorInit={{this.handleRdfaEditorInit}}
     @editorDocument={{this.editorDocument}}
-    @showToggleRdfaAnnotations={{true}}
     @busy={{or this.save.isRunning}}
     @busyText={{t "template-edit.saving"}}
     @schema={{this.schema}}
@@ -81,9 +80,6 @@
           <:side as |Tb|>
             <Tb.Group>
               <TableOfContentsPlugin::ToolbarButton
-                @controller={{this.editor}}
-              />
-              <Plugins::RdfaBlockRender::RdfaBlocksToggle
                 @controller={{this.editor}}
               />
             </Tb.Group>
