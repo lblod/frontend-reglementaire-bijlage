@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
 import { service } from '@ember/service';
 import { task } from 'ember-concurrency';
-import { tracked } from '@glimmer/tracking';
+import { tracked } from 'tracked-built-ins';
 import { action } from '@ember/object';
 import { localCopy } from 'tracked-toolbox';
 
@@ -17,6 +17,9 @@ export default class SnippetManagementIndexController extends Controller {
   @tracked sort = '-created-on';
 
   @localCopy('label', '') searchQuery;
+
+  @tracked selectedSnippetLists = tracked(Set);
+  @tracked lastCheckedSnippetList;
 
   @tracked isRemoveModalOpen = false;
   @tracked deletingSnippetList;
@@ -66,5 +69,52 @@ export default class SnippetManagementIndexController extends Controller {
   closeRemoveModal() {
     this.deletingSnippetList = null;
     this.isRemoveModalOpen = false;
+  }
+
+  isSelected = (uri) => {
+    return this.selectedSnippetLists.has(uri);
+  };
+
+  @action
+  onSnippetListSelectionChange(event) {
+    const value = event.target.value;
+    if (event.target.checked) {
+      if (event.shiftKey && this.lastCheckedSnippetList) {
+        const snippetLists = [...this.model];
+        const index1 = snippetLists.findIndex(
+          (list) => list.uri === this.lastCheckedSnippetList,
+        );
+        const index2 = snippetLists.findIndex((list) => {
+          return list.uri === value;
+        });
+        const startIndex = Math.min(index1, index2);
+        const endIndex = Math.max(index1, index2);
+        for (let i = startIndex; i <= endIndex; i++) {
+          const snippetList = snippetLists[i];
+          this.selectedSnippetLists.add(snippetList.uri);
+        }
+      } else {
+        this.selectedSnippetLists.add(value);
+      }
+      this.lastCheckedSnippetList = value;
+    } else {
+      this.selectedSnippetLists.delete(value);
+    }
+  }
+
+  get selectAllChecked() {
+    return this.selectedSnippetLists.size > 0;
+  }
+
+  @action
+  onSelectAllChange() {
+    if (event.target.checked) {
+      const snippetLists = [...this.model];
+      this.selectedSnippetLists = tracked(
+        new Set(snippetLists.map((list) => list.uri)),
+      );
+    } else {
+      this.selectedSnippetLists = tracked(new Set());
+    }
   }
 }

@@ -1,14 +1,22 @@
-import Service from '@ember/service';
+import Service, { service } from '@ember/service';
 import { task, timeout } from 'ember-concurrency';
 import { JOB_STATUSES } from '../utils/constants';
-import { service } from '@ember/service';
+
+/**
+ * @typedef {object} QueryOptions
+ */
 
 export default class MuTaskService extends Service {
+  /** @type {import('./store').default} */
   @service store;
 
-  fetchMuTask(taskId) {
+  /**
+   * @param {string} taskId
+   * @param {QueryOptions} options
+   */
+  fetchMuTask(taskId, options) {
     try {
-      return this.store.findRecord('task', taskId);
+      return this.store.findRecord('task', taskId, options);
     } catch (e) {
       throw new Error(`An error occured while fetching task ${taskId}`);
     }
@@ -16,16 +24,17 @@ export default class MuTaskService extends Service {
 
   /**
    * @param {string} taskId
+   * @param {QueryOptions} options
    * @param {number} [pollDelayMs] time to wait between each status poll
    * @param {number} [timeoutMs] maximum time to wait before throwing
    * */
   waitForMuTaskTask = task(
-    async (taskId, pollDelayMs = 1000, timeoutMs = 300000) => {
+    async (taskId, options = {}, pollDelayMs = 1000, timeoutMs = 300000) => {
       const startTime = Date.now();
       let task;
       do {
         await timeout(pollDelayMs);
-        task = await this.fetchMuTask(taskId);
+        task = await this.fetchMuTask(taskId, options);
       } while (
         (task.status === JOB_STATUSES.busy ||
           task.status === JOB_STATUSES.scheduled) &&
