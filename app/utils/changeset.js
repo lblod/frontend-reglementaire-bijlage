@@ -26,10 +26,10 @@ export default function changesetList(records, validation, [key, parent]) {
  * - Changing a passed record (instead of the changeset) might create unspecified behaviour.
  */
 class ChangesetList {
-  _originalRecords;
+  @tracked _originalRecords = [];
   @tracked _records = [];
   @tracked _changesets = [];
-  _toDelete = [];
+  @tracked _toDelete = [];
   validation;
   parentKey;
   parentRecord;
@@ -55,7 +55,7 @@ class ChangesetList {
   }
 
   _initialize() {
-    this._records = this._originalRecords;
+    this._records = this._originalRecords.slice();
     this._changesets = this._records.map((record) =>
       this.createChangeset(record),
     );
@@ -70,7 +70,10 @@ class ChangesetList {
   }
 
   get isPristine() {
-    return this._changesets.every((changeset) => changeset.isPristine);
+    return (
+      this._changesets.every((changeset) => changeset.isPristine) &&
+      this._toDelete.length === 0
+    );
   }
 
   async validate() {
@@ -85,9 +88,9 @@ class ChangesetList {
    */
   new(newRecord) {
     newRecord[this.parentKey] = this.parentRecord;
-    this._records.pushObject(newRecord);
+    this._records = [...this._records, newRecord];
     let changeset = this.createChangeset(newRecord);
-    this._changesets.pushObject(changeset);
+    this._changesets = [...this._changesets, changeset];
   }
 
   remove(changeset) {
@@ -96,10 +99,10 @@ class ChangesetList {
     if (record.isNew) {
       record.rollbackAttributes();
     } else {
-      this._toDelete.push(record);
+      this._toDelete = [...this._toDelete, record];
     }
-    this._changesets.removeObject(changeset);
-    this._records.removeObject(record);
+    this._changesets = this._changesets.filter((c) => c !== changeset);
+    this._records = this._records.filter((r) => r !== record);
   }
 
   async save() {
@@ -108,6 +111,7 @@ class ChangesetList {
       ...this._toDelete.map((record) => record.destroyRecord()),
     ]);
     this._originalRecords = this._records.slice();
+    this._toDelete = [];
     return this._originalRecords;
   }
 

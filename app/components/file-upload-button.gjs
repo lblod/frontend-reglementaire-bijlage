@@ -20,6 +20,7 @@ export default class FileUploadButton extends Component {
     <AuButton
       @icon={{@icon}}
       @loading={{@loading}}
+      @loadingMessage={{@loadingMessage}}
       {{on 'click' this.onClick}}
       ...attributes
     >{{yield}}</AuButton>

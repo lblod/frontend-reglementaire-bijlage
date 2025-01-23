@@ -115,7 +115,7 @@
     <AuButton
       @alert={{true}}
       @loading={{this.removeSnippetList.isRunning}}
-      @loadingText={{t "utility.deleting"}}
+      @loadingMessage={{t "utility.deleting"}}
       {{on "click" (perform this.removeSnippetList)}}
     >
       {{t "snippets.manage-snippet-lists.snippet-list-deletion.action.long"}}
