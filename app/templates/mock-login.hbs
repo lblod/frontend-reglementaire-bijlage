@@ -2,7 +2,7 @@
   <div class="au-o-layout au-o-region-large">
     <MockLogin as |login|>
       {{#if login.isLoading}}
-        <AuLoader />
+        <AuLoader>{{t 'utility.loading' }}</AuLoader>
       {{else}}
         {{#if login.errorMessage}}
           {{login.errorMessage}}

@@ -49,7 +49,7 @@
           </c.header>
           <c.content>
             {{#if this.fetchPreview.isRunning}}
-              <AuLoader />
+              <AuLoader>{{t 'utility.loading' }}</AuLoader>
             {{else}}
               <div
                 class='say-editor say-content rdfa-annotations rdfa-annotations-highlight rdfa-annotations-hover'

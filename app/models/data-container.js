@@ -1,5 +1,6 @@
 import Model, { belongsTo } from '@ember-data/model';
 
 export default class DataContainerModel extends Model {
-  @belongsTo('task', { async: true, inverse: 'result' }) task;
+  @belongsTo('task', { async: true, inverse: 'result', as: 'data-container' })
+  task;
 }
