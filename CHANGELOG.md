@@ -1,5 +1,17 @@
 # frontend-reglementaire-bijlage
 
+## 9.16.0
+
+### Minor Changes
+
+- [#309](https://github.com/lblod/frontend-reglementaire-bijlage/pull/309) [`806ace1`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/806ace1721909a870727d66d8733995c2e50820d) Thanks [@elpoelma](https://github.com/elpoelma)! - Add support for the template/snippet-list export feature
+
+- [#309](https://github.com/lblod/frontend-reglementaire-bijlage/pull/309) [`806ace1`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/806ace1721909a870727d66d8733995c2e50820d) Thanks [@elpoelma](https://github.com/elpoelma)! - Add support for the template/snippet-list import feature
+
+### Patch Changes
+
+- [#309](https://github.com/lblod/frontend-reglementaire-bijlage/pull/309) [`7c48a5b`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/7c48a5b80379b94b1a97530f5ee00cdfe34b1d5c) Thanks [@elpoelma](https://github.com/elpoelma)! - Improve type-checking of glimmer components
+
 ## 9.15.4
 
 ### Patch Changes
