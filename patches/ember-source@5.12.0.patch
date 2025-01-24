@@ -1,7 +1,7 @@
-diff --git a/node_modules/ember-source/dist/ember-template-compiler.js b/node_modules/ember-source/dist/ember-template-compiler.js
-index 01999af..759486c 100644
---- a/node_modules/ember-source/dist/ember-template-compiler.js
-+++ b/node_modules/ember-source/dist/ember-template-compiler.js
+diff --git a/dist/ember-template-compiler.js b/dist/ember-template-compiler.js
+index 01999af0c4c125af3c713318db7eb85fa492f72d..0c89f7cdda05bf9f7531d3d8f6eda67041f512fb 100644
+--- a/dist/ember-template-compiler.js
++++ b/dist/ember-template-compiler.js
 @@ -8288,9 +8288,10 @@ var define, require;
              */
              toSlice(expected) {
@@ -11,7 +11,7 @@ index 01999af..759486c 100644
 -              console.warn(`unexpectedly found ${JSON.stringify(chars)} when slicing source, but expected ${JSON.stringify(expected)}`), new SourceSlice({
 +              // return void 0 !== expected && chars !== expected &&
 +              // // eslint-disable-next-line no-console
-+              // console.warn(`unexpectedly found ${JSON.stringify(chars)} when slicing source, but expected ${JSON.stringify(expected)}`), new SourceSlice({
++              // console.warn(`unexpectedly found ${JSON.stringify(chars)} when slicing source, but expected ${JSON.stringify(expected)}`),
 +              return new SourceSlice({
                  loc: this,
                  chars: expected || chars
