@@ -17,6 +17,7 @@ module.exports = function (defaults) {
         'images/marker-shadow.png',
       ],
     },
+    'ember-cli-babel': { enableTypeScriptTransform: true },
   });
 
   // Use `app.import` to add additional libraries to the generated
