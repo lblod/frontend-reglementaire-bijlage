@@ -65,6 +65,7 @@
     <AuButton
       class='au-u-margin-top'
       @loading={{this.createPublishedResource.isRunning}}
+      @loadingMessage={{t 'utility.loading'}}
       @disabled={{this.createPublishedResource.isRunning}}
       {{on 'click' (perform this.createPublishedResource)}}
     >

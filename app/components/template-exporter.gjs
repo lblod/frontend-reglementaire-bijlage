@@ -108,6 +108,7 @@ export default class TemplateExporter extends Component {
       {{on 'click' this.download.perform}}
       @disabled={{this.disabled}}
       @loading={{this.download.isRunning}}
+      @loadingMessage={{t 'utility.loading'}}
     >
       {{t 'template-export.button'}}
     </AuButton>

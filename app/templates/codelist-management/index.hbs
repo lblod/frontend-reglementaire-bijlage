@@ -96,7 +96,7 @@
   <AuButton
     @alert={{true}}
     @loading={{this.removeCodelist.isRunning}}
-    @loadingText={{t 'utility.deleting'}}
+    @loadingMessage={{t 'utility.deleting'}}
     {{on 'click' (perform this.removeCodelist)}}
   >
     {{t 'codelist.crud.delete'}}

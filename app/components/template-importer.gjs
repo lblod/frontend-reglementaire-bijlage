@@ -95,6 +95,7 @@ export default class TemplateImporter extends Component {
       @accept='.zip'
       @onChange={{this.selectFile}}
       @loading={{this.upload.isRunning}}
+      @loadingMessage={{t 'utility.loading'}}
     >
       {{t 'template-import.button'}}
     </FileUploadButton>

@@ -21,6 +21,6 @@ module('Unit | Model | code-list', function (hooks) {
     );
 
     const options = await codeList.concepts;
-    options.pushObject(option);
+    options.push(option);
   });
 });

@@ -120,6 +120,7 @@
     @disabled={{or this.invalidLabel @snippetList.isNew}}
     {{on "click" (perform this.createSnippet)}}
     @loading={{this.createSnippet.isRunning}}
+    @loadingMessage={{t 'utility.loading'}}
   >
     {{t "snippets.edit-snippet-list.snippet-creation.action"}}
   </AuButton>
@@ -208,7 +209,7 @@
     <AuButton
       @alert={{true}}
       @loading={{this.removeSnippet.isRunning}}
-      @loadingText={{t "utility.deleting"}}
+      @loadingMessage={{t 'utility.deleting'}}
       {{on "click" (perform this.removeSnippet)}}
     >
       {{t "snippets.edit-snippet-list.snippet-deletion.action.long"}}

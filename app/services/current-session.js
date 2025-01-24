@@ -19,7 +19,7 @@ export default class CurrentSessionService extends Service {
       this.account = await this.store.findRecord('account', accountId, {
         include: 'user',
       });
-      this.user = await this.account.get('user');
+      this.user = await this.account.user;
 
       let groupId = this.session.data.authenticated.relationships.group.data.id;
       this.group = await this.store.findRecord('administrative-unit', groupId, {
