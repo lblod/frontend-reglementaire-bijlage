@@ -1,18 +1,34 @@
 import Component from '@glimmer/component';
-import AuButton from '@appuniversum/ember-appuniversum/components/au-button';
+import AuButton, {
+  type AuButtonSignature,
+} from '@appuniversum/ember-appuniversum/components/au-button';
 import { modifier } from 'ember-modifier';
 import { on } from '@ember/modifier';
 import { action } from '@ember/object';
+type Signature = {
+  Element: AuButtonSignature['Element'];
+  Blocks: {
+    default: [];
+  };
+  Args: {
+    icon?: AuButtonSignature['Args']['icon'];
+    loading?: AuButtonSignature['Args']['loading'];
+    loadingMessage?: AuButtonSignature['Args']['loadingMessage'];
+    onChange: (event: Event) => void;
+    multiple?: boolean;
+    accept?: string;
+  };
+};
 
-export default class FileUploadButton extends Component {
-  hiddenFileInput;
+export default class FileUploadButton extends Component<Signature> {
+  hiddenFileInput?: HTMLInputElement;
 
   @action
   onClick() {
-    this.hiddenFileInput.click();
+    this.hiddenFileInput?.click();
   }
 
-  setupFileInput = modifier((element) => {
+  setupFileInput = modifier((element: HTMLInputElement) => {
     this.hiddenFileInput = element;
   });
 
