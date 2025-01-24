@@ -47,9 +47,8 @@ export default class CodelistManagementIndexController extends Controller {
   }
 
   removeCodelist = task(async () => {
-    await Promise.all(
-      this.modalCodelist.concepts.map((option) => option.destroyRecord()),
-    );
+    const concepts = await this.modalCodelist.concepts;
+    await Promise.all(concepts.map((option) => option.destroyRecord()));
 
     await this.modalCodelist.destroyRecord();
     this.reset();
