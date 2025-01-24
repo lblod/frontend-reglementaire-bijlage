@@ -1,126 +1,114 @@
 {{! template-lint-disable table-groups  }}
-<AuToolbar @border='bottom' @size='large' as |Group|>
+<AuToolbar @border="bottom" @size="large" as |Group|>
   <Group>
-    <AuHeading @skin='2'>
+    <AuHeading @skin="2">
       {{#if @codelist.isNew}}
-        {{t 'codelist.crud.new'}}
+        {{t "codelist.crud.new"}}
       {{else}}
-        {{t 'codelist.crud.edit'}}
+        {{t "codelist.crud.edit"}}
       {{/if}}
     </AuHeading>
   </Group>
   <AuButtonGroup>
     <AuButton
       @disabled={{or this.allPristine (not this.allValid)}}
-      @loading = {{this.isSaving}}
-      @loadingMessage = {{t 'utility.saving'}}
-      {{on 'click' (perform this.saveChangesetTask)}}
+      @loading={{this.isSaving}}
+      @loadingMessage={{t "utility.saving"}}
+      {{on "click" (perform this.saveChangesetTask)}}
     >
-      {{t 'utility.save'}}
+      {{t "utility.save"}}
     </AuButton>
-    <AuButton @skin='secondary' {{on 'click' this.cancelEditingTask}}>
-      {{t 'utility.cancel'}}
+    <AuButton @skin="secondary" {{on "click" this.cancelEditingTask}}>
+      {{t "utility.cancel"}}
     </AuButton>
   </AuButtonGroup>
 </AuToolbar>
 
 <div
-  class='au-c-body-container au-c-body-container--scroll au-o-flow--large'
+  class="au-c-body-container au-c-body-container--scroll au-o-flow--large"
   {{did-insert this.didInsert}}
 >
-  <div class='au-u-1-2@small au-u-1-1'>
+  <div class="au-u-1-2@small au-u-1-1">
     {{#let this.changeset.error.label as |isInvalid|}}
-      <p class='au-o-box au-u-padding-bottom-none'>
-        <AuLabel @error={{isInvalid}} for='codelist-name-input'>
-          {{t 'codelist.attr.label'}}&nbsp;
+      <p class="au-o-box au-u-padding-bottom-none">
+        <AuLabel @error={{isInvalid}} for="codelist-name-input">
+          {{t "codelist.attr.label"}}&nbsp;
           <AuPill>
-            {{t 'utility.required'}}
+            {{t "utility.required"}}
           </AuPill>
         </AuLabel>
         <AuInput
           @error={{isInvalid}}
-          @width='block'
-          id='codelist-name-input'
-          required='required'
-          placeholder={{t 'utility.type-something-placeholder'}}
+          @width="block"
+          id="codelist-name-input"
+          required="required"
+          placeholder={{t "utility.type-something-placeholder"}}
           value={{this.changeset.label}}
-          {{on 'input' this.setCodelistLabel}}
+          {{on "input" this.setCodelistLabel}}
         />
         {{#if isInvalid}}
           <AuHelpText>
-            {{t 'utility.field-required'}}
+            {{t "utility.field-required"}}
           </AuHelpText>
         {{/if}}
       </p>
     {{/let}}
   </div>
   <div>
-    <table class='au-c-data-table__table'>
+    <table class="au-c-data-table__table">
       <thead>
-        <tr class='au-c-data-table__header'>
-          <th class='data-table__header-title'></th>
-          <th class='data-table__header-title'>
+        <tr class="au-c-data-table__header">
+          <th class="data-table__header-title"></th>
+          <th class="data-table__header-title">
             <p>
-              {{t 'codelist.options.label'}}
+              {{t "codelist.options.label"}}
             </p>
-            <p class='au-u-muted au-u-light'>
-              {{t 'codelist.options.label-explanation'}}
+            <p class="au-u-muted au-u-light">
+              {{t "codelist.options.label-explanation"}}
             </p>
           </th>
           {{#if this.isEditingOptions}}
-            <th class='data-table__header-title'>
-              <p>{{t 'codelist.options.value'}}
-              <AuPill>
-              {{t 'utility.required'}}
-              </AuPill>
+            <th class="data-table__header-title">
+              <p>{{t "codelist.options.value"}}
+                <AuPill>
+                  {{t "utility.required"}}
+                </AuPill>
               </p>
             </th>
             <th></th>
           {{else}}
-          <th class='data-table__header-title'>
-            <AuToolbar as |Group|>
-              <Group>{{t 'codelist.options.value'}}</Group>
+            <th class="data-table__header-title">
+              <AuToolbar as |Group|>
+                <Group>{{t "codelist.options.value"}}</Group>
                 <Group><AuButton
-                class=''
-                {{on 'click' this.startEditingOptions}}
-                >{{t 'codelist.crud.edit-table'}}
-                </AuButton></Group>
-            </AuToolbar>
-          </th>
+                    class=""
+                    {{on "click" this.startEditingOptions}}
+                  >{{t "codelist.crud.edit-table"}}
+                  </AuButton></Group>
+              </AuToolbar>
+            </th>
           {{/if}}
         </tr>
       </thead>
-      <SortableObjects
-        @tagName='tbody'
-        @sortableObjectList={{this.optionsChangesetList.changesets}}
-        @sortEndAction={{this.sortEndAction}}
-        @enableSort={{true}}
-        @useSwap={{true}}
-        @inPlace={{true}}
-      >
-        {{#each this.optionsChangesetList.changesets as |option|}}
-          <DraggableObject
-            @content={{option}}
-            @tagName='tr'
-            @isSortable={{true}}
-            @dragHandle='.drag-icon-cell'
-          >
-            <td class='drag-icon-cell' tabindex="-1">
-              <AuIcon
-                @icon='drag'
-                size='large'
-                class='au-c-button--drag'
-              />
+      <tbody>
+        <SortableGroup
+          @items={{this.optionsChangesetList.changesets}}
+          @onSort={{this.sortEndAction}}
+          as |option draggable dropzone|
+        >
+          <tr class="dropzone codelistForm__row sortable-item" {{draggable}} {{dropzone}}>
+            <td class="drag-icon-cell" tabindex="-1">
+              <AuIcon @icon="drag" size="large" class="au-c-button--drag" />
             </td>
             {{#if this.isEditingOptions}}
               <td>
                 {{#let option.error.label as |labelError|}}
-                <AuInput
-                  @error={{labelError}}
-                  value={{option.label}}
-                  {{on 'input' (fn this.setOptionLabel option)}}
-                />
-                 {{#if labelError}}
+                  <AuInput
+                    @error={{labelError}}
+                    value={{option.label}}
+                    {{on "input" (fn this.setOptionLabel option)}}
+                  />
+                  {{#if labelError}}
                     <AuHelpText>
                       {{labelError.validation}}
                     </AuHelpText>
@@ -133,45 +121,48 @@
                     @error={{isInvalid}}
                     value={{option.value}}
                     @isError={{option.isInvalid}}
-                    placeholder={{t 'utility.type-something-placeholder'}}
-                    {{on 'change' (fn this.setOptionValue option)}}
+                    placeholder={{t "utility.type-something-placeholder"}}
+                    {{on "change" (fn this.setOptionValue option)}}
                   />
                   {{#if isInvalid}}
                     <AuHelpText>
-                      {{t 'utility.field-required'}}
+                      {{t "utility.field-required"}}
                     </AuHelpText>
                   {{/if}}
-              {{/let}}
+                {{/let}}
               </td>
               <td>
                 <AuButton
-                  @icon='trash'
+                  @icon="trash"
                   @alert={{true}}
-                  @skin='naked'
-                  {{on 'click' (fn this.removeOption option)}}
+                  @skin="naked"
+                  {{on "click" (fn this.removeOption option)}}
                 >
-                  {{t 'utility.delete'}}
+                  {{t "utility.delete"}}
                 </AuButton>
               </td>
             {{else}}
               <td>{{option.label}}</td>
               <td>{{option.value}}</td>
             {{/if}}
-          </DraggableObject>
-        {{/each}}
-      </SortableObjects>
+          </tr>
+        </SortableGroup>
+      </tbody>
       <tfoot>
         {{#if this.isEditingOptions}}
-          <th class='au-u-padding-right-small' colspan='4'>
+          <th class="au-u-padding-right-small" colspan="4">
             <AuButton
-              @width='block'
-              @icon='plus'
-              @skin='secondary'
+              @width="block"
+              @icon="plus"
+              @skin="secondary"
               @disabled={{not this.canAddOption}}
-              title={{unless this.canAddOption (t 'codelist.crud.max-options-hit') }}
-              {{on 'click' this.addOption}}
+              title={{unless
+                this.canAddOption
+                (t "codelist.crud.max-options-hit")
+              }}
+              {{on "click" this.addOption}}
             >
-              {{t 'codelist.crud.add-option'}}
+              {{t "codelist.crud.add-option"}}
             </AuButton>
           </th>
         {{/if}}
@@ -180,6 +171,4 @@
   </div>
 </div>
 
-<ConfirmRouteLeave
-  @enabled={{not this.allPristine}}
-/>
+<ConfirmRouteLeave @enabled={{not this.allPristine}} />

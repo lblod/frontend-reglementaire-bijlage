@@ -179,12 +179,18 @@ export default class CodelistFormComponent extends Component {
   }
 
   @action
-  sortEndAction() {
-    const options = this.optionsChangesetList.changesets;
+  sortEndAction(items) {
+    const options = items;
     for (let i = 0; i < options.length; i++) {
       const option = options[i];
       option.position = i;
     }
+    // TODO: some shenanigans going on here cause changesetList
+    // is a weird class, this is the best way I found but we might
+    // want to refactor that out
+    this.optionsChangesetList._changesets = items;
+    // eslint-disable-next-line no-self-assign
+    this.optionsChangesetList = this.optionsChangesetList;
   }
 
   willDestroy(...args) {
