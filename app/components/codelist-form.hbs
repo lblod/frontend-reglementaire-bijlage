@@ -90,15 +90,11 @@
           {{/if}}
         </tr>
       </thead>
-      <tbody>
-        <SortableGroup
-          @items={{this.optionsChangesetList.changesets}}
-          @onSort={{this.sortEndAction}}
-          as |option draggable dropzone|
-        >
-          <tr class="dropzone codelistForm__row sortable-item" {{draggable}} {{dropzone}}>
-            <td class="drag-icon-cell" tabindex="-1">
-              <AuIcon @icon="drag" size="large" class="au-c-button--drag" />
+      <tbody {{sortable-group onChange=this.sortEndAction}}>
+        {{#each this.optionsChangesetList.changesets as |option|}}
+          <tr {{sortable-item distance=0 model=option}}>
+            <td class="drag-icon-cell" tabindex="-1" {{sortable-handle}}>
+              <AuIcon @icon="drag" size="large" class="au-c-button--drag handle" />
             </td>
             {{#if this.isEditingOptions}}
               <td>
@@ -146,7 +142,7 @@
               <td>{{option.value}}</td>
             {{/if}}
           </tr>
-        </SortableGroup>
+          {{/each}}
       </tbody>
       <tfoot>
         {{#if this.isEditingOptions}}
