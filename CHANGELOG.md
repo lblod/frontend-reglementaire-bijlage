@@ -1,5 +1,11 @@
 # frontend-reglementaire-bijlage
 
+## 9.16.2
+
+### Patch Changes
+
+- [`762df58`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/762df58cd7498f3d14ccd455ccfa8cd9e85f53a5) Thanks [@elpoelma](https://github.com/elpoelma)! - Fix usage of `waitForMuTaskTask` method
+
 ## 9.16.1
 
 ### Patch Changes

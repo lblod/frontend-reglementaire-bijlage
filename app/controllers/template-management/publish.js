@@ -45,7 +45,7 @@ export default class TemplateManagementPublishController extends Controller {
       `/publish-template/${this.model.container.id}`,
       { method: 'POST' },
     );
-    await this.muTask.waitForMuTaskTask.perform(taskId, 100);
+    await this.muTask.waitForMuTaskTask.perform(taskId, {}, 100);
     await this.fetchPreview.perform();
     this.toaster.success(
       this.intl.t('publish-page.notification-content'),
