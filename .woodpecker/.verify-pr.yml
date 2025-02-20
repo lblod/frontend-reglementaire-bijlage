@@ -5,35 +5,41 @@ steps:
   install:
     image: danlynn/ember-cli:5.12.0-node_20.18
     commands:
-      - corepack enable
+      # installing the latest corepack manually because of https://github.com/nodejs/corepack/issues/612
+      - npm i -g corepack@0.31
       - pnpm i --frozen-lockfile
   lint-js:
     image: danlynn/ember-cli:5.12.0-node_20.18
     group: lint
     commands:
-      - corepack enable
+      # installing the latest corepack manually because of https://github.com/nodejs/corepack/issues/612
+      - npm i -g corepack@0.31
       - pnpm lint:js
   lint-hbs:
     image: danlynn/ember-cli:5.12.0-node_20.18
     group: lint
     commands:
-      - corepack enable
+      # installing the latest corepack manually because of https://github.com/nodejs/corepack/issues/612
+      - npm i -g corepack@0.31
       - pnpm lint:hbs
   lint-types:
     image: danlynn/ember-cli:5.12.0-node_20.18
     group: lint
     commands:
-      - corepack enable
+      # installing the latest corepack manually because of https://github.com/nodejs/corepack/issues/612
+      - npm i -g corepack@0.31
       - pnpm lint:types
   dependency-lint:
     image: danlynn/ember-cli:5.12.0-node_20.18
     group: lint
     commands:
-      - corepack enable
+      # installing the latest corepack manually because of https://github.com/nodejs/corepack/issues/612
+      - npm i -g corepack@0.31
       - pnpm lint:deps
   test:
     image: danlynn/ember-cli:5.12.0-node_20.18
     commands:
-      - corepack enable
+      # installing the latest corepack manually because of https://github.com/nodejs/corepack/issues/612
+      - npm i -g corepack@0.31
       - pnpm test:ember
 
