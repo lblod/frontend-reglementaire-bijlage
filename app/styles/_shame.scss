@@ -115,16 +115,6 @@
   display: none;
 }
 
-[property="eli:title"]:before {
-  content: "Document-titel" !important;
-}
-
-[lang="en-US"] {
-  [property="eli:title"]:before {
-    content: "Document title" !important;
-  }
-}
-
 .say-editable {
   outline: 0.1rem solid var(--au-gray-300);
   padding-top: 2px;
