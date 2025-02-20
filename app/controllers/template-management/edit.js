@@ -113,7 +113,7 @@ import {
   structure,
   structureView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/structure-plugin/node';
-import StructureControl from '@lblod/ember-rdfa-editor-lblod-plugins/components/structure-plugin/_private/control-card';
+import StructureControl from '@lblod/ember-rdfa-editor-lblod-plugins/components/structure-plugin/control-card';
 import StructureInsert from '@lblod/ember-rdfa-editor-lblod-plugins/components/decision-plugin/insert-article';
 import {
   mandatee_table,
