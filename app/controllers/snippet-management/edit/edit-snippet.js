@@ -37,10 +37,6 @@ import {
   table_of_contents,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/table-of-contents-plugin/nodes';
 import {
-  STRUCTURE_NODES,
-  STRUCTURE_SPECS,
-} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/article-structure-plugin/structures';
-import {
   bulletListWithConfig,
   listItemWithConfig,
   listTrackingPlugin,
@@ -91,8 +87,8 @@ import DebugInfo from '@lblod/ember-rdfa-editor/components/_private/debug-info';
 import InsertArticleComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/decision-plugin/insert-article';
 import StructureControlCardComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/structure-plugin/control-card';
 import {
-  structure,
-  structureView,
+  structureViewWithConfig,
+  structureWithConfig,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/structure-plugin/node';
 import {
   osloLocation,
@@ -118,8 +114,8 @@ import {
   mandateeTableView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/mandatee-table-plugin/node';
 import { BESLUIT } from '@lblod/ember-rdfa-editor-lblod-plugins/utils/constants';
-import { saveCollatedImportedResources } from '../../../utils/imported-resources';
 import { variableAutofillerPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/plugins/autofiller';
+import { saveCollatedImportedResources } from '../../../utils/imported-resources';
 import { IVGR_TAGS, RMW_TAGS } from '../../../utils/constants';
 import { extractSnippetListUris } from '../../../utils/extract-snippet-lists';
 
@@ -144,13 +140,12 @@ export default class SnippetManagementEditSnippetController extends Controller {
   schema = new Schema({
     nodes: {
       doc: docWithConfig({
-        content:
-          'table_of_contents? document_title? ((block|chapter)+|(block|title)+|(block|article)+)',
+        content: 'table_of_contents? document_title? block+',
         rdfaAware: true,
         hasResourceImports: true,
       }),
       paragraph,
-      structure,
+      structure: structureWithConfig(this.config.structures),
       document_title,
       repaired_block: repairedBlockWithConfig({ rdfaAware: true }),
 
@@ -174,7 +169,6 @@ export default class SnippetManagementEditSnippetController extends Controller {
       autofilled_variable,
       number,
       codelist,
-      ...STRUCTURE_NODES,
       mandatee_table,
       heading: headingWithConfig({ rdfaAware: false }),
       blockquote,
@@ -270,7 +264,11 @@ export default class SnippetManagementEditSnippetController extends Controller {
         ],
         allowCustomFormat: true,
       },
-      structures: STRUCTURE_SPECS,
+      structures: {
+        uriGenerator: 'template-uuid4',
+        fullLengthArticles: true,
+        onlyArticleSpecialName: false,
+      },
       citation: {
         type: 'nodes',
         activeInNodeTypes(schema) {
@@ -330,7 +328,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
         ),
         oslo_location: osloLocationView(this.config.location)(controller),
         snippet: snippetView(this.config.snippet)(controller),
-        structure: structureView(controller),
+        structure: structureViewWithConfig(this.config.structures)(controller),
         mandatee_table: mandateeTableView(controller),
         autofilled_variable: autofilledVariableView(controller),
       };
