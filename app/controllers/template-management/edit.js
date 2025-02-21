@@ -134,10 +134,14 @@ const GEMEENTE_CLASSIFICATION_URI =
 export default class TemplateManagementEditController extends Controller {
   @service store;
   @service router;
-  @tracked editor;
-  @tracked _editorDocument;
   @service intl;
   @service currentSession;
+
+  /** @type {import('../../services/editor-settings').default} */
+  @service('editor-settings') editorSettingsService;
+
+  @tracked editor;
+  @tracked _editorDocument;
   @tracked citationPlugin = citationPlugin(this.config.citation);
   @tracked assignedSnippetListsIds = [];
   @tracked isConfirmUnpublishOpen = false;
@@ -220,6 +224,17 @@ export default class TemplateManagementEditController extends Controller {
       color,
     },
   });
+
+  get sidebarSettings() {
+    return this.editorSettingsService.sidebarSettings;
+  }
+
+  @action
+  toggleMenu(menuKey, expanded) {
+    const sidebarSettingsClone = structuredClone(this.sidebarSettings);
+    sidebarSettingsClone[menuKey]['expanded'] = expanded;
+    this.editorSettingsService.sidebarSettings = sidebarSettingsClone;
+  }
 
   get variableTypes() {
     const config = getOwner(this).resolveRegistration('config:environment');

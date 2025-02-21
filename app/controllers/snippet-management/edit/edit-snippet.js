@@ -130,12 +130,16 @@ export default class SnippetManagementEditSnippetController extends Controller {
 
   @service store;
   @service router;
-  @tracked editor;
-  @tracked _editorDocument;
   @service intl;
   @service currentSession;
-  @tracked citationPlugin = citationPlugin(this.config.citation);
   @service muTask;
+
+  /** @type {import('../../../services/editor-settings').default} */
+  @service('editor-settings') editorSettingsService;
+
+  @tracked editor;
+  @tracked _editorDocument;
+  @tracked citationPlugin = citationPlugin(this.config.citation);
 
   schema = new Schema({
     nodes: {
@@ -200,6 +204,17 @@ export default class SnippetManagementEditSnippetController extends Controller {
       color,
     },
   });
+
+  get sidebarSettings() {
+    return this.editorSettingsService.sidebarSettings;
+  }
+
+  @action
+  toggleMenu(menuKey, expanded) {
+    const sidebarSettingsClone = structuredClone(this.sidebarSettings);
+    sidebarSettingsClone[menuKey]['expanded'] = expanded;
+    this.editorSettingsService.sidebarSettings = sidebarSettingsClone;
+  }
 
   get variableTypes() {
     const config = getOwner(this).resolveRegistration('config:environment');
