@@ -153,6 +153,23 @@
             @controller={{this.editor}}
             @supportedTags={{this.config.mandateeTable.tags}}
           />
+          <VariablePlugin::InsertVariableCard
+            @controller={{this.editor}}
+            @variableTypes={{this.variableTypes}}
+            @templateMode={{true}}
+          />
+          <CitationPlugin::CitationCard
+            @controller={{this.editor}}
+            @plugin={{this.citationPlugin}}
+            @config={{this.config.citation}}
+          />
+          <VariablePlugin::Date::Edit
+            @controller={{this.editor}}
+            @options={{this.config.date}}
+          />
+          <VariablePlugin::Autofilled::Edit @controller={{this.editor}} />
+          <TemplateCommentsPlugin::EditCard @controller={{this.editor}} />
+
           {{#if this.activeNode}}
             <this.RdfaEditor
               @node={{this.activeNode}}
@@ -173,22 +190,6 @@
               @onToggle={{fn this.toggleMenu "debugInfo"}}
             />
           {{/if}}
-          <VariablePlugin::InsertVariableCard
-            @controller={{this.editor}}
-            @variableTypes={{this.variableTypes}}
-            @templateMode={{true}}
-          />
-          <CitationPlugin::CitationCard
-            @controller={{this.editor}}
-            @plugin={{this.citationPlugin}}
-            @config={{this.config.citation}}
-          />
-          <VariablePlugin::Date::Edit
-            @controller={{this.editor}}
-            @options={{this.config.date}}
-          />
-          <VariablePlugin::Autofilled::Edit @controller={{this.editor}} />
-          <TemplateCommentsPlugin::EditCard @controller={{this.editor}} />
         </Sidebar>
       {{/if}}
     </:aside>
