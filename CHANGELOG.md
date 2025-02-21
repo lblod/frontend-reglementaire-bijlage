@@ -1,5 +1,33 @@
 # frontend-reglementaire-bijlage
 
+## 9.17.0
+
+### Minor Changes
+
+- [#323](https://github.com/lblod/frontend-reglementaire-bijlage/pull/323) [`76ccc2b31ca8ad177aa21bf9e10ad922d172f8f3`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/76ccc2b31ca8ad177aa21bf9e10ad922d172f8f3) Thanks [@piemonkey](https://github.com/piemonkey)! - Update to Ember v2-addon version of @lblod/ember-rdfa-editor and version of @lblod/ember-rdfa-editor-lblod-plugins which drops the rdfa-annotations toggle and uses the structure-plugin in place of the deprecated article-structure-plugin
+
+- [#317](https://github.com/lblod/frontend-reglementaire-bijlage/pull/317) [`8e527dff21acaaf5ab037a9e4094dad9208636e0`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/8e527dff21acaaf5ab037a9e4094dad9208636e0) Thanks [@elpoelma](https://github.com/elpoelma)! - Update to `ember-source` version 5.12.0 + updates to related packages
+
+### Patch Changes
+
+- [#322](https://github.com/lblod/frontend-reglementaire-bijlage/pull/322) [`5e49c32e01a360045131a8a0235cb5764da21514`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/5e49c32e01a360045131a8a0235cb5764da21514) Thanks [@elpoelma](https://github.com/elpoelma)! - Move to pnpm
+
+- [#319](https://github.com/lblod/frontend-reglementaire-bijlage/pull/319) [`4ffeb9fb799a5a98e84b875a099ac7ab8f935867`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/4ffeb9fb799a5a98e84b875a099ac7ab8f935867) Thanks [@elpoelma](https://github.com/elpoelma)! - Introduce updated `ember-data` types
+
+- [#317](https://github.com/lblod/frontend-reglementaire-bijlage/pull/317) [`1fc1f34b131099f6d4cd33197324f16842d3acab`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/1fc1f34b131099f6d4cd33197324f16842d3acab) Thanks [@elpoelma](https://github.com/elpoelma)! - Remove deprecations introduced in ember 4.x
+
+- [#318](https://github.com/lblod/frontend-reglementaire-bijlage/pull/318) [`349d34101a81923050ded52d0b3cd5725740ad82`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/349d34101a81923050ded52d0b3cd5725740ad82) Thanks [@elpoelma](https://github.com/elpoelma)! - Remove deprecation introduced in ember.js 5.x
+
+- [#321](https://github.com/lblod/frontend-reglementaire-bijlage/pull/321) [`49c843702d2b48070fa9c5f3a8219860d3785484`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/49c843702d2b48070fa9c5f3a8219860d3785484) Thanks [@abeforgit](https://github.com/abeforgit)! - Implement dragdrop sorting with native apis and remove prototype extensions
+
+- [#320](https://github.com/lblod/frontend-reglementaire-bijlage/pull/320) [`5f0d8797160935d43e8fc4f8373fd2c2b881a386`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/5f0d8797160935d43e8fc4f8373fd2c2b881a386) Thanks [@elpoelma](https://github.com/elpoelma)! - Add support for typescript
+
+- [#317](https://github.com/lblod/frontend-reglementaire-bijlage/pull/317) [`989d99debe9a806c8723c5825a1e281cc3dcad3f`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/989d99debe9a806c8723c5825a1e281cc3dcad3f) Thanks [@elpoelma](https://github.com/elpoelma)! - Update `@appuniversum/ember-appuniversum` to version 3.7.0
+
+- [#319](https://github.com/lblod/frontend-reglementaire-bijlage/pull/319) [`4ffeb9fb799a5a98e84b875a099ac7ab8f935867`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/4ffeb9fb799a5a98e84b875a099ac7ab8f935867) Thanks [@elpoelma](https://github.com/elpoelma)! - Move to builtin `ember.js` types
+
+- [#317](https://github.com/lblod/frontend-reglementaire-bijlage/pull/317) [`8e527dff21acaaf5ab037a9e4094dad9208636e0`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/8e527dff21acaaf5ab037a9e4094dad9208636e0) Thanks [@elpoelma](https://github.com/elpoelma)! - Update to `@lblod/ember-environment-banner` 0.6.0
+
 ## 9.16.2
 
 ### Patch Changes
