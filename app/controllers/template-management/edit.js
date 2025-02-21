@@ -39,10 +39,6 @@ import {
   table_of_contents,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/table-of-contents-plugin/nodes';
 import {
-  STRUCTURE_NODES,
-  STRUCTURE_SPECS,
-} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/article-structure-plugin/structures';
-import {
   bulletListWithConfig,
   listItemWithConfig,
   listTrackingPlugin,
@@ -110,10 +106,10 @@ import {
   snippetView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/snippet-plugin/nodes/snippet';
 import {
-  structure,
-  structureView,
+  structureViewWithConfig,
+  structureWithConfig,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/structure-plugin/node';
-import StructureControl from '@lblod/ember-rdfa-editor-lblod-plugins/components/structure-plugin/_private/control-card';
+import StructureControl from '@lblod/ember-rdfa-editor-lblod-plugins/components/structure-plugin/control-card';
 import StructureInsert from '@lblod/ember-rdfa-editor-lblod-plugins/components/decision-plugin/insert-article';
 import {
   mandatee_table,
@@ -157,8 +153,7 @@ export default class TemplateManagementEditController extends Controller {
   schema = new Schema({
     nodes: {
       doc: docWithConfig({
-        content:
-          'table_of_contents? document_title? ((block|chapter)+|(block|title)+|(block|article)+)',
+        content: 'table_of_contents? document_title? block+',
 
         extraAttributes: {
           [SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE]: { default: null },
@@ -166,7 +161,7 @@ export default class TemplateManagementEditController extends Controller {
         rdfaAware: true,
       }),
       paragraph,
-      structure,
+      structure: structureWithConfig(this.config.structures),
       document_title,
       repaired_block: repairedBlockWithConfig({ rdfaAware: true }),
 
@@ -192,7 +187,6 @@ export default class TemplateManagementEditController extends Controller {
       autofilled_variable,
       number,
       codelist,
-      ...STRUCTURE_NODES,
       roadsign_regulation,
       mandatee_table,
 
@@ -303,7 +297,18 @@ export default class TemplateManagementEditController extends Controller {
         ],
         allowCustomFormat: true,
       },
-      structures: this.internalTypeName === 'decision' ? [] : STRUCTURE_SPECS,
+      structures:
+        this.internalTypeName === 'decision'
+          ? {
+              uriGenerator: 'template-uuid4',
+              fullLengthArticles: false,
+              onlyArticleSpecialName: true,
+            }
+          : {
+              uriGenerator: 'template-uuid4',
+              fullLengthArticles: true,
+              onlyArticleSpecialName: false,
+            },
       citation: {
         type: 'nodes',
         activeInNodeTypes(schema) {
@@ -377,7 +382,7 @@ export default class TemplateManagementEditController extends Controller {
           controller,
         ),
         mandatee_table: mandateeTableView(controller),
-        structure: structureView(controller),
+        structure: structureViewWithConfig(this.config.structures)(controller),
         snippet: snippetView(this.config.snippet)(controller),
         autofilled_variable: autofilledVariableView(controller),
       };

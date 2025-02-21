@@ -8,6 +8,12 @@ module.exports = function (defaults) {
       extension: 'scss',
       includePaths: ['node_modules/@appuniversum/ember-appuniversum'],
     },
+    babel: {
+      sourceMaps: 'inline',
+      plugins: [
+        require.resolve('ember-concurrency/async-arrow-task-transform'),
+      ],
+    },
     fingerprint: {
       exclude: [
         'images/layers-2x.png',
