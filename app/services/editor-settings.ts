@@ -55,7 +55,7 @@ export default class EditorSettingsService extends Service {
   }
 
   get sidebarSettings() {
-    return this._sidebarSettings;
+    return window.structuredClone(this._sidebarSettings);
   }
 
   set sidebarSettings(settings: SidebarSettings) {

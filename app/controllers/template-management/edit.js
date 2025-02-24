@@ -233,9 +233,9 @@ export default class TemplateManagementEditController extends Controller {
 
   @action
   toggleMenu(menuKey, expanded) {
-    const sidebarSettingsClone = structuredClone(this.sidebarSettings);
-    sidebarSettingsClone[menuKey]['expanded'] = expanded;
-    this.editorSettingsService.sidebarSettings = sidebarSettingsClone;
+    const sidebarSettings = this.sidebarSettings;
+    sidebarSettings[menuKey]['expanded'] = expanded;
+    this.editorSettingsService.sidebarSettings = sidebarSettings;
   }
 
   get variableTypes() {
