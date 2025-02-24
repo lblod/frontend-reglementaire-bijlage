@@ -119,6 +119,8 @@ import { saveCollatedImportedResources } from '../../../utils/imported-resources
 import { IVGR_TAGS, RMW_TAGS } from '../../../utils/constants';
 import { extractSnippetListUris } from '../../../utils/extract-snippet-lists';
 
+/** @import EditorSettings from '../../../services/editor-settings'; */
+
 export default class SnippetManagementEditSnippetController extends Controller {
   AttributeEditor = AttributeEditor;
   RdfaEditor = RdfaEditor;
@@ -134,7 +136,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
   @service currentSession;
   @service muTask;
 
-  /** @type {import('../../../services/editor-settings').default} */
+  /** @type {EditorSettings} */
   @service('editor-settings') editorSettingsService;
 
   @tracked editor;

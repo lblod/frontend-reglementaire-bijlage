@@ -127,6 +127,8 @@ import {
 } from '@lblod/ember-rdfa-editor-lblod-plugins/utils/constants';
 import { extractSnippetListUris } from '../../utils/extract-snippet-lists';
 
+/** @import EditorSettings from '../../services/editor-settings'; */
+
 const SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE = 'data-snippet-list-ids';
 const GEMEENTE_CLASSIFICATION_URI =
   'http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001';
@@ -137,7 +139,7 @@ export default class TemplateManagementEditController extends Controller {
   @service intl;
   @service currentSession;
 
-  /** @type {import('../../services/editor-settings').default} */
+  /** @type {EditorSettings} */
   @service('editor-settings') editorSettingsService;
 
   @tracked editor;
