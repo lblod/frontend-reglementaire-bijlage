@@ -47,11 +47,15 @@ export default class EditorSettingsService extends Service {
 
   constructor() {
     super();
-
-    this._sidebarSettings = merge(
-      DEFAULT_EDITOR_SETTINGS,
-      loadFromLocalStorage<SidebarSettings>(SIDEBAR_SETTINGS_KEY),
-    );
+    try {
+      this._sidebarSettings = merge(
+        DEFAULT_EDITOR_SETTINGS,
+        loadFromLocalStorage<SidebarSettings>(SIDEBAR_SETTINGS_KEY),
+      );
+    } catch (e) {
+      console.error(e);
+      this._sidebarSettings = DEFAULT_EDITOR_SETTINGS;
+    }
   }
 
   get sidebarSettings() {
