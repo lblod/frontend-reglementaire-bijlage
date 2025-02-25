@@ -1,5 +1,17 @@
 # frontend-reglementaire-bijlage
 
+## 9.18.0
+
+### Minor Changes
+
+- [#324](https://github.com/lblod/frontend-reglementaire-bijlage/pull/324) [`7b7ea3eab8bcba0b1340d445f9c43884348898af`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/7b7ea3eab8bcba0b1340d445f9c43884348898af) Thanks [@elpoelma](https://github.com/elpoelma)! - Add support for persisting sidebar menu states through local storage
+
+- [#324](https://github.com/lblod/frontend-reglementaire-bijlage/pull/324) [`9f53ceef379192d05e046273dd2a7b286f735431`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/9f53ceef379192d05e046273dd2a7b286f735431) Thanks [@elpoelma](https://github.com/elpoelma)! - Move RDFa devtools to bottom of sidebar
+
+### Patch Changes
+
+- [#324](https://github.com/lblod/frontend-reglementaire-bijlage/pull/324) [`97ab48bdcd336fd83daac91c9cc7178fe072eef8`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/97ab48bdcd336fd83daac91c9cc7178fe072eef8) Thanks [@elpoelma](https://github.com/elpoelma)! - Update `@lblod/ember-rdfa-editor` to version [11.1.0](https://github.com/lblod/ember-rdfa-editor/releases/tag/v11.1.0)
+
 ## 9.17.1
 
 ### Patch Changes
