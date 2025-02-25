@@ -29,7 +29,10 @@
       >
         {{#if this.isPublished}}
           {{#if this.model.templateVersion.validThrough}}
-            {{t "template-management.available-until" date=(human-friendly-date this.unpublishDate)}}
+            {{t
+              "template-management.available-until"
+              date=(human-friendly-date this.unpublishDate)
+            }}
           {{else}}
             {{t "template-management.available"}}
           {{/if}}
@@ -128,10 +131,10 @@
     <:aside>
       {{#if this.editor}}
         <Sidebar as |Sidebar|>
-          <RegenerateVariableUris @controller={{this.editor}} />
           <Sidebar.Collapsible
             @title={{t "snippet-edit.sidebar.general-nodes"}}
-            @expandedInitially={{false}}
+            @expanded={{this.sidebarSettings.general.expanded}}
+            @onToggle={{fn this.toggleMenu "general"}}
           >
             <VariablePlugin::Date::Insert
               @controller={{this.editor}}
@@ -166,7 +169,8 @@
           {{#if (eq this.internalTypeName "decision")}}
             <Sidebar.Collapsible
               @title={{t "snippet-edit.sidebar.decision-nodes"}}
-              @expandedInitially={{false}}
+              @expanded={{this.sidebarSettings.decision.expanded}}
+              @onToggle={{fn this.toggleMenu "decision"}}
             >
               <this.StructureInsert @controller={{this.editor}} />
               <MandateeTablePlugin::Insert
@@ -185,7 +189,8 @@
           {{#unless (eq this.internalTypeName "decision")}}
             <Sidebar.Collapsible
               @title={{t "snippet-edit.sidebar.regulatory-statement-nodes"}}
-              @expandedInitially={{false}}
+              @expanded={{this.sidebarSettings.regulatoryStatement.expanded}}
+              @onToggle={{fn this.toggleMenu "regulatoryStatement"}}
             >
               <DocumentTitlePlugin::InsertTitleCard
                 @controller={{this.editor}}
@@ -198,18 +203,6 @@
           {{/unless}}
 
           <Plugins::Link::LinkEditor @controller={{this.editor}} />
-          <this.RdfaEditor
-            @node={{this.activeNode}}
-            @controller={{this.editor}}
-          />
-          {{#if this.activeNode}}
-            <this.AttributeEditor
-              @node={{this.activeNode}}
-              @controller={{this.editor}}
-            />
-            <this.DebugInfo @node={{this.activeNode}} />
-          {{/if}}
-
           <this.StructureControl @controller={{this.editor}} />
           <MandateeTablePlugin::Configure
             @controller={{this.editor}}
@@ -231,6 +224,26 @@
           />
           <VariablePlugin::Autofilled::Edit @controller={{this.editor}} />
           <TemplateCommentsPlugin::EditCard @controller={{this.editor}} />
+
+          <this.RdfaEditor
+            @node={{this.activeNode}}
+            @controller={{this.editor}}
+            @expanded={{this.sidebarSettings.rdfaEditor.expanded}}
+            @onToggle={{fn this.toggleMenu "rdfaEditor"}}
+          />
+          {{#if this.activeNode}}
+            <this.AttributeEditor
+              @node={{this.activeNode}}
+              @controller={{this.editor}}
+              @expanded={{this.sidebarSettings.attributeEditor.expanded}}
+              @onToggle={{fn this.toggleMenu "attributeEditor"}}
+            />
+            <this.DebugInfo
+              @node={{this.activeNode}}
+              @expanded={{this.sidebarSettings.debugInfo.expanded}}
+              @onToggle={{fn this.toggleMenu "debugInfo"}}
+            />
+          {{/if}}
 
           {{! VariablePlugin::TemplateVariableCard is not added on purpose
           as an RB-document creator should not be able to set a "default" codelist option.}}

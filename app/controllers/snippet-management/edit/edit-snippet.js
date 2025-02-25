@@ -119,6 +119,8 @@ import { saveCollatedImportedResources } from '../../../utils/imported-resources
 import { IVGR_TAGS, RMW_TAGS } from '../../../utils/constants';
 import { extractSnippetListUris } from '../../../utils/extract-snippet-lists';
 
+/** @import EditorSettings from '../../../services/editor-settings'; */
+
 export default class SnippetManagementEditSnippetController extends Controller {
   AttributeEditor = AttributeEditor;
   RdfaEditor = RdfaEditor;
@@ -130,12 +132,16 @@ export default class SnippetManagementEditSnippetController extends Controller {
 
   @service store;
   @service router;
-  @tracked editor;
-  @tracked _editorDocument;
   @service intl;
   @service currentSession;
-  @tracked citationPlugin = citationPlugin(this.config.citation);
   @service muTask;
+
+  /** @type {EditorSettings} */
+  @service('editor-settings') editorSettingsService;
+
+  @tracked editor;
+  @tracked _editorDocument;
+  @tracked citationPlugin = citationPlugin(this.config.citation);
 
   schema = new Schema({
     nodes: {
@@ -200,6 +206,17 @@ export default class SnippetManagementEditSnippetController extends Controller {
       color,
     },
   });
+
+  get sidebarSettings() {
+    return this.editorSettingsService.sidebarSettings;
+  }
+
+  @action
+  toggleMenu(menuKey, expanded) {
+    const sidebarSettings = this.sidebarSettings;
+    sidebarSettings[menuKey]['expanded'] = expanded;
+    this.editorSettingsService.sidebarSettings = sidebarSettings;
+  }
 
   get variableTypes() {
     const config = getOwner(this).resolveRegistration('config:environment');

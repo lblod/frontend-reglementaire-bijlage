@@ -7,7 +7,7 @@
   @save={{hash action=(perform this.save) isRunning=this.save.isRunning}}
   @dirty={{this.dirty}}
 >
- <:leadingButtons>
+  <:leadingButtons>
     {{#if this.activeNode}}
       <this.SnippetListSelect
         @node={{this.activeNode}}
@@ -90,14 +90,10 @@
     <:aside>
       {{#if this.editor}}
         <Sidebar as |Sidebar|>
-          <ConnectArticlesToImportedResource
-            @controller={{this.editor}}
-            @importedResource={{this.importedDecisionUri}}
-          />
-          <RegenerateVariableUris @controller={{this.editor}} />
           <Sidebar.Collapsible
             @title={{t "snippet-edit.sidebar.general-nodes"}}
-            @expandedInitially={{false}}
+            @expanded={{this.sidebarSettings.general.expanded}}
+            @onToggle={{fn this.toggleMenu "general"}}
           >
             <VariablePlugin::Date::Insert
               @controller={{this.editor}}
@@ -129,7 +125,8 @@
           </Sidebar.Collapsible>
           <Sidebar.Collapsible
             @title={{t "snippet-edit.sidebar.decision-nodes"}}
-            @expandedInitially={{false}}
+            @expanded={{this.sidebarSettings.decision.expanded}}
+            @onToggle={{fn this.toggleMenu "decision"}}
           >
             <this.InsertArticle
               @controller={{this.editor}}
@@ -142,7 +139,8 @@
           </Sidebar.Collapsible>
           <Sidebar.Collapsible
             @title={{t "snippet-edit.sidebar.regulatory-statement-nodes"}}
-            @expandedInitially={{false}}
+            @expanded={{this.sidebarSettings.regulatoryStatement.expanded}}
+            @onToggle={{fn this.toggleMenu "regulatoryStatement"}}
           >
             <DocumentTitlePlugin::InsertTitleCard @controller={{this.editor}} />
             <ArticleStructurePlugin::ArticleStructureCard
@@ -155,18 +153,6 @@
             @controller={{this.editor}}
             @supportedTags={{this.config.mandateeTable.tags}}
           />
-          {{#if this.activeNode}}
-            <this.RdfaEditor
-              @node={{this.activeNode}}
-              @controller={{this.editor}}
-              @additionalImportedResources={{this.model.snippetList.importedResources}}
-            />
-            <this.AttributeEditor
-              @node={{this.activeNode}}
-              @controller={{this.editor}}
-            />
-            <this.DebugInfo @node={{this.activeNode}} />
-          {{/if}}
           <VariablePlugin::InsertVariableCard
             @controller={{this.editor}}
             @variableTypes={{this.variableTypes}}
@@ -183,6 +169,27 @@
           />
           <VariablePlugin::Autofilled::Edit @controller={{this.editor}} />
           <TemplateCommentsPlugin::EditCard @controller={{this.editor}} />
+
+          {{#if this.activeNode}}
+            <this.RdfaEditor
+              @node={{this.activeNode}}
+              @controller={{this.editor}}
+              @additionalImportedResources={{this.model.snippetList.importedResources}}
+              @expanded={{this.sidebarSettings.rdfaEditor.expanded}}
+              @onToggle={{fn this.toggleMenu "rdfaEditor"}}
+            />
+            <this.AttributeEditor
+              @node={{this.activeNode}}
+              @controller={{this.editor}}
+              @expanded={{this.sidebarSettings.attributeEditor.expanded}}
+              @onToggle={{fn this.toggleMenu "attributeEditor"}}
+            />
+            <this.DebugInfo
+              @node={{this.activeNode}}
+              @expanded={{this.sidebarSettings.debugInfo.expanded}}
+              @onToggle={{fn this.toggleMenu "debugInfo"}}
+            />
+          {{/if}}
         </Sidebar>
       {{/if}}
     </:aside>
