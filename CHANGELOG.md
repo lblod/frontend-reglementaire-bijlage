@@ -1,5 +1,11 @@
 # frontend-reglementaire-bijlage
 
+## 9.17.1
+
+### Patch Changes
+
+- [#325](https://github.com/lblod/frontend-reglementaire-bijlage/pull/325) [`dc890130c5a4536b11d4903977b32026461f8929`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/dc890130c5a4536b11d4903977b32026461f8929) Thanks [@elpoelma](https://github.com/elpoelma)! - Update `@lblod/ember-rdfa-editor-lblod-plugins` to version [27.0.3](https://github.com/lblod/ember-rdfa-editor-lblod-plugins/releases/tag/v27.0.3)
+
 ## 9.17.0
 
 ### Minor Changes
