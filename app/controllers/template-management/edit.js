@@ -286,17 +286,11 @@ export default class TemplateManagementEditController extends Controller {
   get config() {
     const env = getOwner(this).resolveRegistration('config:environment');
     return {
-      tableOfContents: [
-        {
-          nodeHierarchy: [
-            'title|chapter|section|subsection|article',
-            'structure_header|article_header',
-          ],
-          scrollContainer: () =>
-            document.getElementsByClassName('say-container__main')[0],
-          scrollingPadding: 300,
-        },
-      ],
+      tableOfContents: {
+        scrollContainer: () =>
+          document.getElementsByClassName('say-container__main')[0],
+        scrollingPadding: 300,
+      },
       date: {
         formats: [
           {
