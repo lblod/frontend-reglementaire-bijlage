@@ -150,8 +150,8 @@ importers:
         specifier: 11.2.0
         version: 11.2.0(ks7gaj74oeyl75bibrwcljbkdy)
       '@lblod/ember-rdfa-editor-lblod-plugins':
-        specifier: 27.0.3
-        version: 27.0.3(vsvggq7bisajpcay3jqpajhioi)
+        specifier: 28.0.0
+        version: 28.0.0(vsvggq7bisajpcay3jqpajhioi)
       '@release-it-plugins/lerna-changelog':
         specifier: ^6.0.0
         version: 6.1.0(release-it@16.3.0(encoding@0.1.13)(typescript@5.7.3))
@@ -1541,15 +1541,15 @@ packages:
       ember-simple-auth: ^6.0.0
       ember-source: '>= 4.0.0'
 
-  '@lblod/ember-rdfa-editor-lblod-plugins@27.0.3':
-    resolution: {integrity: sha512-z/39zLgXJuSpA5TiRAi4lLWsZzxyoe+iyA25YpqjCS77/R9TDr26ftUOGCwMuL/omqbuUSOyHslksE98NK4F4A==}
+  '@lblod/ember-rdfa-editor-lblod-plugins@28.0.0':
+    resolution: {integrity: sha512-gSBpTZJvi6/ektmnuiSPeWSOaIE99nEHKh21nQtkhtcupOsn+1cDxI0TQqrhSsTdEHivcEON9dihoUB8UtWVDg==}
     engines: {node: '>= 18'}
     peerDependencies:
-      '@appuniversum/ember-appuniversum': ^3.4.1
+      '@appuniversum/ember-appuniversum': ^3.5.0
       '@ember/string': 3.x
       '@glint/template': ^1.4.0
       '@lblod/ember-rdfa-editor': ^11.0.0
-      ember-concurrency: ^3.1.0 || ^4.0.2
+      ember-concurrency: ^4.0.2
       ember-element-helper: ^0.8.6
       ember-intl: ^7.0.0
       ember-leaflet: ^5.1.3
@@ -10561,7 +10561,7 @@ snapshots:
       - supports-color
       - webpack
 
-  '@lblod/ember-rdfa-editor-lblod-plugins@27.0.3(vsvggq7bisajpcay3jqpajhioi)':
+  '@lblod/ember-rdfa-editor-lblod-plugins@28.0.0(vsvggq7bisajpcay3jqpajhioi)':
     dependencies:
       '@appuniversum/ember-appuniversum': 3.7.0(swad3rgq7zjbnd7skqhsvp43fm)
       '@babel/core': 7.26.7
