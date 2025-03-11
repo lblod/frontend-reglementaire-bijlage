@@ -68,6 +68,7 @@ import {
   person_variable,
   autofilled_variable,
   autofilledVariableView,
+  location,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/variables';
 import { document_title } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/document-title-plugin/nodes';
 import {
@@ -188,6 +189,7 @@ export default class TemplateManagementEditController extends Controller {
       }),
       date: date(this.config.date),
       text_variable,
+      location,
       oslo_location: osloLocation(this.config.location),
       person_variable,
       autofilled_variable,
