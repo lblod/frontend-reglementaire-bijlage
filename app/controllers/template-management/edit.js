@@ -76,7 +76,6 @@ import {
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/template-comments-plugin';
 import { docWithConfig } from '@lblod/ember-rdfa-editor/nodes/doc';
 import { undo } from '@lblod/ember-rdfa-editor/plugins/history';
-import { roadsign_regulation } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/roadsign-regulation-plugin/nodes';
 import TextVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/text/insert';
 import PersonVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/person/insert';
 import NumberInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/number/insert';
@@ -193,7 +192,6 @@ export default class TemplateManagementEditController extends Controller {
       autofilled_variable,
       number,
       codelist,
-      roadsign_regulation,
       mandatee_table,
 
       heading: headingWithConfig({ rdfaAware: false }),
@@ -333,10 +331,6 @@ export default class TemplateManagementEditController extends Controller {
       },
       snippet: {
         endpoint: '/raw-sparql',
-      },
-      roadsignRegulation: {
-        endpoint: env.mowRegistryEndpoint,
-        imageBaseUrl: env.roadsignImageBaseUrl,
       },
       decisionType: {
         endpoint: 'https://centrale-vindplaats.lblod.info/sparql',

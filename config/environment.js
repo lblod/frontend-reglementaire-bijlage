@@ -37,15 +37,11 @@ module.exports = function (environment) {
     insertVariablePlugin: {
       endpoint: '{{VARIABLE_PLUGIN_ENDPOINT}}',
     },
-    mowRegistryEndpoint: '{{MOW_REGISTRY_ENDPOINT}}',
-    roadsignImageBaseUrl: '{{ROADSIGN_IMAGE_BASE_URL}}',
   };
 
   if (environment === 'development') {
     ENV.environmentName = 'LOCAL';
     ENV.insertVariablePlugin.endpoint = '/raw-sparql';
-    ENV.mowRegistryEndpoint = 'https://dev.roadsigns.lblod.info/sparql';
-    ENV.roadsignImageBaseUrl = 'https://register.mobiliteit.vlaanderen.be/';
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
