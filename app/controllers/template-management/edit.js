@@ -282,7 +282,6 @@ export default class TemplateManagementEditController extends Controller {
     );
   }
   get config() {
-    const env = getOwner(this).resolveRegistration('config:environment');
     return {
       tableOfContents: {
         scrollContainer: () =>
