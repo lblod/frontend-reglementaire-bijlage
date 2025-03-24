@@ -69,6 +69,7 @@ import {
   autofilled_variable,
   autofilledVariableView,
   location,
+  locationView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/variables';
 import { BlockRDFaView } from '@lblod/ember-rdfa-editor/nodes/block-rdfa';
 import { document_title } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/document-title-plugin/nodes';
@@ -345,6 +346,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
         snippet_placeholder: snippetPlaceholderView(this.config.snippet)(
           controller,
         ),
+        location: locationView(controller),
         oslo_location: osloLocationView(this.config.location)(controller),
         snippet: snippetView(this.config.snippet)(controller),
         structure: structureViewWithConfig(this.config.structures)(controller),
