@@ -1,5 +1,11 @@
 # frontend-reglementaire-bijlage
 
+## 9.19.2
+
+### Patch Changes
+
+- [#328](https://github.com/lblod/frontend-reglementaire-bijlage/pull/328) [`8ed38e7ffee63b0369653e3db499c54152c52709`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/8ed38e7ffee63b0369653e3db499c54152c52709) Thanks [@lagartoverde](https://github.com/lagartoverde)! - Add location variable to schemas
+
 ## 9.19.1
 
 ### Patch Changes
