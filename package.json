@@ -60,7 +60,7 @@
     "@lblod/ember-environment-banner": "^0.6.0",
     "@lblod/ember-mock-login": "^0.10.0",
     "@lblod/ember-rdfa-editor": "11.3.0",
-    "@lblod/ember-rdfa-editor-lblod-plugins": "28.1.0",
+    "@lblod/ember-rdfa-editor-lblod-plugins": "28.2.3",
     "@release-it-plugins/lerna-changelog": "^6.0.0",
     "@tsconfig/ember": "^3.0.8",
     "@types/lodash.mergewith": "^4.6.9",

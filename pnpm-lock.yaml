@@ -150,8 +150,8 @@ importers:
         specifier: 11.3.0
         version: 11.3.0(ks7gaj74oeyl75bibrwcljbkdy)
       '@lblod/ember-rdfa-editor-lblod-plugins':
-        specifier: 28.1.0
-        version: 28.1.0(cojf56x2miqtrqpsegx6qy7pmu)
+        specifier: 28.2.3
+        version: 28.2.3(cojf56x2miqtrqpsegx6qy7pmu)
       '@release-it-plugins/lerna-changelog':
         specifier: ^6.0.0
         version: 6.1.0(release-it@16.3.0(encoding@0.1.13)(typescript@5.7.3))
@@ -1541,8 +1541,8 @@ packages:
       ember-simple-auth: ^6.0.0
       ember-source: '>= 4.0.0'
 
-  '@lblod/ember-rdfa-editor-lblod-plugins@28.1.0':
-    resolution: {integrity: sha512-iS3hrPCLlr7VAQy+Lt7E8KU4ihhitZLpXMeoE+OXsYh/EDWKJXz3Y32iZ5FbS7vOKZwe8s2b+LZVoY0NF213Kg==}
+  '@lblod/ember-rdfa-editor-lblod-plugins@28.2.3':
+    resolution: {integrity: sha512-e3oT6WfwMIiQ1Bz1BQogCYAEw5EmqTnzAPFeja4izRAG1Gr7nMuYbL5w3xeDBUCEE2gfXKqSOoAktfcD6+m/CA==}
     engines: {node: '>= 18'}
     peerDependencies:
       '@appuniversum/ember-appuniversum': ^3.5.0
@@ -10561,7 +10561,7 @@ snapshots:
       - supports-color
       - webpack
 
-  '@lblod/ember-rdfa-editor-lblod-plugins@28.1.0(cojf56x2miqtrqpsegx6qy7pmu)':
+  '@lblod/ember-rdfa-editor-lblod-plugins@28.2.3(cojf56x2miqtrqpsegx6qy7pmu)':
     dependencies:
       '@appuniversum/ember-appuniversum': 3.7.0(swad3rgq7zjbnd7skqhsvp43fm)
       '@babel/core': 7.26.7
