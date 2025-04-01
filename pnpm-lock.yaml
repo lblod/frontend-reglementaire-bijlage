@@ -150,8 +150,8 @@ importers:
         specifier: 11.3.0
         version: 11.3.0(ks7gaj74oeyl75bibrwcljbkdy)
       '@lblod/ember-rdfa-editor-lblod-plugins':
-        specifier: 29.1.0
-        version: 29.1.0(cojf56x2miqtrqpsegx6qy7pmu)
+        specifier: 29.1.1
+        version: 29.1.1(ye6c3otsnstwnolbhhtjsrfygq)
       '@release-it-plugins/lerna-changelog':
         specifier: ^6.0.0
         version: 6.1.0(release-it@16.3.0(encoding@0.1.13)(typescript@5.7.3))
@@ -1541,8 +1541,8 @@ packages:
       ember-simple-auth: ^6.0.0
       ember-source: '>= 4.0.0'
 
-  '@lblod/ember-rdfa-editor-lblod-plugins@29.1.0':
-    resolution: {integrity: sha512-ill34wCKFosxsgb4Y6+ba1yax6Q/iSCYCUxDQ9ZfBWKBKBqNquFVFkywU4oqGXF3wQOohtyDsL7THrmjbUpjKg==}
+  '@lblod/ember-rdfa-editor-lblod-plugins@29.1.1':
+    resolution: {integrity: sha512-9/rErMETkz6+kmG+0+lhpsuKfXeaIH1s5VrnRy55ko/e+znEJ+gbDhLmF18ehZ49/qpIkvJCSdiELbrheithiA==}
     engines: {node: '>= 18'}
     peerDependencies:
       '@appuniversum/ember-appuniversum': ^3.5.0
@@ -2136,9 +2136,6 @@ packages:
   '@types/rdfjs__parser-n3@2.0.6':
     resolution: {integrity: sha512-VHfdq7BDV6iMCtHkzTFSOuUWnqGlMUmEF0UZyK4+g9SzLWvc6TMcU5TYwQPQIz/e0s7dZ+xomxx6mVtIzsRQ/A==}
 
-  '@types/readable-stream@2.3.15':
-    resolution: {integrity: sha512-oM5JSKQCcICF1wvGgmecmHldZ48OZamtMxcGGVICOJA8o8cahXC1zEVAif8iwoc5j8etxFaRFnf095+CDsuoFQ==}
-
   '@types/readable-stream@4.0.18':
     resolution: {integrity: sha512-21jK/1j+Wg+7jVw1xnSwy/2Q1VgVjWuFssbYGTREPUBeZ+rqVFl2udq0IkxzPC0ZhOzVceUbyIACFZKLqKEBlA==}
 
@@ -2150,9 +2147,6 @@ packages:
 
   '@types/serve-static@1.15.7':
     resolution: {integrity: sha512-W8Ym+h8nhuRwaKPaDw34QUkwsGi6Rc4yYqvKFo5rm2FUEhCFbzVWrxXUxuKK8TASjWsysJY0nsmNCGhCOIsrOw==}
-
-  '@types/sparqljs@3.1.12':
-    resolution: {integrity: sha512-zg/sdKKtYI0845wKPSuSgunyU1o/+7tRzMw85lHsf4p/0UbA6+65MXAyEtv1nkaqSqrq/bXm7+bqXas+Xo5dpQ==}
 
   '@types/symlink-or-copy@1.2.2':
     resolution: {integrity: sha512-MQ1AnmTLOncwEf9IVU+B2e4Hchrku5N67NkgcAHW0p3sdzPe0FNMANxEm6OJUzPniEQGkeT3OROLlCwZJLWFZA==}
@@ -3566,9 +3560,6 @@ packages:
   crelt@1.0.6:
     resolution: {integrity: sha512-VQ2MBenTq1fWZUH9DJNGti7kKv6EeAuYr3cLwxUWhIu1baTaXh4Ib5W2CqHVqib4/MqbYGJqiL3Zb8GJZr3l4g==}
 
-  cross-fetch@3.2.0:
-    resolution: {integrity: sha512-Q+xVJLoGOeIMXZmbUK4HYk+69cQH6LudR0Vu/pRm2YlU/hDV9CiS0gKUMaWY5f2NeUH9C1nV3bsTlCo0FsTV1Q==}
-
   cross-spawn@6.0.6:
     resolution: {integrity: sha512-VqCUuhcd1iB+dsv8gxPttb5iZh/D0iubSP21g36KXdEuf6I5JiioesUVjpCdHV9MZRUfVFlvwtIUyPfxo5trtw==}
     engines: {node: '>=4.8'}
@@ -4748,10 +4739,6 @@ packages:
   fetch-blob@3.2.0:
     resolution: {integrity: sha512-7yAQpD2UMJzLi1Dqv7qFYnPbaPx7ZfFK6PiIxQ4PfkGPyNyl2Ugx+a/umUonmKqjhM4DnfbMvdX6otXq83soQQ==}
     engines: {node: ^12.20 || >= 14.13}
-
-  fetch-sparql-endpoint@3.3.3:
-    resolution: {integrity: sha512-5ZNesFhFMcsEiSaCyg36L5VU7YP7xMJogc5i0n00nFNFZzrfGJ4Cm8LGrzXI6eySkb7QmaRyNWJGk5btAOjniA==}
-    hasBin: true
 
   figures@2.0.0:
     resolution: {integrity: sha512-Oa2M9atig69ZkfwiApY8F2Yy+tzMbazyvqv21R0NsSC8floSOC09BbT1ITWAdoMGQvJ/aZnR1KMwdx9tvHnTNA==}
@@ -7100,9 +7087,6 @@ packages:
     resolution: {integrity: sha512-3npG2NGhTc8BWBolLLf8l/92OxMGaRLbqvIh9wjCHhDXNvk4zsxaTaCpiCunW09qWPrN2zeNSNwRLVBrQQtutA==}
     engines: {node: 10.* || >= 12.*}
 
-  promise-polyfill@1.1.6:
-    resolution: {integrity: sha512-7rrONfyLkDEc7OJ5QBkqa4KI4EBhCd340xRuIUPGCfu13znS+vx+VDdrT9ODAJHlXm7w4lbxN3DRjyv58EuzDg==}
-
   promise-retry@2.0.1:
     resolution: {integrity: sha512-y+WKFlBR8BGXnsNlIHFGPZmyDf3DFMoLhaflAnyZgV6rG6xu+JwesTo2Q9R6XwYmtmwAFCkAk3e35jEdoeh/3g==}
     engines: {node: '>=10'}
@@ -7263,9 +7247,6 @@ packages:
   rdf-literal@1.3.2:
     resolution: {integrity: sha512-79Stlu3sXy0kq9/decHFLf3xNPuY6sfhFPhd/diWErgaFr0Ekyg38Vh9bnVcqDYu48CFRi0t+hrFii49n92Hbw==}
 
-  rdf-string@1.6.3:
-    resolution: {integrity: sha512-HIVwQ2gOqf+ObsCLSUAGFZMIl3rh9uGcRf1KbM85UDhKqP+hy6qj7Vz8FKt3GA54RiThqK3mNcr66dm1LP0+6g==}
-
   rdf-validate-datatype@0.1.5:
     resolution: {integrity: sha512-gU+cD+AT1LpFwbemuEmTDjwLyFwJDiw21XHyIofKhFnEpXODjShBuxhgDGnZqW3qIEwu/vECjOecuD60e5ngiQ==}
     engines: {node: '>=10.4'}
@@ -7299,10 +7280,6 @@ packages:
   readable-stream@4.7.0:
     resolution: {integrity: sha512-oIGGmcpTLwPga8Bn6/Z75SVaH1z5dUut2ibSyAMVhmUggWpmDn2dapB0n7f8nwaSiRtepAsfJyfXIO5DCVAODg==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
-
-  readable-web-to-node-stream@3.0.4:
-    resolution: {integrity: sha512-9nX56alTf5bwXQ3ZDipHJhusu9NTQJ/CVPtb/XHAJCXihZeitfJvIRS4GqQ/mfIoOE3IelHMrpayVrosdHBuLw==}
-    engines: {node: '>=8'}
 
   readdirp@4.1.1:
     resolution: {integrity: sha512-h80JrZu/MHUZCyHu5ciuoI0+WxsCxzxJTILn6Fs8rxSnFPh+UVHYfeIxK1nVGugMqkfC4vJcBOYbkfkwYK0+gw==}
@@ -7880,17 +7857,6 @@ packages:
     resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==}
     deprecated: Please use @jridgewell/sourcemap-codec instead
 
-  sparqljs@3.7.3:
-    resolution: {integrity: sha512-FQfHUhfwn5PD9WH6xPU7DhFfXMgqK/XoDrYDVxz/grhw66Il0OjRg3JBgwuEvwHnQt7oSTiKWEiCZCPNaUbqgg==}
-    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
-    hasBin: true
-
-  sparqljson-parse@2.2.0:
-    resolution: {integrity: sha512-2TfvNvUsaJyWfCrq3ExdDdbF9LBLzIUCricg+D1YCYbbmyTzscgCtRk4KcIyJF178DtfCt4BkKzbKl8IXMHp8w==}
-
-  sparqlxml-parse@2.1.1:
-    resolution: {integrity: sha512-71sltShF6gDAzuKWEHNeij7r0Mv5VqRrvJing6W4WHJ12GRe6+t1IRTv6MeqxYN3XJmKevs7B3HCBUo7wceeJQ==}
-
   spawn-args@0.2.0:
     resolution: {integrity: sha512-73BoniQDcRWgnLAf/suKH6V5H54gd1KLzwYN9FB6J/evqTV33htH9xwV/4BHek+++jzxpVlZQKKZkqstPQPmQg==}
 
@@ -7954,9 +7920,6 @@ packages:
 
   stream-chunks@1.0.0:
     resolution: {integrity: sha512-/G+kinLx3pKXChtuko82taA4gZo56zFG2b2BbhmugmS0TUPBL40c5b2vjonS+gAHYK/cSKM9m0WTvAJYgDUeNw==}
-
-  stream-to-string@1.2.1:
-    resolution: {integrity: sha512-WsvTDNF8UYs369Yko3pcdTducQtYpzEZeOV7cTuReyFvOoA9S/DLJ6sYK+xPafSPHhUMpaxiljKYnT6JSFztIA==}
 
   strict-uri-encode@2.0.0:
     resolution: {integrity: sha512-QwiXZgpRcKkhTj2Scnn++4PKtWsH0kpzZ62L2R6c/LUVYv7hVnZqcg2+sMuT6R7Jusu1vviK/MFsu6kNJfWlEQ==}
@@ -10561,7 +10524,7 @@ snapshots:
       - supports-color
       - webpack
 
-  '@lblod/ember-rdfa-editor-lblod-plugins@29.1.0(cojf56x2miqtrqpsegx6qy7pmu)':
+  '@lblod/ember-rdfa-editor-lblod-plugins@29.1.1(ye6c3otsnstwnolbhhtjsrfygq)':
     dependencies:
       '@appuniversum/ember-appuniversum': 3.7.0(swad3rgq7zjbnd7skqhsvp43fm)
       '@babel/core': 7.26.7
@@ -10598,7 +10561,6 @@ snapshots:
       ember-source: 5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.26.7))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.97.1)
       ember-truth-helpers: 4.0.3(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.26.7))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.97.1))
       ember-velcro: 2.2.0(ember-modifier@4.2.0(@babel/core@7.26.7)(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.26.7))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.97.1)))(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.26.7))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.97.1))
-      fetch-sparql-endpoint: 3.3.3(encoding@0.1.13)
       leaflet: 1.9.4
       n2words: 1.21.0
       process: 0.11.10
@@ -10619,7 +10581,6 @@ snapshots:
       - '@glimmer/component'
       - '@glimmer/tracking'
       - ember-data
-      - encoding
       - prosemirror-model
       - prosemirror-state
       - supports-color
@@ -11405,11 +11366,6 @@ snapshots:
     dependencies:
       '@rdfjs/types': 2.0.1
 
-  '@types/readable-stream@2.3.15':
-    dependencies:
-      '@types/node': 22.10.10
-      safe-buffer: 5.1.2
-
   '@types/readable-stream@4.0.18':
     dependencies:
       '@types/node': 22.10.10
@@ -11430,10 +11386,6 @@ snapshots:
       '@types/http-errors': 2.0.4
       '@types/node': 22.10.10
       '@types/send': 0.17.4
-
-  '@types/sparqljs@3.1.12':
-    dependencies:
-      '@rdfjs/types': 2.0.1
 
   '@types/symlink-or-copy@1.2.2': {}
 
@@ -13237,12 +13189,6 @@ snapshots:
       sha.js: 2.4.11
 
   crelt@1.0.6: {}
-
-  cross-fetch@3.2.0(encoding@0.1.13):
-    dependencies:
-      node-fetch: 2.7.0(encoding@0.1.13)
-    transitivePeerDependencies:
-      - encoding
 
   cross-spawn@6.0.6:
     dependencies:
@@ -15306,25 +15252,6 @@ snapshots:
     dependencies:
       node-domexception: 1.0.0
       web-streams-polyfill: 3.3.3
-
-  fetch-sparql-endpoint@3.3.3(encoding@0.1.13):
-    dependencies:
-      '@rdfjs/types': 2.0.1
-      '@types/readable-stream': 2.3.15
-      '@types/sparqljs': 3.1.12
-      abort-controller: 3.0.0
-      cross-fetch: 3.2.0(encoding@0.1.13)
-      is-stream: 2.0.1
-      minimist: 1.2.8
-      n3: 1.23.1
-      rdf-string: 1.6.3
-      readable-web-to-node-stream: 3.0.4
-      sparqljs: 3.7.3
-      sparqljson-parse: 2.2.0
-      sparqlxml-parse: 2.1.1
-      stream-to-string: 1.2.1
-    transitivePeerDependencies:
-      - encoding
 
   figures@2.0.0:
     dependencies:
@@ -17930,8 +17857,6 @@ snapshots:
 
   promise-map-series@0.3.0: {}
 
-  promise-polyfill@1.1.6: {}
-
   promise-retry@2.0.1:
     dependencies:
       err-code: 2.0.3
@@ -18173,11 +18098,6 @@ snapshots:
       '@rdfjs/types': 2.0.1
       rdf-data-factory: 1.1.3
 
-  rdf-string@1.6.3:
-    dependencies:
-      '@rdfjs/types': 2.0.1
-      rdf-data-factory: 1.1.3
-
   rdf-validate-datatype@0.1.5:
     dependencies:
       '@rdfjs/namespace': 1.1.0
@@ -18259,10 +18179,6 @@ snapshots:
       events: 3.3.0
       process: 0.11.10
       string_decoder: 1.3.0
-
-  readable-web-to-node-stream@3.0.4:
-    dependencies:
-      readable-stream: 4.7.0
 
   readdirp@4.1.1: {}
 
@@ -18961,27 +18877,6 @@ snapshots:
 
   sourcemap-codec@1.4.8: {}
 
-  sparqljs@3.7.3:
-    dependencies:
-      rdf-data-factory: 1.1.3
-
-  sparqljson-parse@2.2.0:
-    dependencies:
-      '@bergos/jsonparse': 1.4.2
-      '@rdfjs/types': 2.0.1
-      '@types/readable-stream': 2.3.15
-      rdf-data-factory: 1.1.3
-      readable-stream: 4.7.0
-
-  sparqlxml-parse@2.1.1:
-    dependencies:
-      '@rdfjs/types': 2.0.1
-      '@rubensworks/saxes': 6.0.1
-      '@types/readable-stream': 2.3.15
-      buffer: 6.0.3
-      rdf-data-factory: 1.1.3
-      readable-stream: 4.7.0
-
   spawn-args@0.2.0: {}
 
   spawn-command@0.0.2: {}
@@ -19042,10 +18937,6 @@ snapshots:
     dependencies:
       buffer: 6.0.3
       string_decoder: 1.3.0
-
-  stream-to-string@1.2.1:
-    dependencies:
-      promise-polyfill: 1.1.6
 
   strict-uri-encode@2.0.0: {}
 
