@@ -1,5 +1,17 @@
 # frontend-reglementaire-bijlage
 
+## 9.21.0
+
+### Minor Changes
+
+- [#330](https://github.com/lblod/frontend-reglementaire-bijlage/pull/330) [`0103241541cf56e497a05f0bf607e16204328a05`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/0103241541cf56e497a05f0bf607e16204328a05) Thanks [@elpoelma](https://github.com/elpoelma)! - Update `@lblod/ember-rdfa-editor` to version [12.2.0](https://github.com/lblod/ember-rdfa-editor/releases/tag/%40lblod%2Fember-rdfa-editor%4012.2.0)
+  Update `@lblod/ember-rdfa-editor-lblod-plugins` to version [30.0.0](https://github.com/lblod/ember-rdfa-editor-lblod-plugins/releases/tag/v30.0.0)
+
+  These new versions contain support (among other features/fixes) for:
+
+  - Smart variables
+  - Adding backlinks to literal nodes
+
 ## 9.20.0
 
 ### Minor Changes
