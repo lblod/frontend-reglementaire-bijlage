@@ -256,6 +256,15 @@ export default class SnippetManagementEditSnippetController extends Controller {
   }
 
   get config() {
+    const relationshipPredicates = [
+      'https://say.data.gift/ns/body',
+      'https://say.data.gift/ns/hasPart',
+      'http://data.europa.eu/eli/ontology#title',
+      'http://data.europa.eu/eli/ontology#description',
+      'http://data.vlaanderen.be/ns/besluit#motivering',
+      'http://data.europa.eu/eli/ontology#has_part',
+      'http://mu.semte.ch/vocabularies/ext/title',
+    ];
     return {
       tableOfContents: [
         {
@@ -323,6 +332,15 @@ export default class SnippetManagementEditSnippetController extends Controller {
       },
       autofilledVariable: {
         autofilledValues: {},
+      },
+      rdfa: {
+        propertyPredicates: [
+          'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+          'http://www.w3.org/ns/prov#value',
+          ...relationshipPredicates,
+        ],
+        propertyObjects: [],
+        backlinkPredicates: relationshipPredicates,
       },
     };
   }

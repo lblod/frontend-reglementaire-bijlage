@@ -177,6 +177,9 @@
               @additionalImportedResources={{this.model.snippetList.importedResources}}
               @expanded={{this.sidebarSettings.rdfaEditor.expanded}}
               @onToggle={{fn this.toggleMenu "rdfaEditor"}}
+              @propertyPredicates={{this.config.rdfa.propertyPredicates}}
+              @propertyObjects={{this.config.rdfa.propertyObjects}}
+              @backlinkPredicates={{this.config.rdfa.backlinkPredicates}}
             />
             <this.AttributeEditor
               @node={{this.activeNode}}
