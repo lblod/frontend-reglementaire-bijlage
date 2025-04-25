@@ -142,7 +142,9 @@
                 @controller={{this.editor}}
                 @node={{this.activeNode}}
                 @predicateOptionGenerator={{this.backlinkEditorConfig.predicateOptionGenerator}}
-                @subjectOptionGenerator={{this.backlinkEditorConfig.subjectOptionGenerator}}
+                @subjectOptionGenerator={{this.backlinkEditorConfig.subjectOptionGenerator
+                  this.editor
+                }}
               />
             {{/if}}
             <VariablePlugin::Date::Insert
