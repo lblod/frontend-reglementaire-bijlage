@@ -20,6 +20,9 @@ module.exports = function (environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     },
+    featureFlags: {
+      'citerra-poc': '{{RB_FEATURE_CITERRA_POC}}',
+    },
     torii: {
       disableRedirectInitializer: true,
       providers: {
@@ -46,6 +49,7 @@ module.exports = function (environment) {
     ENV.insertVariablePlugin.endpoint = '/raw-sparql';
     ENV.mowRegistryEndpoint = 'https://dev.roadsigns.lblod.info/sparql';
     ENV.roadsignImageBaseUrl = 'https://dev.roadsigns.lblod.info/';
+    ENV.featureFlags['citerra-poc'] = true;
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;

@@ -129,6 +129,11 @@ import {
 } from '@lblod/ember-rdfa-editor-lblod-plugins/utils/constants';
 import { extractSnippetListUris } from '../../utils/extract-snippet-lists';
 
+import VisualiserCard from '@lblod/ember-rdfa-editor/components/_private/rdfa-visualiser/visualiser-card';
+import LinkRdfaNodeButton from '@lblod/ember-rdfa-editor/components/_private/link-rdfa-node-poc/button';
+import { RDFA_VISUALIZER_CONFIG } from '../../utils/citerra-poc/visualizer';
+import { BACKLINK_EDITOR_CONFIG } from '../../utils/citerra-poc/backlink-editor';
+
 /** @import EditorSettings from '../../services/editor-settings'; */
 
 const SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE = 'data-snippet-list-ids';
@@ -589,4 +594,12 @@ export default class TemplateManagementEditController extends Controller {
     this.model.templateVersion.validThrough = new Date();
     await this.model.templateVersion.save();
   });
+
+  /**
+   * CITERRA POC
+   */
+  VisualiserCard = VisualiserCard;
+  LinkRdfaNodeButton = LinkRdfaNodeButton;
+  visualizerConfig = RDFA_VISUALIZER_CONFIG;
+  backlinkEditorConfig = BACKLINK_EDITOR_CONFIG;
 }

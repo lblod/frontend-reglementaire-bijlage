@@ -131,11 +131,20 @@
     <:aside>
       {{#if this.editor}}
         <Sidebar as |Sidebar|>
+
           <Sidebar.Collapsible
             @title={{t "snippet-edit.sidebar.general-nodes"}}
             @expanded={{this.sidebarSettings.general.expanded}}
             @onToggle={{fn this.toggleMenu "general"}}
           >
+            {{#if (feature-flag "citerra-poc")}}
+              <this.LinkRdfaNodeButton
+                @controller={{this.editor}}
+                @node={{this.activeNode}}
+                @predicateOptionGenerator={{this.backlinkEditorConfig.predicateOptionGenerator}}
+                @subjectOptionGenerator={{this.backlinkEditorConfig.subjectOptionGenerator}}
+              />
+            {{/if}}
             <VariablePlugin::Date::Insert
               @controller={{this.editor}}
               @options={{this.config.date}}
@@ -201,7 +210,13 @@
               />
             </Sidebar.Collapsible>
           {{/unless}}
-
+          {{#if (feature-flag "citerra-poc")}}
+            <this.VisualiserCard
+              @controller={{this.editor}}
+              @node={{this.activeNode}}
+              @config={{this.visualizerConfig}}
+            />
+          {{/if}}
           <Plugins::Link::LinkEditor @controller={{this.editor}} />
           <this.StructureControl @controller={{this.editor}} />
           <MandateeTablePlugin::Configure
