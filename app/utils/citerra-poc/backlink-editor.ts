@@ -1,5 +1,12 @@
-import type { PNode, SayController } from '@lblod/ember-rdfa-editor';
-import { BESLUIT } from '@lblod/ember-rdfa-editor-lblod-plugins/utils/constants';
+import type {
+  EditorState,
+  PNode,
+  SayController,
+} from '@lblod/ember-rdfa-editor';
+import {
+  BESLUIT,
+  RDF,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/utils/constants';
 import { unwrap } from '@lblod/ember-rdfa-editor-lblod-plugins/utils/option';
 import type {
   PredicateOptionGenerator,
@@ -16,7 +23,6 @@ import {
   type SayNamedNode,
 } from '@lblod/ember-rdfa-editor/core/say-data-factory';
 import { rdfaInfoPluginKey } from '@lblod/ember-rdfa-editor/plugins/rdfa-info';
-import { RDF } from '../namespaces';
 import type { Resource } from '@lblod/ember-rdfa-editor-lblod-plugins/utils/namespace';
 import limitContent from '../../helpers/limit-content';
 
@@ -53,10 +59,11 @@ const hasRdfType = (attrs: RdfaResourceAttrs, type: Resource) => {
 };
 type SubjectOptionMatcher = (
   node: PNode,
+  state: EditorState,
 ) => TermOption<ResourceNodeTerm> | undefined;
 
 const SUBJECT_OPTION_MATCHERS: SubjectOptionMatcher[] = [
-  (node) => {
+  (node, _state) => {
     if (
       !isRdfaAttrs(node.attrs) ||
       !('subject' in node.attrs) ||
@@ -70,19 +77,21 @@ const SUBJECT_OPTION_MATCHERS: SubjectOptionMatcher[] = [
       term: sayDataFactory.resourceNode(node.attrs.subject),
     };
   },
-  (node) => {
-    if (
-      !isRdfaAttrs(node.attrs) ||
-      !('subject' in node.attrs) ||
-      !hasRdfType(node.attrs, BESLUIT('Artikel'))
-    ) {
+  (node, state) => {
+    if (!isRdfaAttrs(node.attrs) || !('subject' in node.attrs)) {
       return;
     }
-    const number = (node.attrs as unknown as Record<string, unknown>)[
-      'number'
-    ] as number;
+    if (node.type.name !== 'structure' || !node.type.spec['tocEntry']) {
+      return;
+    }
+    const tocEntry = node.type.spec['tocEntry'] as
+      | string
+      | ((node: PNode, state: EditorState) => string);
+
+    const label =
+      typeof tocEntry === 'string' ? tocEntry : tocEntry(node, state);
     return {
-      label: `Artikel ${number}`,
+      label,
       description: limitContent(node.textContent, 50),
       term: sayDataFactory.resourceNode(node.attrs.subject),
     };
@@ -104,7 +113,7 @@ const subjectOptionGenerator = (
       const node = unwrap(nodes[0]).value;
       let option: TermOption<ResourceNodeTerm> | undefined;
       for (const optionMatcher of SUBJECT_OPTION_MATCHERS) {
-        const match = optionMatcher(node);
+        const match = optionMatcher(node, controller.mainEditorState);
         if (match) {
           option = match;
           break;
