@@ -100,7 +100,7 @@ const subjectOptionGenerator = (
       return [];
     }
     const options: TermOption<ResourceNodeTerm>[] = [];
-    for (const [subject, nodes] of subjectMapping.entries()) {
+    for (const [_subject, nodes] of subjectMapping.entries()) {
       const node = unwrap(nodes[0]).value;
       let option: TermOption<ResourceNodeTerm> | undefined;
       for (const optionMatcher of SUBJECT_OPTION_MATCHERS) {
