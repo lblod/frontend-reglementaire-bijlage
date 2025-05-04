@@ -1,5 +1,17 @@
 # frontend-reglementaire-bijlage
 
+## 9.23.0
+
+### Minor Changes
+
+- [#331](https://github.com/lblod/frontend-reglementaire-bijlage/pull/331) [`7b9cdb6f0598cc822e93910f398d4beb38342bd4`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/7b9cdb6f0598cc822e93910f398d4beb38342bd4) Thanks [@elpoelma](https://github.com/elpoelma)! - Add config for citerra poc behind feature flag
+
+- [#331](https://github.com/lblod/frontend-reglementaire-bijlage/pull/331) [`7b9cdb6f0598cc822e93910f398d4beb38342bd4`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/7b9cdb6f0598cc822e93910f398d4beb38342bd4) Thanks [@elpoelma](https://github.com/elpoelma)! - bump editor and plugins to [12.5.0](https://github.com/lblod/ember-rdfa-editor/releases/tag/%40lblod%2Fember-rdfa-editor%4012.5.0) and [31.0.3](https://github.com/lblod/ember-rdfa-editor-lblod-plugins/releases/tag/v31.0.3)
+
+### Patch Changes
+
+- [#332](https://github.com/lblod/frontend-reglementaire-bijlage/pull/332) [`25ac11b98dcefb21c1ba6b889a659d750c6a7ab5`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/25ac11b98dcefb21c1ba6b889a659d750c6a7ab5) Thanks [@elpoelma](https://github.com/elpoelma)! - Remove usage of default power-select styles, these conflict with the styles provided by appuniversum
+
 ## 9.22.0
 
 ### Minor Changes
