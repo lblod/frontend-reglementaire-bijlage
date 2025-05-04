@@ -212,42 +212,46 @@
               />
             </Sidebar.Collapsible>
 
-            <Sidebar.Collapsible
-              @title="Citerra"
-              @expanded={{this.sidebarSettings.citerra.expanded}}
-              @onToggle={{fn this.toggleMenu "citerra"}}
-            >
-              <AuButton
-                @skin="link"
-                @icon="add"
-                {{on "click" (fn this.insertThing "doelgroep")}}
-              >doelgroep</AuButton>
-              <AuButton
-                @skin="link"
-                @icon="add"
-                {{on "click" (fn this.insertThing "voorwaarde")}}
-              >voorwaarde</AuButton>
-              <AuButton
-                @skin="link"
-                @icon="add"
-                {{on "click" (fn this.insertThing "bewijsstuk")}}
-              >bewijsstuk</AuButton>
-              <AuButton
-                @skin="link"
-                @icon="add"
-                {{on "click" (fn this.insertThing "zone")}}
-              >zone</AuButton>
-              <AuButton
-                @skin="link"
-                @icon="add"
-                {{on "click" (fn this.insertThing "duurtijd")}}
-              >duurtijd</AuButton>
-              <AuButton
-                @skin="link"
-                @icon="add"
-                {{on "click" (fn this.insertThing "nummerplaten")}}
-              >nummerplaten</AuButton>
-            </Sidebar.Collapsible>
+            {{#if (feature-flag "citerra-poc")}}
+
+              <Sidebar.Collapsible
+                @title="Citerra"
+                @expanded={{this.sidebarSettings.citerra.expanded}}
+                @onToggle={{fn this.toggleMenu "citerra"}}
+              >
+
+                <AuButton
+                  @skin="link"
+                  @icon="add"
+                  {{on "click" (fn this.insertThing "doelgroep")}}
+                >{{t "citerra.doelgroep"}}</AuButton>
+                <AuButton
+                  @skin="link"
+                  @icon="add"
+                  {{on "click" (fn this.insertThing "voorwaarde")}}
+                >{{t "citerra.voorwaarde"}}</AuButton>
+                <AuButton
+                  @skin="link"
+                  @icon="add"
+                  {{on "click" (fn this.insertThing "bewijsstuk")}}
+                >{{t "citerra.bewijsstuk"}}</AuButton>
+                <AuButton
+                  @skin="link"
+                  @icon="add"
+                  {{on "click" (fn this.insertThing "zone")}}
+                >{{t "citerra.zone"}}</AuButton>
+                <AuButton
+                  @skin="link"
+                  @icon="add"
+                  {{on "click" (fn this.insertThing "duurtijd")}}
+                >{{t "citerra.duurtijd"}}</AuButton>
+                <AuButton
+                  @skin="link"
+                  @icon="add"
+                  {{on "click" (fn this.insertThing "nummerplaten")}}
+                >{{t "citerra.nummerplaten"}}</AuButton>
+              </Sidebar.Collapsible>
+            {{/if}}
           {{/unless}}
           {{#if (feature-flag "citerra-poc")}}
             <this.VisualiserCard
