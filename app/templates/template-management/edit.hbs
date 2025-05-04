@@ -211,6 +211,43 @@
                 @options={{this.config.structures}}
               />
             </Sidebar.Collapsible>
+
+            <Sidebar.Collapsible
+              @title="Citerra"
+              @expanded={{this.sidebarSettings.citerra.expanded}}
+              @onToggle={{fn this.toggleMenu "citerra"}}
+            >
+              <AuButton
+                @skin="link"
+                @icon="add"
+                {{on "click" (fn this.insertThing "doelgroep")}}
+              >doelgroep</AuButton>
+              <AuButton
+                @skin="link"
+                @icon="add"
+                {{on "click" (fn this.insertThing "voorwaarde")}}
+              >voorwaarde</AuButton>
+              <AuButton
+                @skin="link"
+                @icon="add"
+                {{on "click" (fn this.insertThing "bewijsstuk")}}
+              >bewijsstuk</AuButton>
+              <AuButton
+                @skin="link"
+                @icon="add"
+                {{on "click" (fn this.insertThing "zone")}}
+              >zone</AuButton>
+              <AuButton
+                @skin="link"
+                @icon="add"
+                {{on "click" (fn this.insertThing "duurtijd")}}
+              >duurtijd</AuButton>
+              <AuButton
+                @skin="link"
+                @icon="add"
+                {{on "click" (fn this.insertThing "nummerplaten")}}
+              >nummerplaten</AuButton>
+            </Sidebar.Collapsible>
           {{/unless}}
           {{#if (feature-flag "citerra-poc")}}
             <this.VisualiserCard
@@ -229,6 +266,11 @@
             @controller={{this.editor}}
             @variableTypes={{this.variableTypes}}
             @templateMode={{true}}
+          />
+
+          <VariablePlugin::Codelist::Edit
+            @controller={{this.editor}}
+            @options={{this.codelistEditOptions}}
           />
           <CitationPlugin::CitationCard
             @controller={{this.editor}}

@@ -11,7 +11,9 @@ import {
 } from '@lblod/ember-rdfa-editor-lblod-plugins/utils/option';
 import { getOutgoingTriple } from '@lblod/ember-rdfa-editor-lblod-plugins/utils/namespace';
 import { ELI, RDF } from '../namespaces';
+import { SKOS } from '@lblod/ember-rdfa-editor-lblod-plugins/utils/constants';
 
+const relationMap = {};
 const humanReadablePredicateDisplay: DisplayGenerator<OutgoingTriple> = (
   triple,
 ) => {
@@ -29,6 +31,14 @@ const humanReadableResourceName: DisplayGenerator<PNode> = (
   { controller },
 ) => {
   const subject = node.attrs['subject'] as string;
+
+  const label = optionMap(
+    (triple) => triple.object?.value,
+    getOutgoingTriple(node.attrs, SKOS('prefLabel')),
+  );
+  if (isSome(label)) {
+    return [{ strong: label }];
+  }
   const type = optionMap(
     (triple) => triple.object?.value,
     getOutgoingTriple(node.attrs, RDF('type')),

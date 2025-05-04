@@ -26,21 +26,25 @@ import { rdfaInfoPluginKey } from '@lblod/ember-rdfa-editor/plugins/rdfa-info';
 import type { Resource } from '@lblod/ember-rdfa-editor-lblod-plugins/utils/namespace';
 import limitContent from '../../helpers/limit-content';
 
+import { namespace } from '@lblod/ember-rdfa-editor-lblod-plugins/utils/namespace';
+
+const M8G = namespace('http://data.europa.eu/m8g/', 'm8g');
+const PURL = namespace('http://purl.org/vocab/cpsv#', 'purl');
 const predicateOptionGenerator: PredicateOptionGenerator = ({
   searchString = '',
 } = {}) => {
   const options: TermOption<SayNamedNode>[] = [
     {
-      label: 'Is titel van',
-      term: sayDataFactory.namedNode('eli:title'),
+      label: 'Is voorwaarde van',
+      term: sayDataFactory.namedNode(
+        'http://data.europa.eu/m8g/isRequirementOf',
+      ),
     },
     {
-      label: 'Is beschrijving van',
-      term: sayDataFactory.namedNode('dct:description'),
-    },
-    {
-      label: 'Is motivering van',
-      term: sayDataFactory.namedNode('besluit:motivering'),
+      label: 'Is bewijs van',
+      term: sayDataFactory.namedNode(
+        'http://mu.semte.ch/vocabularies/ext/isEvidenceOf',
+      ),
     },
   ];
   return options.filter(
@@ -67,31 +71,26 @@ const SUBJECT_OPTION_MATCHERS: SubjectOptionMatcher[] = [
     if (
       !isRdfaAttrs(node.attrs) ||
       !('subject' in node.attrs) ||
-      !hasRdfType(node.attrs, BESLUIT('Besluit'))
+      !hasRdfType(node.attrs, M8G('Requirement'))
     ) {
       return;
     }
     return {
-      label: 'Besluit',
+      label: 'Voorwaarde',
       description: limitContent(node.textContent, 50),
       term: sayDataFactory.resourceNode(node.attrs.subject),
     };
   },
-  (node, state) => {
-    if (!isRdfaAttrs(node.attrs) || !('subject' in node.attrs)) {
+  (node, _state) => {
+    if (
+      !isRdfaAttrs(node.attrs) ||
+      !('subject' in node.attrs) ||
+      !hasRdfType(node.attrs, PURL('PublicService'))
+    ) {
       return;
     }
-    if (node.type.name !== 'structure' || !node.type.spec['tocEntry']) {
-      return;
-    }
-    const tocEntry = node.type.spec['tocEntry'] as
-      | string
-      | ((node: PNode, state: EditorState) => string);
-
-    const label =
-      typeof tocEntry === 'string' ? tocEntry : tocEntry(node, state);
     return {
-      label,
+      label: 'Publieke Dienstverlening',
       description: limitContent(node.textContent, 50),
       term: sayDataFactory.resourceNode(node.attrs.subject),
     };

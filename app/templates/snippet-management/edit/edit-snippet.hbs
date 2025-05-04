@@ -158,6 +158,11 @@
             @variableTypes={{this.variableTypes}}
             @templateMode={{true}}
           />
+
+          <VariablePlugin::Codelist::Edit
+            @controller={{this.editor}}
+            @options={{this.codelistEditOptions}}
+          />
           <CitationPlugin::CitationCard
             @controller={{this.editor}}
             @plugin={{this.citationPlugin}}

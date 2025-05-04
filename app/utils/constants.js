@@ -33,3 +33,32 @@ export const JOB_STATUSES = {
   failed: 'http://redpencil.data.gift/id/concept/JobStatus/failed',
   canceled: 'http://redpencil.data.gift/id/concept/JobStatus/canceled',
 };
+
+export const RELATIONSHIP_PREDICATES = [
+  'https://say.data.gift/ns/body',
+  'https://say.data.gift/ns/hasPart',
+  'http://data.europa.eu/eli/ontology#title',
+  'http://data.europa.eu/eli/ontology#description',
+  'http://data.vlaanderen.be/ns/besluit#motivering',
+  'http://data.europa.eu/eli/ontology#has_part',
+  'http://mu.semte.ch/vocabularies/ext/title',
+  'http://www.w3.org/2004/02/skos/core#label',
+  'http://data.europa.eu/m8g/hasSupportingEvidence',
+  'http://data.europa.eu/m8g/isRequirementOf',
+];
+export const PROPERTY_PREDICATES = [
+  'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+  'http://www.w3.org/ns/prov#value',
+  'http://www.w3.org/2004/02/skos/core#prefLabel',
+  'https://data.vlaanderen.be/ns/mobiliteit-intelligente-toegang#operatie',
+  ...RELATIONSHIP_PREDICATES,
+];
+export const PROPERTY_OBJECTS = [
+  'http://data.europa.eu/m8g/Requirement',
+  'http://mu.semte.ch/vocabularies/ext/Doelgroep',
+  'http://purl.org/vocab/cpsv#PublicService',
+  'https://data.vlaanderen.be/ns/mobiliteit-intelligente-toegang#Voorwaardecollectie',
+  'https://data.vlaanderen.be/ns/mobiliteit-intelligente-toegang#EN-operatie',
+  'https://data.vlaanderen.be/ns/mobiliteit-intelligente-toegang#OF-operatie',
+  'https://data.vlaanderen.be/ns/mobiliteit#Zone',
+];
