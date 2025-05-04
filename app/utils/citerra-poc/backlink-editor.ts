@@ -3,10 +3,7 @@ import type {
   PNode,
   SayController,
 } from '@lblod/ember-rdfa-editor';
-import {
-  BESLUIT,
-  RDF,
-} from '@lblod/ember-rdfa-editor-lblod-plugins/utils/constants';
+import { RDF } from '@lblod/ember-rdfa-editor-lblod-plugins/utils/constants';
 import { unwrap } from '@lblod/ember-rdfa-editor-lblod-plugins/utils/option';
 import type {
   PredicateOptionGenerator,

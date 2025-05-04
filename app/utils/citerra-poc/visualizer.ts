@@ -13,7 +13,6 @@ import { getOutgoingTriple } from '@lblod/ember-rdfa-editor-lblod-plugins/utils/
 import { ELI, RDF } from '../namespaces';
 import { SKOS } from '@lblod/ember-rdfa-editor-lblod-plugins/utils/constants';
 
-const relationMap = {};
 const humanReadablePredicateDisplay: DisplayGenerator<OutgoingTriple> = (
   triple,
 ) => {
