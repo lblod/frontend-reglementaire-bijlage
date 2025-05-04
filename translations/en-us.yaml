@@ -251,3 +251,10 @@ template-import:
     error:
       title: Template import failed
       message: An error occured while importing the uploaded templates
+citerra:
+  doelgroep: Licenseholder type
+  voorwaarde: Requirement
+  bewijsstuk: Evidence
+  zone: Zone
+  duurtijd: Duration
+  nummerplaten: License plates

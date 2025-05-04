@@ -245,3 +245,10 @@ template-import:
     error:
       title: Importeren mislukt
       message: Er is een probleem opgetreden bij het importeren van de sjablonen
+citerra:
+  doelgroep: Doelgroep
+  voorwaarde: Voorwaarde
+  bewijsstuk: Bewijsstuk
+  zone: Zone
+  duurtijd: Duurtijd
+  nummerplaten: Nummerplaten

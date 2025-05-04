@@ -131,11 +131,22 @@
     <:aside>
       {{#if this.editor}}
         <Sidebar as |Sidebar|>
+
           <Sidebar.Collapsible
             @title={{t "snippet-edit.sidebar.general-nodes"}}
             @expanded={{this.sidebarSettings.general.expanded}}
             @onToggle={{fn this.toggleMenu "general"}}
           >
+            {{#if (feature-flag "citerra-poc")}}
+              <this.LinkRdfaNodeButton
+                @controller={{this.editor}}
+                @node={{this.activeNode}}
+                @predicateOptionGenerator={{this.backlinkEditorConfig.predicateOptionGenerator}}
+                @subjectOptionGenerator={{this.backlinkEditorConfig.subjectOptionGenerator
+                  this.editor
+                }}
+              />
+            {{/if}}
             <VariablePlugin::Date::Insert
               @controller={{this.editor}}
               @options={{this.config.date}}
@@ -200,8 +211,55 @@
                 @options={{this.config.structures}}
               />
             </Sidebar.Collapsible>
-          {{/unless}}
 
+            {{#if (feature-flag "citerra-poc")}}
+
+              <Sidebar.Collapsible
+                @title="Citerra"
+                @expanded={{this.sidebarSettings.citerra.expanded}}
+                @onToggle={{fn this.toggleMenu "citerra"}}
+              >
+
+                <AuButton
+                  @skin="link"
+                  @icon="add"
+                  {{on "click" (fn this.insertThing "doelgroep")}}
+                >{{t "citerra.doelgroep"}}</AuButton>
+                <AuButton
+                  @skin="link"
+                  @icon="add"
+                  {{on "click" (fn this.insertThing "voorwaarde")}}
+                >{{t "citerra.voorwaarde"}}</AuButton>
+                <AuButton
+                  @skin="link"
+                  @icon="add"
+                  {{on "click" (fn this.insertThing "bewijsstuk")}}
+                >{{t "citerra.bewijsstuk"}}</AuButton>
+                <AuButton
+                  @skin="link"
+                  @icon="add"
+                  {{on "click" (fn this.insertThing "zone")}}
+                >{{t "citerra.zone"}}</AuButton>
+                <AuButton
+                  @skin="link"
+                  @icon="add"
+                  {{on "click" (fn this.insertThing "duurtijd")}}
+                >{{t "citerra.duurtijd"}}</AuButton>
+                <AuButton
+                  @skin="link"
+                  @icon="add"
+                  {{on "click" (fn this.insertThing "nummerplaten")}}
+                >{{t "citerra.nummerplaten"}}</AuButton>
+              </Sidebar.Collapsible>
+            {{/if}}
+          {{/unless}}
+          {{#if (feature-flag "citerra-poc")}}
+            <this.VisualiserCard
+              @controller={{this.editor}}
+              @node={{this.activeNode}}
+              @config={{this.visualizerConfig}}
+            />
+          {{/if}}
           <Plugins::Link::LinkEditor @controller={{this.editor}} />
           <this.StructureControl @controller={{this.editor}} />
           <MandateeTablePlugin::Configure
@@ -212,6 +270,11 @@
             @controller={{this.editor}}
             @variableTypes={{this.variableTypes}}
             @templateMode={{true}}
+          />
+
+          <VariablePlugin::Codelist::Edit
+            @controller={{this.editor}}
+            @options={{this.codelistEditOptions}}
           />
           <CitationPlugin::CitationCard
             @controller={{this.editor}}

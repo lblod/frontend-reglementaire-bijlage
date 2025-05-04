@@ -13,6 +13,7 @@ type MenuState = {
 export type SidebarSettings = {
   general: MenuState;
   decision: MenuState;
+  citerra: MenuState;
   regulatoryStatement: MenuState;
   rdfaEditor: MenuState;
   attributeEditor: MenuState;
@@ -24,6 +25,9 @@ const DEFAULT_EDITOR_SETTINGS: SidebarSettings = {
     expanded: false,
   },
   decision: {
+    expanded: false,
+  },
+  citerra: {
     expanded: false,
   },
   regulatoryStatement: {

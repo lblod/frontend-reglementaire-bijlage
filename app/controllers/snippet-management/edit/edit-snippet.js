@@ -118,7 +118,13 @@ import {
 import { BESLUIT } from '@lblod/ember-rdfa-editor-lblod-plugins/utils/constants';
 import { variableAutofillerPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/plugins/autofiller';
 import { saveCollatedImportedResources } from '../../../utils/imported-resources';
-import { IVGR_TAGS, RMW_TAGS } from '../../../utils/constants';
+import {
+  IVGR_TAGS,
+  PROPERTY_OBJECTS,
+  PROPERTY_PREDICATES,
+  RELATIONSHIP_PREDICATES,
+  RMW_TAGS,
+} from '../../../utils/constants';
 import { extractSnippetListUris } from '../../../utils/extract-snippet-lists';
 
 /** @import EditorSettings from '../../../services/editor-settings'; */
@@ -256,15 +262,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
   }
 
   get config() {
-    const relationshipPredicates = [
-      'https://say.data.gift/ns/body',
-      'https://say.data.gift/ns/hasPart',
-      'http://data.europa.eu/eli/ontology#title',
-      'http://data.europa.eu/eli/ontology#description',
-      'http://data.vlaanderen.be/ns/besluit#motivering',
-      'http://data.europa.eu/eli/ontology#has_part',
-      'http://mu.semte.ch/vocabularies/ext/title',
-    ];
+    const relationshipPredicates = RELATIONSHIP_PREDICATES;
     return {
       tableOfContents: [
         {
@@ -334,12 +332,8 @@ export default class SnippetManagementEditSnippetController extends Controller {
         autofilledValues: {},
       },
       rdfa: {
-        propertyPredicates: [
-          'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
-          'http://www.w3.org/ns/prov#value',
-          ...relationshipPredicates,
-        ],
-        propertyObjects: [],
+        propertyPredicates: [...PROPERTY_PREDICATES, ...relationshipPredicates],
+        propertyObjects: PROPERTY_OBJECTS,
         backlinkPredicates: relationshipPredicates,
       },
     };
@@ -401,6 +395,11 @@ export default class SnippetManagementEditSnippetController extends Controller {
     return null;
   }
 
+  get codelistEditOptions() {
+    return {
+      endpoint: '/sparql',
+    };
+  }
   get dirty() {
     // Since we clear the undo history when saving, this works. If we want to maintain undo history
     // on save, we would need to add functionality to the editor to track what is the 'saved' state
