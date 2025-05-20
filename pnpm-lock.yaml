@@ -147,11 +147,11 @@ importers:
         specifier: ^0.10.0
         version: 0.10.2(@glint/template@1.5.1)(ember-simple-auth@6.1.0(@babel/core@7.26.7)(@ember/test-helpers@3.3.1(@babel/core@7.26.7)(@glint/template@1.5.1)(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.26.7))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.97.1))(webpack@5.97.1))(@glint/template@1.5.1)(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.26.7))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.97.1))(eslint@8.57.1))(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.26.7))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.97.1))(webpack@5.97.1)
       '@lblod/ember-rdfa-editor':
-        specifier: 12.5.0
-        version: 12.5.0(mu3ziggn3nxhd6ie5dk3gas644)
+        specifier: 12.6.1
+        version: 12.6.1(2xbnp6orcidjnebpry2ujqhjem)
       '@lblod/ember-rdfa-editor-lblod-plugins':
         specifier: 31.0.3
-        version: 31.0.3(b5xzttjg7arhqiclowtwpmh7wu)
+        version: 31.0.3(mdtdh6rxwryxuhujufeb7t7yji)
       '@release-it-plugins/lerna-changelog':
         specifier: ^6.0.0
         version: 6.1.0(release-it@16.3.0(encoding@0.1.13)(typescript@5.7.3))
@@ -1568,8 +1568,8 @@ packages:
       ember-template-imports:
         optional: true
 
-  '@lblod/ember-rdfa-editor@12.5.0':
-    resolution: {integrity: sha512-f3LqNM8wZdVSIZdLKTHrncQDaijWtIjbUK2fI7dDlV03XFQbeiT8MCjFWbxyU96tlU4hPhRqjCIpsBjoGwUbNg==}
+  '@lblod/ember-rdfa-editor@12.6.1':
+    resolution: {integrity: sha512-i/CHo1A1wZbvEdNKMBXjPuWE4YyjJUaM7EblkkEQDFfJZC6IBcDuv4IpBwhIRGv6ntZ/UV+BkSQLKR1wjQ6wgQ==}
     peerDependencies:
       '@appuniversum/ember-appuniversum': ^3.5.0
       '@ember/test-helpers': ^2.9.4 || ^3.2.1 || ^4.0.2 || ^5.0.0
@@ -10556,7 +10556,7 @@ snapshots:
       - supports-color
       - webpack
 
-  '@lblod/ember-rdfa-editor-lblod-plugins@31.0.3(b5xzttjg7arhqiclowtwpmh7wu)':
+  '@lblod/ember-rdfa-editor-lblod-plugins@31.0.3(mdtdh6rxwryxuhujufeb7t7yji)':
     dependencies:
       '@appuniversum/ember-appuniversum': 3.7.0(swad3rgq7zjbnd7skqhsvp43fm)
       '@babel/core': 7.26.7
@@ -10566,7 +10566,7 @@ snapshots:
       '@curvenote/prosemirror-utils': 1.0.5(prosemirror-model@1.24.1)(prosemirror-state@1.4.3)
       '@ember/string': 3.1.1
       '@embroider/macros': 1.16.10(@glint/template@1.5.1)
-      '@lblod/ember-rdfa-editor': 12.5.0(mu3ziggn3nxhd6ie5dk3gas644)
+      '@lblod/ember-rdfa-editor': 12.6.1(2xbnp6orcidjnebpry2ujqhjem)
       '@lblod/marawa': 0.8.0-beta.6
       '@lblod/template-uuid-instantiator': 1.0.3
       '@rdfjs/data-model': 2.1.0
@@ -10619,7 +10619,7 @@ snapshots:
       - web-streams-polyfill
       - webpack
 
-  '@lblod/ember-rdfa-editor@12.5.0(mu3ziggn3nxhd6ie5dk3gas644)':
+  '@lblod/ember-rdfa-editor@12.6.1(2xbnp6orcidjnebpry2ujqhjem)':
     dependencies:
       '@appuniversum/ember-appuniversum': 3.7.0(swad3rgq7zjbnd7skqhsvp43fm)
       '@codemirror/commands': 6.8.0
@@ -10648,7 +10648,6 @@ snapshots:
       decorator-transforms: 2.3.0(@babel/core@7.26.7)
       dompurify: 3.2.3
       ember-basic-dropdown: 8.5.0(@babel/core@7.26.7)(@ember/string@3.1.1)(@ember/test-helpers@3.3.1(@babel/core@7.26.7)(@glint/template@1.5.1)(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.26.7))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.97.1))(webpack@5.97.1))(@glimmer/component@1.1.2(@babel/core@7.26.7))(@glimmer/tracking@1.1.2)(@glint/environment-ember-loose@1.5.1(@glimmer/component@1.1.2(@babel/core@7.26.7))(@glint/template@1.5.1)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.2.0(@babel/core@7.26.7)(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.26.7))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.97.1))))(@glint/template@1.5.1)(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.26.7))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.97.1))
-      ember-changeset: 4.1.2(@glint/template@1.5.1)(ember-data@4.12.8(@babel/core@7.26.7)(@ember/string@3.1.1)(@glimmer/tracking@1.1.2)(@glint/template@1.5.1)(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.26.7))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.97.1))(webpack@5.97.1))(webpack@5.97.1)
       ember-cli-babel: 8.2.0(@babel/core@7.26.7)
       ember-cli-htmlbars: 6.3.0
       ember-concurrency: 4.0.2(@babel/core@7.26.7)(@glimmer/tracking@1.1.2)(@glint/template@1.5.1)(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.26.7))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.97.1))
@@ -10692,10 +10691,8 @@ snapshots:
       - '@babel/core'
       - '@ember/test-waiters'
       - '@glint/environment-ember-loose'
-      - ember-data
       - eslint
       - supports-color
-      - webpack
 
   '@lblod/marawa@0.8.0-beta.6':
     dependencies:
