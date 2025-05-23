@@ -15,7 +15,12 @@ export type SidebarSettings = {
   decision: MenuState;
   citerra: MenuState;
   regulatoryStatement: MenuState;
-  rdfaEditor: MenuState;
+  rdfaVisualizer: MenuState;
+  nodeControls: MenuState;
+  relationshipEditor: MenuState;
+  docImportedResourceEditor: MenuState;
+  importedResourceLinker: MenuState;
+  externalTripleEditor: MenuState;
   attributeEditor: MenuState;
   debugInfo: MenuState;
 };
@@ -33,7 +38,22 @@ const DEFAULT_EDITOR_SETTINGS: SidebarSettings = {
   regulatoryStatement: {
     expanded: false,
   },
-  rdfaEditor: {
+  rdfaVisualizer: {
+    expanded: false,
+  },
+  nodeControls: {
+    expanded: false,
+  },
+  relationshipEditor: {
+    expanded: false,
+  },
+  docImportedResourceEditor: {
+    expanded: false,
+  },
+  importedResourceLinker: {
+    expanded: false,
+  },
+  externalTripleEditor: {
     expanded: false,
   },
   attributeEditor: {
