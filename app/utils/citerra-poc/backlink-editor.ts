@@ -6,8 +6,9 @@ import type {
 import { RDF } from '@lblod/ember-rdfa-editor-lblod-plugins/utils/constants';
 import { unwrap } from '@lblod/ember-rdfa-editor-lblod-plugins/utils/option';
 import type {
+  PredicateOption,
   PredicateOptionGenerator,
-  SubjectOptionGenerator,
+  TargetOptionGenerator,
   TermOption,
 } from '@lblod/ember-rdfa-editor/components/_private/link-rdfa-node-poc/modal';
 import {
@@ -17,7 +18,6 @@ import {
 import {
   ResourceNodeTerm,
   sayDataFactory,
-  type SayNamedNode,
 } from '@lblod/ember-rdfa-editor/core/say-data-factory';
 import { rdfaInfoPluginKey } from '@lblod/ember-rdfa-editor/plugins/rdfa-info';
 import type { Resource } from '@lblod/ember-rdfa-editor-lblod-plugins/utils/namespace';
@@ -30,18 +30,20 @@ const PURL = namespace('http://purl.org/vocab/cpsv#', 'purl');
 const predicateOptionGenerator: PredicateOptionGenerator = ({
   searchString = '',
 } = {}) => {
-  const options: TermOption<SayNamedNode>[] = [
+  const options: PredicateOption[] = [
     {
       label: 'Is voorwaarde van',
       term: sayDataFactory.namedNode(
         'http://data.europa.eu/m8g/isRequirementOf',
       ),
+      direction: 'backlink',
     },
     {
       label: 'Is bewijs van',
       term: sayDataFactory.namedNode(
         'http://mu.semte.ch/vocabularies/ext/isEvidenceOf',
       ),
+      direction: 'backlink',
     },
   ];
   return options.filter(
@@ -96,7 +98,7 @@ const SUBJECT_OPTION_MATCHERS: SubjectOptionMatcher[] = [
 
 const subjectOptionGenerator = (
   controller: SayController,
-): SubjectOptionGenerator => {
+): TargetOptionGenerator => {
   return ({ searchString = '' } = {}) => {
     const subjectMapping = rdfaInfoPluginKey.getState(
       controller.mainEditorState,

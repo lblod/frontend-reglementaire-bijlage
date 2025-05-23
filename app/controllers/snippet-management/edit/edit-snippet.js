@@ -83,9 +83,15 @@ import {
   editableNodePlugin,
   getActiveEditableNode,
 } from '@lblod/ember-rdfa-editor/plugins/_private/editable-node';
+
 import AttributeEditor from '@lblod/ember-rdfa-editor/components/_private/attribute-editor';
-import RdfaEditor from '@lblod/ember-rdfa-editor/components/_private/rdfa-editor';
+import NodeControlsCard from '@lblod/ember-rdfa-editor/components/_private/node-controls/card';
+import DocImportedResourceEditorCard from '@lblod/ember-rdfa-editor/components/_private/doc-imported-resource-editor/card';
+import ImportedResourceLinkerCard from '@lblod/ember-rdfa-editor/components/_private/imported-resource-linker/card';
+import ExternalTripleEditorCard from '@lblod/ember-rdfa-editor/components/_private/external-triple-editor/card';
+import RelationshipEditorCard from '@lblod/ember-rdfa-editor/components/_private/relationship-editor/card';
 import DebugInfo from '@lblod/ember-rdfa-editor/components/_private/debug-info';
+
 import InsertArticleComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/decision-plugin/insert-article';
 import StructureControlCardComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/structure-plugin/control-card';
 import {
@@ -126,13 +132,19 @@ import {
   RMW_TAGS,
 } from '../../../utils/constants';
 import { extractSnippetListUris } from '../../../utils/extract-snippet-lists';
+import { documentConfig } from '@lblod/ember-rdfa-editor/components/_private/relationship-editor/configs';
 
 /** @import EditorSettings from '../../../services/editor-settings'; */
 
 export default class SnippetManagementEditSnippetController extends Controller {
   AttributeEditor = AttributeEditor;
-  RdfaEditor = RdfaEditor;
   DebugInfo = DebugInfo;
+  NodeControlsCard = NodeControlsCard;
+  DocImportedResourceEditorCard = DocImportedResourceEditorCard;
+  ImportedResourceLinkerCard = ImportedResourceLinkerCard;
+  ExternalTripleEditorCard = ExternalTripleEditorCard;
+  RelationshipEditorCard = RelationshipEditorCard;
+
   InsertArticle = InsertArticleComponent;
   StructureControlCard = StructureControlCardComponent;
   SnippetInsert = SnippetInsertRdfaComponent;
@@ -454,5 +466,9 @@ export default class SnippetManagementEditSnippetController extends Controller {
 
   get importedDecisionUri() {
     return `http://example.org/imported-decision-${this.model.snippetList.id}`;
+  }
+
+  get optionGeneratorConfig() {
+    return this.editor && documentConfig(this.editor);
   }
 }
