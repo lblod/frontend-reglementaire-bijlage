@@ -63,67 +63,74 @@
         <ResponsiveToolbar>
           <:main as |Tb|>
             <Tb.Group>
-              <Plugins::History::Undo @controller={{this.editor}} />
-              <Plugins::History::Redo @controller={{this.editor}} />
-            </Tb.Group>
-            <Tb.Group>
-              <Plugins::TextStyle::Bold @controller={{this.editor}} />
-              <Plugins::TextStyle::Italic @controller={{this.editor}} />
-              <Plugins::TextStyle::Strikethrough @controller={{this.editor}} />
-              <Plugins::TextStyle::Underline @controller={{this.editor}} />
-              <Plugins::TextStyle::Subscript @controller={{this.editor}} />
-              <Plugins::TextStyle::Superscript @controller={{this.editor}} />
-              <Plugins::TextStyle::Highlight
-                @controller={{this.editor}}
-                @defaultColor="#FFEA00"
-              />
-              <Plugins::TextStyle::Color
-                @controller={{this.editor}}
-                @defaultColor="#000000"
-              />
-            </Tb.Group>
-            <Tb.Group>
-              <Plugins::List::Unordered @controller={{this.editor}} />
-              <Plugins::List::Ordered
-                @controller={{this.editor}}
-                @enableHierarchicalList={{true}}
-              />
-              <Plugins::Indentation::IndentationMenu
-                @controller={{this.editor}}
-              />
-            </Tb.Group>
-            <Tb.Group>
-              <Plugins::Link::LinkMenu @controller={{this.editor}} />
-              <Plugins::Image::InsertMenu @controller={{this.editor}} />
-              <GenericRdfaVariable::InsertMenu @controller={{this.editor}} />
-            </Tb.Group>
-            {{#if this.supportsTables}}
-              <Tb.Group>
-                <Plugins::Table::TableMenu @controller={{this.editor}} />
-              </Tb.Group>
-            {{/if}}
-            <Tb.Group>
-              <Plugins::Heading::HeadingMenu @controller={{this.editor}} />
-            </Tb.Group>
-            <Tb.Group>
-              <Plugins::Alignment::AlignmentMenu @controller={{this.editor}} />
-            </Tb.Group>
+      <Plugins::History::Undo @controller={{this.editor}} />
+      <Plugins::History::Redo @controller={{this.editor}} />
+    </Tb.Group>
+    <Tb.Group>
+     <Toolbar::Dropdown  @icon={{this.FormatTextIcon}} @direction='horizontal' as |Menu|>
+      <Plugins::TextStyle::Bold @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+      <Plugins::TextStyle::Italic @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+      <Plugins::TextStyle::Strikethrough @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+      <Plugins::TextStyle::Underline @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+      <Plugins::TextStyle::Superscript @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+      <Plugins::TextStyle::Subscript @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+      <Plugins::Heading::HeadingMenu @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+    </Toolbar::Dropdown>
+     <Plugins::TextStyle::Color
+        @controller={{@controller}}
+        @defaultColor="#000000"
+      />
+      <Plugins::TextStyle::Highlight
+        @controller={{@controller}}
+        @defaultColor="#FFEA00"
+      />
+    </Tb.Group>
+    {{#if this.supportsTables}}
+      <Tb.Group>
+        <Plugins::Table::TableMenu @controller={{this.editor}} />
+      </Tb.Group>
+    {{/if}}
+    <Tb.Group>
+      <Plugins::List::Unordered @controller={{this.editor}} />
+      <Plugins::List::Ordered
+        @controller={{this.editor}}
+        @enableHierarchicalList={{true}}
+      />
+    </Tb.Group>
+    <Tb.Group>
+      <Plugins::Alignment::AlignmentMenu @controller={{this.editor}} />
+    </Tb.Group>
+    <Tb.Group>
+      <Plugins::Indentation::IndentationMenu @controller={{this.editor}} />
+    </Tb.Group>
+    <Tb.Group>
+      <Toolbar::Dropdown  @icon={{this.PlusIcon}} @direction='horizontal' as |Menu|>
+        <Plugins::Link::LinkMenu @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+        <Plugins::Image::InsertMenu @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+      </Toolbar::Dropdown>
+    </Tb.Group>
           </:main>
           <:side as |Tb|>
-            <Tb.Group>
+          <div class='au-u-margin-right-small'>
               <TableOfContentsPlugin::ToolbarButton
                 @controller={{this.editor}}
               />
-            </Tb.Group>
+            </div>
             {{#if (eq this.internalTypeName "decision")}}
-              <Tb.Group>
+             <div class='au-u-margin-right-small'>
                 <BesluitTypePlugin::ToolbarDropdown
                   @controller={{this.editor}}
                   @classificatieUri={{this.config.classificatieUri}}
                   @options={{this.config.decisionType}}
                 />
-              </Tb.Group>
+                </div>
             {{/if}}
+             <Tb.Group>
+              <Toolbar::Dropdown  @icon={{this.ThreeDotsIcon}} @direction='horizontal' as |Menu|>
+                <Plugins::HtmlEditor::Menu @controller={{this.editor}} @onActivate={{Menu.closeDropdown}} />
+                <Plugins::Formatting::FormattingToggle @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+              </Toolbar::Dropdown>
+            </Tb.Group>
           </:side>
         </ResponsiveToolbar>
       {{/if}}
