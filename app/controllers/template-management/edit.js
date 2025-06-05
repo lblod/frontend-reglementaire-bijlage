@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
-import { task } from 'ember-concurrency';
+import { restartableTask, task, timeout } from 'ember-concurrency';
 import { service } from '@ember/service';
 import { tracked } from 'tracked-built-ins';
 import { v4 as uuid } from 'uuid';
@@ -139,7 +139,11 @@ import {
   SAY,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/utils/constants';
 import { extractSnippetListUris } from '../../utils/extract-snippet-lists';
-import { documentConfig } from '@lblod/ember-rdfa-editor/components/_private/relationship-editor/configs';
+import {
+  combineConfigs,
+  documentConfig,
+  lovConfig,
+} from '@lblod/ember-rdfa-editor/components/_private/relationship-editor/configs';
 import VisualiserCard from '@lblod/ember-rdfa-editor/components/_private/rdfa-visualiser/visualiser-card';
 import { RDFA_VISUALIZER_CONFIG } from '../../utils/citerra-poc/visualizer';
 
@@ -611,8 +615,34 @@ export default class TemplateManagementEditController extends Controller {
    */
   visualizerConfig = RDFA_VISUALIZER_CONFIG;
   get optionGeneratorConfig() {
-    return this.editor && documentConfig(this.editor);
+    if (this.editor) {
+      return combineConfigs(documentConfig(this.editor), lovConfig());
+    } else {
+      return;
+    }
   }
+
+  subjectOptionGeneratorTask = restartableTask(async (args) => {
+    await timeout(200);
+    const result = (await this.optionGeneratorConfig?.subjects?.(args)) ?? [];
+    return result;
+  });
+  predicateOptionGeneratorTask = restartableTask(async (args) => {
+    await timeout(200);
+    const result = (await this.optionGeneratorConfig?.predicates?.(args)) ?? [];
+    return result;
+  });
+  objectOptionGeneratorTask = restartableTask(async (args) => {
+    await timeout(200);
+    const result = (await this.optionGeneratorConfig?.objects?.(args)) ?? [];
+    return result;
+  });
+
+  optionGeneratorConfigTaskified = {
+    subjects: this.subjectOptionGeneratorTask.perform.bind(this),
+    predicates: this.predicateOptionGeneratorTask.perform.bind(this),
+    objects: this.objectOptionGeneratorTask.perform.bind(this),
+  };
 
   get codelistEditOptions() {
     return {

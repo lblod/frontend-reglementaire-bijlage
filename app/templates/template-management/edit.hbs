@@ -297,13 +297,13 @@
             <this.RelationshipEditorCard
               @node={{this.activeNode}}
               @controller={{this.editor}}
-              @optionGeneratorConfig={{this.optionGeneratorConfig}}
+              @optionGeneratorConfig={{this.optionGeneratorConfigTaskified}}
               @expanded={{this.sidebarSettings.relationshipEditor.expanded}}
               @onToggle={{fn this.toggleMenu "relationshipEditor"}}
             />
             <this.DocImportedResourceEditorCard
               @controller={{this.editor}}
-              @optionGeneratorConfig={{this.optionGeneratorConfig}}
+              @optionGeneratorConfig={{this.optionGeneratorConfigTaskified}}
               @expanded={{this.sidebarSettings.docImportedResourceEditor.expanded}}
               @onToggle={{fn this.toggleMenu "docImportedResourceEditor"}}
             />
