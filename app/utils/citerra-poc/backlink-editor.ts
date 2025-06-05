@@ -8,9 +8,9 @@ import { unwrap } from '@lblod/ember-rdfa-editor-lblod-plugins/utils/option';
 import type {
   PredicateOption,
   PredicateOptionGenerator,
-  TargetOptionGenerator,
+  SubjectOptionGenerator,
   TermOption,
-} from '@lblod/ember-rdfa-editor/components/_private/link-rdfa-node-poc/modal';
+} from '@lblod/ember-rdfa-editor/components/_private/relationship-editor/types';
 import {
   isRdfaAttrs,
   type RdfaResourceAttrs,
@@ -98,7 +98,7 @@ const SUBJECT_OPTION_MATCHERS: SubjectOptionMatcher[] = [
 
 const subjectOptionGenerator = (
   controller: SayController,
-): TargetOptionGenerator => {
+): SubjectOptionGenerator => {
   return ({ searchString = '' } = {}) => {
     const subjectMapping = rdfaInfoPluginKey.getState(
       controller.mainEditorState,
