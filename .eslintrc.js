@@ -15,7 +15,9 @@ module.exports = {
   env: {
     browser: true,
   },
-  rules: {},
+  rules: {
+    'getter-return': ['error', { allowImplicit: true }],
+  },
   overrides: [
     // ts files
     {

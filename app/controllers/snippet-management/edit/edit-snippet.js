@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
-import { task } from 'ember-concurrency';
+import { restartableTask, task, timeout } from 'ember-concurrency';
 import { service } from '@ember/service';
 import { tracked } from 'tracked-built-ins';
 import { Schema } from '@lblod/ember-rdfa-editor';
@@ -83,9 +83,15 @@ import {
   editableNodePlugin,
   getActiveEditableNode,
 } from '@lblod/ember-rdfa-editor/plugins/_private/editable-node';
+
 import AttributeEditor from '@lblod/ember-rdfa-editor/components/_private/attribute-editor';
-import RdfaEditor from '@lblod/ember-rdfa-editor/components/_private/rdfa-editor';
+import NodeControlsCard from '@lblod/ember-rdfa-editor/components/_private/node-controls/card';
+import DocImportedResourceEditorCard from '@lblod/ember-rdfa-editor/components/_private/doc-imported-resource-editor/card';
+import ImportedResourceLinkerCard from '@lblod/ember-rdfa-editor/components/_private/imported-resource-linker/card';
+import ExternalTripleEditorCard from '@lblod/ember-rdfa-editor/components/_private/external-triple-editor/card';
+import RelationshipEditorCard from '@lblod/ember-rdfa-editor/components/_private/relationship-editor/card';
 import DebugInfo from '@lblod/ember-rdfa-editor/components/_private/debug-info';
+
 import InsertArticleComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/decision-plugin/insert-article';
 import StructureControlCardComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/structure-plugin/control-card';
 import {
@@ -126,13 +132,23 @@ import {
   RMW_TAGS,
 } from '../../../utils/constants';
 import { extractSnippetListUris } from '../../../utils/extract-snippet-lists';
+import {
+  documentConfig,
+  lovConfig,
+  combineConfigs,
+} from '@lblod/ember-rdfa-editor/components/_private/relationship-editor/configs';
 
 /** @import EditorSettings from '../../../services/editor-settings'; */
 
 export default class SnippetManagementEditSnippetController extends Controller {
   AttributeEditor = AttributeEditor;
-  RdfaEditor = RdfaEditor;
   DebugInfo = DebugInfo;
+  NodeControlsCard = NodeControlsCard;
+  DocImportedResourceEditorCard = DocImportedResourceEditorCard;
+  ImportedResourceLinkerCard = ImportedResourceLinkerCard;
+  ExternalTripleEditorCard = ExternalTripleEditorCard;
+  RelationshipEditorCard = RelationshipEditorCard;
+
   InsertArticle = InsertArticleComponent;
   StructureControlCard = StructureControlCardComponent;
   SnippetInsert = SnippetInsertRdfaComponent;
@@ -455,4 +471,34 @@ export default class SnippetManagementEditSnippetController extends Controller {
   get importedDecisionUri() {
     return `http://example.org/imported-decision-${this.model.snippetList.id}`;
   }
+
+  get optionGeneratorConfig() {
+    if (this.editor) {
+      return combineConfigs(documentConfig(this.editor), lovConfig());
+    } else {
+      return;
+    }
+  }
+
+  subjectOptionGeneratorTask = restartableTask(async (args) => {
+    await timeout(200);
+    const result = (await this.optionGeneratorConfig?.subjects?.(args)) ?? [];
+    return result;
+  });
+  predicateOptionGeneratorTask = restartableTask(async (args) => {
+    await timeout(200);
+    const result = (await this.optionGeneratorConfig?.predicates?.(args)) ?? [];
+    return result;
+  });
+  objectOptionGeneratorTask = restartableTask(async (args) => {
+    await timeout(200);
+    const result = (await this.optionGeneratorConfig?.objects?.(args)) ?? [];
+    return result;
+  });
+
+  optionGeneratorConfigTaskified = {
+    subjects: this.subjectOptionGeneratorTask.perform.bind(this),
+    predicates: this.predicateOptionGeneratorTask.perform.bind(this),
+    objects: this.objectOptionGeneratorTask.perform.bind(this),
+  };
 }
