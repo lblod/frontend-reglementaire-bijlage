@@ -252,3 +252,8 @@ citerra:
   zone: Zone
   duurtijd: Duurtijd
   nummerplaten: Nummerplaten
+
+editor-toolbar:
+  format-text: Tekstformaat
+  insert: Menu invoegen
+  more: Meer opties

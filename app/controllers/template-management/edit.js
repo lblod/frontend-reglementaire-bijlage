@@ -139,6 +139,9 @@ import VisualiserCard from '@lblod/ember-rdfa-editor/components/_private/rdfa-vi
 import LinkRdfaNodeButton from '@lblod/ember-rdfa-editor/components/_private/link-rdfa-node-poc/button';
 import { RDFA_VISUALIZER_CONFIG } from '../../utils/citerra-poc/visualizer';
 import { BACKLINK_EDITOR_CONFIG } from '../../utils/citerra-poc/backlink-editor';
+import FormatTextIcon from '@lblod/ember-rdfa-editor/components/icons/format-text';
+import { PlusIcon } from '@appuniversum/ember-appuniversum/components/icons/plus';
+import { ThreeDotsIcon } from '@appuniversum/ember-appuniversum/components/icons/three-dots';
 
 /** @import EditorSettings from '../../services/editor-settings'; */
 
@@ -168,6 +171,9 @@ export default class TemplateManagementEditController extends Controller {
   SnippetInsert = SnippetInsertRdfaComponent;
   StructureInsert = StructureInsert;
   StructureControl = StructureControl;
+  FormatTextIcon = FormatTextIcon;
+  PlusIcon = PlusIcon;
+  ThreeDotsIcon = ThreeDotsIcon;
 
   schema = new Schema({
     nodes: {
