@@ -33,52 +33,52 @@
         <ResponsiveToolbar>
           <:main as |Tb|>
             <Tb.Group>
-      <Plugins::History::Undo @controller={{this.editor}} />
-      <Plugins::History::Redo @controller={{this.editor}} />
-    </Tb.Group>
-    <Tb.Group>
-     <Toolbar::Dropdown  @icon={{this.FormatTextIcon}} @direction='horizontal' as |Menu|>
-      <Plugins::TextStyle::Bold @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
-      <Plugins::TextStyle::Italic @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
-      <Plugins::TextStyle::Strikethrough @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
-      <Plugins::TextStyle::Underline @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
-      <Plugins::TextStyle::Superscript @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
-      <Plugins::TextStyle::Subscript @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
-      <Plugins::Heading::HeadingMenu @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
-    </Toolbar::Dropdown>
-     <Plugins::TextStyle::Color
-        @controller={{this.editor}}
-        @defaultColor="#000000"
-      />
-      <Plugins::TextStyle::Highlight
-        @controller={{this.editor}}
-        @defaultColor="#FFEA00"
-      />
-    </Tb.Group>
-    {{#if this.supportsTables}}
-      <Tb.Group>
-        <Plugins::Table::TableMenu @controller={{this.editor}} />
-      </Tb.Group>
-    {{/if}}
-    <Tb.Group>
-      <Plugins::List::Unordered @controller={{this.editor}} />
-      <Plugins::List::Ordered
-        @controller={{this.editor}}
-        @enableHierarchicalList={{true}}
-      />
-    </Tb.Group>
-    <Tb.Group>
-      <Plugins::Alignment::AlignmentMenu @controller={{this.editor}} />
-    </Tb.Group>
-    <Tb.Group>
-      <Plugins::Indentation::IndentationMenu @controller={{this.editor}} />
-    </Tb.Group>
-    <Tb.Group>
-      <Toolbar::Dropdown  @icon={{this.PlusIcon}} @direction='horizontal' as |Menu|>
-        <Plugins::Link::LinkMenu @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
-        <Plugins::Image::InsertMenu @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
-      </Toolbar::Dropdown>
-    </Tb.Group>
+              <Plugins::History::Undo @controller={{this.editor}} />
+              <Plugins::History::Redo @controller={{this.editor}} />
+            </Tb.Group>
+            <Tb.Group>
+            <Toolbar::Dropdown  @icon={{this.FormatTextIcon}} @direction='horizontal' @title={{t 'editor-toolbar.format-text'}} as |Menu|>
+              <Plugins::TextStyle::Bold @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+              <Plugins::TextStyle::Italic @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+              <Plugins::TextStyle::Strikethrough @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+              <Plugins::TextStyle::Underline @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+              <Plugins::TextStyle::Superscript @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+              <Plugins::TextStyle::Subscript @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+              <Plugins::Heading::HeadingMenu @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+            </Toolbar::Dropdown>
+            <Plugins::TextStyle::Color
+                @controller={{this.editor}}
+                @defaultColor="#000000"
+              />
+              <Plugins::TextStyle::Highlight
+                @controller={{this.editor}}
+                @defaultColor="#FFEA00"
+              />
+            </Tb.Group>
+            {{#if this.supportsTables}}
+              <Tb.Group>
+                <Plugins::Table::TableMenu @controller={{this.editor}} />
+              </Tb.Group>
+            {{/if}}
+            <Tb.Group>
+              <Plugins::List::Unordered @controller={{this.editor}} />
+              <Plugins::List::Ordered
+                @controller={{this.editor}}
+                @enableHierarchicalList={{true}}
+              />
+            </Tb.Group>
+            <Tb.Group>
+              <Plugins::Alignment::AlignmentMenu @controller={{this.editor}} />
+            </Tb.Group>
+            <Tb.Group>
+              <Plugins::Indentation::IndentationMenu @controller={{this.editor}} />
+            </Tb.Group>
+            <Tb.Group>
+              <Toolbar::Dropdown  @icon={{this.PlusIcon}} @direction='horizontal' @title={{t 'editor-toolbar.insert'}} as |Menu|>
+                <Plugins::Link::LinkMenu @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+                <Plugins::Image::InsertMenu @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+              </Toolbar::Dropdown>
+            </Tb.Group>
           </:main>
           <:side as |Tb|>
           <div class='au-u-margin-right-small'>
@@ -87,7 +87,7 @@
               />
             </div>
             <Tb.Group>
-              <Toolbar::Dropdown  @icon={{this.ThreeDotsIcon}} @direction='horizontal' as |Menu|>
+              <Toolbar::Dropdown  @icon={{this.ThreeDotsIcon}} @direction='horizontal' @title={{t 'editor-toolbar.more'}} as |Menu|>
                 <Plugins::HtmlEditor::Menu @controller={{this.editor}} @onActivate={{Menu.closeDropdown}} />
                 <Plugins::Formatting::FormattingToggle @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
               </Toolbar::Dropdown>
