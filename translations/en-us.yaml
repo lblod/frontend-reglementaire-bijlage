@@ -258,3 +258,8 @@ citerra:
   zone: Zone
   duurtijd: Duration
   nummerplaten: License plates
+
+editor-toolbar:
+  format-text: Text formatting
+  insert: Insert
+  more: More options

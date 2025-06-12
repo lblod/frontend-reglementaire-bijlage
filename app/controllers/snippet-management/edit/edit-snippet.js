@@ -132,6 +132,9 @@ import {
   RMW_TAGS,
 } from '../../../utils/constants';
 import { extractSnippetListUris } from '../../../utils/extract-snippet-lists';
+import FormatTextIcon from '@lblod/ember-rdfa-editor/components/icons/format-text';
+import { PlusIcon } from '@appuniversum/ember-appuniversum/components/icons/plus';
+import { ThreeDotsIcon } from '@appuniversum/ember-appuniversum/components/icons/three-dots';
 import {
   documentConfig,
   lovConfig,
@@ -153,6 +156,9 @@ export default class SnippetManagementEditSnippetController extends Controller {
   StructureControlCard = StructureControlCardComponent;
   SnippetInsert = SnippetInsertRdfaComponent;
   SnippetListSelect = SnippetListSelectRdfaComponent;
+  FormatTextIcon = FormatTextIcon;
+  PlusIcon = PlusIcon;
+  ThreeDotsIcon = ThreeDotsIcon;
 
   @service store;
   @service router;
