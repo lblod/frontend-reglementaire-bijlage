@@ -20,13 +20,13 @@
       {{did-insert (perform this.fetchPreview)}}
     >
       <div class='au-o-grid__item au-u-1-2@large'>
-        <AuCard @flex={{true}} as |c|>
+        <AuCard class="rb-publish-preview-card" @flex={{true}} as |c|>
           <c.header>
             <AuHeading @level='2' @skin='4'>
               {{t 'publish-page.latestversion'}}
             </AuHeading>
           </c.header>
-          <c.content>
+          <c.content class="rb-publish-preview-card__content">
             <div
               class='say-editor say-content'
             >
@@ -37,7 +37,7 @@
         </AuCard>
       </div>
       <div class='au-o-grid__item au-u-1-2@large'>
-        <AuCard @flex={{true}} as |c|>
+        <AuCard class="rb-publish-preview-card" @flex={{true}} as |c|>
           <c.header>
             <AuHeading @level='2' @skin='4'>
               {{#if this.currentVersionValidThrough}}
@@ -47,7 +47,7 @@
               {{/if}}
             </AuHeading>
           </c.header>
-          <c.content>
+          <c.content class="rb-publish-preview-card__content">
             {{#if this.fetchPreview.isRunning}}
               <AuLoader>{{t 'utility.loading' }}</AuLoader>
             {{else}}

@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
-import { task } from 'ember-concurrency';
+import { restartableTask, task, timeout } from 'ember-concurrency';
 import { service } from '@ember/service';
 import { tracked } from 'tracked-built-ins';
 import { v4 as uuid } from 'uuid';
@@ -102,8 +102,13 @@ import {
   getActiveEditableNode,
 } from '@lblod/ember-rdfa-editor/plugins/_private/editable-node';
 import AttributeEditor from '@lblod/ember-rdfa-editor/components/_private/attribute-editor';
-import RdfaEditor from '@lblod/ember-rdfa-editor/components/_private/rdfa-editor';
 import DebugInfo from '@lblod/ember-rdfa-editor/components/_private/debug-info';
+import NodeControlsCard from '@lblod/ember-rdfa-editor/components/_private/node-controls/card';
+import DocImportedResourceEditorCard from '@lblod/ember-rdfa-editor/components/_private/doc-imported-resource-editor/card';
+import ImportedResourceLinkerCard from '@lblod/ember-rdfa-editor/components/_private/imported-resource-linker/card';
+import ExternalTripleEditorCard from '@lblod/ember-rdfa-editor/components/_private/external-triple-editor/card';
+import RelationshipEditorCard from '@lblod/ember-rdfa-editor/components/_private/relationship-editor/card';
+import CreateRelationshipButton from '@lblod/ember-rdfa-editor/components/_private/relationship-editor/create-button';
 import SnippetListSelectRdfaComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/snippet-plugin/snippet-list-select-rdfa';
 import {
   snippetPlaceholder,
@@ -134,11 +139,13 @@ import {
   SAY,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/utils/constants';
 import { extractSnippetListUris } from '../../utils/extract-snippet-lists';
-
+import {
+  combineConfigs,
+  documentConfig,
+  lovConfig,
+} from '@lblod/ember-rdfa-editor/components/_private/relationship-editor/configs';
 import VisualiserCard from '@lblod/ember-rdfa-editor/components/_private/rdfa-visualiser/visualiser-card';
-import LinkRdfaNodeButton from '@lblod/ember-rdfa-editor/components/_private/link-rdfa-node-poc/button';
 import { RDFA_VISUALIZER_CONFIG } from '../../utils/citerra-poc/visualizer';
-import { BACKLINK_EDITOR_CONFIG } from '../../utils/citerra-poc/backlink-editor';
 
 /** @import EditorSettings from '../../services/editor-settings'; */
 
@@ -161,9 +168,16 @@ export default class TemplateManagementEditController extends Controller {
   @tracked assignedSnippetListsIds = [];
   @tracked isConfirmUnpublishOpen = false;
 
+  VisualiserCard = VisualiserCard;
+  CreateRelationshipButton = CreateRelationshipButton;
+  NodeControlsCard = NodeControlsCard;
+  DocImportedResourceEditorCard = DocImportedResourceEditorCard;
+  ImportedResourceLinkerCard = ImportedResourceLinkerCard;
+  ExternalTripleEditorCard = ExternalTripleEditorCard;
+  RelationshipEditorCard = RelationshipEditorCard;
   AttributeEditor = AttributeEditor;
-  RdfaEditor = RdfaEditor;
   DebugInfo = DebugInfo;
+
   SnippetListSelect = SnippetListSelectRdfaComponent;
   SnippetInsert = SnippetInsertRdfaComponent;
   StructureInsert = StructureInsert;
@@ -599,10 +613,36 @@ export default class TemplateManagementEditController extends Controller {
   /**
    * CITERRA POC
    */
-  VisualiserCard = VisualiserCard;
-  LinkRdfaNodeButton = LinkRdfaNodeButton;
   visualizerConfig = RDFA_VISUALIZER_CONFIG;
-  backlinkEditorConfig = BACKLINK_EDITOR_CONFIG;
+  get optionGeneratorConfig() {
+    if (this.editor) {
+      return combineConfigs(documentConfig(this.editor), lovConfig());
+    } else {
+      return;
+    }
+  }
+
+  subjectOptionGeneratorTask = restartableTask(async (args) => {
+    await timeout(200);
+    const result = (await this.optionGeneratorConfig?.subjects?.(args)) ?? [];
+    return result;
+  });
+  predicateOptionGeneratorTask = restartableTask(async (args) => {
+    await timeout(200);
+    const result = (await this.optionGeneratorConfig?.predicates?.(args)) ?? [];
+    return result;
+  });
+  objectOptionGeneratorTask = restartableTask(async (args) => {
+    await timeout(200);
+    const result = (await this.optionGeneratorConfig?.objects?.(args)) ?? [];
+    return result;
+  });
+
+  optionGeneratorConfigTaskified = {
+    subjects: this.subjectOptionGeneratorTask.perform.bind(this),
+    predicates: this.predicateOptionGeneratorTask.perform.bind(this),
+    objects: this.objectOptionGeneratorTask.perform.bind(this),
+  };
 
   get codelistEditOptions() {
     return {
@@ -620,11 +660,13 @@ export default class TemplateManagementEditController extends Controller {
           property="http://www.w3.org/ns/prov#value"
           lang="nl-be"
           data-pm-slice="0 0 []"
-          ><div
+        >
+          <div
             style="display: none"
             class="say-hidden"
             data-rdfa-container="true"
-            ><span
+          >
+            <span
               about="http://data.vlaanderen.be/id/voorwaarden/--ref-uuid4-b73cdde4-482a-454a-8323-ce20e04e3ac7"
               property="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
               resource="http://data.europa.eu/m8g/Requirement"
@@ -633,14 +675,15 @@ export default class TemplateManagementEditController extends Controller {
               property="http://www.w3.org/2004/02/skos/core#prefLabel"
               content="Aantal nummerplaten"
               lang="nl-be"
-            ></span></div
-          ><div data-content-container="true"
-            ><p class="say-paragraph"
-              >Tenzij anders bepaald, kan de vergunning voor een onbeperkt
-              aantal nummerplaten worden aangevraagd</p
-            ></div
-          ></div
-        >
+            ></span>
+          </div>
+          <div data-content-container="true">
+            <p class="say-paragraph">
+              Tenzij anders bepaald, kan de vergunning voor een onbeperkt aantal
+              nummerplaten worden aangevraagd
+            </p>
+          </div>
+        </div>
       `,
       duurtijd: /* HTML */ `
         <div
@@ -650,11 +693,13 @@ export default class TemplateManagementEditController extends Controller {
           property="http://www.w3.org/ns/prov#value"
           lang="nl-be"
           data-pm-slice="0 0 []"
-          ><div
+        >
+          <div
             style="display: none"
             class="say-hidden"
             data-rdfa-container="true"
-            ><span
+          >
+            <span
               about="http://data.vlaanderen.be/id/duurtijden/--ref-uuid4-7586b9c7-e0ed-4a9f-94f6-5705420ec3cf"
               property="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
               resource="http://data.europa.eu/m8g/Requirement"
@@ -663,14 +708,15 @@ export default class TemplateManagementEditController extends Controller {
               property="http://www.w3.org/2004/02/skos/core#prefLabel"
               content="Duurtijd"
               lang="nl-be"
-            ></span></div
-          ><div data-content-container="true"
-            ><p class="say-paragraph"
-              >Tenzij anders bepaald, heeft de vergunning een onbeperkte
-              duurtijd.</p
-            ></div
-          ></div
-        >
+            ></span>
+          </div>
+          <div data-content-container="true">
+            <p class="say-paragraph">
+              Tenzij anders bepaald, heeft de vergunning een onbeperkte
+              duurtijd.
+            </p>
+          </div>
+        </div>
       `,
       zone: /* HTML */ `
         <div
@@ -680,11 +726,13 @@ export default class TemplateManagementEditController extends Controller {
           property="http://www.w3.org/ns/prov#value"
           lang="nl-be"
           data-pm-slice="0 0 []"
-          ><div
+        >
+          <div
             style="display: none"
             class="say-hidden"
             data-rdfa-container="true"
-            ><span
+          >
+            <span
               property="http://www.w3.org/2004/02/skos/core#prefLabel"
               content="Zone"
               lang="nl-be"
@@ -698,9 +746,10 @@ export default class TemplateManagementEditController extends Controller {
               about="http://data.vlaanderen.be/id/zones/--ref-uuid4-32047e20-00d3-4b66-8f1f-9dc5fa275e0f"
               property="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
               resource="http://data.europa.eu/m8g/Requirement"
-            ></span></div
-          ><div data-content-container="true"><p class="say-paragraph"></p></div
-        ></div>
+            ></span>
+          </div>
+          <div data-content-container="true"><p class="say-paragraph"></p></div>
+        </div>
       `,
       bewijsstuk: /* HTML */ `
         <span
@@ -737,11 +786,13 @@ export default class TemplateManagementEditController extends Controller {
           property="http://www.w3.org/ns/prov#value"
           lang="nl-be"
           data-pm-slice="0 0 []"
-          ><div
+        >
+          <div
             style="display: none"
             class="say-hidden"
             data-rdfa-container="true"
-            ><span
+          >
+            <span
               about="http://data.vlaanderen.be/id/voorwaarden/--ref-uuid4-197c3905-3587-4c33-9765-d34ec7e113a1"
               property="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
               resource="http://data.europa.eu/m8g/Requirement"
@@ -754,9 +805,10 @@ export default class TemplateManagementEditController extends Controller {
             ><span
               rev="http://data.europa.eu/m8g/isRequirementOf"
               resource="http://collection/1"
-            ></span></div
-          ><div data-content-container="true"><p class="say-paragraph"></p></div
-        ></div>
+            ></span>
+          </div>
+          <div data-content-container="true"><p class="say-paragraph"></p></div>
+        </div>
       `,
       doelgroep: /* HTML */ `
         <div>
@@ -765,11 +817,13 @@ export default class TemplateManagementEditController extends Controller {
             about="http://data.vlaanderen.be/7079c444-a934-4ddf-85d1-f0968b5555dd"
             data-say-id="7079c444-a934-4ddf-85d1-f0968b5555dd"
             data-pm-slice="0 0 []"
-            ><div
+          >
+            <div
               style="display: none"
               class="say-hidden"
               data-rdfa-container="true"
-              ><span
+            >
+              <span
                 about="http://data.vlaanderen.be/7079c444-a934-4ddf-85d1-f0968b5555dd"
                 property="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
                 resource="http://data.europa.eu/m8g/Requirement"
@@ -778,10 +832,11 @@ export default class TemplateManagementEditController extends Controller {
                 property="http://www.w3.org/2004/02/skos/core#prefLabel"
                 content="Doelgroep"
                 lang="nl-be"
-              ></span></div
-            ><div data-content-container="true"
-              ><p class="say-paragraph"
-                ><span
+              ></span>
+            </div>
+            <div data-content-container="true">
+              <p class="say-paragraph">
+                <span
                   class="say-variable"
                   data-say-variable="true"
                   data-say-variable-type="codelist"
@@ -806,11 +861,11 @@ export default class TemplateManagementEditController extends Controller {
                     ></span
                   ></span
                 >
-                waarbij volgende voorwaarden van toepassing zijn:</p
-              ></div
-            ></div
-          ></div
-        >
+                waarbij volgende voorwaarden van toepassing zijn:
+              </p>
+            </div>
+          </div>
+        </div>
       `,
     };
     console.log(this.editor);
