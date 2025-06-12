@@ -183,28 +183,48 @@
           />
           <VariablePlugin::Autofilled::Edit @controller={{this.editor}} />
           <TemplateCommentsPlugin::EditCard @controller={{this.editor}} />
-
+          <this.NodeControlsCard
+            @node={{this.activeNode}}
+            @controller={{this.editor}}
+            @expanded={{this.sidebarSettings.nodeControls.expanded}}
+            @onToggle={{fn this.toggleMenu "nodeControls"}}
+          />
           {{#if this.activeNode}}
-            <this.RdfaEditor
+            <this.RelationshipEditorCard
               @node={{this.activeNode}}
               @controller={{this.editor}}
-              @additionalImportedResources={{this.model.snippetList.importedResources}}
-              @expanded={{this.sidebarSettings.rdfaEditor.expanded}}
-              @onToggle={{fn this.toggleMenu "rdfaEditor"}}
-              @propertyPredicates={{this.config.rdfa.propertyPredicates}}
-              @propertyObjects={{this.config.rdfa.propertyObjects}}
-              @backlinkPredicates={{this.config.rdfa.backlinkPredicates}}
+              @optionGeneratorConfig={{this.optionGeneratorConfigTaskified}}
+              @expanded={{this.sidebarSettings.relationshipEditor.expanded}}
+              @onToggle={{fn this.toggleMenu "relationshipEditor"}}
+            />
+            <this.DocImportedResourceEditorCard
+              @controller={{this.editor}}
+              @optionGeneratorConfig={{this.optionGeneratorConfigTaskified}}
+              @expanded={{this.sidebarSettings.docImportedResourceEditor.expanded}}
+              @onToggle={{fn this.toggleMenu "docImportedResourceEditor"}}
+            />
+            <this.ImportedResourceLinkerCard
+              @node={{this.activeNode}}
+              @controller={{this.editor}}
+              @expanded={{this.sidebarSettings.importedResourceLinker.expanded}}
+              @onToggle={{fn this.toggleMenu "importedResourceLinker"}}
+            />
+            <this.ExternalTripleEditorCard
+              @node={{this.activeNode}}
+              @controller={{this.editor}}
+              @expanded={{this.sidebarSettings.externalTripleEditor.expanded}}
+              @onToggle={{fn this.toggleMenu "externalTripleEditor"}}
+            />
+            <this.DebugInfo
+              @node={{this.activeNode}}
+              @expanded={{this.sidebarSettings.debugInfo.expanded}}
+              @onToggle={{fn this.toggleMenu "debugInfo"}}
             />
             <this.AttributeEditor
               @node={{this.activeNode}}
               @controller={{this.editor}}
               @expanded={{this.sidebarSettings.attributeEditor.expanded}}
               @onToggle={{fn this.toggleMenu "attributeEditor"}}
-            />
-            <this.DebugInfo
-              @node={{this.activeNode}}
-              @expanded={{this.sidebarSettings.debugInfo.expanded}}
-              @onToggle={{fn this.toggleMenu "debugInfo"}}
             />
           {{/if}}
         </Sidebar>
