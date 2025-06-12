@@ -1,5 +1,12 @@
 # frontend-reglementaire-bijlage
 
+## 9.24.0
+
+### Minor Changes
+
+- Update `@lblod/ember-rdfa-editor` to version [12.9.0](https://github.com/lblod/ember-rdfa-editor/releases/tag/%40lblod%2Fember-rdfa-editor%4012.9.0).
+  This version contains new versions of the rdfa-tools.
+
 ## 9.23.2
 
 ### Patch Changes
