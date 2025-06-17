@@ -36,17 +36,19 @@
               <Plugins::History::Undo @controller={{this.editor}} />
               <Plugins::History::Redo @controller={{this.editor}} />
             </Tb.Group>
-            <Tb.Group>
-            <Toolbar::Dropdown  @icon={{this.FormatTextIcon}} @direction='horizontal' @title={{t 'editor-toolbar.format-text'}} as |Menu|>
-              <Plugins::TextStyle::Bold @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
-              <Plugins::TextStyle::Italic @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
-              <Plugins::TextStyle::Strikethrough @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
-              <Plugins::TextStyle::Underline @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
-              <Plugins::TextStyle::Superscript @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
-              <Plugins::TextStyle::Subscript @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
-              <Plugins::Heading::HeadingMenu @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
-            </Toolbar::Dropdown>
-            <Plugins::TextStyle::Color
+             <div class='rdfa-editor-container__small-screen'>
+              <Tb.Group>
+              <Toolbar::Dropdown  @icon={{this.FormatTextIcon}} @direction='horizontal' @title={{t 'editor-toolbar.format-text'}} as |Menu|>
+                <Plugins::TextStyle::Bold @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+                <Plugins::TextStyle::Italic @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+                <Plugins::TextStyle::Strikethrough @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+                <Plugins::TextStyle::Underline @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+                <Plugins::TextStyle::Superscript @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+                <Plugins::TextStyle::Subscript @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+                <Plugins::Heading::HeadingMenu @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+              </Toolbar::Dropdown>
+
+              <Plugins::TextStyle::Color
                 @controller={{this.editor}}
                 @defaultColor="#000000"
               />
@@ -55,6 +57,26 @@
                 @defaultColor="#FFEA00"
               />
             </Tb.Group>
+            </div>
+            <div class='rdfa-editor-container__big-screen'>
+              <Tb.Group>
+                <Plugins::TextStyle::Bold @controller={{this.editor}} />
+                <Plugins::TextStyle::Italic @controller={{this.editor}} />
+                <Plugins::TextStyle::Strikethrough @controller={{this.editor}} />
+                <Plugins::TextStyle::Underline @controller={{this.editor}} />
+                <Plugins::TextStyle::Superscript @controller={{this.editor}} />
+                <Plugins::TextStyle::Subscript @controller={{this.editor}} />
+                <Plugins::Heading::HeadingMenu @controller={{this.editor}} />
+                <Plugins::TextStyle::Color
+                  @controller={{this.editor}}
+                  @defaultColor="#000000"
+                />
+                <Plugins::TextStyle::Highlight
+                  @controller={{this.editor}}
+                  @defaultColor="#FFEA00"
+                />
+              </Tb.Group>
+            </div>
             {{#if this.supportsTables}}
               <Tb.Group>
                 <Plugins::Table::TableMenu @controller={{this.editor}} />
@@ -73,12 +95,20 @@
             <Tb.Group>
               <Plugins::Indentation::IndentationMenu @controller={{this.editor}} />
             </Tb.Group>
-            <Tb.Group>
-              <Toolbar::Dropdown  @icon={{this.PlusIcon}} @direction='horizontal' @title={{t 'editor-toolbar.insert'}} as |Menu|>
-                <Plugins::Link::LinkMenu @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
-                <Plugins::Image::InsertMenu @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
-              </Toolbar::Dropdown>
-            </Tb.Group>
+             <div class='rdfa-editor-container__small-screen'>
+              <Tb.Group>
+                <Toolbar::Dropdown  @icon={{this.PlusIcon}} @direction='horizontal' @title={{t 'editor-toolbar.insert'}} as |Menu|>
+                  <Plugins::Link::LinkMenu @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+                  <Plugins::Image::InsertMenu @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+                </Toolbar::Dropdown>
+              </Tb.Group>
+            </div>
+             <div class='rdfa-editor-container__big-screen'>
+              <Tb.Group>
+                <Plugins::Link::LinkMenu @controller={{this.editor}} />
+                <Plugins::Image::InsertMenu @controller={{this.editor}} />
+              </Tb.Group>
+            </div>
           </:main>
           <:side as |Tb|>
           <div class='au-u-margin-right-small'>
