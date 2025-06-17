@@ -146,7 +146,6 @@ import {
 } from '@lblod/ember-rdfa-editor/components/_private/relationship-editor/configs';
 import VisualiserCard from '@lblod/ember-rdfa-editor/components/_private/rdfa-visualiser/visualiser-card';
 import { RDFA_VISUALIZER_CONFIG } from '../../utils/citerra-poc/visualizer';
-import { BACKLINK_EDITOR_CONFIG } from '../../utils/citerra-poc/backlink-editor';
 import FormatTextIcon from '@lblod/ember-rdfa-editor/components/icons/format-text';
 import { PlusIcon } from '@appuniversum/ember-appuniversum/components/icons/plus';
 import { ThreeDotsIcon } from '@appuniversum/ember-appuniversum/components/icons/three-dots';
