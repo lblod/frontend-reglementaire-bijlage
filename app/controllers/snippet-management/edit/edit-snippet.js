@@ -137,6 +137,9 @@ import {
   lovConfig,
   combineConfigs,
 } from '@lblod/ember-rdfa-editor/components/_private/relationship-editor/configs';
+import FormatTextIcon from '@lblod/ember-rdfa-editor/components/icons/format-text';
+import { PlusIcon } from '@appuniversum/ember-appuniversum/components/icons/plus';
+import { ThreeDotsIcon } from '@appuniversum/ember-appuniversum/components/icons/three-dots';
 
 /** @import EditorSettings from '../../../services/editor-settings'; */
 
@@ -153,6 +156,9 @@ export default class SnippetManagementEditSnippetController extends Controller {
   StructureControlCard = StructureControlCardComponent;
   SnippetInsert = SnippetInsertRdfaComponent;
   SnippetListSelect = SnippetListSelectRdfaComponent;
+  FormatTextIcon = FormatTextIcon;
+  PlusIcon = PlusIcon;
+  ThreeDotsIcon = ThreeDotsIcon;
 
   @service store;
   @service router;
