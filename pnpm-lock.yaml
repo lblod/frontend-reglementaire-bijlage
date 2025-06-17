@@ -147,11 +147,19 @@ importers:
         specifier: ^0.10.0
         version: 0.10.2(@glint/template@1.5.1)(ember-simple-auth@6.1.0(@babel/core@7.26.7)(@ember/test-helpers@3.3.1(@babel/core@7.26.7)(@glint/template@1.5.1)(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.26.7))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.97.1))(webpack@5.97.1))(@glint/template@1.5.1)(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.26.7))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.97.1))(eslint@8.57.1))(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.26.7))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.97.1))(webpack@5.97.1)
       '@lblod/ember-rdfa-editor':
+<<<<<<< HEAD
         specifier: 12.9.0-dev.a248ec64bf469a85b2012a115f83e027dd57e62a
         version: 12.9.0-dev.a248ec64bf469a85b2012a115f83e027dd57e62a(axna6fkimpavf2bvlsei5z6374)
       '@lblod/ember-rdfa-editor-lblod-plugins':
         specifier: 32.1.0
         version: 32.1.0(iecusg2x5yzajiims47h7kjpti)
+=======
+        specifier: 12.9.0
+        version: 12.9.0(2xbnp6orcidjnebpry2ujqhjem)
+      '@lblod/ember-rdfa-editor-lblod-plugins':
+        specifier: 32.2.0
+        version: 32.2.0(sbid2mtyakez4kfam4c7gueove)
+>>>>>>> origin/master
       '@release-it-plugins/lerna-changelog':
         specifier: ^6.0.0
         version: 6.1.0(release-it@16.3.0(encoding@0.1.13)(typescript@5.7.3))
@@ -1544,8 +1552,8 @@ packages:
       ember-simple-auth: ^6.0.0
       ember-source: '>= 4.0.0'
 
-  '@lblod/ember-rdfa-editor-lblod-plugins@32.1.0':
-    resolution: {integrity: sha512-mOxX5te5KLObkojTWBX1FAEV88wwm9yr4oT1uwQ440DkhEVCMQMrqWQOx9QGqU0nQgAVJxf9AJw1dYZseNhqqA==}
+  '@lblod/ember-rdfa-editor-lblod-plugins@32.2.0':
+    resolution: {integrity: sha512-X/fVgptJcdwuBByyhc3bn7g5Ad+boCMqhxm2H95uTUq4N9qdvm8LjjiwH9urkLksaY1BKUUe7a6EnLkhOgmJgg==}
     engines: {node: '>= 18'}
     peerDependencies:
       '@appuniversum/ember-appuniversum': ^3.5.0
@@ -1568,8 +1576,13 @@ packages:
       ember-template-imports:
         optional: true
 
+<<<<<<< HEAD
   '@lblod/ember-rdfa-editor@12.9.0-dev.a248ec64bf469a85b2012a115f83e027dd57e62a':
     resolution: {integrity: sha512-+S+GzeT+y8baXr9DM/kldPUzZJp/+jEiVpZaL1vlNUxIP32hqKIoOOJ7ElqPZZusQkCTuYgj+J+JPoeonpn2OA==}
+=======
+  '@lblod/ember-rdfa-editor@12.9.0':
+    resolution: {integrity: sha512-T455Dtygw/IhCUn0a8mf+e8CUf7cI4hGY/oEa6+riGCXyOyfpH4/dZ0d5XSA34LjBnqzImG6wmhk9ws1iQYcPg==}
+>>>>>>> origin/master
     peerDependencies:
       '@appuniversum/ember-appuniversum': ^3.11.0
       '@ember/test-helpers': ^2.9.4 || ^3.2.1 || ^4.0.2 || ^5.0.0
@@ -10548,7 +10561,11 @@ snapshots:
       - supports-color
       - webpack
 
+<<<<<<< HEAD
   '@lblod/ember-rdfa-editor-lblod-plugins@32.1.0(iecusg2x5yzajiims47h7kjpti)':
+=======
+  '@lblod/ember-rdfa-editor-lblod-plugins@32.2.0(sbid2mtyakez4kfam4c7gueove)':
+>>>>>>> origin/master
     dependencies:
       '@appuniversum/ember-appuniversum': 3.11.0(vyhwtmooesq35mcyha7kebyjxe)
       '@babel/core': 7.26.7
@@ -10558,7 +10575,11 @@ snapshots:
       '@curvenote/prosemirror-utils': 1.0.5(prosemirror-model@1.24.1)(prosemirror-state@1.4.3)
       '@ember/string': 3.1.1
       '@embroider/macros': 1.16.10(@glint/template@1.5.1)
+<<<<<<< HEAD
       '@lblod/ember-rdfa-editor': 12.9.0-dev.a248ec64bf469a85b2012a115f83e027dd57e62a(axna6fkimpavf2bvlsei5z6374)
+=======
+      '@lblod/ember-rdfa-editor': 12.9.0(2xbnp6orcidjnebpry2ujqhjem)
+>>>>>>> origin/master
       '@lblod/marawa': 0.8.0-beta.6
       '@lblod/template-uuid-instantiator': 1.0.3
       '@rdfjs/data-model': 2.1.0
@@ -10609,7 +10630,11 @@ snapshots:
       - web-streams-polyfill
       - webpack
 
+<<<<<<< HEAD
   '@lblod/ember-rdfa-editor@12.9.0-dev.a248ec64bf469a85b2012a115f83e027dd57e62a(axna6fkimpavf2bvlsei5z6374)':
+=======
+  '@lblod/ember-rdfa-editor@12.9.0(2xbnp6orcidjnebpry2ujqhjem)':
+>>>>>>> origin/master
     dependencies:
       '@appuniversum/ember-appuniversum': 3.11.0(vyhwtmooesq35mcyha7kebyjxe)
       '@codemirror/commands': 6.8.0
