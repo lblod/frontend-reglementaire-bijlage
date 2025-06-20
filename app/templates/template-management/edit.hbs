@@ -66,33 +66,61 @@
               <Plugins::History::Undo @controller={{this.editor}} />
               <Plugins::History::Redo @controller={{this.editor}} />
             </Tb.Group>
-            <div class='rdfa-editor-container__small-screen'>
+            <div class="rdfa-editor-container__small-screen">
               <Tb.Group>
-              <Toolbar::Dropdown  @icon={{this.FormatTextIcon}} @direction='horizontal' @title={{t 'editor-toolbar.format-text'}} as |Menu|>
-                <Plugins::TextStyle::Bold @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
-                <Plugins::TextStyle::Italic @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
-                <Plugins::TextStyle::Strikethrough @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
-                <Plugins::TextStyle::Underline @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
-                <Plugins::TextStyle::Superscript @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
-                <Plugins::TextStyle::Subscript @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
-                <Plugins::Heading::HeadingMenu @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
-              </Toolbar::Dropdown>
+                <Toolbar::Dropdown
+                  @icon={{this.FormatTextIcon}}
+                  @direction="horizontal"
+                  @title={{t "editor-toolbar.format-text"}}
+                  as |Menu|
+                >
+                  <Plugins::TextStyle::Bold
+                    @controller={{this.editor}}
+                    @onActivate={{Menu.closeDropdown}}
+                  />
+                  <Plugins::TextStyle::Italic
+                    @controller={{this.editor}}
+                    @onActivate={{Menu.closeDropdown}}
+                  />
+                  <Plugins::TextStyle::Strikethrough
+                    @controller={{this.editor}}
+                    @onActivate={{Menu.closeDropdown}}
+                  />
+                  <Plugins::TextStyle::Underline
+                    @controller={{this.editor}}
+                    @onActivate={{Menu.closeDropdown}}
+                  />
+                  <Plugins::TextStyle::Superscript
+                    @controller={{this.editor}}
+                    @onActivate={{Menu.closeDropdown}}
+                  />
+                  <Plugins::TextStyle::Subscript
+                    @controller={{this.editor}}
+                    @onActivate={{Menu.closeDropdown}}
+                  />
+                  <Plugins::Heading::HeadingMenu
+                    @controller={{this.editor}}
+                    @onActivate={{Menu.closeDropdown}}
+                  />
+                </Toolbar::Dropdown>
 
-            <Plugins::TextStyle::Color
-                @controller={{this.editor}}
-                @defaultColor="#000000"
-              />
-              <Plugins::TextStyle::Highlight
-                @controller={{this.editor}}
-                @defaultColor="#FFEA00"
-              />
-            </Tb.Group>
+                <Plugins::TextStyle::Color
+                  @controller={{this.editor}}
+                  @defaultColor="#000000"
+                />
+                <Plugins::TextStyle::Highlight
+                  @controller={{this.editor}}
+                  @defaultColor="#FFEA00"
+                />
+              </Tb.Group>
             </div>
-            <div class='rdfa-editor-container__big-screen'>
+            <div class="rdfa-editor-container__big-screen">
               <Tb.Group>
                 <Plugins::TextStyle::Bold @controller={{this.editor}} />
                 <Plugins::TextStyle::Italic @controller={{this.editor}} />
-                <Plugins::TextStyle::Strikethrough @controller={{this.editor}} />
+                <Plugins::TextStyle::Strikethrough
+                  @controller={{this.editor}}
+                />
                 <Plugins::TextStyle::Underline @controller={{this.editor}} />
                 <Plugins::TextStyle::Superscript @controller={{this.editor}} />
                 <Plugins::TextStyle::Subscript @controller={{this.editor}} />
@@ -123,17 +151,30 @@
               <Plugins::Alignment::AlignmentMenu @controller={{this.editor}} />
             </Tb.Group>
             <Tb.Group>
-              <Plugins::Indentation::IndentationMenu @controller={{this.editor}} />
+              <Plugins::Indentation::IndentationMenu
+                @controller={{this.editor}}
+              />
             </Tb.Group>
-            <div class='rdfa-editor-container__small-screen'>
+            <div class="rdfa-editor-container__small-screen">
               <Tb.Group>
-                <Toolbar::Dropdown  @icon={{this.PlusIcon}} @direction='horizontal' @title={{t 'editor-toolbar.insert'}} as |Menu|>
-                  <Plugins::Link::LinkMenu @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
-                  <Plugins::Image::InsertMenu @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+                <Toolbar::Dropdown
+                  @icon={{this.PlusIcon}}
+                  @direction="horizontal"
+                  @title={{t "editor-toolbar.insert"}}
+                  as |Menu|
+                >
+                  <Plugins::Link::LinkMenu
+                    @controller={{this.editor}}
+                    @onActivate={{Menu.closeDropdown}}
+                  />
+                  <Plugins::Image::InsertMenu
+                    @controller={{this.editor}}
+                    @onActivate={{Menu.closeDropdown}}
+                  />
                 </Toolbar::Dropdown>
               </Tb.Group>
             </div>
-             <div class='rdfa-editor-container__big-screen'>
+            <div class="rdfa-editor-container__big-screen">
               <Tb.Group>
                 <Plugins::Link::LinkMenu @controller={{this.editor}} />
                 <Plugins::Image::InsertMenu @controller={{this.editor}} />
@@ -141,24 +182,35 @@
             </div>
           </:main>
           <:side as |Tb|>
-          <div class='au-u-margin-right-small'>
+            <div class="au-u-margin-right-small">
               <TableOfContentsPlugin::ToolbarButton
                 @controller={{this.editor}}
               />
             </div>
             {{#if (eq this.internalTypeName "decision")}}
-             <div class='au-u-margin-right-small'>
+              <div class="au-u-margin-right-small">
                 <BesluitTypePlugin::ToolbarDropdown
                   @controller={{this.editor}}
                   @classificatieUri={{this.config.classificatieUri}}
                   @options={{this.config.decisionType}}
                 />
-                </div>
+              </div>
             {{/if}}
-             <Tb.Group>
-              <Toolbar::Dropdown  @icon={{this.ThreeDotsIcon}} @direction='horizontal' @title={{t 'editor-toolbar.more'}} as |Menu|>
-                <Plugins::HtmlEditor::Menu @controller={{this.editor}} @onActivate={{Menu.closeDropdown}} />
-                <Plugins::Formatting::FormattingToggle @controller={{this.editor}} @onActivate={{Menu.closeDropdown}}/>
+            <Tb.Group>
+              <Toolbar::Dropdown
+                @icon={{this.ThreeDotsIcon}}
+                @direction="horizontal"
+                @title={{t "editor-toolbar.more"}}
+                as |Menu|
+              >
+                <Plugins::HtmlEditor::Menu
+                  @controller={{this.editor}}
+                  @onActivate={{Menu.closeDropdown}}
+                />
+                <Plugins::Formatting::FormattingToggle
+                  @controller={{this.editor}}
+                  @onActivate={{Menu.closeDropdown}}
+                />
               </Toolbar::Dropdown>
             </Tb.Group>
           </:side>
@@ -191,6 +243,11 @@
               @controller={{this.editor}}
               @config={{this.config.location}}
               @templateMode={{true}}
+            />
+            <LocationPlugin::InsertLocationPlaceholder
+              @controller={{this.editor}}
+              @templateMode={{true}}
+              @config={{this.config.location}}
             />
             <CitationPlugin::CitationInsert
               @controller={{this.editor}}
