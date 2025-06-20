@@ -140,6 +140,7 @@ import {
 import FormatTextIcon from '@lblod/ember-rdfa-editor/components/icons/format-text';
 import { PlusIcon } from '@appuniversum/ember-appuniversum/components/icons/plus';
 import { ThreeDotsIcon } from '@appuniversum/ember-appuniversum/components/icons/three-dots';
+import { sayDataFactory } from '@lblod/ember-rdfa-editor/core/say-data-factory';
 
 /** @import EditorSettings from '../../../services/editor-settings'; */
 
@@ -342,6 +343,11 @@ export default class SnippetManagementEditSnippetController extends Controller {
         defaultAddressUriRoot:
           'https://publicatie.gelinkt-notuleren.vlaanderen.be/id/adres/',
         subjectTypesToLinkTo: [BESLUIT('Artikel'), BESLUIT('Besluit')],
+        additionalRDFTypes: [
+          sayDataFactory.namedNode(
+            'https://data.vlaanderen.be/ns/mobiliteit#Zone',
+          ),
+        ],
       },
       lmb: {
         endpoint: '/vendor-proxy/query',
