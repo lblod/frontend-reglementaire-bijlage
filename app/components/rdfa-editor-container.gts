@@ -40,8 +40,8 @@ type Signature = {
     nodeViews?: RdfaEditorArgs['nodeViews'];
   };
   Blocks: {
-    top: [];
-    aside: [];
+    toolbar: [{ controller: SayController }];
+    sidebarRight: [{ controller: SayController }];
   };
 };
 export default class RdfaEditorContainerComponent extends Component<Signature> {
@@ -155,11 +155,12 @@ export default class RdfaEditorContainerComponent extends Component<Signature> {
       >
         {{#if this.ready}}
           <EditorContainer
+            @controller={{this.editor}}
             @editorOptions={{hash showPaper=true showToolbarBottom=false}}
           >
-            <:top>
-              {{yield to='top'}}
-            </:top>
+            <:toolbar as |container|>
+              {{yield (hash controller=container.controller) to='toolbar'}}
+            </:toolbar>
             <:default>
               <Editor
                 @plugins={{this.plugins}}
@@ -168,9 +169,9 @@ export default class RdfaEditorContainerComponent extends Component<Signature> {
                 @rdfaEditorInit={{this.rdfaEditorInit}}
               />
             </:default>
-            <:aside>
-              {{yield to='aside'}}
-            </:aside>
+            <:sidebarRight as |container|>
+              {{yield (hash controller=container.controller) to='sidebarRight'}}
+            </:sidebarRight>
           </EditorContainer>
         {{/if}}
       </AuBodyContainer>
