@@ -149,6 +149,11 @@
               @config={{this.config.location}}
               @templateMode={{true}}
             />
+            <LocationPlugin::InsertLocationPlaceholder
+              @controller={{this.editor}}
+              @templateMode={{true}}
+              @config={{this.config.location}}
+            />
             <SnippetPlugin::SnippetInsertPlaceholder
               @controller={{this.editor}}
               @config={{this.config.snippet}}
