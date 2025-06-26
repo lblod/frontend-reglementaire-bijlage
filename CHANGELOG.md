@@ -1,5 +1,17 @@
 # frontend-reglementaire-bijlage
 
+## 9.26.0
+
+### Minor Changes
+
+- [#334](https://github.com/lblod/frontend-reglementaire-bijlage/pull/334) [`d7ca9c8890c7b57cf8a5b926ce748e7dd29db24f`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/d7ca9c8890c7b57cf8a5b926ce748e7dd29db24f) Thanks [@lagartoverde](https://github.com/lagartoverde)! - Implement new editor toolbar design
+
+### Patch Changes
+
+- [#334](https://github.com/lblod/frontend-reglementaire-bijlage/pull/334) [`40f9e0a380b933eb35055c5d04a9f04c83c9bf7e`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/40f9e0a380b933eb35055c5d04a9f04c83c9bf7e) Thanks [@lagartoverde](https://github.com/lagartoverde)! - Update to [@lblod/ember-rdfa-editor version 12.10.2](https://github.com/lblod/ember-rdfa-editor/releases/tag/%40lblod%2Fember-rdfa-editor%4012.10.2)
+
+- [#336](https://github.com/lblod/frontend-reglementaire-bijlage/pull/336) [`474c3ba14dbdf7110f786b07baaeb586e039d072`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/474c3ba14dbdf7110f786b07baaeb586e039d072) Thanks [@elpoelma](https://github.com/elpoelma)! - Update `@lblod/ember-rdfa-editor` to version [12.11.0](https://github.com/lblod/ember-rdfa-editor/releases/tag/%40lblod%2Fember-rdfa-editor%4012.11.0)
+
 ## 9.25.0
 
 ### Minor Changes
