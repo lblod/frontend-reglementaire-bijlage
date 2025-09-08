@@ -1,5 +1,17 @@
 # frontend-reglementaire-bijlage
 
+## 9.26.3
+
+### Patch Changes
+
+- [#337](https://github.com/lblod/frontend-reglementaire-bijlage/pull/337) [`8dae1bfeeebe5a646eb9b73efb47144fbcf60047`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/8dae1bfeeebe5a646eb9b73efb47144fbcf60047) Thanks [@abeforgit](https://github.com/abeforgit)! - Fix article parsing
+
+- [#337](https://github.com/lblod/frontend-reglementaire-bijlage/pull/337) [`52ef9b850f66faa39d63b35c9444e00c7e26f9fb`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/52ef9b850f66faa39d63b35c9444e00c7e26f9fb) Thanks [@abeforgit](https://github.com/abeforgit)! - bump plugins to [v32.5.3](https://github.com/lblod/ember-rdfa-editor-lblod-plugins/releases/tag/v32.5.3)
+
+- [#337](https://github.com/lblod/frontend-reglementaire-bijlage/pull/337) [`52ef9b850f66faa39d63b35c9444e00c7e26f9fb`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/52ef9b850f66faa39d63b35c9444e00c7e26f9fb) Thanks [@abeforgit](https://github.com/abeforgit)! - bump editor to [12.12.1](https://github.com/lblod/ember-rdfa-editor/releases/tag/@lblod/ember-rdfa-editor@12.12.1)
+
+- [#337](https://github.com/lblod/frontend-reglementaire-bijlage/pull/337) [`52ef9b850f66faa39d63b35c9444e00c7e26f9fb`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/52ef9b850f66faa39d63b35c9444e00c7e26f9fb) Thanks [@abeforgit](https://github.com/abeforgit)! - fix article parsing
+
 ## 9.26.2
 
 ### Patch Changes
