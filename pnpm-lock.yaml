@@ -147,11 +147,11 @@ importers:
         specifier: ^0.10.0
         version: 0.10.2(@glint/template@1.5.1)(ember-simple-auth@6.1.0(@babel/core@7.28.0)(@ember/test-helpers@3.3.1(@babel/core@7.28.0)(@glint/template@1.5.1)(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.28.0))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.97.1))(webpack@5.97.1))(@glint/template@1.5.1)(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.28.0))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.97.1))(eslint@8.57.1))(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.28.0))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.97.1))(webpack@5.97.1)
       '@lblod/ember-rdfa-editor':
-        specifier: 12.12.1
-        version: 12.12.1(6yu7r6cf4how7bvcx63ltck324)
+        specifier: 12.14.0
+        version: 12.14.0(6yu7r6cf4how7bvcx63ltck324)
       '@lblod/ember-rdfa-editor-lblod-plugins':
-        specifier: 32.7.0
-        version: 32.7.0(uekvlnkeivrzzbaeynqfg5sdpy)
+        specifier: 32.8.0
+        version: 32.8.0(agnm7asduru3anxlz6co37bhua)
       '@release-it-plugins/lerna-changelog':
         specifier: ^6.0.0
         version: 6.1.0(release-it@16.3.0(encoding@0.1.13)(typescript@5.7.3))
@@ -1722,8 +1722,8 @@ packages:
       ember-simple-auth: ^6.0.0
       ember-source: '>= 4.0.0'
 
-  '@lblod/ember-rdfa-editor-lblod-plugins@32.7.0':
-    resolution: {integrity: sha512-p+HXyl3gZBwdCct+82OJwovq4h/aD7J/UrMJWceBY8PT1nbgyOIFPhIyL3nKGtwL/yXvHgE0Flzf8Oc/NxGVqA==}
+  '@lblod/ember-rdfa-editor-lblod-plugins@32.8.0':
+    resolution: {integrity: sha512-JPAGpl+kPQs1tdaatqBe/Sm6GgSC1tH1sMx+KR8Ik72NknYIjTvIeJTw6cYYABGBCiaDjZbvz47SrUx6asGIAQ==}
     engines: {node: '>= 18'}
     peerDependencies:
       '@appuniversum/ember-appuniversum': ^3.12.0
@@ -1746,8 +1746,8 @@ packages:
       ember-template-imports:
         optional: true
 
-  '@lblod/ember-rdfa-editor@12.12.1':
-    resolution: {integrity: sha512-LWJWdbr8lEf/qTavZDC7QNKX0OqAcXxjD4U0of5KsPZA9E9GNUSwP6/i8bWxas9flpVjhbtsoX6RbROFqTOVIA==}
+  '@lblod/ember-rdfa-editor@12.14.0':
+    resolution: {integrity: sha512-M4uNn788QrtfWL7qxEzNDaVmPCDV5B3x2dJMOU39pOUMfe2UKhH0Rca7vTXWXOkJSXI+P3WlWod55mXzWVpUDg==}
     peerDependencies:
       '@appuniversum/ember-appuniversum': ^3.11.0
       '@ember/test-helpers': ^2.9.4 || ^3.2.1 || ^4.0.2 || ^5.0.0
@@ -11578,7 +11578,7 @@ snapshots:
       - supports-color
       - webpack
 
-  '@lblod/ember-rdfa-editor-lblod-plugins@32.7.0(uekvlnkeivrzzbaeynqfg5sdpy)':
+  '@lblod/ember-rdfa-editor-lblod-plugins@32.8.0(agnm7asduru3anxlz6co37bhua)':
     dependencies:
       '@appuniversum/ember-appuniversum': 3.11.0(i2jv3iowrlcbskkfafwzqradye)
       '@babel/core': 7.28.0
@@ -11588,7 +11588,7 @@ snapshots:
       '@curvenote/prosemirror-utils': 1.0.5(prosemirror-model@1.25.3)(prosemirror-state@1.4.3)
       '@ember/string': 3.1.1
       '@embroider/macros': 1.16.10(@glint/template@1.5.1)
-      '@lblod/ember-rdfa-editor': 12.12.1(6yu7r6cf4how7bvcx63ltck324)
+      '@lblod/ember-rdfa-editor': 12.14.0(6yu7r6cf4how7bvcx63ltck324)
       '@lblod/lib-decision-shapes': 0.0.22(@babel/core@7.28.0)(@jest/transform@30.0.4)(@jest/types@30.0.1)(babel-jest@30.0.4(@babel/core@7.28.0))(jest-util@30.0.2)(jest@30.0.4(@types/node@22.10.10)(node-notifier@10.0.1))(typescript@5.7.3)
       '@lblod/marawa': 0.8.0-beta.6
       '@lblod/template-uuid-instantiator': 1.0.3
@@ -11649,7 +11649,7 @@ snapshots:
       - web-streams-polyfill
       - webpack
 
-  '@lblod/ember-rdfa-editor@12.12.1(6yu7r6cf4how7bvcx63ltck324)':
+  '@lblod/ember-rdfa-editor@12.14.0(6yu7r6cf4how7bvcx63ltck324)':
     dependencies:
       '@appuniversum/ember-appuniversum': 3.11.0(i2jv3iowrlcbskkfafwzqradye)
       '@codemirror/commands': 6.8.0
