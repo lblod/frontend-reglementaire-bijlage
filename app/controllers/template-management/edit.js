@@ -42,7 +42,6 @@ import {
 import {
   bulletListWithConfig,
   listItemWithConfig,
-  listTrackingPlugin,
   orderedListWithConfig,
 } from '@lblod/ember-rdfa-editor/plugins/list';
 import { placeholder } from '@lblod/ember-rdfa-editor/plugins/placeholder';
@@ -463,7 +462,6 @@ export default class TemplateManagementEditController extends Controller {
       tableKeymap,
       this.citationPlugin,
       linkPasteHandler(this.schema.nodes.link),
-      listTrackingPlugin(),
       editableNodePlugin(),
       variableAutofillerPlugin(this.config.autofilledVariable),
     ];
