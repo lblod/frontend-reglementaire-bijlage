@@ -150,8 +150,8 @@ importers:
         specifier: 13.0.0
         version: 13.0.0(koqaseifxoj3ruqctbqjycmyiu)
       '@lblod/ember-rdfa-editor-lblod-plugins':
-        specifier: 33.1.0
-        version: 33.1.0(w2uw7xcczahoexfnn77baxs3a4)
+        specifier: 33.1.0-dev.2c4bf39ced7df8b2b1632b632a98c45272c5d7fc
+        version: 33.1.0-dev.2c4bf39ced7df8b2b1632b632a98c45272c5d7fc(w2uw7xcczahoexfnn77baxs3a4)
       '@release-it-plugins/lerna-changelog':
         specifier: ^6.0.0
         version: 6.1.0(release-it@16.3.0(encoding@0.1.13)(typescript@5.7.3))
@@ -1722,8 +1722,8 @@ packages:
       ember-simple-auth: ^6.0.0
       ember-source: '>= 4.0.0'
 
-  '@lblod/ember-rdfa-editor-lblod-plugins@33.1.0':
-    resolution: {integrity: sha512-E1BbTZ+KYkxZcZIxywemDolkfBygXFrU4sSFUZO3oElU2HHS41Ca5OTpkitvIbvyfYyegg+6vc052oPrVHLpDQ==}
+  '@lblod/ember-rdfa-editor-lblod-plugins@33.1.0-dev.2c4bf39ced7df8b2b1632b632a98c45272c5d7fc':
+    resolution: {integrity: sha512-UcfB8swcEEjO8IedH2y1fRHADU2hWvgRoC+YMT36cyFRfCuHWxOwCXqagXjjk22+DRrWBvfUoW2mUtg0hV3Jdw==}
     engines: {node: '>= 18'}
     peerDependencies:
       '@appuniversum/ember-appuniversum': ^3.12.0
@@ -7171,8 +7171,8 @@ packages:
       socks:
         optional: true
 
-  mongoose@8.19.1:
-    resolution: {integrity: sha512-oB7hGQJn4f8aebqE7mhE54EReb5cxVgpCxQCQj0K/cK3q4J3Tg08nFP6sM52nJ4Hlm8jsDnhVYpqIITZUAhckQ==}
+  mongoose@8.20.0:
+    resolution: {integrity: sha512-SxqNb8yx+VOjIOx2l7HqkGvYuLC/T85d+jPvqGDdUbKJFz/5PVSsVxQzypQsX7chenYvq5bd8jIr4LtunedE7g==}
     engines: {node: '>=16.20.1'}
 
   morgan@1.10.0:
@@ -11656,7 +11656,7 @@ snapshots:
       - supports-color
       - webpack
 
-  '@lblod/ember-rdfa-editor-lblod-plugins@33.1.0(w2uw7xcczahoexfnn77baxs3a4)':
+  '@lblod/ember-rdfa-editor-lblod-plugins@33.1.0-dev.2c4bf39ced7df8b2b1632b632a98c45272c5d7fc(w2uw7xcczahoexfnn77baxs3a4)':
     dependencies:
       '@appuniversum/ember-appuniversum': 3.11.0(oe6tnxpz2dmhobvm2d2athieta)
       '@babel/core': 7.28.0
@@ -11775,7 +11775,7 @@ snapshots:
       js-beautify: 1.15.4
       linkifyjs: 4.3.2
       mdn-polyfills: 5.20.0
-      mongoose: 8.19.1(socks@2.8.3)
+      mongoose: 8.20.0(socks@2.8.3)
       process: 0.11.10
       prosemirror-commands: 1.7.1
       prosemirror-dropcursor: 1.8.2
@@ -19141,7 +19141,7 @@ snapshots:
     optionalDependencies:
       socks: 2.8.3
 
-  mongoose@8.19.1(socks@2.8.3):
+  mongoose@8.20.0(socks@2.8.3):
     dependencies:
       bson: 6.10.4
       kareem: 2.6.3
