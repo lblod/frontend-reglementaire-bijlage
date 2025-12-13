@@ -59,6 +59,7 @@ import { highlight } from '@lblod/ember-rdfa-editor/plugins/highlight/marks/high
 import { color } from '@lblod/ember-rdfa-editor/plugins/color/marks/color';
 import {
   codelist,
+  codelist_option,
   codelistView,
   date,
   dateView,
@@ -73,6 +74,10 @@ import {
   location,
   locationView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/variables';
+import {
+  legacy_codelist,
+  legacyCodelistView,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/variables/legacy-codelist';
 import { document_title } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/document-title-plugin/nodes';
 import {
   templateComment,
@@ -227,6 +232,8 @@ export default class TemplateManagementEditController extends Controller {
       autofilled_variable,
       number,
       codelist,
+      codelist_option,
+      legacy_codelist,
       roadsign_regulation,
       mandatee_table,
 
@@ -439,6 +446,7 @@ export default class TemplateManagementEditController extends Controller {
         number: numberView(controller),
         text_variable: textVariableView(controller),
         codelist: codelistView(controller),
+        legacy_codelist: legacyCodelistView(controller),
         oslo_location: osloLocationView(this.config.location)(controller),
         templateComment: templateCommentView(controller),
         person_variable: personVariableView(controller),

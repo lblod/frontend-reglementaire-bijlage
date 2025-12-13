@@ -56,6 +56,7 @@ import {
   address,
   addressView,
   codelist,
+  codelist_option,
   codelistView,
   date,
   dateView,
@@ -70,6 +71,10 @@ import {
   location,
   locationView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/variables';
+import {
+  legacy_codelist,
+  legacyCodelistView,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/variable-plugin/variables/legacy-codelist';
 import { BlockRDFaView } from '@lblod/ember-rdfa-editor/nodes/block-rdfa';
 import { document_title } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/document-title-plugin/nodes';
 import {
@@ -206,6 +211,8 @@ export default class SnippetManagementEditSnippetController extends Controller {
       autofilled_variable,
       number,
       codelist,
+      codelist_option,
+      legacy_codelist,
       mandatee_table,
       heading: headingWithConfig({ rdfaAware: false }),
       blockquote,
@@ -378,6 +385,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
         text_variable: textVariableView(controller),
         number: numberView(controller),
         codelist: codelistView(controller),
+        legacy_codelist: legacyCodelistView(controller),
         templateComment: templateCommentView(controller),
         person_variable: personVariableView(controller),
         inline_rdfa: inlineRdfaWithConfigView({ rdfaAware: true })(controller),
