@@ -437,6 +437,9 @@
         {{/if}}
         {{! VariablePlugin::TemplateVariableCard is not added on purpose
           as an RB-document creator should not be able to set a "default" codelist option.}}
+        {{#if (eq this.internalTypeName "decision")}}
+          <DocumentValidationPlugin::Card @controller={{container.controller}} />
+        {{/if}}
       </Sidebar>
     </:sidebarRight>
   </RdfaEditorContainer>

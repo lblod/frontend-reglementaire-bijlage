@@ -154,6 +154,17 @@ import FormatTextIcon from '@lblod/ember-rdfa-editor/components/icons/format-tex
 import { PlusIcon } from '@appuniversum/ember-appuniversum/components/icons/plus';
 import { ThreeDotsIcon } from '@appuniversum/ember-appuniversum/components/icons/three-dots';
 import { sayDataFactory } from '@lblod/ember-rdfa-editor/core/say-data-factory';
+import {
+  insertArticleContainerAtCursor,
+  insertDescriptionAtCursor,
+  insertMotivationAtCursor,
+  insertTitleAtCursor,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/document-validation-plugin/common-fixes';
+import { getShapeOfDocumentType } from '@lblod/lib-decision-shapes';
+import {
+  documentValidationPlugin,
+  documentValidationPluginKey,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/document-validation-plugin';
 
 /** @import EditorSettings from '../../services/editor-settings'; */
 
@@ -432,6 +443,83 @@ export default class TemplateManagementEditController extends Controller {
         propertyObjects: PROPERTY_OBJECTS,
         backlinkPredicates: relationshipPredicates,
       },
+      documentValidation: {
+        rules: [
+          {
+            shaclRule:
+              'https://data.vlaanderen.be/shacl/besluit-publicatie#besluit-title-validation',
+            violations: {
+              'http://www.w3.org/ns/shacl#MaxCountConstraintComponent': {
+                helpText: this.intl.t(
+                  'document-validation.helptext.insert-title',
+                ),
+              },
+              'http://www.w3.org/ns/shacl#MinCountConstraintComponent': {
+                action: (controller) =>
+                  insertTitleAtCursor(controller, this.intl),
+                buttonTitle: this.intl.t(
+                  'document-validation.actions.insert-title',
+                ),
+              },
+            },
+          },
+          {
+            shaclRule:
+              'https://data.vlaanderen.be/shacl/besluit-publicatie#besluit-description-validation',
+            violations: {
+              'http://www.w3.org/ns/shacl#MaxCountConstraintComponent': {
+                helpText: this.intl.t(
+                  'document-validation.helptext.insert-description',
+                ),
+              },
+              'http://www.w3.org/ns/shacl#MinCountConstraintComponent': {
+                action: (controller) =>
+                  insertDescriptionAtCursor(controller, this.intl),
+                buttonTitle: this.intl.t(
+                  'document-validation.actions.insert-description',
+                ),
+              },
+            },
+          },
+          {
+            shaclRule:
+              'https://data.vlaanderen.be/shacl/besluit-publicatie#besluit-motivering-validation',
+            violations: {
+              'http://www.w3.org/ns/shacl#MaxCountConstraintComponent': {
+                helpText: this.intl.t(
+                  'document-validation.helptext.insert-motivation',
+                ),
+              },
+              'http://www.w3.org/ns/shacl#MinCountConstraintComponent': {
+                action: (controller) =>
+                  insertMotivationAtCursor(controller, this.intl),
+                buttonTitle: this.intl.t(
+                  'document-validation.actions.insert-motivation',
+                ),
+              },
+            },
+          },
+          {
+            shaclRule:
+              'https://data.vlaanderen.be/shacl/besluit-publicatie#besluit-article-container-validation',
+            violations: {
+              'http://www.w3.org/ns/shacl#MaxCountConstraintComponent': {
+                helpText: this.intl.t(
+                  'document-validation.helptext.insert-article-container',
+                ),
+              },
+              'http://www.w3.org/ns/shacl#MinCountConstraintComponent': {
+                action: (controller) =>
+                  insertArticleContainerAtCursor(controller, this.intl),
+                buttonTitle: this.intl.t(
+                  'document-validation.actions.insert-article-container',
+                ),
+              },
+            },
+          },
+        ],
+        documentShape: getShapeOfDocumentType('decision'),
+      },
     };
   }
 
@@ -472,6 +560,7 @@ export default class TemplateManagementEditController extends Controller {
       linkPasteHandler(this.schema.nodes.link),
       editableNodePlugin(),
       variableAutofillerPlugin(this.config.autofilledVariable),
+      documentValidationPlugin(this.config.documentValidation),
     ];
   }
   get activeNode() {
@@ -489,7 +578,7 @@ export default class TemplateManagementEditController extends Controller {
   }
 
   @action
-  handleRdfaEditorInit(editor) {
+  async handleRdfaEditorInit(editor) {
     this.editor = editor;
     if (this.editorDocument.content) {
       editor.initialize(this.editorDocument.content, { doNotClean: true });
@@ -522,6 +611,7 @@ export default class TemplateManagementEditController extends Controller {
           (tr) => tr.replaceSelectionWith(decisionNode),
           { view: this.editor.mainEditorView },
         );
+        console.log('validating');
       }
     } else {
       const docId = uuid();
@@ -529,6 +619,13 @@ export default class TemplateManagementEditController extends Controller {
         `<div data-say-document="true" resource="http://example.net/id/reglement/--ref-uuid4-${docId}" typeof="ext:Reglement"></div>`,
       );
     }
+    // Validate document
+    const pluginState = documentValidationPluginKey.getState(
+      editor.mainEditorView.state,
+    );
+    if (!pluginState) return;
+    const { validationCallback } = pluginState;
+    await validationCallback(editor.mainEditorView, editor.htmlContent);
   }
 
   get dirty() {
