@@ -160,7 +160,7 @@ import {
   insertMotivationAtCursor,
   insertTitleAtCursor,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/document-validation-plugin/common-fixes';
-import { getShapeOfDocumentType } from '@lblod/lib-decision-shapes';
+import { decisionShape } from 'frontend-reglementaire-bijlage/utils/decision-shape';
 import {
   documentValidationPlugin,
   documentValidationPluginKey,
@@ -451,7 +451,7 @@ export default class TemplateManagementEditController extends Controller {
             violations: {
               'http://www.w3.org/ns/shacl#MaxCountConstraintComponent': {
                 helpText: this.intl.t(
-                  'document-validation.helptext.insert-title',
+                  'document-validation.helptext.too-many-title',
                 ),
               },
               'http://www.w3.org/ns/shacl#MinCountConstraintComponent': {
@@ -469,7 +469,7 @@ export default class TemplateManagementEditController extends Controller {
             violations: {
               'http://www.w3.org/ns/shacl#MaxCountConstraintComponent': {
                 helpText: this.intl.t(
-                  'document-validation.helptext.insert-description',
+                  'document-validation.helptext.too-many-description',
                 ),
               },
               'http://www.w3.org/ns/shacl#MinCountConstraintComponent': {
@@ -487,7 +487,7 @@ export default class TemplateManagementEditController extends Controller {
             violations: {
               'http://www.w3.org/ns/shacl#MaxCountConstraintComponent': {
                 helpText: this.intl.t(
-                  'document-validation.helptext.insert-motivation',
+                  'document-validation.helptext.too-many-motivation',
                 ),
               },
               'http://www.w3.org/ns/shacl#MinCountConstraintComponent': {
@@ -505,7 +505,7 @@ export default class TemplateManagementEditController extends Controller {
             violations: {
               'http://www.w3.org/ns/shacl#MaxCountConstraintComponent': {
                 helpText: this.intl.t(
-                  'document-validation.helptext.insert-article-container',
+                  'document-validation.helptext.too-many-article-container',
                 ),
               },
               'http://www.w3.org/ns/shacl#MinCountConstraintComponent': {
@@ -518,7 +518,8 @@ export default class TemplateManagementEditController extends Controller {
             },
           },
         ],
-        documentShape: getShapeOfDocumentType('decision'),
+        //We use a custom shape because we had to hide temporaly the language validation
+        documentShape: decisionShape,
       },
     };
   }
