@@ -65,6 +65,7 @@ export default class AppChromeComponent extends Component<AppChromeComponentSign
 
   updateDocumentTitle = task(async (title) => {
     this.document.title = title;
+    this.document.set('updatedOn', new Date());
     await this.document.save();
 
     if (this.args.onUpdateDocumentTitle) {
