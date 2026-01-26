@@ -73,10 +73,6 @@ export default class AppChromeComponent extends Component<AppChromeComponentSign
     }
   });
 
-  resetDocument = task(async () => {
-    this.document.rollbackAttributes();
-  });
-
   <template>
     <nav>
       <div class='au-c-app-chrome'>
@@ -124,7 +120,6 @@ export default class AppChromeComponent extends Component<AppChromeComponentSign
               @title={{@document.title}}
               @editActive={{@document.isNew}}
               @onSubmit={{perform this.updateDocumentTitle}}
-              @onCancel={{perform this.resetDocument}}
               @readOnly={{@readOnly}}
             />
             {{#if this.templateTypeLabel}}

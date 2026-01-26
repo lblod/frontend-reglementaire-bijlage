@@ -86,6 +86,7 @@ export default class EditorDocumentTitle extends Component<Sig> {
   @action
   cancel() {
     this._title = undefined;
+    this.args.onCancel?.();
     this.disableEdit();
   }
 
