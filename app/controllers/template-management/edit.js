@@ -612,7 +612,6 @@ export default class TemplateManagementEditController extends Controller {
           (tr) => tr.replaceSelectionWith(decisionNode),
           { view: this.editor.mainEditorView },
         );
-        console.log('validating');
       }
     } else {
       const docId = uuid();
@@ -984,7 +983,6 @@ export default class TemplateManagementEditController extends Controller {
         </div>
       `,
     };
-    console.log(this.editor);
     this.editor.doCommand(
       insertHtml(
         instantiateUuids(map[thing]),
