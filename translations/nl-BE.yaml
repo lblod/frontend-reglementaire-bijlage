@@ -257,3 +257,15 @@ editor-toolbar:
   format-text: Tekststijlen
   insert: Invoegen
   more: Meer opties
+
+document-validation:
+  actions:
+    insert-title: Titel invoegen
+    insert-description: Beschrijving invoegen
+    insert-motivation: Motivatie invoegen
+    insert-article-container: Artikelcontainer invoegen
+  helptext:
+    too-many-title: Je hebt te veel titels, verwijder ze allemaal behalve één.
+    too-many-description: Je hebt te veel beschrijvingen, verwijder ze allemaal behalve één.
+    too-many-motivation: Je hebt te veel motivaties, verwijder ze allemaal behalve één.
+    too-many-article-container: Je hebt te veel artikelcontainers. Verwijder alle containers behalve één.
