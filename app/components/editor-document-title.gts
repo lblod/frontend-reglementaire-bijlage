@@ -3,8 +3,6 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import type Owner from '@ember/owner';
 import { on } from '@ember/modifier';
-// eslint-disable-next-line ember/no-at-ember-render-modifiers
-import didInsert from '@ember/render-modifiers/modifiers/did-insert';
 import { restartableTask, timeout } from 'ember-concurrency';
 import { v4 as uuidv4 } from 'uuid';
 import AuButton from '@appuniversum/ember-appuniversum/components/au-button';
@@ -12,6 +10,7 @@ import AuPill from '@appuniversum/ember-appuniversum/components/au-pill';
 import { isBlank } from '../utils/strings';
 import limitContent from '../helpers/limit-content';
 import t from 'ember-intl/helpers/t';
+import autoFocus from '../modifiers/auto-focus';
 
 type Sig = {
   Args: {
@@ -116,11 +115,6 @@ export default class EditorDocumentTitle extends Component<Sig> {
     this.active = false;
   }
 
-  @action
-  focus(element: HTMLElement) {
-    element.focus();
-  }
-
   <template>
     {{#if @readOnly}}
       <h1 class='au-c-app-chrome__title' title={{this.title}}>
@@ -140,7 +134,7 @@ export default class EditorDocumentTitle extends Component<Sig> {
                 value={{this.title}}
                 {{on 'input' this.setTitle}}
                 {{on 'keydown' this.cancelOnEscape}}
-                {{didInsert this.focus}}
+                {{autoFocus}}
               />
             {{/let}}
             <AuButton

@@ -58,10 +58,12 @@ export default class AppChromeComponent extends Component<AppChromeComponentSign
     }
   }
 
-  templateTypeLabel =
-    this.args.templateTypeId &&
-    // @ts-expect-error This is used before the constructor runs so should fail...
-    getTemplateType(this.args.templateTypeId, this.intl)?.label;
+  get templateTypeLabel() {
+    return (
+      this.args.templateTypeId &&
+      getTemplateType(this.args.templateTypeId, this.intl)?.label
+    );
+  }
 
   updateDocumentTitle = task(async (title) => {
     this.document.title = title;
