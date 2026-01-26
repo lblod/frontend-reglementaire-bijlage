@@ -19,10 +19,11 @@ type Sig = {
     readOnly?: boolean;
     editActive?: boolean;
     onSubmit?: (title: string) => void;
+    onCancel?: () => void;
   };
 };
 
-export default class EditorDocumentTitleComponent extends Component<Sig> {
+export default class EditorDocumentTitle extends Component<Sig> {
   @tracked active = false;
   @tracked error = false;
   @tracked _title?: string;
