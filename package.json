@@ -125,7 +125,7 @@
     "sass": "^1.69.0",
     "tracked-built-ins": "^3.3.0",
     "typescript": "^5.6.3",
-    "webpack": "^5.95.0"
+    "webpack": "^5.104.1"
   },
   "pnpm": {
     "overrides": {
