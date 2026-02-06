@@ -1,5 +1,30 @@
 # frontend-reglementaire-bijlage
 
+## 9.28.0
+
+### Minor Changes
+
+- [#342](https://github.com/lblod/frontend-reglementaire-bijlage/pull/342) [`ff931d7ba06a1ab56538c9b282e1432d2685dbf3`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/ff931d7ba06a1ab56538c9b282e1432d2685dbf3) Thanks [@piemonkey](https://github.com/piemonkey)! - Update updated-at timestamp when setting the title of a document
+
+- [#340](https://github.com/lblod/frontend-reglementaire-bijlage/pull/340) [`9f337f4a560f4f548e0e2fbfc0aff56a916e4ad7`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/9f337f4a560f4f548e0e2fbfc0aff56a916e4ad7) Thanks [@elpoelma](https://github.com/elpoelma)! - Update editor-plugins to version [34.0.2](https://github.com/lblod/ember-rdfa-editor-lblod-plugins/releases/tag/v34.0.2)
+
+- [#341](https://github.com/lblod/frontend-reglementaire-bijlage/pull/341) [`c1b3442df45cb708d6721b8c4beb6182936de925`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/c1b3442df45cb708d6721b8c4beb6182936de925) Thanks [@lagartoverde](https://github.com/lagartoverde)! - Implement new document validation plugin
+
+- [`e571671e4321f6f651a04fa7b9502f150fa7f2b4`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/e571671e4321f6f651a04fa7b9502f150fa7f2b4) Thanks [@abeforgit](https://github.com/abeforgit)! - Update editor and plugins to latest
+
+  plugins: [v35.0.0](https://github.com/lblod/ember-rdfa-editor-lblod-plugins/releases/tag/v35.0.0)
+  editor: [v13.1.1](https://github.com/lblod/ember-rdfa-editor/releases/tag/@lblod/ember-rdfa-editor@13.1.1)
+
+  Also pins @ember/render-modifiers to v3 to avoid dev duplication. The only breaking change in v3 is the drop of support for node 18, which we're well above.
+
+- [#342](https://github.com/lblod/frontend-reglementaire-bijlage/pull/342) [`57d2dea5054c32838ec655759d7c3873d1dbcba3`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/57d2dea5054c32838ec655759d7c3873d1dbcba3) Thanks [@piemonkey](https://github.com/piemonkey)! - Update some dependencies to fix peer dependency issues
+
+### Patch Changes
+
+- [#339](https://github.com/lblod/frontend-reglementaire-bijlage/pull/339) [`2417ff391f840522f7ca92723df9984d5930ac13`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/2417ff391f840522f7ca92723df9984d5930ac13) Thanks [@lagartoverde](https://github.com/lagartoverde)! - Bump plugins to [v33.3.0](https://github.com/lblod/ember-rdfa-editor-lblod-plugins/releases/tag/v33.3.0)
+
+- [#339](https://github.com/lblod/frontend-reglementaire-bijlage/pull/339) [`5e6af693d63dfcf48cd1274c59a21e7cdcf1bd56`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/5e6af693d63dfcf48cd1274c59a21e7cdcf1bd56) Thanks [@lagartoverde](https://github.com/lagartoverde)! - Allow besluit draft types
+
 ## 9.27.2
 
 ### Patch Changes
