@@ -123,7 +123,7 @@
     "qunit-dom": "^3.2.1",
     "release-it": "^16.0.0",
     "sass": "^1.69.0",
-    "tracked-built-ins": "^3.3.0",
+    "tracked-built-ins": "^4.1.0",
     "typescript": "^5.6.3",
     "webpack": "^5.95.0"
   },
