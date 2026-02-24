@@ -7,6 +7,7 @@ settings:
 overrides:
   '@embroider/util': 1.13.5
   ember-auto-import: ~2.8.1
+  ember-headless-form>tracked-built-ins: ^4.1.0
   ember-math-helpers: ^4.0.0
   ember-truth-helpers: ^4.0.3
   tracked-toolbox: ^2.0.0
@@ -9122,9 +9123,6 @@ packages:
     resolution: {integrity: sha512-hdF5ZgjTqgAntKkklYw0R03MG2x/bSzTtkxmIRw/sTNV8YXsCJ1tfLAX23lhxhHJlEf3CRCOCGGWw3vI3GaSPw==}
     engines: {node: '>=18'}
 
-  tracked-built-ins@3.4.0:
-    resolution: {integrity: sha512-aRwWQXC3VkY50oYxS7wKZiavkjf3uaN+UYUH30D5gxUqbxDN2LnNsfWyDfckmxHUGw4gJDH5lpRS0jX/tim0vw==}
-
   tracked-built-ins@4.1.0:
     resolution: {integrity: sha512-v1+jca3sD3LgbAFVsontSONTv7HsZll3yeUB00L6KPwLilFRrY77gvgptDe35fTalk9ea7mmrM2wABD56pTvuw==}
 
@@ -16860,7 +16858,7 @@ snapshots:
       ember-async-data: 1.0.3(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.28.0))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.97.1))
       ember-modifier: 4.2.2(@babel/core@7.28.0)
       ember-source: 5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.28.0))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.97.1)
-      tracked-built-ins: 3.4.0(@babel/core@7.28.0)
+      tracked-built-ins: 4.1.0(@babel/core@7.28.0)
     transitivePeerDependencies:
       - '@babel/core'
       - '@glint/environment-ember-loose'
@@ -22458,15 +22456,6 @@ snapshots:
   tr46@5.1.1:
     dependencies:
       punycode: 2.3.1
-
-  tracked-built-ins@3.4.0(@babel/core@7.28.0):
-    dependencies:
-      '@embroider/addon-shim': 1.10.2
-      decorator-transforms: 2.3.1(@babel/core@7.28.0)
-      ember-tracked-storage-polyfill: 1.0.0
-    transitivePeerDependencies:
-      - '@babel/core'
-      - supports-color
 
   tracked-built-ins@4.1.0(@babel/core@7.28.0):
     dependencies:

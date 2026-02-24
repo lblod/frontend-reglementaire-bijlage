@@ -131,6 +131,7 @@
     "overrides": {
       "@embroider/util": "1.13.5",
       "ember-auto-import": "$ember-auto-import",
+      "ember-headless-form>tracked-built-ins": "$tracked-built-ins",
       "ember-math-helpers": "$ember-math-helpers",
       "ember-truth-helpers": "$ember-truth-helpers",
       "tracked-toolbox": "$tracked-toolbox",
