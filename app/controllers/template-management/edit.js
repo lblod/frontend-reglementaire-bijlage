@@ -84,7 +84,6 @@ import {
   templateCommentView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/template-comments-plugin';
 import { docWithConfig } from '@lblod/ember-rdfa-editor/nodes/doc';
-import { undo } from '@lblod/ember-rdfa-editor/plugins/history';
 import { roadsign_regulation } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/roadsign-regulation-plugin/nodes';
 import TextVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/text/insert';
 import PersonVariableInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/person/insert';
@@ -582,7 +581,10 @@ export default class TemplateManagementEditController extends Controller {
   async handleRdfaEditorInit(editor) {
     this.editor = editor;
     if (this.editorDocument.content) {
-      editor.initialize(this.editorDocument.content, { doNotClean: true });
+      editor.initialize(this.editorDocument.content, {
+        doNotClean: true,
+        startsDirty: false,
+      });
       this.assignedSnippetListsIds = this.documentSnippetListIds;
     } else if (this.model?.templateTypeId === DECISION_STANDARD_FOLDER) {
       // This is a decision with no content, so we need to insert a decision (besluit) node so that
@@ -629,11 +631,7 @@ export default class TemplateManagementEditController extends Controller {
   }
 
   get dirty() {
-    // Since we clear the undo history when saving, this works. If we want to maintain undo history
-    // on save, we would need to add functionality to the editor to track what is the 'saved' state
-    return this.editor?.checkCommand(undo, {
-      view: this.editor?.mainEditorView,
-    });
+    return this.editor?.isDirty;
   }
 
   get editorDocument() {
@@ -675,7 +673,10 @@ export default class TemplateManagementEditController extends Controller {
     );
     documentContainer.linkedSnippetLists = snippetListObjects;
     await documentContainer.save();
+
     this._editorDocument = editorDocument;
+    this.editor?.setHtmlContent(html);
+    this.editor?.markClean();
   });
 
   get documentSnippetListIds() {

@@ -81,7 +81,6 @@ import {
   templateComment,
   templateCommentView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/template-comments-plugin';
-import { undo } from '@lblod/ember-rdfa-editor/plugins/history';
 import AutofilledInsertComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/variable-plugin/autofilled/insert';
 import {
   editableNodePlugin,
@@ -418,7 +417,10 @@ export default class SnippetManagementEditSnippetController extends Controller {
   handleRdfaEditorInit(editor) {
     this.editor = editor;
     if (this.editorDocument.content) {
-      editor.initialize(this.editorDocument.content, { doNotClean: true });
+      editor.initialize(this.editorDocument.content, {
+        doNotClean: true,
+        startsDirty: false,
+      });
     }
   }
 
@@ -435,11 +437,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
     };
   }
   get dirty() {
-    // Since we clear the undo history when saving, this works. If we want to maintain undo history
-    // on save, we would need to add functionality to the editor to track what is the 'saved' state
-    return this.editor?.checkCommand(undo, {
-      view: this.editor?.mainEditorView,
-    });
+    return this.editor?.isDirty;
   }
 
   currentVersion = trackedFunction(this, async () => {
@@ -471,6 +469,8 @@ export default class SnippetManagementEditSnippetController extends Controller {
     );
     snippet.linkedSnippetLists = snippetListObjects;
     await snippet.save();
+    this.editor?.setHtmlContent(html);
+    this.editor?.markClean();
     await this.updateImportedResourcesOnList.perform();
   });
 

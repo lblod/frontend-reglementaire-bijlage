@@ -23,7 +23,6 @@ import EditorContainer from '@lblod/ember-rdfa-editor/components/editor-containe
 import Editor, {
   type RdfaEditorArgs,
 } from '@lblod/ember-rdfa-editor/components/editor';
-import { htmlSafe } from '@ember/template';
 import t from 'ember-intl/helpers/t';
 import { hash } from '@ember/helper';
 
@@ -112,69 +111,47 @@ export default class RdfaEditorContainerComponent extends Component<Signature> {
     return attrString;
   }
 
-  get htmlSafeContent() {
-    return htmlSafe(this.editor?.htmlContent ?? '');
-  }
-
   <template>
-    {{#if @busy}}
-      <AuBodyContainer>
-        <div class='au-c-rdfa-editor'>
-          <div
-            class='say-container say-container--sidebar-left say-container--paper say-container--sidebar-right'
-          >
-            <div class='say-container__main'>
-              <div class='say-editor'>
-                <div class='say-editor__paper'>
-                  <div class='au-c-scanner'>
-                    <div class='au-c-scanner__text'>
-                      <AuHelpText @size='large'>{{if
-                          @busyText
-                          @busyText
-                          (t 'rdfaEditorContainer.defaultBusyText')
-                        }}
-                      </AuHelpText>
-                    </div>
-                    <span class='au-c-scanner__bar'></span>
-                  </div>
-                  <div class='say-editor__inner say-content'>
-                    {{this.htmlSafeContent}}
-                  </div>
-                </div>
-              </div>
-            </div>
+    <AuBodyContainer
+      vocab='{{this.vocab}}'
+      {{didInsert this.setPrefix}}
+      property='{{@property}}'
+      resource='#'
+    >
+      {{#if @busy}}
+        <div class='au-c-scanner'>
+          <div class='au-c-scanner__text'>
+            <AuHelpText @size='large'>{{if
+                @busyText
+                @busyText
+                (t 'rdfaEditorContainer.defaultBusyText')
+              }}
+            </AuHelpText>
           </div>
+          <span class='au-c-scanner__bar'></span>
         </div>
-      </AuBodyContainer>
-    {{else}}
-      <AuBodyContainer
-        vocab='{{this.vocab}}'
-        {{didInsert this.setPrefix}}
-        property='{{@property}}'
-        resource='#'
-      >
-        {{#if this.ready}}
-          <EditorContainer
-            @controller={{this.editor}}
-            @editorOptions={{hash showPaper=true showToolbarBottom=false}}
-          >
-            <:toolbar as |container|>
-              {{yield (hash controller=container.controller) to='toolbar'}}
-            </:toolbar>
-            <:default>
-              <Editor
-                @plugins={{this.plugins}}
-                @schema={{@schema}}
-                @nodeViews={{@nodeViews}}
-                @rdfaEditorInit={{this.rdfaEditorInit}}
-              />
-            </:default>
-            <:sidebarRight as |container|>
-              {{yield (hash controller=container.controller) to='sidebarRight'}}
-            </:sidebarRight>
-          </EditorContainer>
-        {{/if}}
-      </AuBodyContainer>
-    {{/if}}
+      {{/if}}
+      {{#if this.ready}}
+        <EditorContainer
+          @controller={{this.editor}}
+          @editorOptions={{hash showPaper=true showToolbarBottom=false}}
+        >
+          <:toolbar as |container|>
+            {{yield (hash controller=container.controller) to='toolbar'}}
+          </:toolbar>
+          <:default>
+            <Editor
+              @plugins={{this.plugins}}
+              @schema={{@schema}}
+              @nodeViews={{@nodeViews}}
+              @rdfaEditorInit={{this.rdfaEditorInit}}
+            />
+          </:default>
+          <:sidebarRight as |container|>
+            {{yield (hash controller=container.controller) to='sidebarRight'}}
+          </:sidebarRight>
+        </EditorContainer>
+      {{/if}}
+    </AuBodyContainer>
   </template>
 }
