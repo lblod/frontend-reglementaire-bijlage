@@ -280,6 +280,9 @@
               @node={{this.activeNode}}
             />
           {{/if}}
+          <PlaceholderUtilsPlugin::Insert
+            @controller={{container.controller}}
+          />
         </Sidebar.Collapsible>
         {{#if (eq this.internalTypeName "decision")}}
           <Sidebar.Collapsible
@@ -391,6 +394,7 @@
         />
         <VariablePlugin::Autofilled::Edit @controller={{container.controller}} />
         <TemplateCommentsPlugin::EditCard @controller={{container.controller}} />
+        <PlaceholderUtilsPlugin::Edit @controller={{container.controller}} />
         <this.NodeControlsCard
           @node={{this.activeNode}}
           @controller={{container.controller}}
