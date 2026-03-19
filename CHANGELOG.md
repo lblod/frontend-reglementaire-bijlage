@@ -1,5 +1,23 @@
 # frontend-reglementaire-bijlage
 
+## 9.29.0
+
+### Minor Changes
+
+- [#347](https://github.com/lblod/frontend-reglementaire-bijlage/pull/347) [`8203dce28946290bfc4470ba2abaa988669562f8`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/8203dce28946290bfc4470ba2abaa988669562f8) Thanks [@lagartoverde](https://github.com/lagartoverde)! - Add changeset utils plugin, which allows the user to add and edit placeholders
+
+- [#346](https://github.com/lblod/frontend-reglementaire-bijlage/pull/346) [`45c664c88a3b399f55f0c937597d9a85cf768eb7`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/45c664c88a3b399f55f0c937597d9a85cf768eb7) Thanks [@piemonkey](https://github.com/piemonkey)! - Maintain undo history when saving templates and snippets
+
+### Patch Changes
+
+- [`b403fcb8dfce590d343f274dfa2b69f0a63624a4`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/b403fcb8dfce590d343f274dfa2b69f0a63624a4) Thanks [@kobemertens](https://github.com/kobemertens)! - Fix description requirement for decision document validation
+
+- [`128e90d858697c1896243499fe59aad8cd97d742`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/128e90d858697c1896243499fe59aad8cd97d742) Thanks [@kobemertens](https://github.com/kobemertens)! - bump ember-rdfa-editor-lblod-plugins to v35.0.1
+
+- [`a72b183a52668c20cc3b98b8484d3c343ab83bf7`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/a72b183a52668c20cc3b98b8484d3c343ab83bf7) Thanks [@piemonkey](https://github.com/piemonkey)! - Update version of tracked-built-ins to match that used in plugins
+
+- [`77d2750bc82545dc8d13c5572040db01bfece188`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/77d2750bc82545dc8d13c5572040db01bfece188) Thanks [@piemonkey](https://github.com/piemonkey)! - Update editor to [v13.2.1](https://github.com/lblod/ember-rdfa-editor/releases/tag/%40lblod%2Fember-rdfa-editor%4013.2.1)
+
 ## 9.28.0
 
 ### Minor Changes
