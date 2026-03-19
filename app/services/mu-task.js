@@ -18,7 +18,9 @@ export default class MuTaskService extends Service {
     try {
       return this.store.findRecord('task', taskId, options);
     } catch (e) {
-      throw new Error(`An error occured while fetching task ${taskId}`);
+      throw new Error(
+        `An error occured while fetching task ${taskId}. Original error: ${e}`,
+      );
     }
   }
 

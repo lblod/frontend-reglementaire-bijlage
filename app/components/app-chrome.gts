@@ -50,9 +50,9 @@ export default class AppChromeComponent extends Component<AppChromeComponentSign
 
   get updatedOn() {
     if (this.document instanceof EditorDocumentModel) {
-      return this.document.updatedOn;
+      return this.document.updatedOn as Date;
     } else if (this.document instanceof SnippetVersionModel) {
-      return this.document.createdOn;
+      return this.document.createdOn as Date;
     } else {
       return null;
     }
@@ -65,7 +65,7 @@ export default class AppChromeComponent extends Component<AppChromeComponentSign
     );
   }
 
-  updateDocumentTitle = task(async (title) => {
+  updateDocumentTitle = task(async (title: string) => {
     this.document.title = title;
     this.document.set('updatedOn', new Date());
     await this.document.save();
