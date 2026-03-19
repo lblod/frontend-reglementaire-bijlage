@@ -29,7 +29,7 @@ import { hash } from '@ember/helper';
 type Signature = {
   Args: {
     editorDocument?: EditorDocumentModel;
-    prefix?: string;
+    prefix?: Record<string, string>;
     property?: string;
     plugins?: ProsePlugin[];
     rdfaEditorInit?: (controller: SayController) => unknown;
@@ -43,14 +43,21 @@ type Signature = {
     sidebarRight: [{ controller: SayController }];
   };
 };
+interface DocumentContext {
+  prefix: Record<string, string>;
+  typeof: string;
+  vocab: string;
+}
 export default class RdfaEditorContainerComponent extends Component<Signature> {
   @tracked editor?: SayController;
   @tracked ready = false;
 
-  get documentContext() {
+  get documentContext(): DocumentContext {
     if (this.args.editorDocument && this.args.editorDocument.context) {
       try {
-        return JSON.parse(this.args.editorDocument.context);
+        return JSON.parse(
+          this.args.editorDocument.context as string,
+        ) as DocumentContext;
       } catch (e) {
         console.warn(
           'Error encountered during parsing of document context. ' +
@@ -60,7 +67,7 @@ export default class RdfaEditorContainerComponent extends Component<Signature> {
       }
     }
     return {
-      prefix: this.args.prefix ?? '',
+      prefix: this.args.prefix ?? {},
       typeof: '',
       vocab: '',
     };
@@ -113,6 +120,7 @@ export default class RdfaEditorContainerComponent extends Component<Signature> {
 
   <template>
     <AuBodyContainer
+      {{! @glint-ignore}}
       vocab='{{this.vocab}}'
       {{didInsert this.setPrefix}}
       property='{{@property}}'

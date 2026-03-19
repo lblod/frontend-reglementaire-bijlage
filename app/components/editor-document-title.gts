@@ -66,7 +66,7 @@ export default class EditorDocumentTitle extends Component<Sig> {
   }
 
   @action
-  submit(event: Event) {
+  async submit(event: Event) {
     event.preventDefault();
     if (this.isInvalidTitle || !this.isTitleModified) {
       this.cancel();
@@ -74,7 +74,7 @@ export default class EditorDocumentTitle extends Component<Sig> {
     }
     this.args.onSubmit?.(this.title);
     this.disableEdit();
-    this.showIsSavedTask.perform();
+    await this.showIsSavedTask.perform();
     return false;
   }
 
@@ -99,8 +99,8 @@ export default class EditorDocumentTitle extends Component<Sig> {
   // We check the value of active in these 2 functions to avoid setting it 2 times in the same computation with
   // the cancel event + submit which cause a bug in prod environments.
   @action
-  enableEdit() {
-    this.showIsSavedTask.cancelAll();
+  async enableEdit() {
+    await this.showIsSavedTask.cancelAll();
     if (this.active) {
       return;
     }

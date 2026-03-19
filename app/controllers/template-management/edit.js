@@ -734,7 +734,7 @@ export default class TemplateManagementEditController extends Controller {
     if (this.editor) {
       return combineConfigs(documentConfig(this.editor), lovConfig());
     } else {
-      return;
+      return undefined;
     }
   }
 

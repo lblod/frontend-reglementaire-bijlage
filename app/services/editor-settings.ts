@@ -75,7 +75,7 @@ export default class EditorSettingsService extends Service {
       this._sidebarSettings = merge(
         DEFAULT_EDITOR_SETTINGS,
         loadFromLocalStorage<SidebarSettings>(SIDEBAR_SETTINGS_KEY),
-      );
+      ) as SidebarSettings;
     } catch (e) {
       console.error(e);
       this._sidebarSettings = DEFAULT_EDITOR_SETTINGS;
