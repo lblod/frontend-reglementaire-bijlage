@@ -1,3 +1,5 @@
+import type { SayController } from '@lblod/ember-rdfa-editor';
+
 const defaultResources = [
   'https://say.data.gift/ns/Paragraph',
   'https://say.data.gift/ns/Article',
@@ -7,9 +9,9 @@ const defaultResources = [
   'https://say.data.gift/ns/Title',
 ];
 
-export function generateTemplate(editor) {
-  let uris = [];
-  for (let resource of defaultResources) {
+export function generateTemplate(editor: SayController) {
+  let uris: string[] = [];
+  for (const resource of defaultResources) {
     const quads = [
       ...editor.datastore.match(null, 'a', `>${resource}`).asQuads(),
     ];

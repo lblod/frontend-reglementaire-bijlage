@@ -5,7 +5,7 @@ import { service } from '@ember/service';
 import { tracked } from 'tracked-built-ins';
 import { v4 as uuid } from 'uuid';
 import isAfter from 'date-fns/isAfter';
-import { Schema } from '@lblod/ember-rdfa-editor';
+import { PNode, SayController, Schema } from '@lblod/ember-rdfa-editor';
 import { insertHtml } from '@lblod/ember-rdfa-editor/commands/insert-html-command';
 import {
   em,
@@ -52,7 +52,6 @@ import { image } from '@lblod/ember-rdfa-editor/plugins/image';
 
 import instantiateUuids from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/standard-template-plugin/utils/instantiate-uuids';
 import { generateTemplate } from '../../utils/generate-template';
-import { getOwner } from '@ember/application';
 import { linkPasteHandler } from '@lblod/ember-rdfa-editor/plugins/link';
 import { citationPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/citation-plugin';
 import { highlight } from '@lblod/ember-rdfa-editor/plugins/highlight/marks/highlight';
@@ -159,12 +158,29 @@ import {
   insertMotivationAtCursor,
   insertTitleAtCursor,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/document-validation-plugin/common-fixes';
-import { decisionShape } from 'frontend-reglementaire-bijlage/utils/decision-shape';
+import { decisionShape } from '../../utils/decision-shape';
 import {
   documentValidationPlugin,
   documentValidationPluginKey,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/document-validation-plugin';
+import type Store from '../../services/store';
+import type RouterService from '@ember/routing/router-service';
+import type IntlService from 'ember-intl/services/intl';
+import type CurrentSessionService from '../../services/current-session';
+import type EditorSettingsService from '../../services/editor-settings';
+import { citerraMap } from './citerra-insert-map';
 
+import environment from 'frontend-reglementaire-bijlage/config/environment';
+import type { ModelFrom } from 'frontend-reglementaire-bijlage/utils/type-utils';
+import type TemplateManagementEditRoute from 'frontend-reglementaire-bijlage/routes/template-management/edit';
+import type EditorDocumentModel from 'frontend-reglementaire-bijlage/models/editor-document';
+import type SnippetList from 'frontend-reglementaire-bijlage/models/snippet-list';
+import type {
+  TargetOptionGeneratorArgs,
+  SubjectOption,
+  PredicateOption,
+  ObjectOption,
+} from '@lblod/ember-rdfa-editor/components/_private/relationship-editor/types';
 /** @import EditorSettings from '../../services/editor-settings'; */
 
 const SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE = 'data-snippet-list-ids';
@@ -172,18 +188,19 @@ const GEMEENTE_CLASSIFICATION_URI =
   'http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001';
 
 export default class TemplateManagementEditController extends Controller {
-  @service store;
-  @service router;
-  @service intl;
-  @service currentSession;
+  @service declare store: Store;
+  @service declare router: RouterService;
+  @service declare intl: IntlService;
+  @service declare currentSession: CurrentSessionService;
 
-  /** @type {EditorSettings} */
-  @service('editor-settings') editorSettingsService;
+  declare model: ModelFrom<TemplateManagementEditRoute>;
+  @service('editor-settings')
+  declare editorSettingsService: EditorSettingsService;
 
-  @tracked editor;
-  @tracked _editorDocument;
+  @tracked editor?: SayController;
+  @tracked _editorDocument?: EditorDocumentModel;
   @tracked citationPlugin = citationPlugin(this.config.citation);
-  @tracked assignedSnippetListsIds = [];
+  @tracked assignedSnippetListsIds: string[] = [];
   @tracked isConfirmUnpublishOpen = false;
 
   VisualiserCard = VisualiserCard;
@@ -196,7 +213,7 @@ export default class TemplateManagementEditController extends Controller {
   AttributeEditor = AttributeEditor;
   DebugInfo = DebugInfo;
 
-  SnippetListSelect = SnippetListSelectRdfaComponent;
+  SnippetListSelect: unknown = SnippetListSelectRdfaComponent;
   SnippetInsert = SnippetInsertRdfaComponent;
   StructureInsert = StructureInsert;
   StructureControl = StructureControl;
@@ -283,14 +300,13 @@ export default class TemplateManagementEditController extends Controller {
   }
 
   @action
-  toggleMenu(menuKey, expanded) {
+  toggleMenu(menuKey: keyof typeof this.sidebarSettings, expanded: boolean) {
     const sidebarSettings = this.sidebarSettings;
     sidebarSettings[menuKey]['expanded'] = expanded;
     this.editorSettingsService.sidebarSettings = sidebarSettings;
   }
 
   get variableTypes() {
-    const config = getOwner(this).resolveRegistration('config:environment');
     return [
       {
         label: this.intl.t('editor.variables.text'),
@@ -308,8 +324,8 @@ export default class TemplateManagementEditController extends Controller {
         label: this.intl.t('editor.variables.codelist'),
         component: CodelistInsertComponent,
         options: {
-          endpoint: config.insertVariablePlugin.endpoint,
-          publisher: this.currentSession.group?.uri,
+          endpoint: environment.insertVariablePlugin.endpoint,
+          publisher: this.currentSession.group?.uri as string,
         },
       },
       {
@@ -335,7 +351,6 @@ export default class TemplateManagementEditController extends Controller {
     );
   }
   get config() {
-    const env = getOwner(this).resolveRegistration('config:environment');
     const relationshipPredicates = [
       ...RELATIONSHIP_PREDICATES,
       ...(this.internalTypeName === 'decision'
@@ -350,7 +365,9 @@ export default class TemplateManagementEditController extends Controller {
     return {
       tableOfContents: {
         scrollContainer: () =>
-          document.getElementsByClassName('say-container__main')[0],
+          document.getElementsByClassName(
+            'say-container__main',
+          )[0] as HTMLElement,
         scrollingPadding: 300,
       },
       date: {
@@ -373,19 +390,19 @@ export default class TemplateManagementEditController extends Controller {
       structures:
         this.internalTypeName === 'decision'
           ? {
-              uriGenerator: 'template-uuid4',
+              uriGenerator: 'template-uuid4' as const,
               fullLengthArticles: false,
               onlyArticleSpecialName: true,
             }
           : {
-              uriGenerator: 'template-uuid4',
+              uriGenerator: 'template-uuid4' as const,
               fullLengthArticles: true,
               onlyArticleSpecialName: false,
             },
       citation: {
         type: 'nodes',
-        activeInNodeTypes(schema) {
-          return new Set([schema.nodes.doc]);
+        activeInNodeTypes(schema: Schema) {
+          return new Set([schema.nodes['doc']!]);
         },
         endpoint: '/codex/sparql',
       },
@@ -397,8 +414,8 @@ export default class TemplateManagementEditController extends Controller {
         endpoint: '/raw-sparql',
       },
       roadsignRegulation: {
-        endpoint: env.mowRegistryEndpoint,
-        imageBaseUrl: env.roadsignImageBaseUrl,
+        endpoint: environment.mowRegistryEndpoint,
+        imageBaseUrl: environment.roadsignImageBaseUrl,
       },
       decisionType: {
         endpoint: 'https://centrale-vindplaats.lblod.info/sparql',
@@ -454,7 +471,7 @@ export default class TemplateManagementEditController extends Controller {
                 ),
               },
               'http://www.w3.org/ns/shacl#MinCountConstraintComponent': {
-                action: (controller) =>
+                action: (controller: SayController) =>
                   insertTitleAtCursor(controller, this.intl),
                 buttonTitle: this.intl.t(
                   'document-validation.actions.insert-title',
@@ -472,7 +489,7 @@ export default class TemplateManagementEditController extends Controller {
                 ),
               },
               'http://www.w3.org/ns/shacl#MinCountConstraintComponent': {
-                action: (controller) =>
+                action: (controller: SayController) =>
                   insertDescriptionAtCursor(controller, this.intl),
                 buttonTitle: this.intl.t(
                   'document-validation.actions.insert-description',
@@ -490,7 +507,7 @@ export default class TemplateManagementEditController extends Controller {
                 ),
               },
               'http://www.w3.org/ns/shacl#MinCountConstraintComponent': {
-                action: (controller) =>
+                action: (controller: SayController) =>
                   insertMotivationAtCursor(controller, this.intl),
                 buttonTitle: this.intl.t(
                   'document-validation.actions.insert-motivation',
@@ -508,7 +525,7 @@ export default class TemplateManagementEditController extends Controller {
                 ),
               },
               'http://www.w3.org/ns/shacl#MinCountConstraintComponent': {
-                action: (controller) =>
+                action: (controller: SayController) =>
                   insertArticleContainerAtCursor(controller, this.intl),
                 buttonTitle: this.intl.t(
                   'document-validation.actions.insert-article-container',
@@ -524,7 +541,7 @@ export default class TemplateManagementEditController extends Controller {
   }
 
   get nodeViews() {
-    return (controller) => {
+    return (controller: SayController) => {
       return {
         table_of_contents: tableOfContentsView(this.config.tableOfContents)(
           controller,
@@ -539,7 +556,7 @@ export default class TemplateManagementEditController extends Controller {
         templateComment: templateCommentView(controller),
         person_variable: personVariableView(controller),
         inline_rdfa: inlineRdfaWithConfigView({ rdfaAware: true })(controller),
-        block_rdfa: (node) => new BlockRDFaView(node),
+        block_rdfa: (node: PNode) => new BlockRDFaView(node),
         snippet_placeholder: snippetPlaceholderView(this.config.snippet)(
           controller,
         ),
@@ -570,18 +587,17 @@ export default class TemplateManagementEditController extends Controller {
     return null;
   }
 
-  /** @returns {'decision', 'regulatory-attachment'} - the internal name for the template type */
-  get internalTypeName() {
+  get internalTypeName(): 'decision' | 'regulatory-attachment' {
     return this.model?.templateTypeId === DECISION_STANDARD_FOLDER
       ? 'decision'
       : 'regulatory-attachment';
   }
 
   @action
-  async handleRdfaEditorInit(editor) {
+  async handleRdfaEditorInit(editor: SayController) {
     this.editor = editor;
     if (this.editorDocument.content) {
-      editor.initialize(this.editorDocument.content, {
+      editor.initialize(this.editorDocument.content as string, {
         doNotClean: true,
         startsDirty: false,
       });
@@ -591,7 +607,6 @@ export default class TemplateManagementEditController extends Controller {
       // any of the decision-based plugins work
       const decisionNodeType = this.editor.schema.nodes['block_rdfa'];
       if (decisionNodeType) {
-        /** @type {import('@lblod/ember-rdfa-editor/core/rdfa-processor').OutgoingTriple[]} */
         const outgoingProps = [
           {
             predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
@@ -608,7 +623,7 @@ export default class TemplateManagementEditController extends Controller {
             properties: outgoingProps,
             rdfaNodeType: 'resource',
           },
-          this.editor.schema.nodes['paragraph'].create(),
+          this.editor.schema.nodes['paragraph']?.create(),
         );
         this.editor.withTransaction(
           (tr) => tr.replaceSelectionWith(decisionNode),
@@ -652,59 +667,69 @@ export default class TemplateManagementEditController extends Controller {
   });
 
   save = task(async () => {
-    const html = this.editor.htmlContent;
-    const templateVersion = generateTemplate(this.editor);
-    const editorDocument = this.store.createRecord('editor-document', {
-      title: this.model.editorDocument.title,
-      content: html,
-      templateVersion: templateVersion,
-      createdOn: this.model.editorDocument.createdOn,
-      updatedOn: new Date(),
-      documentContainer: this.model.documentContainer,
-    });
-    await editorDocument.save();
+    if (this.editor) {
+      const html = this.editor.htmlContent;
+      const templateVersion = generateTemplate(this.editor);
+      const editorDocument = this.store.createRecord('editor-document', {
+        title: this.model.editorDocument.title,
+        content: html,
+        templateVersion: templateVersion,
+        createdOn: this.model.editorDocument.createdOn,
+        updatedOn: new Date(),
+        documentContainer: this.model.documentContainer,
+      }) as EditorDocumentModel;
+      await editorDocument.save();
 
-    const documentContainer = this.model.documentContainer;
-    documentContainer.currentVersion = editorDocument;
+      const documentContainer = this.model.documentContainer;
+      documentContainer.currentVersion = editorDocument;
 
-    const snippetListUris = extractSnippetListUris(html);
-    const snippetListObjects = await Promise.all(
-      snippetListUris.map((uri) => this.store.findByUri('snippet-list', uri)),
-    );
-    documentContainer.linkedSnippetLists = snippetListObjects;
-    await documentContainer.save();
+      const snippetListUris = extractSnippetListUris(html);
+      const snippetListObjects = await Promise.all(
+        snippetListUris.map(
+          (uri: string) =>
+            this.store.findByUri('snippet-list', uri) as Promise<SnippetList>,
+        ),
+      );
+      documentContainer.linkedSnippetLists = snippetListObjects;
+      await documentContainer.save();
 
-    this._editorDocument = editorDocument;
-    this.editor?.setHtmlContent(html);
-    this.editor?.markClean();
+      this._editorDocument = editorDocument;
+      this.editor?.setHtmlContent(html);
+      this.editor?.markClean();
+    }
   });
 
   get documentSnippetListIds() {
     return (
       this.editor
-        .getDocumentAttribute(SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE)
+        ?.getDocumentAttribute(SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE)
         ?.split(',')
         .filter(Boolean) ?? []
     );
   }
 
   set documentSnippetListIds(snippetIds) {
-    this.editor.setDocumentAttribute(
-      SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE,
-      snippetIds.join(','),
-    );
-    this.assignedSnippetListsIds = snippetIds;
+    if (this.editor) {
+      this.editor.setDocumentAttribute(
+        SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE,
+        snippetIds.join(','),
+      );
+      this.assignedSnippetListsIds = snippetIds;
+    }
   }
 
-  get isPublished() {
+  get isPublished(): boolean {
     const version = this.model.templateVersion;
     return (
-      version &&
+      Boolean(version) &&
       (!this.unpublishDate || isAfter(this.unpublishDate, Date.now()))
     );
   }
   get unpublishDate() {
-    const validThrough = this.model.templateVersion?.validThrough;
+    const validThrough = this.model.templateVersion?.validThrough as
+      | string
+      | Date
+      | undefined;
     return (
       validThrough &&
       (validThrough instanceof Date ? validThrough : new Date(validThrough))
@@ -722,8 +747,10 @@ export default class TemplateManagementEditController extends Controller {
   }
 
   unpublishTemplate = task(async () => {
-    this.model.templateVersion.validThrough = new Date();
-    await this.model.templateVersion.save();
+    if (this.model.templateVersion) {
+      this.model.templateVersion.validThrough = new Date();
+      await this.model.templateVersion.save();
+    }
   });
 
   /**
@@ -738,21 +765,30 @@ export default class TemplateManagementEditController extends Controller {
     }
   }
 
-  subjectOptionGeneratorTask = restartableTask(async (args) => {
-    await timeout(200);
-    const result = (await this.optionGeneratorConfig?.subjects?.(args)) ?? [];
-    return result;
-  });
-  predicateOptionGeneratorTask = restartableTask(async (args) => {
-    await timeout(200);
-    const result = (await this.optionGeneratorConfig?.predicates?.(args)) ?? [];
-    return result;
-  });
-  objectOptionGeneratorTask = restartableTask(async (args) => {
-    await timeout(200);
-    const result = (await this.optionGeneratorConfig?.objects?.(args)) ?? [];
-    return result;
-  });
+  subjectOptionGeneratorTask = restartableTask(
+    async (args: TargetOptionGeneratorArgs) => {
+      await timeout(200);
+      const result: SubjectOption[] =
+        (await this.optionGeneratorConfig?.subjects?.(args)) ?? [];
+      return result;
+    },
+  );
+  predicateOptionGeneratorTask = restartableTask(
+    async (args: TargetOptionGeneratorArgs) => {
+      await timeout(200);
+      const result: PredicateOption[] =
+        (await this.optionGeneratorConfig?.predicates?.(args)) ?? [];
+      return result;
+    },
+  );
+  objectOptionGeneratorTask = restartableTask(
+    async (args: TargetOptionGeneratorArgs) => {
+      await timeout(200);
+      const result: ObjectOption[] =
+        (await this.optionGeneratorConfig?.objects?.(args)) ?? [];
+      return result;
+    },
+  );
 
   optionGeneratorConfigTaskified = {
     subjects: this.subjectOptionGeneratorTask.perform.bind(this),
@@ -766,234 +802,19 @@ export default class TemplateManagementEditController extends Controller {
     };
   }
   @action
-  insertThing(thing) {
-    const map = {
-      nummerplaten: /* HTML */ `
-        <div
-          class="say-editable say-block-rdfa"
-          about="http://data.vlaanderen.be/id/voorwaarden/--ref-uuid4-b73cdde4-482a-454a-8323-ce20e04e3ac7"
-          data-say-id="b73cdde4-482a-454a-8323-ce20e04e3ac7"
-          property="http://www.w3.org/ns/prov#value"
-          lang="nl-be"
-          data-pm-slice="0 0 []"
-        >
-          <div
-            style="display: none"
-            class="say-hidden"
-            data-rdfa-container="true"
-          >
-            <span
-              about="http://data.vlaanderen.be/id/voorwaarden/--ref-uuid4-b73cdde4-482a-454a-8323-ce20e04e3ac7"
-              property="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-              resource="http://data.europa.eu/m8g/Requirement"
-            ></span
-            ><span
-              property="http://www.w3.org/2004/02/skos/core#prefLabel"
-              content="Aantal nummerplaten"
-              lang="nl-be"
-            ></span>
-          </div>
-          <div data-content-container="true">
-            <p class="say-paragraph">
-              Tenzij anders bepaald, kan de vergunning voor een onbeperkt aantal
-              nummerplaten worden aangevraagd
-            </p>
-          </div>
-        </div>
-      `,
-      duurtijd: /* HTML */ `
-        <div
-          class="say-editable say-block-rdfa"
-          about="http://data.vlaanderen.be/id/duurtijden/--ref-uuid4-7586b9c7-e0ed-4a9f-94f6-5705420ec3cf"
-          data-say-id="7586b9c7-e0ed-4a9f-94f6-5705420ec3cf"
-          property="http://www.w3.org/ns/prov#value"
-          lang="nl-be"
-          data-pm-slice="0 0 []"
-        >
-          <div
-            style="display: none"
-            class="say-hidden"
-            data-rdfa-container="true"
-          >
-            <span
-              about="http://data.vlaanderen.be/id/duurtijden/--ref-uuid4-7586b9c7-e0ed-4a9f-94f6-5705420ec3cf"
-              property="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-              resource="http://data.europa.eu/m8g/Requirement"
-            ></span
-            ><span
-              property="http://www.w3.org/2004/02/skos/core#prefLabel"
-              content="Duurtijd"
-              lang="nl-be"
-            ></span>
-          </div>
-          <div data-content-container="true">
-            <p class="say-paragraph">
-              Tenzij anders bepaald, heeft de vergunning een onbeperkte
-              duurtijd.
-            </p>
-          </div>
-        </div>
-      `,
-      zone: /* HTML */ `
-        <div
-          class="say-editable say-block-rdfa"
-          about="http://data.vlaanderen.be/id/zones/--ref-uuid4-32047e20-00d3-4b66-8f1f-9dc5fa275e0f"
-          data-say-id="32047e20-00d3-4b66-8f1f-9dc5fa275e0f"
-          property="http://www.w3.org/ns/prov#value"
-          lang="nl-be"
-          data-pm-slice="0 0 []"
-        >
-          <div
-            style="display: none"
-            class="say-hidden"
-            data-rdfa-container="true"
-          >
-            <span
-              property="http://www.w3.org/2004/02/skos/core#prefLabel"
-              content="Zone"
-              lang="nl-be"
-            ></span
-            ><span
-              about="http://data.vlaanderen.be/id/zones/--ref-uuid4-32047e20-00d3-4b66-8f1f-9dc5fa275e0f"
-              property="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-              resource="https://data.vlaanderen.be/ns/mobiliteit#Zone"
-            ></span
-            ><span
-              about="http://data.vlaanderen.be/id/zones/--ref-uuid4-32047e20-00d3-4b66-8f1f-9dc5fa275e0f"
-              property="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-              resource="http://data.europa.eu/m8g/Requirement"
-            ></span>
-          </div>
-          <div data-content-container="true"><p class="say-paragraph"></p></div>
-        </div>
-      `,
-      bewijsstuk: /* HTML */ `
-        <span
-          class="say-variable"
-          data-say-variable="true"
-          data-say-variable-type="codelist"
-          data-selection-style="single"
-          data-label="bewijsstuk"
-          data-codelist="http://lblod.data.gift/concept-schemes/6810101828455F96985D7CD2"
-          data-source="/raw-sparql"
-          data-say-id="5af9422e-2479-4b3b-8ca6-0a30d66cf254"
-          data-literal-node="true"
-          datatype="http://www.w3.org/2001/XMLSchema#string"
-          ><span
-            style="display: none"
-            class="say-hidden"
-            data-rdfa-container="true"
-          ></span
-          ><span data-content-container="true"
-            ><span
-              class="mark-highlight-manual say-placeholder"
-              placeholdertext="bewijsstuk"
-              contenteditable="false"
-              >bewijsstuk</span
-            ></span
-          ></span
-        >
-      `,
-      voorwaarde: /* HTML */ `
-        <div
-          class="say-editable say-block-rdfa"
-          about="http://data.vlaanderen.be/id/voorwaarden/--ref-uuid4-197c3905-3587-4c33-9765-d34ec7e113a1"
-          data-say-id="d3ecf4b0-f9b5-4ef8-893e-94784f170a61"
-          property="http://www.w3.org/ns/prov#value"
-          lang="nl-be"
-          data-pm-slice="0 0 []"
-        >
-          <div
-            style="display: none"
-            class="say-hidden"
-            data-rdfa-container="true"
-          >
-            <span
-              about="http://data.vlaanderen.be/id/voorwaarden/--ref-uuid4-197c3905-3587-4c33-9765-d34ec7e113a1"
-              property="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-              resource="http://data.europa.eu/m8g/Requirement"
-            ></span
-            ><span
-              property="http://www.w3.org/2004/02/skos/core#prefLabel"
-              content="Voorwaarde"
-              lang="nl-be"
-            ></span
-            ><span
-              rev="http://data.europa.eu/m8g/isRequirementOf"
-              resource="http://collection/1"
-            ></span>
-          </div>
-          <div data-content-container="true"><p class="say-paragraph"></p></div>
-        </div>
-      `,
-      doelgroep: /* HTML */ `
-        <div>
-          <div
-            class="say-editable say-block-rdfa"
-            about="http://data.vlaanderen.be/7079c444-a934-4ddf-85d1-f0968b5555dd"
-            data-say-id="7079c444-a934-4ddf-85d1-f0968b5555dd"
-            data-pm-slice="0 0 []"
-          >
-            <div
-              style="display: none"
-              class="say-hidden"
-              data-rdfa-container="true"
-            >
-              <span
-                about="http://data.vlaanderen.be/7079c444-a934-4ddf-85d1-f0968b5555dd"
-                property="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-                resource="http://data.europa.eu/m8g/Requirement"
-              ></span
-              ><span
-                property="http://www.w3.org/2004/02/skos/core#prefLabel"
-                content="Doelgroep"
-                lang="nl-be"
-              ></span>
-            </div>
-            <div data-content-container="true">
-              <p class="say-paragraph">
-                <span
-                  class="say-variable"
-                  data-say-variable="true"
-                  data-say-variable-type="codelist"
-                  data-selection-style="single"
-                  data-label="type aanvrager"
-                  data-codelist="http://lblod.data.gift/concept-schemes/680FE8AD28455F96985D7CB9"
-                  data-source="/raw-sparql"
-                  data-say-id="0b1fedba-91c9-4d2d-9720-67bc618e8842"
-                  data-literal-node="true"
-                  datatype="http://www.w3.org/2001/XMLSchema#string"
-                  ><span
-                    style="display: none"
-                    class="say-hidden"
-                    data-rdfa-container="true"
-                  ></span
-                  ><span data-content-container="true"
-                    ><span
-                      class="mark-highlight-manual say-placeholder"
-                      placeholdertext="type aanvrager"
-                      contenteditable="false"
-                      >type aanvrager</span
-                    ></span
-                  ></span
-                >
-                waarbij volgende voorwaarden van toepassing zijn:
-              </p>
-            </div>
-          </div>
-        </div>
-      `,
-    };
-    this.editor.doCommand(
-      insertHtml(
-        instantiateUuids(map[thing]),
-        this.editor.mainEditorState.selection.from,
-        this.editor.mainEditorState.selection.to,
-        undefined,
-        false,
-        true,
-      ),
-      { view: this.editor.mainEditorView },
-    );
+  insertThing(thing: keyof typeof citerraMap) {
+    if (this.editor) {
+      this.editor.doCommand(
+        insertHtml(
+          instantiateUuids(citerraMap[thing]),
+          this.editor.mainEditorState.selection.from,
+          this.editor.mainEditorState.selection.to,
+          undefined,
+          false,
+          true,
+        ),
+        { view: this.editor.mainEditorView },
+      );
+    }
   }
 }
