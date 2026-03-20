@@ -252,6 +252,11 @@
             @options={{this.config.date}}
             @templateMode={{true}}
           />
+
+          <VariablePlugin::Marcode::Insert
+            @controller={{container.controller}}
+            @config={{this.codelistEditOptions}}
+          />
           <LocationPlugin::Insert
             @controller={{container.controller}}
             @config={{this.config.location}}
