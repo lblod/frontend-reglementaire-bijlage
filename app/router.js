@@ -1,9 +1,9 @@
 import EmberRouter from '@ember/routing/router';
-import config from 'frontend-reglementaire-bijlage/config/environment';
+import environment from 'frontend-reglementaire-bijlage/config/environment';
 
 export default class Router extends EmberRouter {
-  location = config.locationType;
-  rootURL = config.rootURL;
+  location = environment.locationType;
+  rootURL = environment.rootURL;
 }
 
 Router.map(function () {

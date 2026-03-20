@@ -176,6 +176,9 @@ importers:
       '@types/lodash.mergewith':
         specifier: ^4.6.9
         version: 4.6.9
+      '@types/rsvp':
+        specifier: ^4.0.9
+        version: 4.0.9
       '@types/uuid':
         specifier: ^10.0.0
         version: 10.0.0
@@ -2475,6 +2478,9 @@ packages:
 
   '@types/rimraf@2.0.5':
     resolution: {integrity: sha512-YyP+VfeaqAyFmXoTh3HChxOQMyjByRMsHU7kc5KOJkSlXudhMhQIALbYV7rHh/l8d2lX3VUQzprrcAgWdRuU8g==}
+
+  '@types/rsvp@4.0.9':
+    resolution: {integrity: sha512-F6vaN5mbxw2MBCu/AD9fSKwrhnto2pE77dyUsi415qz9IP9ni9ZOWXHxnXfsM4NW9UjW+it189jvvqnhv37Z7Q==}
 
   '@types/send@0.17.4':
     resolution: {integrity: sha512-x2EM6TJOybec7c52BX0ZspPodMsQUd5L6PRwOunVyVUhXiBSKf3AezDL8Dgvgt5o0UfKNfuA0eMLr2wLT4AiBA==}
@@ -12902,6 +12908,8 @@ snapshots:
     dependencies:
       '@types/glob': 8.1.0
       '@types/node': 25.5.0
+
+  '@types/rsvp@4.0.9': {}
 
   '@types/send@0.17.4':
     dependencies:
