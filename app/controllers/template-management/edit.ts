@@ -721,7 +721,7 @@ export default class TemplateManagementEditController extends Controller {
   get isPublished(): boolean {
     const version = this.model.templateVersion;
     return (
-      version &&
+      Boolean(version) &&
       (!this.unpublishDate || isAfter(this.unpublishDate, Date.now()))
     );
   }
@@ -747,8 +747,10 @@ export default class TemplateManagementEditController extends Controller {
   }
 
   unpublishTemplate = task(async () => {
-    this.model.templateVersion.validThrough = new Date();
-    await this.model.templateVersion.save();
+    if (this.model.templateVersion) {
+      this.model.templateVersion.validThrough = new Date();
+      await this.model.templateVersion.save();
+    }
   });
 
   /**
