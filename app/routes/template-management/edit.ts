@@ -1,4 +1,3 @@
-import { template } from '@ember/-internals/glimmer';
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 import type Store from 'ember-data/store';
