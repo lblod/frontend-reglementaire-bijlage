@@ -1,3 +1,4 @@
+import { template } from '@ember/-internals/glimmer';
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 import type Store from 'ember-data/store';
@@ -24,8 +25,8 @@ export default class TemplateManagementEditRoute extends Route {
         reload: true,
       },
     )) as DocumentContainerModel;
-    const templateVersion = await this.store
-      .query('template', {
+    const templates: Template[] = (
+      await this.store.query('template', {
         filter: {
           'derived-from': {
             id: documentContainer.id,
@@ -35,10 +36,8 @@ export default class TemplateManagementEditRoute extends Route {
         avoid_cache: new Date().toISOString(),
         include: 'current-version',
       })
-      .then(
-        (templates) =>
-          (templates.slice()[0] as Template).currentVersion as TemplateVersion,
-      );
+    ).slice() as Template[];
+    const templateVersion = templates[0]?.currentVersion as TemplateVersion | undefined;
 
     return hash({
       documentContainer,

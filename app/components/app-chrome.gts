@@ -78,12 +78,23 @@ export default class AppChromeComponent extends Component<AppChromeComponentSign
   <template>
     <nav>
       <div class='au-c-app-chrome'>
-        <AuToolbar @size='small' class='au-u-padding-bottom-none' as |Group|>
+        <AuToolbar @size='small' class='au-u-padding-top-none' as |Group|>
           <Group>
-            <span
-              class='au-c-app-chrome__entity'
-            >{{this.currentSession.group.classificatie.label}}
-              {{this.currentSession.group.naam}}</span>
+            {{#if @document.isNew}}
+              <AuPill @skin='warning'>
+                <AuIcon @icon='alert-triangle' @alignment='left' />
+                {{t 'utility.unsaved-concept'}}
+              </AuPill>
+            {{/if}}
+            <EditorDocumentTitle
+              @title={{@document.title}}
+              @editActive={{@document.isNew}}
+              @onSubmit={{perform this.updateDocumentTitle}}
+              @readOnly={{@readOnly}}
+            />
+            {{#if this.templateTypeLabel}}
+              <AuPill>{{this.templateTypeLabel}}</AuPill>
+            {{/if}}
           </Group>
           <Group>
             <ul class='au-c-list-horizontal au-u-padding-right-tiny'>
@@ -108,27 +119,6 @@ export default class AppChromeComponent extends Component<AppChromeComponentSign
                 {{/if}}
               {{/unless}}
             </ul>
-          </Group>
-        </AuToolbar>
-        <AuToolbar @size='small' class='au-u-padding-top-none' as |Group|>
-          <Group>
-            {{#if @document.isNew}}
-              <AuPill @skin='warning'>
-                <AuIcon @icon='alert-triangle' @alignment='left' />
-                {{t 'utility.unsaved-concept'}}
-              </AuPill>
-            {{/if}}
-            <EditorDocumentTitle
-              @title={{@document.title}}
-              @editActive={{@document.isNew}}
-              @onSubmit={{perform this.updateDocumentTitle}}
-              @readOnly={{@readOnly}}
-            />
-            {{#if this.templateTypeLabel}}
-              <AuPill>{{this.templateTypeLabel}}</AuPill>
-            {{/if}}
-          </Group>
-          <Group>
             {{yield to='leadingButtons'}}
             {{#if @save}}
               <AuButton

@@ -163,7 +163,7 @@ import {
   documentValidationPlugin,
   documentValidationPluginKey,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/document-validation-plugin';
-import type Store from 'ember-data/store';
+import type Store from '../../services/store';
 import type RouterService from '@ember/routing/router-service';
 import type IntlService from 'ember-intl/services/intl';
 import type CurrentSessionService from '../../services/current-session';
@@ -174,6 +174,13 @@ import environment from 'frontend-reglementaire-bijlage/config/environment';
 import type { ModelFrom } from 'frontend-reglementaire-bijlage/utils/type-utils';
 import type TemplateManagementEditRoute from 'frontend-reglementaire-bijlage/routes/template-management/edit';
 import type EditorDocumentModel from 'frontend-reglementaire-bijlage/models/editor-document';
+import type SnippetList from 'frontend-reglementaire-bijlage/models/snippet-list';
+import type {
+  TargetOptionGeneratorArgs,
+  SubjectOption,
+  PredicateOption,
+  ObjectOption,
+} from '@lblod/ember-rdfa-editor/components/_private/relationship-editor/types';
 /** @import EditorSettings from '../../services/editor-settings'; */
 
 const SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE = 'data-snippet-list-ids';
@@ -600,7 +607,6 @@ export default class TemplateManagementEditController extends Controller {
       // any of the decision-based plugins work
       const decisionNodeType = this.editor.schema.nodes['block_rdfa'];
       if (decisionNodeType) {
-        /** @type {import('@lblod/ember-rdfa-editor/core/rdfa-processor').OutgoingTriple[]} */
         const outgoingProps = [
           {
             predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
@@ -679,8 +685,9 @@ export default class TemplateManagementEditController extends Controller {
 
       const snippetListUris = extractSnippetListUris(html);
       const snippetListObjects = await Promise.all(
-        snippetListUris.map((uri: string) =>
-          this.store.findByUri('snippet-list', uri),
+        snippetListUris.map(
+          (uri: string) =>
+            this.store.findByUri('snippet-list', uri) as Promise<SnippetList>,
         ),
       );
       documentContainer.linkedSnippetLists = snippetListObjects;
@@ -756,21 +763,30 @@ export default class TemplateManagementEditController extends Controller {
     }
   }
 
-  subjectOptionGeneratorTask = restartableTask(async (args) => {
-    await timeout(200);
-    const result = (await this.optionGeneratorConfig?.subjects?.(args)) ?? [];
-    return result;
-  });
-  predicateOptionGeneratorTask = restartableTask(async (args) => {
-    await timeout(200);
-    const result = (await this.optionGeneratorConfig?.predicates?.(args)) ?? [];
-    return result;
-  });
-  objectOptionGeneratorTask = restartableTask(async (args) => {
-    await timeout(200);
-    const result = (await this.optionGeneratorConfig?.objects?.(args)) ?? [];
-    return result;
-  });
+  subjectOptionGeneratorTask = restartableTask(
+    async (args: TargetOptionGeneratorArgs) => {
+      await timeout(200);
+      const result: SubjectOption[] =
+        (await this.optionGeneratorConfig?.subjects?.(args)) ?? [];
+      return result;
+    },
+  );
+  predicateOptionGeneratorTask = restartableTask(
+    async (args: TargetOptionGeneratorArgs) => {
+      await timeout(200);
+      const result: PredicateOption[] =
+        (await this.optionGeneratorConfig?.predicates?.(args)) ?? [];
+      return result;
+    },
+  );
+  objectOptionGeneratorTask = restartableTask(
+    async (args: TargetOptionGeneratorArgs) => {
+      await timeout(200);
+      const result: ObjectOption[] =
+        (await this.optionGeneratorConfig?.objects?.(args)) ?? [];
+      return result;
+    },
+  );
 
   optionGeneratorConfigTaskified = {
     subjects: this.subjectOptionGeneratorTask.perform.bind(this),
