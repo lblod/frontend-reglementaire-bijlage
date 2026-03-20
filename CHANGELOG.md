@@ -1,5 +1,17 @@
 # frontend-reglementaire-bijlage
 
+## 9.30.0
+
+### Minor Changes
+
+- [`69c260c7bf6660fe43edcf5cb191d8374f300ee1`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/69c260c7bf6660fe43edcf5cb191d8374f300ee1) Thanks [@abeforgit](https://github.com/abeforgit)! - Bump plugins to [v35.1.2](https://github.com/lblod/ember-rdfa-editor-lblod-plugins/releases/tag/v35.1.2) and editor to [@lblod](https://github.com/lblod/ember-rdfa-editor/releases/tag/@lblod/ember-rdfa-editor@13.4.0)
+
+- [#349](https://github.com/lblod/frontend-reglementaire-bijlage/pull/349) [`0cdc22f6f6273fb350894cc702e8e0a82b87b4f2`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/0cdc22f6f6273fb350894cc702e8e0a82b87b4f2) Thanks [@abeforgit](https://github.com/abeforgit)! - Add marcode plugin
+
+### Patch Changes
+
+- [#348](https://github.com/lblod/frontend-reglementaire-bijlage/pull/348) [`3dd8741b7288743f2d371b5776efd978a3733d25`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/3dd8741b7288743f2d371b5776efd978a3733d25) Thanks [@abeforgit](https://github.com/abeforgit)! - Modernize eslint config
+
 ## 9.29.0
 
 ### Minor Changes
@@ -160,7 +172,6 @@
   Update `@lblod/ember-rdfa-editor-lblod-plugins` to version [30.0.0](https://github.com/lblod/ember-rdfa-editor-lblod-plugins/releases/tag/v30.0.0)
 
   These new versions contain support (among other features/fixes) for:
-
   - Smart variables
   - Adding backlinks to literal nodes
 
@@ -560,7 +571,6 @@
 ### Minor Changes
 
 - [#267](https://github.com/lblod/frontend-reglementaire-bijlage/pull/267) [`12d4356`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/12d4356e3a80abafeb829906d7da1d95b7f261e8) Thanks [@elpoelma](https://github.com/elpoelma)! - Restructure snippet editor sidebar intro 3 sections:
-
   - Algemene nodes (General nodes): contains actions such as inserting dates, citations etc.
   - Besluit nodes (Decision nodes): contains actions such as inserting a mandatee table, decision article
   - Reglementaire Bijlage nodes (Regulatory statement nodes): contains actions such as inserting article structures, document titles
@@ -684,9 +694,7 @@
 ### Minor Changes
 
 - [#237](https://github.com/lblod/frontend-reglementaire-bijlage/pull/237) [`af836e4`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/af836e46f5e1731ab0686ea044ff8a6ee13cc2d5) Thanks [@dkozickis](https://github.com/dkozickis)! - GN-4801: Bump `@appuniversum/ember-appuniversum` to `3.4.1`
-
   - Bump `@appuniversum/ember-appuniversum` to `3.4.1`
-
     - Update breaking changes
       - Use yielded `Group` from `AuToolbar` instead of `AuToolbar::Group`
       - Change `@skin='tertiary'` to `@skin='link'` on `AuButton`
@@ -731,7 +739,6 @@
 ### Minor Changes
 
 - [#221](https://github.com/lblod/frontend-reglementaire-bijlage/pull/221) [`5a0060a`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/5a0060a61cce2d18aad484f333aedd7ee6f8872a) Thanks [@abeforgit](https://github.com/abeforgit)! - Bump editor to 9.1.0 and plugins to 16.1.0
-
   - enable resizable tables config
   - fixes GN-4654
   - fixes GN-4652
