@@ -1,5 +1,11 @@
 # frontend-reglementaire-bijlage
 
+## 9.31.0
+
+### Minor Changes
+
+- [`57b8e0c83daa41ee05de35db6d755114f8aceccc`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/57b8e0c83daa41ee05de35db6d755114f8aceccc) Thanks [@lagartoverde](https://github.com/lagartoverde)! - Bump plugins to [v35.2.0](https://github.com/lblod/ember-rdfa-editor-lblod-plugins/releases/tag/v35.2.0)
+
 ## 9.30.0
 
 ### Minor Changes
