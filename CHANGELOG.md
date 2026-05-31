@@ -1,5 +1,17 @@
 # frontend-reglementaire-bijlage
 
+## 9.33.0
+
+### Minor Changes
+
+- [#352](https://github.com/lblod/frontend-reglementaire-bijlage/pull/352) [`364b0afcfd5b3b8be0596d1dc6c6ad0502ce432c`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/364b0afcfd5b3b8be0596d1dc6c6ad0502ce432c) Thanks [@abeforgit](https://github.com/abeforgit)! - bump editor to [@lblod](https://github.com/lblod/ember-rdfa-editor/releases/tag/@lblod/ember-rdfa-editor@13.8.0)
+
+- [#352](https://github.com/lblod/frontend-reglementaire-bijlage/pull/352) [`364b0afcfd5b3b8be0596d1dc6c6ad0502ce432c`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/364b0afcfd5b3b8be0596d1dc6c6ad0502ce432c) Thanks [@abeforgit](https://github.com/abeforgit)! - bump plugins to [v37.0.3](https://github.com/lblod/ember-rdfa-editor-lblod-plugins/releases/tag/v37.0.3)
+
+### Patch Changes
+
+- [#352](https://github.com/lblod/frontend-reglementaire-bijlage/pull/352) [`eaa2b4525dff61cdca987076b9ce2b224b42891f`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/eaa2b4525dff61cdca987076b9ce2b224b42891f) Thanks [@abeforgit](https://github.com/abeforgit)! - Fix performance issues on large regulations
+
 ## 9.32.0
 
 ### Minor Changes
