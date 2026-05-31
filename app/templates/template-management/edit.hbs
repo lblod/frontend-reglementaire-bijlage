@@ -58,6 +58,8 @@
     @schema={{this.schema}}
     @nodeViews={{this.nodeViews}}
     @plugins={{this.plugins}}
+    @contextualActionGetters={{this.contextualActionGetters}}
+    @contextualActionGroupGetters={{this.contextualActionGroupGetters}}
   >
     <:toolbar as |container|>
       <ResponsiveToolbar>
@@ -263,17 +265,19 @@
             @templateMode={{true}}
           />
           <LocationPlugin::InsertLocationPlaceholder
-              @controller={{this.editor}}
-              @templateMode={{true}}
-              @config={{this.config.location}}
-            />
+            @controller={{this.editor}}
+            @templateMode={{true}}
+            @config={{this.config.location}}
+          />
           <CitationPlugin::CitationInsert
             @controller={{container.controller}}
             @plugin={{this.citationPlugin}}
             @config={{this.config.citation}}
           />
           {{#if this.supportsComments}}
-            <TemplateCommentsPlugin::Insert @controller={{container.controller}} />
+            <TemplateCommentsPlugin::Insert
+              @controller={{container.controller}}
+            />
           {{/if}}
           <SnippetPlugin::SnippetInsertPlaceholder
             @controller={{container.controller}}
@@ -305,7 +309,9 @@
               @controller={{container.controller}}
               @options={{this.config.roadsignRegulation}}
             />
-            <DecisionPlugin::DecisionPluginCard @controller={{container.controller}} />
+            <DecisionPlugin::DecisionPluginCard
+              @controller={{container.controller}}
+            />
 
           </Sidebar.Collapsible>
         {{/if}}
@@ -316,7 +322,9 @@
             @expanded={{this.sidebarSettings.regulatoryStatement.expanded}}
             @onToggle={{fn this.toggleMenu "regulatoryStatement"}}
           >
-            <DocumentTitlePlugin::InsertTitleCard @controller={{container.controller}} />
+            <DocumentTitlePlugin::InsertTitleCard
+              @controller={{container.controller}}
+            />
             <ArticleStructurePlugin::ArticleStructureCard
               @controller={{container.controller}}
               @options={{this.config.structures}}
@@ -398,8 +406,12 @@
           @controller={{container.controller}}
           @options={{this.config.date}}
         />
-        <VariablePlugin::Autofilled::Edit @controller={{container.controller}} />
-        <TemplateCommentsPlugin::EditCard @controller={{container.controller}} />
+        <VariablePlugin::Autofilled::Edit
+          @controller={{container.controller}}
+        />
+        <TemplateCommentsPlugin::EditCard
+          @controller={{container.controller}}
+        />
         <PlaceholderUtilsPlugin::Edit @controller={{container.controller}} />
         <this.NodeControlsCard
           @node={{this.activeNode}}
@@ -448,7 +460,9 @@
         {{! VariablePlugin::TemplateVariableCard is not added on purpose
           as an RB-document creator should not be able to set a "default" codelist option.}}
         {{#if (eq this.internalTypeName "decision")}}
-          <DocumentValidationPlugin::Card @controller={{container.controller}} />
+          <DocumentValidationPlugin::Card
+            @controller={{container.controller}}
+          />
         {{/if}}
       </Sidebar>
     </:sidebarRight>
