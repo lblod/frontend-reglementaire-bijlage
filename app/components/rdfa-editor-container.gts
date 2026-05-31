@@ -25,6 +25,11 @@ import Editor, {
 } from '@lblod/ember-rdfa-editor/components/editor';
 import t from 'ember-intl/helpers/t';
 import { hash } from '@ember/helper';
+import ContextualActionsContainer from '@lblod/ember-rdfa-editor/components/plugins/contextual-actions/container';
+import type {
+  GetContextualActionGroups,
+  GetContextualActions,
+} from '@lblod/ember-rdfa-editor/plugins/contextual-actions';
 
 type Signature = {
   Args: {
@@ -37,6 +42,8 @@ type Signature = {
     busyText?: string;
     schema: Schema;
     nodeViews?: RdfaEditorArgs['nodeViews'];
+    contextualActionGetters?: GetContextualActions;
+    contextualActionGroupGetters?: GetContextualActionGroups;
   };
   Blocks: {
     toolbar: [{ controller: SayController }];
@@ -52,6 +59,13 @@ export default class RdfaEditorContainerComponent extends Component<Signature> {
   @tracked editor?: SayController;
   @tracked ready = false;
 
+  get contextualActionGetters() {
+    return this.args.contextualActionGetters ?? [];
+  }
+
+  get contextualActionGroupGetters() {
+    return this.args.contextualActionGroupGetters ?? [];
+  }
   get documentContext(): DocumentContext {
     if (this.args.editorDocument && this.args.editorDocument.context) {
       try {
@@ -154,6 +168,13 @@ export default class RdfaEditorContainerComponent extends Component<Signature> {
               @nodeViews={{@nodeViews}}
               @rdfaEditorInit={{this.rdfaEditorInit}}
             />
+            {{#if this.editor}}
+              <ContextualActionsContainer
+                @controller={{this.editor}}
+                @getActions={{this.contextualActionGetters}}
+                @getGroups={{this.contextualActionGroupGetters}}
+              />
+            {{/if}}
           </:default>
           <:sidebarRight as |container|>
             {{yield (hash controller=container.controller) to='sidebarRight'}}

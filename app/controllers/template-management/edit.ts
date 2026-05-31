@@ -187,6 +187,12 @@ const SNIPPET_LISTS_IDS_DOCUMENT_ATTRIBUTE = 'data-snippet-list-ids';
 const GEMEENTE_CLASSIFICATION_URI =
   'http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001';
 
+import { locationModalsPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin';
+import {
+  getContextualActionGroups as locationActionsGroups,
+  getContextualActions as locationActions,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin/contextual-actions';
+
 export default class TemplateManagementEditController extends Controller {
   @service declare store: Store;
   @service declare router: RouterService;
@@ -220,6 +226,9 @@ export default class TemplateManagementEditController extends Controller {
   FormatTextIcon = FormatTextIcon;
   PlusIcon = PlusIcon;
   ThreeDotsIcon = ThreeDotsIcon;
+
+  contextualActionGetters = [locationActions()];
+  contextualActionGroupGetters = [locationActionsGroups()];
 
   schema = new Schema({
     nodes: {
@@ -578,6 +587,7 @@ export default class TemplateManagementEditController extends Controller {
       editableNodePlugin(),
       variableAutofillerPlugin(this.config.autofilledVariable),
       documentValidationPlugin(this.config.documentValidation),
+      locationModalsPlugin(),
     ];
   }
   get activeNode() {
