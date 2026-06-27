@@ -1,5 +1,11 @@
 # frontend-reglementaire-bijlage
 
+## 9.34.0
+
+### Minor Changes
+
+- [`21d6fce22a1464fe65e36bf5b3228fb964eb2ef6`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/21d6fce22a1464fe65e36bf5b3228fb964eb2ef6) Thanks [@abeforgit](https://github.com/abeforgit)! - Bump editor and plugins to latest
+
 ## 9.33.0
 
 ### Minor Changes
