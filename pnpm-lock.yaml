@@ -162,11 +162,11 @@ importers:
         specifier: ^0.10.0
         version: 0.10.2(@glint/template@1.7.4)(ember-simple-auth@6.1.0(@babel/core@7.29.0)(@ember/test-helpers@3.3.1(@babel/core@7.29.0)(@glint/template@1.7.4)(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.29.0))(@glint/template@1.7.4)(rsvp@4.8.5)(webpack@5.97.1))(webpack@5.97.1))(@glint/template@1.7.4)(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.29.0))(@glint/template@1.7.4)(rsvp@4.8.5)(webpack@5.97.1))(eslint@9.39.4(jiti@2.6.1)))(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.29.0))(@glint/template@1.7.4)(rsvp@4.8.5)(webpack@5.97.1))(webpack@5.97.1)
       '@lblod/ember-rdfa-editor':
-        specifier: 13.8.0
-        version: 13.8.0(nla6umuffzdxwo5lxp32ydulhq)
+        specifier: 13.12.1
+        version: 13.12.1(nla6umuffzdxwo5lxp32ydulhq)
       '@lblod/ember-rdfa-editor-lblod-plugins':
-        specifier: 37.0.3
-        version: 37.0.3(ybmahns2wtzy7atiucpgod5tny)
+        specifier: 38.0.0
+        version: 38.0.0(hlltufangpylsmrrzf2cgv5h5q)
       '@release-it-plugins/lerna-changelog':
         specifier: ^6.0.0
         version: 6.1.0(release-it@16.3.0(encoding@0.1.13)(typescript@5.9.3))
@@ -1787,14 +1787,14 @@ packages:
       ember-simple-auth: ^6.0.0
       ember-source: '>= 4.0.0'
 
-  '@lblod/ember-rdfa-editor-lblod-plugins@37.0.3':
-    resolution: {integrity: sha512-WvTO9XWS3iYKTkbAApGkWgCLzFsmSaVw+IKA6Cb1+2/DfZbiX8ABcNdylaHllFo4um5Ob0ek2pjybCBpEB4r9A==}
+  '@lblod/ember-rdfa-editor-lblod-plugins@38.0.0':
+    resolution: {integrity: sha512-w92Cgew57sva86H4tYyBIgYpmUnfRB6FalwfCCbpCZRSe5i7U4iwSbSUTckgw9ya8R7lLV4ZJRLjod9bj9Vstg==}
     engines: {node: '>= 18'}
     peerDependencies:
       '@appuniversum/ember-appuniversum': ^3.12.0
       '@ember/string': 3.x
       '@glint/template': ^1.4.0
-      '@lblod/ember-rdfa-editor': ^13.8.0
+      '@lblod/ember-rdfa-editor': ^13.12.0
       ember-concurrency: ^4.0.2
       ember-element-helper: ^0.8.6
       ember-intl: ^7.0.0
@@ -1811,8 +1811,8 @@ packages:
       ember-template-imports:
         optional: true
 
-  '@lblod/ember-rdfa-editor@13.8.0':
-    resolution: {integrity: sha512-32EDfk8Jnf8U2CgNgIuKqModx7bLtdwF+XF8wydG1yQr3cx6uIIds2XLwH5u+BGDxWeYkcZcSW5fMVD+mJouHw==}
+  '@lblod/ember-rdfa-editor@13.12.1':
+    resolution: {integrity: sha512-DwZSU0co9URQsseeJFUms4RQJI1fhIhOd8y+e1g2pf0nlh4bXsDirO9T3r6dx32x87akeC9EOB0UJ6ulMkwtfA==}
     peerDependencies:
       '@appuniversum/ember-appuniversum': ^3.11.0 || ^4.2.1
       '@ember/test-helpers': ^2.9.4 || ^3.2.1 || ^4.0.2 || ^5.0.0
@@ -2120,10 +2120,6 @@ packages:
   '@rdfjs/io@1.2.0':
     resolution: {integrity: sha512-wGScmcUW7YAcoQk0bTRDBZqdPL/Y58Fuz7F0nXKThBnWPTIUct8CWKzbkT1ym8X/nW46yBw5+nmasVauSN7yIw==}
 
-  '@rdfjs/namespace@1.1.0':
-    resolution: {integrity: sha512-utO5rtaOKxk8B90qzaQ0N+J5WrCI28DtfAY/zExCmXE7cOfC5uRI/oMKbLaVEPj2P7uArekt/T4IPATtj7Tjug==}
-    engines: {node: '>=6'}
-
   '@rdfjs/namespace@2.0.1':
     resolution: {integrity: sha512-U85NWVGnL3gWvOZ4eXwUcv3/bom7PAcutSBQqmVWvOaslPy+kDzAJCH1WYBLpdQd4yMmJ+bpJcDl9rcHtXeixg==}
 
@@ -2163,14 +2159,8 @@ packages:
   '@rdfjs/term-map@2.0.2':
     resolution: {integrity: sha512-EJ2FmmdEUsSR/tU1nrizRLWzH24YzhuvesrbUWxC3Fs0ilYNdtTbg0RaFJDUnJF3HkbNBQe8Zrt/uvU/hcKnHg==}
 
-  '@rdfjs/term-set@1.1.0':
-    resolution: {integrity: sha512-QQ4yzVe1Rvae/GN9SnOhweHNpaxQtnAjeOVciP/yJ0Gfxtbphy2tM56ZsRLV04Qq5qMcSclZIe6irYyEzx/UwQ==}
-
   '@rdfjs/term-set@2.0.3':
     resolution: {integrity: sha512-DyXrKWEx+mtAFUZVU7bc3Va6/KZ8PsIp0RVdyWT9jfDgI/HCvNisZaBtAcm+SYTC45o+7WLkbudkk1bfaKVB0A==}
-
-  '@rdfjs/to-ntriples@2.0.0':
-    resolution: {integrity: sha512-nDhpfhx6W6HKsy4HjyLp3H1nbrX1CiUCWhWQwKcYZX1s9GOjcoQTwY7GUUbVec0hzdJDQBR6gnjxtENBDt482Q==}
 
   '@rdfjs/to-ntriples@3.0.1':
     resolution: {integrity: sha512-gjoPAvh4j7AbGMjcDn/8R4cW+d/FPtbfbMM0uQXkyfBFtNUW2iVgrqsgJ65roLc54Y9A2TTFaeeTGSvY9a0HCQ==}
@@ -2180,9 +2170,6 @@ packages:
 
   '@rdfjs/tree@0.2.1':
     resolution: {integrity: sha512-J70CQ7R8Ivfs1FFUxtFN7ADb5wTMgbhn0O558NXSXQHItmSavT6cXmQlIokbmboU+grhu56iR/8Bl9do8LCq+w==}
-
-  '@rdfjs/types@1.1.2':
-    resolution: {integrity: sha512-wqpOJK1QCbmsGNtyzYnojPU8gRDPid2JO0Q0kMtb4j65xhCK880cnKAfEOwC+dX85VJcCByQx5zOwyyfCjDJsg==}
 
   '@rdfjs/types@2.0.1':
     resolution: {integrity: sha512-uyAzpugX7KekAXAHq26m3JlUIZJOC0uSBhpnefGV5i15bevDyyejoB7I+9MKeUrzXD8OOUI3+4FeV1wwQr5ihA==}
@@ -2268,6 +2255,9 @@ packages:
   '@tootallnate/quickjs-emscripten@0.23.0':
     resolution: {integrity: sha512-C5Mc6rdnsaJDjO3UpGW/CQTHtCKaYlScZTly4JIu97Jxo/odCiH0ITnDXSJPTOrEKk/ycSZ0AOgTmkDtkOsvIA==}
 
+  '@tpluscode/rdf-ns-builders@5.0.0':
+    resolution: {integrity: sha512-rtMFbArdief+s0z2A3TOb/gNe5O5xn9LDiEpilCf6lGYCUIfyqoOvZY80fS/eILwcF2Mj6cUQN1WBQ+1neJmaw==}
+
   '@triply/yasgui-utils@4.2.28':
     resolution: {integrity: sha512-1RvlHAmwvx5VjoVROZOCL0kMLUaIkRRPR/hc5PNN2oLSMGXRO1lptEXMbFXx16RePX9d3wvgb7WaWr6dP9hgBg==}
 
@@ -2321,9 +2311,6 @@ packages:
 
   '@types/chai@4.3.20':
     resolution: {integrity: sha512-/pC9HAB5I/xMlc5FP77qjCnI16ChlJfW0tGa0IUcFn38VJrTV6DeZ60NU5KZBtaOZqjdpwTWohz5HU1RrhiYxQ==}
-
-  '@types/clownface@2.0.10':
-    resolution: {integrity: sha512-Vz48oQux0YArQ66wfRp54NlxvEmpyTqbFIH435AsgN7C+p4MXao/rjXUisULL6436bxjFk4VluZr7J2HQkBHmQ==}
 
   '@types/connect@3.4.38':
     resolution: {integrity: sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==}
@@ -2439,11 +2426,8 @@ packages:
   '@types/range-parser@1.2.7':
     resolution: {integrity: sha512-hKormJbkJqzQGhziax5PItDUTMAM9uE2XXQmM37dyd4hVM+5aVl7oVxMVUiVQn2oCQFN/LKCZdvSM0pFRqbSmQ==}
 
-  '@types/rdf-validate-shacl@0.4.9':
-    resolution: {integrity: sha512-mjWwr+/7p2NPmJThB0nS1N7HWTrPAP5MFOVjEChiy2/e9mNH7WxtkMAEro00Ew/prcf6pw5ke1dzq/vkhBh7+A==}
-
-  '@types/rdfjs__environment@1.0.0':
-    resolution: {integrity: sha512-MDcnv3qfJvbHoEpUQXj5muT8g3e+xz1D8sGevrq3+Q4TzeEvQf5ijGX5l8485XFYrN/OBApgzXkHMZC04/kd5w==}
+  '@types/rdfjs__namespace@2.0.10':
+    resolution: {integrity: sha512-xoVzEIOxcpyteEmzaj94MSBbrBFs+vqv05joMhzLEiPRwsBBDnhkdBCaaDxR1Tf7wOW0kB2R1IYe4C3vEBFPgA==}
 
   '@types/rdfjs__parser-n3@2.0.6':
     resolution: {integrity: sha512-VHfdq7BDV6iMCtHkzTFSOuUWnqGlMUmEF0UZyK4+g9SzLWvc6TMcU5TYwQPQIz/e0s7dZ+xomxx6mVtIzsRQ/A==}
@@ -2658,6 +2642,11 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@vocabulary/sh@1.1.6':
+    resolution: {integrity: sha512-8IfAQoKh57THz8LA2+n1jaY/VC2XaqMNSsJgzBKSSrj20y5PSMAawb6dMsxoLxqDIPBDs1TFRl/9CijUnwbBUA==}
+    peerDependencies:
+      '@rdfjs/types': ^2.0.0
+
   '@volar/kit@2.4.28':
     resolution: {integrity: sha512-cKX4vK9dtZvDRaAzeoUdaAJEew6IdxHNCRrdp5Kvcl6zZOqb6jTOfk3kXkIkG3T7oTFXguEMt5+9ptyqYR84Pg==}
     peerDependencies:
@@ -2742,6 +2731,9 @@ packages:
 
   '@xtuc/long@4.2.2':
     resolution: {integrity: sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==}
+
+  '@zazuko/prefixes@2.6.1':
+    resolution: {integrity: sha512-fbOadP7twxt0ZYT9mgIC+xQMk6f3pYYLI5a/2UJ/mc/ygqb/NoVv2ryK3lTtoi74xwkdpUeDwIuFQSosowzUgg==}
 
   abbrev@1.1.1:
     resolution: {integrity: sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==}
@@ -3728,8 +3720,8 @@ packages:
     resolution: {integrity: sha512-3Pe/CF1Nn94hyhIYpjtiLhdCoEoz0DqQ+988E9gmeEdQZlojxnOb74wctFyuwWQHzqyf9X7C7MG8juUpqBJT8w==}
     engines: {node: '>=0.8'}
 
-  clownface@1.5.1:
-    resolution: {integrity: sha512-Ko8N/UFsnhEGmPlyE1bUFhbRhVgDbxqlIjcqxtLysc4dWaY0A7iCdg3savhAxs7Lheb7FCygIyRh7ADYZWVIng==}
+  clownface@2.0.3:
+    resolution: {integrity: sha512-E76TBJ7CgU9+/5paSAvuNdMO+fzFThnvRVtidosktYppYkXM8V7tid8Ezzo8S1OmoWxKUam3yfkZlfCid4OiJQ==}
 
   co@4.6.0:
     resolution: {integrity: sha512-QVb0dM5HvG+uaxitm8wONl7jltx8dqhfU33DcqtOZcLSVIKSDDLDi7+0LbAKiyI8hD9u42m2YxXSkMGWThaecQ==}
@@ -7984,8 +7976,8 @@ packages:
   prosemirror-keymap@1.2.3:
     resolution: {integrity: sha512-4HucRlpiLd1IPQQXNqeo81BGtkY8Ai5smHhKW9jjPKRc2wQIxksg7Hl1tTI2IfT2B/LgX6bfYvXxEpJl7aKYKw==}
 
-  prosemirror-model@1.25.4:
-    resolution: {integrity: sha512-PIM7E43PBxKce8OQeezAs9j4TP+5yDpZVbuurd1h5phUxEKIu+G2a+EUZzIC5nS1mJktDJWzbqS23n1tsAf5QA==}
+  prosemirror-model@1.25.9:
+    resolution: {integrity: sha512-pRTklkDDMMRopyoAcrr9wV/8g/RYgrLHBuJAb5hlEuYZRdm5yqmPjWId83fpBwPpSFqEdja0H7Dfd7z1X/npcA==}
 
   prosemirror-schema-basic@1.2.4:
     resolution: {integrity: sha512-ELxP4TlX3yr2v5rM7Sb70SqStq5NvI15c0j9j/gjsrO5vaw+fnnpovCLEGIcpeGfifkuqJwl4fon6b+KdrODYQ==}
@@ -8107,24 +8099,24 @@ packages:
     resolution: {integrity: sha512-B5ynHt4sasbUafzrvYI2GFARgeFcD8Sx9yXPbg7gEyT2EH76rlCv84kyO6tnxzVbxUN/uJDbK1S/MXh+DsnuTA==}
     engines: {node: '>=18'}
 
-  rdf-data-factory@1.1.3:
-    resolution: {integrity: sha512-ny6CI7m2bq4lfQQmDYvcb2l1F9KtGwz9chipX4oWu2aAtVoXjb7k3d8J1EsgAsEbMXnBipB/iuRen5H2fwRWWQ==}
-
   rdf-data-factory@2.0.2:
     resolution: {integrity: sha512-WzPoYHwQYWvIP9k+7IBLY1b4nIDitzAK4mA37WumAF/Cjvu/KOtYJH9IPZnUTWNSd5K2+pq4vrcE9WZC4sRHhg==}
+
+  rdf-dataset-ext@1.1.0:
+    resolution: {integrity: sha512-CH85RfRKN9aSlbju8T7aM8hgCSWMBsh2eh/tGxUUtWMN+waxi6iFDt8/r4PAEmKaEA82guimZJ4ISbmJ2rvWQg==}
+    deprecated: rdf-dataset-ext is deprecated. Switching to rdf-ext is recommended.
 
   rdf-ext@2.5.2:
     resolution: {integrity: sha512-xndLCbnxcPUZ2CxdQX/BdHjAUsZuFuA4Uw2ddDZnX3vhLKoTIaXunWyp1r9yfX66Nxv0mEkzm71YIi19ex/pEg==}
 
-  rdf-literal@1.3.2:
-    resolution: {integrity: sha512-79Stlu3sXy0kq9/decHFLf3xNPuY6sfhFPhd/diWErgaFr0Ekyg38Vh9bnVcqDYu48CFRi0t+hrFii49n92Hbw==}
+  rdf-literal@2.0.0:
+    resolution: {integrity: sha512-jlQ+h7EvnXmncmk8OzOYR8T3gNfd4g0LQXbflHkEkancic8dh0Tdt5RiRq8vUFndjIeNHt1RWeA5TAj6rgrtng==}
 
-  rdf-validate-datatype@0.1.5:
-    resolution: {integrity: sha512-gU+cD+AT1LpFwbemuEmTDjwLyFwJDiw21XHyIofKhFnEpXODjShBuxhgDGnZqW3qIEwu/vECjOecuD60e5ngiQ==}
-    engines: {node: '>=10.4'}
+  rdf-validate-datatype@0.2.2:
+    resolution: {integrity: sha512-mH9qL8i0WBbZ6HJCA26BB6V+WV2MraKvitez3SV0QegBWVQ4wYO49CgfFBzoAYg6tlnhFXl9MkrOAQ07X2N1FA==}
 
-  rdf-validate-shacl@0.4.5:
-    resolution: {integrity: sha512-tGYnssuPzmsPua1dju4hEtGkT1zouvwzVTNrFhNiqj2aZFO5pQ7lvLd9Cv9H9vKAlpIdC/x0zL6btxG3PCss0w==}
+  rdf-validate-shacl@0.6.5:
+    resolution: {integrity: sha512-rwIibopSixDE8ecA9x0c7oTVxdMWxGiJh7h3uJ+WS2h4lq2nx3DZVO7rJvwa5kZpDq9QEFPoyZINAUyfaaoN4Q==}
 
   rdfa-streaming-parser@3.0.2:
     resolution: {integrity: sha512-1MEkALT5PYjucVo6lNHXd9DbkgW0hSfPOJOs/TpUFe9zoZvkoreKcGIFnMFkbMmYTNLCiGFo/74LviIUnWLkIw==}
@@ -10890,9 +10882,9 @@ snapshots:
       style-mod: 4.1.2
       w3c-keyname: 2.2.8
 
-  '@curvenote/prosemirror-utils@1.0.5(prosemirror-model@1.25.4)(prosemirror-state@1.4.4)':
+  '@curvenote/prosemirror-utils@1.0.5(prosemirror-model@1.25.9)(prosemirror-state@1.4.4)':
     dependencies:
-      prosemirror-model: 1.25.4
+      prosemirror-model: 1.25.9
       prosemirror-state: 1.4.4
 
   '@digitalbazaar/http-client@3.4.1(web-streams-polyfill@3.3.3)':
@@ -11905,24 +11897,23 @@ snapshots:
       - supports-color
       - webpack
 
-  '@lblod/ember-rdfa-editor-lblod-plugins@37.0.3(ybmahns2wtzy7atiucpgod5tny)':
+  '@lblod/ember-rdfa-editor-lblod-plugins@38.0.0(hlltufangpylsmrrzf2cgv5h5q)':
     dependencies:
       '@appuniversum/ember-appuniversum': 3.15.0(f2idnj2tsubvqazxkbhnmwphb4)
       '@babel/core': 7.29.0
       '@codemirror/lang-html': 6.4.11
       '@codemirror/state': 6.5.4
       '@codemirror/view': 6.39.12
-      '@curvenote/prosemirror-utils': 1.0.5(prosemirror-model@1.25.4)(prosemirror-state@1.4.4)
+      '@curvenote/prosemirror-utils': 1.0.5(prosemirror-model@1.25.9)(prosemirror-state@1.4.4)
       '@ember/string': 3.1.1
       '@embroider/macros': 1.19.7(@glint/template@1.7.4)
-      '@lblod/ember-rdfa-editor': 13.8.0(nla6umuffzdxwo5lxp32ydulhq)
+      '@lblod/ember-rdfa-editor': 13.12.1(nla6umuffzdxwo5lxp32ydulhq)
       '@lblod/lib-decision-shapes': 0.0.25(@babel/core@7.29.0)(@jest/transform@30.0.4)(@jest/types@30.0.1)(babel-jest@30.0.4(@babel/core@7.29.0))(jest-util@30.0.2)(jest@30.0.4(@types/node@25.5.0)(node-notifier@10.0.1))(typescript@5.9.3)
       '@lblod/marawa': 0.8.0-beta.6
       '@lblod/template-uuid-instantiator': 1.0.3
       '@rdfjs/data-model': 2.1.0
       '@rdfjs/dataset': 2.0.2
       '@rdfjs/parser-n3': 2.1.0
-      '@types/rdf-validate-shacl': 0.4.9
       '@types/rdfjs__parser-n3': 2.0.6
       buffer: 6.0.3
       codemirror: 6.0.2
@@ -11948,7 +11939,7 @@ snapshots:
       process: 0.11.10
       proj4: 2.15.0
       rdf-ext: 2.5.2(web-streams-polyfill@3.3.3)
-      rdf-validate-shacl: 0.4.5
+      rdf-validate-shacl: 0.6.5
       rdfa-streaming-parser: 3.0.2
       reactiveweb: 1.9.1(@babel/core@7.29.0)(@ember/test-waiters@3.1.0)(@glimmer/component@1.1.2(@babel/core@7.29.0))(@glint/template@1.7.4)
       stream-browserify: 3.0.0
@@ -11975,7 +11966,7 @@ snapshots:
       - web-streams-polyfill
       - webpack
 
-  '@lblod/ember-rdfa-editor@13.8.0(nla6umuffzdxwo5lxp32ydulhq)':
+  '@lblod/ember-rdfa-editor@13.12.1(nla6umuffzdxwo5lxp32ydulhq)':
     dependencies:
       '@appuniversum/ember-appuniversum': 3.15.0(f2idnj2tsubvqazxkbhnmwphb4)
       '@codemirror/commands': 6.10.1
@@ -11983,7 +11974,7 @@ snapshots:
       '@codemirror/lang-xml': 6.1.0
       '@codemirror/state': 6.5.4
       '@codemirror/view': 6.39.12
-      '@curvenote/prosemirror-utils': 1.0.5(prosemirror-model@1.25.4)(prosemirror-state@1.4.4)
+      '@curvenote/prosemirror-utils': 1.0.5(prosemirror-model@1.25.9)(prosemirror-state@1.4.4)
       '@ember/optional-features': 2.3.0
       '@ember/render-modifiers': 3.0.0(@glint/template@1.7.4)(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.29.0))(@glint/template@1.7.4)(rsvp@4.8.5)(webpack@5.97.1))
       '@ember/test-helpers': 3.3.1(@babel/core@7.29.0)(@glint/template@1.7.4)(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.29.0))(@glint/template@1.7.4)(rsvp@4.8.5)(webpack@5.97.1))(webpack@5.97.1)
@@ -11992,13 +11983,13 @@ snapshots:
       '@glimmer/component': 1.1.2(@babel/core@7.29.0)
       '@glimmer/tracking': 1.1.2
       '@glint/tsserver-plugin': 2.1.0
-      '@lblod/marawa': 0.8.0-beta.6
-      '@rdfjs/types': 1.1.2
-      '@say-editor/prosemirror-invisibles': 0.1.1(prosemirror-model@1.25.4)(prosemirror-state@1.4.4)(prosemirror-view@1.41.6)
+      '@rdfjs/types': 2.0.1
+      '@say-editor/prosemirror-invisibles': 0.1.1(prosemirror-model@1.25.9)(prosemirror-state@1.4.4)(prosemirror-view@1.41.6)
       '@say-editor/prosemirror-tables': 0.3.0
       '@types/react': 19.1.13
       codemirror: 6.0.2
       common-tags: 1.8.2
+      date-fns: 2.30.0
       debug: 4.4.3
       decorator-transforms: 2.3.1(@babel/core@7.29.0)
       dompurify: 3.2.4
@@ -12030,13 +12021,13 @@ snapshots:
       prosemirror-dropcursor: 1.8.2
       prosemirror-inputrules: 1.5.1
       prosemirror-keymap: 1.2.3
-      prosemirror-model: 1.25.4
+      prosemirror-model: 1.25.9
       prosemirror-schema-basic: 1.2.4
       prosemirror-schema-list: 1.5.1
       prosemirror-state: 1.4.4
       prosemirror-transform: 1.11.0
       prosemirror-view: 1.41.6
-      rdf-data-factory: 1.1.3
+      rdf-data-factory: 2.0.2
       reactiveweb: 1.9.1(@babel/core@7.29.0)(@ember/test-waiters@3.1.0)(@glimmer/component@1.1.2(@babel/core@7.29.0))(@glint/template@1.7.4)
       relative-to-absolute-iri: 1.0.7
       tracked-built-ins: 4.1.0(@babel/core@7.29.0)
@@ -12415,10 +12406,6 @@ snapshots:
       readable-stream: 4.7.0
       stream-chunks: 1.0.0
 
-  '@rdfjs/namespace@1.1.0':
-    dependencies:
-      '@rdfjs/data-model': 1.3.4
-
   '@rdfjs/namespace@2.0.1':
     dependencies:
       '@rdfjs/data-model': 2.1.0
@@ -12495,15 +12482,9 @@ snapshots:
     dependencies:
       '@rdfjs/to-ntriples': 3.0.1
 
-  '@rdfjs/term-set@1.1.0':
-    dependencies:
-      '@rdfjs/to-ntriples': 2.0.0
-
   '@rdfjs/term-set@2.0.3':
     dependencies:
       '@rdfjs/to-ntriples': 3.0.1
-
-  '@rdfjs/to-ntriples@2.0.0': {}
 
   '@rdfjs/to-ntriples@3.0.1': {}
 
@@ -12516,10 +12497,6 @@ snapshots:
       '@rdfjs/namespace': 2.0.1
       '@rdfjs/term-map': 2.0.2
       '@rdfjs/term-set': 2.0.3
-
-  '@rdfjs/types@1.1.2':
-    dependencies:
-      '@types/node': 25.5.0
 
   '@rdfjs/types@2.0.1':
     dependencies:
@@ -12546,16 +12523,16 @@ snapshots:
     dependencies:
       xmlchars: 2.2.0
 
-  '@say-editor/prosemirror-invisibles@0.1.1(prosemirror-model@1.25.4)(prosemirror-state@1.4.4)(prosemirror-view@1.41.6)':
+  '@say-editor/prosemirror-invisibles@0.1.1(prosemirror-model@1.25.9)(prosemirror-state@1.4.4)(prosemirror-view@1.41.6)':
     dependencies:
-      prosemirror-model: 1.25.4
+      prosemirror-model: 1.25.9
       prosemirror-state: 1.4.4
       prosemirror-view: 1.41.6
 
   '@say-editor/prosemirror-tables@0.3.0':
     dependencies:
       prosemirror-keymap: 1.2.3
-      prosemirror-model: 1.25.4
+      prosemirror-model: 1.25.9
       prosemirror-state: 1.4.4
       prosemirror-transform: 1.11.0
       prosemirror-view: 1.41.6
@@ -12611,6 +12588,14 @@ snapshots:
   '@tootallnate/once@1.1.2': {}
 
   '@tootallnate/quickjs-emscripten@0.23.0': {}
+
+  '@tpluscode/rdf-ns-builders@5.0.0':
+    dependencies:
+      '@rdfjs/data-model': 2.1.0
+      '@rdfjs/namespace': 2.0.1
+      '@rdfjs/types': 2.0.1
+      '@types/rdfjs__namespace': 2.0.10
+      '@zazuko/prefixes': 2.6.1
 
   '@triply/yasgui-utils@4.2.28':
     dependencies:
@@ -12716,11 +12701,6 @@ snapshots:
       '@types/chai': 4.3.20
 
   '@types/chai@4.3.20': {}
-
-  '@types/clownface@2.0.10':
-    dependencies:
-      '@rdfjs/types': 2.0.1
-      '@types/rdfjs__environment': 1.0.0
 
   '@types/connect@3.4.38':
     dependencies:
@@ -12853,16 +12833,9 @@ snapshots:
 
   '@types/range-parser@1.2.7': {}
 
-  '@types/rdf-validate-shacl@0.4.9':
+  '@types/rdfjs__namespace@2.0.10':
     dependencies:
       '@rdfjs/types': 2.0.1
-      '@types/clownface': 2.0.10
-      '@types/node': 25.5.0
-
-  '@types/rdfjs__environment@1.0.0':
-    dependencies:
-      '@rdfjs/types': 2.0.1
-      '@types/node': 25.5.0
 
   '@types/rdfjs__parser-n3@2.0.6':
     dependencies:
@@ -13074,6 +13047,10 @@ snapshots:
   '@unrs/resolver-binding-win32-x64-msvc@1.11.1':
     optional: true
 
+  '@vocabulary/sh@1.1.6(@rdfjs/types@2.0.1)':
+    dependencies:
+      '@rdfjs/types': 2.0.1
+
   '@volar/kit@2.4.28(typescript@5.9.3)':
     dependencies:
       '@volar/language-service': 2.4.28
@@ -13206,6 +13183,8 @@ snapshots:
   '@xtuc/ieee754@1.2.0': {}
 
   '@xtuc/long@4.2.2': {}
+
+  '@zazuko/prefixes@2.6.1': {}
 
   abbrev@1.1.1: {}
 
@@ -14700,10 +14679,11 @@ snapshots:
 
   clone@2.1.2: {}
 
-  clownface@1.5.1:
+  clownface@2.0.3:
     dependencies:
-      '@rdfjs/data-model': 1.3.4
-      '@rdfjs/namespace': 1.1.0
+      '@rdfjs/data-model': 2.1.0
+      '@rdfjs/environment': 1.0.0
+      '@rdfjs/namespace': 2.0.1
 
   co@4.6.0: {}
 
@@ -20103,7 +20083,7 @@ snapshots:
 
   prosemirror-commands@1.7.1:
     dependencies:
-      prosemirror-model: 1.25.4
+      prosemirror-model: 1.25.9
       prosemirror-state: 1.4.4
       prosemirror-transform: 1.11.0
 
@@ -20123,33 +20103,33 @@ snapshots:
       prosemirror-state: 1.4.4
       w3c-keyname: 2.2.8
 
-  prosemirror-model@1.25.4:
+  prosemirror-model@1.25.9:
     dependencies:
       orderedmap: 2.1.1
 
   prosemirror-schema-basic@1.2.4:
     dependencies:
-      prosemirror-model: 1.25.4
+      prosemirror-model: 1.25.9
 
   prosemirror-schema-list@1.5.1:
     dependencies:
-      prosemirror-model: 1.25.4
+      prosemirror-model: 1.25.9
       prosemirror-state: 1.4.4
       prosemirror-transform: 1.11.0
 
   prosemirror-state@1.4.4:
     dependencies:
-      prosemirror-model: 1.25.4
+      prosemirror-model: 1.25.9
       prosemirror-transform: 1.11.0
       prosemirror-view: 1.41.6
 
   prosemirror-transform@1.11.0:
     dependencies:
-      prosemirror-model: 1.25.4
+      prosemirror-model: 1.25.9
 
   prosemirror-view@1.41.6:
     dependencies:
-      prosemirror-model: 1.25.4
+      prosemirror-model: 1.25.9
       prosemirror-state: 1.4.4
       prosemirror-transform: 1.11.0
 
@@ -20278,13 +20258,14 @@ snapshots:
     dependencies:
       setimmediate: 1.0.5
 
-  rdf-data-factory@1.1.3:
-    dependencies:
-      '@rdfjs/types': 1.1.2
-
   rdf-data-factory@2.0.2:
     dependencies:
       '@rdfjs/types': 2.0.1
+
+  rdf-dataset-ext@1.1.0:
+    dependencies:
+      rdf-canonize: 3.4.0
+      readable-stream: 4.7.0
 
   rdf-ext@2.5.2(web-streams-polyfill@3.3.3):
     dependencies:
@@ -20310,25 +20291,29 @@ snapshots:
     transitivePeerDependencies:
       - web-streams-polyfill
 
-  rdf-literal@1.3.2:
+  rdf-literal@2.0.0:
     dependencies:
+      rdf-data-factory: 2.0.2
+
+  rdf-validate-datatype@0.2.2:
+    dependencies:
+      '@rdfjs/term-map': 2.0.2
+      '@tpluscode/rdf-ns-builders': 5.0.0
+
+  rdf-validate-shacl@0.6.5:
+    dependencies:
+      '@rdfjs/data-model': 2.1.0
+      '@rdfjs/dataset': 2.0.2
+      '@rdfjs/environment': 1.0.0
+      '@rdfjs/namespace': 2.0.1
+      '@rdfjs/term-set': 2.0.3
       '@rdfjs/types': 2.0.1
-      rdf-data-factory: 1.1.3
-
-  rdf-validate-datatype@0.1.5:
-    dependencies:
-      '@rdfjs/namespace': 1.1.0
-      '@rdfjs/to-ntriples': 2.0.0
-
-  rdf-validate-shacl@0.4.5:
-    dependencies:
-      '@rdfjs/dataset': 1.1.1
-      '@rdfjs/namespace': 1.1.0
-      '@rdfjs/term-set': 1.1.0
-      clownface: 1.5.1
+      '@vocabulary/sh': 1.1.6(@rdfjs/types@2.0.1)
+      clownface: 2.0.3
       debug: 4.4.3
-      rdf-literal: 1.3.2
-      rdf-validate-datatype: 0.1.5
+      rdf-dataset-ext: 1.1.0
+      rdf-literal: 2.0.0
+      rdf-validate-datatype: 0.2.2
     transitivePeerDependencies:
       - supports-color
 
