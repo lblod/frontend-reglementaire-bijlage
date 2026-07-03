@@ -183,7 +183,6 @@ import type {
   SubjectOption,
   PredicateOption,
   ObjectOption,
-  OptionGeneratorConfig,
   PredicateOptionGenerator,
 } from '@lblod/ember-rdfa-editor/components/_private/relationship-editor/types';
 /** @import EditorSettings from '../../services/editor-settings'; */
@@ -193,10 +192,7 @@ const GEMEENTE_CLASSIFICATION_URI =
   'http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001';
 
 import { locationModalsPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin';
-import {
-  getContextualActionGroups as locationActionsGroups,
-  getContextualActions as locationActions,
-} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin/contextual-actions';
+import { getContextualActionGroups as locationActionsGroups } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin/contextual-actions';
 
 export default class TemplateManagementEditController extends Controller {
   @service declare store: Store;
@@ -232,7 +228,6 @@ export default class TemplateManagementEditController extends Controller {
   PlusIcon = PlusIcon;
   ThreeDotsIcon = ThreeDotsIcon;
 
-  contextualActionGetters = [locationActions()];
   contextualActionGroupGetters = [locationActionsGroups()];
 
   schema = new Schema({

@@ -26,10 +26,7 @@ import Editor, {
 import t from 'ember-intl/helpers/t';
 import { hash } from '@ember/helper';
 import ContextualActionsContainer from '@lblod/ember-rdfa-editor/components/plugins/contextual-actions/container';
-import type {
-  GetContextualActionGroups,
-  GetContextualActions,
-} from '@lblod/ember-rdfa-editor/plugins/contextual-actions';
+import type { GetContextualActionGroups } from '@lblod/ember-rdfa-editor/plugins/contextual-actions';
 
 type Signature = {
   Args: {
@@ -42,7 +39,6 @@ type Signature = {
     busyText?: string;
     schema: Schema;
     nodeViews?: RdfaEditorArgs['nodeViews'];
-    contextualActionGetters?: GetContextualActions;
     contextualActionGroupGetters?: GetContextualActionGroups;
   };
   Blocks: {
@@ -58,10 +54,6 @@ interface DocumentContext {
 export default class RdfaEditorContainerComponent extends Component<Signature> {
   @tracked editor?: SayController;
   @tracked ready = false;
-
-  get contextualActionGetters() {
-    return this.args.contextualActionGetters ?? [];
-  }
 
   get contextualActionGroupGetters() {
     return this.args.contextualActionGroupGetters ?? [];
@@ -171,7 +163,6 @@ export default class RdfaEditorContainerComponent extends Component<Signature> {
             {{#if this.editor}}
               <ContextualActionsContainer
                 @controller={{this.editor}}
-                @getActions={{this.contextualActionGetters}}
                 @getGroups={{this.contextualActionGroupGetters}}
               />
             {{/if}}
