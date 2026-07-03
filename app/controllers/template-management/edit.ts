@@ -151,7 +151,10 @@ import { RDFA_VISUALIZER_CONFIG } from '../../utils/citerra-poc/visualizer';
 import FormatTextIcon from '@lblod/ember-rdfa-editor/components/icons/format-text';
 import { PlusIcon } from '@appuniversum/ember-appuniversum/components/icons/plus';
 import { ThreeDotsIcon } from '@appuniversum/ember-appuniversum/components/icons/three-dots';
-import { sayDataFactory } from '@lblod/ember-rdfa-editor/core/say-data-factory';
+import {
+  SayDataFactory,
+  sayDataFactory,
+} from '@lblod/ember-rdfa-editor/core/say-data-factory';
 import {
   insertArticleContainerAtCursor,
   insertDescriptionAtCursor,
@@ -180,6 +183,8 @@ import type {
   SubjectOption,
   PredicateOption,
   ObjectOption,
+  OptionGeneratorConfig,
+  PredicateOptionGenerator,
 } from '@lblod/ember-rdfa-editor/components/_private/relationship-editor/types';
 /** @import EditorSettings from '../../services/editor-settings'; */
 
@@ -763,13 +768,31 @@ export default class TemplateManagementEditController extends Controller {
     }
   });
 
+  df: SayDataFactory = new SayDataFactory();
+  usefulPredicates: PredicateOptionGenerator = () => [
+    {
+      term: this.df.namedNode(
+        'http://lblod.data.gift/vocabularies/besluit/chartOfAccount',
+      ),
+      direction: 'property',
+      allowFreeTextTarget: false,
+      description:
+        'Specifieert dat het gekozen subject betrekking heeft op, of toewijsbaar is aan, de rekening met de gekozen MAR code',
+      label: 'Heeft Marcode',
+    },
+  ];
+
   /**
    * CITERRA POC
    */
   visualizerConfig = RDFA_VISUALIZER_CONFIG;
   get optionGeneratorConfig() {
     if (this.editor) {
-      return combineConfigs(documentConfig(this.editor), lovConfig());
+      return combineConfigs(
+        { predicates: this.usefulPredicates },
+        documentConfig(this.editor),
+        lovConfig(),
+      );
     } else {
       return undefined;
     }
