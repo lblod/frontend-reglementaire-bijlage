@@ -151,7 +151,10 @@ import { RDFA_VISUALIZER_CONFIG } from '../../utils/citerra-poc/visualizer';
 import FormatTextIcon from '@lblod/ember-rdfa-editor/components/icons/format-text';
 import { PlusIcon } from '@appuniversum/ember-appuniversum/components/icons/plus';
 import { ThreeDotsIcon } from '@appuniversum/ember-appuniversum/components/icons/three-dots';
-import { sayDataFactory } from '@lblod/ember-rdfa-editor/core/say-data-factory';
+import {
+  SayDataFactory,
+  sayDataFactory,
+} from '@lblod/ember-rdfa-editor/core/say-data-factory';
 import {
   insertArticleContainerAtCursor,
   insertDescriptionAtCursor,
@@ -180,6 +183,7 @@ import type {
   SubjectOption,
   PredicateOption,
   ObjectOption,
+  PredicateOptionGenerator,
 } from '@lblod/ember-rdfa-editor/components/_private/relationship-editor/types';
 /** @import EditorSettings from '../../services/editor-settings'; */
 
@@ -188,10 +192,7 @@ const GEMEENTE_CLASSIFICATION_URI =
   'http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000001';
 
 import { locationModalsPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin';
-import {
-  getContextualActionGroups as locationActionsGroups,
-  getContextualActions as locationActions,
-} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin/contextual-actions';
+import { getContextualActionGroups as locationActionsGroups } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin/contextual-actions';
 
 export default class TemplateManagementEditController extends Controller {
   @service declare store: Store;
@@ -227,7 +228,6 @@ export default class TemplateManagementEditController extends Controller {
   PlusIcon = PlusIcon;
   ThreeDotsIcon = ThreeDotsIcon;
 
-  contextualActionGetters = [locationActions()];
   contextualActionGroupGetters = [locationActionsGroups()];
 
   schema = new Schema({
@@ -763,13 +763,31 @@ export default class TemplateManagementEditController extends Controller {
     }
   });
 
+  df: SayDataFactory = new SayDataFactory();
+  usefulPredicates: PredicateOptionGenerator = () => [
+    {
+      term: this.df.namedNode(
+        'http://lblod.data.gift/vocabularies/besluit/chartOfAccount',
+      ),
+      direction: 'property',
+      allowFreeTextTarget: false,
+      description:
+        'Specifieert dat het gekozen subject betrekking heeft op, of toewijsbaar is aan, de rekening met de gekozen MAR code',
+      label: 'Heeft Marcode',
+    },
+  ];
+
   /**
    * CITERRA POC
    */
   visualizerConfig = RDFA_VISUALIZER_CONFIG;
   get optionGeneratorConfig() {
     if (this.editor) {
-      return combineConfigs(documentConfig(this.editor), lovConfig());
+      return combineConfigs(
+        { predicates: this.usefulPredicates },
+        documentConfig(this.editor),
+        lovConfig(),
+      );
     } else {
       return undefined;
     }
