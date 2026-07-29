@@ -165,8 +165,8 @@ importers:
         specifier: 13.12.1
         version: 13.12.1(nla6umuffzdxwo5lxp32ydulhq)
       '@lblod/ember-rdfa-editor-lblod-plugins':
-        specifier: 38.0.1-dev.4a6b8dba40d14b14dfc2d57f1eb5bb3595aebb90
-        version: 38.0.1-dev.4a6b8dba40d14b14dfc2d57f1eb5bb3595aebb90(hlltufangpylsmrrzf2cgv5h5q)
+        specifier: 38.0.3
+        version: 38.0.3(hlltufangpylsmrrzf2cgv5h5q)
       '@release-it-plugins/lerna-changelog':
         specifier: ^6.0.0
         version: 6.1.0(release-it@16.3.0(encoding@0.1.13)(typescript@5.9.3))
@@ -1787,8 +1787,8 @@ packages:
       ember-simple-auth: ^6.0.0
       ember-source: '>= 4.0.0'
 
-  '@lblod/ember-rdfa-editor-lblod-plugins@38.0.1-dev.4a6b8dba40d14b14dfc2d57f1eb5bb3595aebb90':
-    resolution: {integrity: sha512-zLLA4PPih9hPjYjRo5rnfMYogFAt4I8tpIL7z+du9DMI1yVzKwXycMQx6o1kRyuUX37J7SWPnx4EvScq+/O6jA==}
+  '@lblod/ember-rdfa-editor-lblod-plugins@38.0.3':
+    resolution: {integrity: sha512-aBuPpk8K5CuGuCEzxQJYe+qJgeytGf4bSJjIparbNx0M6rz4zkhFF9pMLLZdvVbzMz7b8Fvy2EkkJe8ib1o6XQ==}
     engines: {node: '>= 18'}
     peerDependencies:
       '@appuniversum/ember-appuniversum': ^3.12.0
@@ -9118,6 +9118,9 @@ packages:
       ember-source:
         optional: true
 
+  tracked-toolbox@2.2.0:
+    resolution: {integrity: sha512-YknotXj74U0nCqBk9nh1Uv1IWTnVOgt8sXIecNkyEq4oFOU70niQUlozO4E3kMKx7ae/rNlOtoF+1ALcHYzCrQ==}
+
   tree-kill@1.2.2:
     resolution: {integrity: sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==}
     hasBin: true
@@ -11897,7 +11900,7 @@ snapshots:
       - supports-color
       - webpack
 
-  '@lblod/ember-rdfa-editor-lblod-plugins@38.0.1-dev.4a6b8dba40d14b14dfc2d57f1eb5bb3595aebb90(hlltufangpylsmrrzf2cgv5h5q)':
+  '@lblod/ember-rdfa-editor-lblod-plugins@38.0.3(hlltufangpylsmrrzf2cgv5h5q)':
     dependencies:
       '@appuniversum/ember-appuniversum': 3.15.0(f2idnj2tsubvqazxkbhnmwphb4)
       '@babel/core': 7.29.0
@@ -11944,7 +11947,7 @@ snapshots:
       reactiveweb: 1.9.1(@babel/core@7.29.0)(@ember/test-waiters@3.1.0)(@glimmer/component@1.1.2(@babel/core@7.29.0))(@glint/template@1.7.4)
       stream-browserify: 3.0.0
       tracked-built-ins: 4.1.0(@babel/core@7.29.0)
-      tracked-toolbox: 2.0.0(@babel/core@7.29.0)(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.29.0))(@glint/template@1.7.4)(rsvp@4.8.5)(webpack@5.97.1))
+      tracked-toolbox: 2.2.0(@babel/core@7.29.0)
       uuid: 9.0.1
       zod: 3.24.2
     optionalDependencies:
@@ -12031,7 +12034,7 @@ snapshots:
       reactiveweb: 1.9.1(@babel/core@7.29.0)(@ember/test-waiters@3.1.0)(@glimmer/component@1.1.2(@babel/core@7.29.0))(@glint/template@1.7.4)
       relative-to-absolute-iri: 1.0.7
       tracked-built-ins: 4.1.0(@babel/core@7.29.0)
-      tracked-toolbox: 2.0.0(@babel/core@7.29.0)(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.29.0))(@glint/template@1.7.4)(rsvp@4.8.5)(webpack@5.97.1))
+      tracked-toolbox: 2.2.0(@babel/core@7.29.0)
       typedoc: 0.28.17(typescript@5.9.3)
       uuid: 9.0.1
       validator: 13.15.26
@@ -21589,6 +21592,15 @@ snapshots:
       ember-cache-primitive-polyfill: 1.0.1(@babel/core@7.29.0)
     optionalDependencies:
       ember-source: 5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.29.0))(@glint/template@1.7.4)(rsvp@4.8.5)(webpack@5.97.1)
+    transitivePeerDependencies:
+      - '@babel/core'
+      - supports-color
+
+  tracked-toolbox@2.2.0(@babel/core@7.29.0):
+    dependencies:
+      '@embroider/addon-shim': 1.10.2
+      decorator-transforms: 2.3.1(@babel/core@7.29.0)
+      ember-cache-primitive-polyfill: 1.0.1(@babel/core@7.29.0)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
