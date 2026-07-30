@@ -1,5 +1,17 @@
 # frontend-reglementaire-bijlage
 
+## 9.34.1
+
+### Patch Changes
+
+- [#355](https://github.com/lblod/frontend-reglementaire-bijlage/pull/355) [`7175ce4278645681eee9b6d8dc562ecb41afa6b9`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/7175ce4278645681eee9b6d8dc562ecb41afa6b9) Thanks [@kobemertens](https://github.com/kobemertens)! - Bump ember-rdfa-editor-lblod-plugins to [38.0.3](https://github.com/lblod/ember-rdfa-editor-lblod-plugins/releases/tag/v38.0.3)
+
+- [#355](https://github.com/lblod/frontend-reglementaire-bijlage/pull/355) [`2c975179cb116bbaea48238acaee1793eb9b7a90`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/2c975179cb116bbaea48238acaee1793eb9b7a90) Thanks [@kobemertens](https://github.com/kobemertens)! - Bump ember-rdfa-editor to 13.15.1 and ember-concurrency to 5.2.0
+
+- [#354](https://github.com/lblod/frontend-reglementaire-bijlage/pull/354) [`825b298f7ff1e0ef7bbc07db6ffb0f7e6ec55094`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/825b298f7ff1e0ef7bbc07db6ffb0f7e6ec55094) Thanks [@abeforgit](https://github.com/abeforgit)! - Add marcode predicate config
+
+- [#355](https://github.com/lblod/frontend-reglementaire-bijlage/pull/355) [`78f489309514d2300d5a8fbb7ee4bdb4dbca4fee`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/78f489309514d2300d5a8fbb7ee4bdb4dbca4fee) Thanks [@kobemertens](https://github.com/kobemertens)! - Bump ember-appuniversum to [4.2.2](https://github.com/appuniversum/ember-appuniversum/releases/tag/v4.2.2)
+
 ## 9.34.0
 
 ### Minor Changes
