@@ -29,7 +29,7 @@
     "release": "release-it"
   },
   "devDependencies": {
-    "@appuniversum/ember-appuniversum": "^3.12.0",
+    "@appuniversum/ember-appuniversum": "~4.2.2",
     "@babel/core": "^7.25.2",
     "@babel/eslint-parser": "^7.28.6",
     "@babel/plugin-proposal-decorators": "^7.29.0",
@@ -61,9 +61,9 @@
     "@glint/template": "^1.5.0",
     "@lblod/ember-acmidm-login": "^2.1.0",
     "@lblod/ember-environment-banner": "^0.6.0",
-    "@lblod/ember-mock-login": "^0.10.0",
-    "@lblod/ember-rdfa-editor": "13.12.1",
-    "@lblod/ember-rdfa-editor-lblod-plugins": "38.0.0",
+    "@lblod/ember-mock-login": "0.14.0",
+    "@lblod/ember-rdfa-editor": "13.15.1",
+    "@lblod/ember-rdfa-editor-lblod-plugins": "38.0.3",
     "@release-it-plugins/lerna-changelog": "^6.0.0",
     "@tsconfig/ember": "^3.0.8",
     "@types/lodash.mergewith": "^4.6.9",
@@ -91,7 +91,7 @@
     "ember-cli-sass": "^11.0.1",
     "ember-cli-sri": "^2.1.1",
     "ember-cli-terser": "^4.0.2",
-    "ember-concurrency": "^4.0.4",
+    "ember-concurrency": "^5.2.0",
     "ember-config-helper": "^0.1.4",
     "ember-data": "~4.12.4",
     "ember-data-types": "5.4.0-alpha.131",
@@ -142,7 +142,8 @@
       "ember-math-helpers": "$ember-math-helpers",
       "ember-truth-helpers": "$ember-truth-helpers",
       "tracked-toolbox": "$tracked-toolbox",
-      "@ember/render-modifiers": "$@ember/render-modifiers"
+      "@ember/render-modifiers": "$@ember/render-modifiers",
+      "@ember/test-waiters": "^3.1.0"
     },
     "patchedDependencies": {
       "ember-source@5.12.0": "patches/ember-source@5.12.0.patch"
