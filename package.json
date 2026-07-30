@@ -61,7 +61,7 @@
     "@glint/template": "^1.5.0",
     "@lblod/ember-acmidm-login": "^2.1.0",
     "@lblod/ember-environment-banner": "^0.6.0",
-    "@lblod/ember-mock-login": "^0.10.0",
+    "@lblod/ember-mock-login": "0.14.0",
     "@lblod/ember-rdfa-editor": "13.12.1",
     "@lblod/ember-rdfa-editor-lblod-plugins": "38.0.3",
     "@release-it-plugins/lerna-changelog": "^6.0.0",
@@ -142,7 +142,8 @@
       "ember-math-helpers": "$ember-math-helpers",
       "ember-truth-helpers": "$ember-truth-helpers",
       "tracked-toolbox": "$tracked-toolbox",
-      "@ember/render-modifiers": "$@ember/render-modifiers"
+      "@ember/render-modifiers": "$@ember/render-modifiers",
+      "@ember/test-waiters": "^3.1.0"
     },
     "patchedDependencies": {
       "ember-source@5.12.0": "patches/ember-source@5.12.0.patch"
