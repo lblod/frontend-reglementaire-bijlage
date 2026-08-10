@@ -137,6 +137,7 @@
   "pnpm": {
     "overrides": {
       "@embroider/util": "1.13.5",
+      "caniuse-lite": "1.0.30001809",
       "ember-auto-import": "$ember-auto-import",
       "ember-headless-form>tracked-built-ins": "$tracked-built-ins",
       "ember-math-helpers": "$ember-math-helpers",
