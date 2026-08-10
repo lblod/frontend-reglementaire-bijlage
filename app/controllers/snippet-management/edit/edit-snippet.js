@@ -144,6 +144,8 @@ import FormatTextIcon from '@lblod/ember-rdfa-editor/components/icons/format-tex
 import { PlusIcon } from '@appuniversum/ember-appuniversum/components/icons/plus';
 import { ThreeDotsIcon } from '@appuniversum/ember-appuniversum/components/icons/three-dots';
 import { sayDataFactory } from '@lblod/ember-rdfa-editor/core/say-data-factory';
+import { getContextualActionGroups as locationActionsGroups } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin/contextual-actions';
+import { locationModalsPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin';
 
 /** @import EditorSettings from '../../../services/editor-settings'; */
 
@@ -176,6 +178,8 @@ export default class SnippetManagementEditSnippetController extends Controller {
   @tracked editor;
   @tracked _editorDocument;
   @tracked citationPlugin = citationPlugin(this.config.citation);
+
+  contextualActionGroupGetters = [locationActionsGroups()];
 
   schema = new Schema({
     nodes: {
@@ -410,6 +414,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
       linkPasteHandler(this.schema.nodes.link),
       editableNodePlugin(),
       variableAutofillerPlugin(this.config.autofilledVariable),
+      locationModalsPlugin(),
     ];
   }
 
