@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
-import type Store from 'ember-data/store';
+import type Store from 'frontend-reglementaire-bijlage/services/store';
 import type TemplateManagementEditController from 'frontend-reglementaire-bijlage/controllers/template-management/edit';
 import type DocumentContainerModel from 'frontend-reglementaire-bijlage/models/document-container';
 import type EditorDocumentModel from 'frontend-reglementaire-bijlage/models/editor-document';

@@ -2,8 +2,10 @@ import Controller from '@ember/controller';
 import { action } from '@ember/object';
 import { restartableTask, task, timeout } from 'ember-concurrency';
 import { service } from '@ember/service';
+import type RouterService from '@ember/routing/router-service';
 import { tracked } from 'tracked-built-ins';
-import { Schema } from '@lblod/ember-rdfa-editor';
+import type IntlService from 'ember-intl/services/intl';
+import { NodeType, PNode, SayController, Schema } from '@lblod/ember-rdfa-editor';
 import {
   em,
   strikethrough,
@@ -46,9 +48,8 @@ import { headingWithConfig } from '@lblod/ember-rdfa-editor/plugins/heading';
 import { blockquote } from '@lblod/ember-rdfa-editor/plugins/blockquote';
 import { code_block } from '@lblod/ember-rdfa-editor/plugins/code';
 import { image } from '@lblod/ember-rdfa-editor/plugins/image';
-import { getOwner } from '@ember/application';
 import { linkPasteHandler } from '@lblod/ember-rdfa-editor/plugins/link';
-import { citationPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/citation-plugin';
+import { citationPlugin, type CitationPluginConfig } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/citation-plugin';
 import { highlight } from '@lblod/ember-rdfa-editor/plugins/highlight/marks/highlight';
 import { color } from '@lblod/ember-rdfa-editor/plugins/color/marks/color';
 import { trackedFunction } from 'reactiveweb/function';
@@ -86,6 +87,8 @@ import {
   editableNodePlugin,
   getActiveEditableNode,
 } from '@lblod/ember-rdfa-editor/plugins/_private/editable-node';
+import type { TargetOptionGeneratorArgs } from '@lblod/ember-rdfa-editor/components/_private/relationship-editor/types';
+import type { TermOption } from '@lblod/ember-rdfa-editor/components/_private/relationship-editor/types';
 
 import AttributeEditor from '@lblod/ember-rdfa-editor/components/_private/attribute-editor';
 import NodeControlsCard from '@lblod/ember-rdfa-editor/components/_private/node-controls/card';
@@ -115,7 +118,7 @@ import {
   snippetPlaceholder,
   snippetPlaceholderView,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/snippet-plugin/nodes/snippet-placeholder';
-import SnippetListSelectRdfaComponent from '@lblod/ember-rdfa-editor-lblod-plugins/components/snippet-plugin/snippet-list-select-rdfa';
+import SnippetListSelect from '@lblod/ember-rdfa-editor-lblod-plugins/components/snippet-plugin/snippet-list-select';
 import {
   snippet,
   snippetView,
@@ -143,11 +146,20 @@ import {
 import FormatTextIcon from '@lblod/ember-rdfa-editor/components/icons/format-text';
 import { PlusIcon } from '@appuniversum/ember-appuniversum/components/icons/plus';
 import { ThreeDotsIcon } from '@appuniversum/ember-appuniversum/components/icons/three-dots';
-import { sayDataFactory } from '@lblod/ember-rdfa-editor/core/say-data-factory';
+import { sayDataFactory, type SayTerm } from '@lblod/ember-rdfa-editor/core/say-data-factory';
 import { getContextualActionGroups as locationActionsGroups } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin/contextual-actions';
 import { locationModalsPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin';
-
-/** @import EditorSettings from '../../../services/editor-settings'; */
+import type Store from 'frontend-reglementaire-bijlage/services/store';
+import type CurrentSessionService from 'frontend-reglementaire-bijlage/services/current-session';
+import type MuTaskService from 'frontend-reglementaire-bijlage/services/mu-task';
+import type EditorSettings from 'frontend-reglementaire-bijlage/services/editor-settings';
+import type EditorDocumentModel from 'frontend-reglementaire-bijlage/models/editor-document';
+import type { SidebarSettings } from 'frontend-reglementaire-bijlage/services/editor-settings';
+import environment from 'frontend-reglementaire-bijlage/config/environment';
+import type { ModelFrom } from 'frontend-reglementaire-bijlage/utils/type-utils';
+import type SnippetManagementEditSnippetRoute from 'frontend-reglementaire-bijlage/routes/snippet-management/edit/edit-snippet';
+import type SnippetVersion from 'frontend-reglementaire-bijlage/models/snippet-version';
+import type SnippetList from 'frontend-reglementaire-bijlage/models/snippet-list';
 
 export default class SnippetManagementEditSnippetController extends Controller {
   AttributeEditor = AttributeEditor;
@@ -161,22 +173,22 @@ export default class SnippetManagementEditSnippetController extends Controller {
   InsertArticle = InsertArticleComponent;
   StructureControlCard = StructureControlCardComponent;
   SnippetInsert = SnippetInsertRdfaComponent;
-  SnippetListSelect = SnippetListSelectRdfaComponent;
+  SnippetListSelect = SnippetListSelect;
   FormatTextIcon = FormatTextIcon;
   PlusIcon = PlusIcon;
   ThreeDotsIcon = ThreeDotsIcon;
 
-  @service store;
-  @service router;
-  @service intl;
-  @service currentSession;
-  @service muTask;
+  @service declare store: Store;
+  @service declare router: RouterService;
+  @service declare intl: IntlService;
+  @service declare currentSession: CurrentSessionService;
+  @service declare muTask: MuTaskService;
+  @service('editor-settings') declare editorSettingsService: EditorSettings;
 
-  /** @type {EditorSettings} */
-  @service('editor-settings') editorSettingsService;
+  declare model: ModelFrom<SnippetManagementEditSnippetRoute>;
 
-  @tracked editor;
-  @tracked _editorDocument;
+  @tracked editor?: SayController;
+  @tracked _editorDocument?: EditorDocumentModel;
   @tracked citationPlugin = citationPlugin(this.config.citation);
 
   contextualActionGroupGetters = [locationActionsGroups()];
@@ -253,14 +265,13 @@ export default class SnippetManagementEditSnippetController extends Controller {
   }
 
   @action
-  toggleMenu(menuKey, expanded) {
+  toggleMenu(menuKey: keyof SidebarSettings, expanded: boolean) {
     const sidebarSettings = this.sidebarSettings;
     sidebarSettings[menuKey]['expanded'] = expanded;
     this.editorSettingsService.sidebarSettings = sidebarSettings;
   }
 
   get variableTypes() {
-    const config = getOwner(this).resolveRegistration('config:environment');
     return [
       {
         label: this.intl.t('editor.variables.text'),
@@ -278,7 +289,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
         label: this.intl.t('editor.variables.codelist'),
         component: CodelistInsertComponent,
         options: {
-          endpoint: config.insertVariablePlugin.endpoint,
+          endpoint: environment.insertVariablePlugin.endpoint,
           publisher: this.currentSession.group?.uri,
         },
       },
@@ -303,7 +314,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
             'structure_header|article_header',
           ],
           scrollContainer: () =>
-            document.getElementsByClassName('say-container__main')[0],
+            document.getElementsByClassName('say-container__main')[0] as HTMLElement,
         },
       ],
       date: {
@@ -324,17 +335,15 @@ export default class SnippetManagementEditSnippetController extends Controller {
         allowCustomFormat: true,
       },
       structures: {
-        uriGenerator: 'template-uuid4',
+        uriGenerator: 'template-uuid4' as const,
         fullLengthArticles: true,
         onlyArticleSpecialName: false,
       },
       citation: {
-        type: 'nodes',
-        activeInNodeTypes(schema) {
-          return new Set([schema.nodes.doc]);
+        activeInNodeTypes(schema: Schema) {
+          return new Set([schema.nodes['doc'] as NodeType]);
         },
-        endpoint: '/codex/sparql',
-      },
+      } satisfies CitationPluginConfig,
       link: {
         interactive: true,
         rdfaAware: true,
@@ -377,7 +386,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
   }
 
   get nodeViews() {
-    return (controller) => {
+    return (controller: SayController) => {
       return {
         table_of_contents: tableOfContentsView(this.config.tableOfContents)(
           controller,
@@ -392,7 +401,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
         templateComment: templateCommentView(controller),
         person_variable: personVariableView(controller),
         inline_rdfa: inlineRdfaWithConfigView({ rdfaAware: true })(controller),
-        block_rdfa: (node) => new BlockRDFaView(node),
+        block_rdfa: (node: PNode) => new BlockRDFaView(node),
         snippet_placeholder: snippetPlaceholderView(this.config.snippet)(
           controller,
         ),
@@ -419,9 +428,9 @@ export default class SnippetManagementEditSnippetController extends Controller {
   }
 
   @action
-  handleRdfaEditorInit(editor) {
+  handleRdfaEditorInit(editor: SayController) {
     this.editor = editor;
-    if (this.editorDocument.content) {
+    if (this.editorDocument?.content) {
       editor.initialize(this.editorDocument.content, {
         doNotClean: true,
         startsDirty: false,
@@ -454,6 +463,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
   }
 
   save = task(async () => {
+    if (!this.editor) throw new Error('Controller not initialized');
     const html = this.editor.htmlContent;
     const currentVersion = await this.currentVersion.promise;
     const snippet = this.model.snippet;
@@ -463,9 +473,10 @@ export default class SnippetManagementEditSnippetController extends Controller {
       createdOn: now,
       title: currentVersion.title,
       snippet,
-    });
+    }) as SnippetVersion;
     currentVersion.validThrough = new Date();
     await Promise.all([currentVersion.save(), newVersion.save()]);
+    // @ts-expect-error Need to move to proper ED types
     snippet.currentVersion = newVersion;
     snippet.updatedOn = now;
     const snippetListUris = extractSnippetListUris(html);
@@ -480,15 +491,18 @@ export default class SnippetManagementEditSnippetController extends Controller {
   });
 
   updateImportedResourcesOnList = task(async () => {
-    const list = await this.store.findRecord(
-      'snippet-list',
-      this.model.snippetList.id,
-      {
-        reload: true,
-        include: 'snippets,snippets.current-version',
-      },
-    );
-    return saveCollatedImportedResources(list);
+    const snippetListId = this.model.snippetList.id;
+    if (snippetListId) {
+      const list = await this.store.findRecord(
+        'snippet-list',
+        snippetListId,
+        {
+          reload: true,
+          include: 'snippets,snippets.current-version',
+        },
+      ) as SnippetList;
+      return saveCollatedImportedResources(list);
+    }
   });
 
   get importedDecisionUri() {
@@ -503,17 +517,17 @@ export default class SnippetManagementEditSnippetController extends Controller {
     }
   }
 
-  subjectOptionGeneratorTask = restartableTask(async (args) => {
+  subjectOptionGeneratorTask = restartableTask(async (args: TargetOptionGeneratorArgs): Promise<TermOption<SayTerm>[]> => {
     await timeout(200);
     const result = (await this.optionGeneratorConfig?.subjects?.(args)) ?? [];
     return result;
   });
-  predicateOptionGeneratorTask = restartableTask(async (args) => {
+  predicateOptionGeneratorTask = restartableTask(async (args: TargetOptionGeneratorArgs) => {
     await timeout(200);
     const result = (await this.optionGeneratorConfig?.predicates?.(args)) ?? [];
     return result;
   });
-  objectOptionGeneratorTask = restartableTask(async (args) => {
+  objectOptionGeneratorTask = restartableTask(async (args: TargetOptionGeneratorArgs): Promise<TermOption<SayTerm>[]> => {
     await timeout(200);
     const result = (await this.optionGeneratorConfig?.objects?.(args)) ?? [];
     return result;

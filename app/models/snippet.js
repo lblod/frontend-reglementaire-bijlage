@@ -1,4 +1,5 @@
 import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
+/** @import SnippetVersion from './snippet-version'; */
 
 export default class SnippetModel extends Model {
   @attr('string') uri;
@@ -6,6 +7,7 @@ export default class SnippetModel extends Model {
   @attr('datetime') createdOn;
   @attr('datetime') updatedOn;
 
+  /** @type {Promise<SnippetVersion>} */
   @belongsTo('snippet-version', { inverse: null, async: true }) currentVersion;
   @belongsTo('snippet-list', { inverse: 'snippets', async: true }) snippetList;
 
