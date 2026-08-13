@@ -2,6 +2,7 @@ import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 
 export default class AdministrativeUnitModel extends Model {
   @attr name;
+  /** @type {string} */
   @attr uri;
   @belongsTo('administrative-unit-classification-code', {
     inverse: null,

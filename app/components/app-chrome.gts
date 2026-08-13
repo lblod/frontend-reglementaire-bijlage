@@ -52,7 +52,7 @@ export default class AppChromeComponent extends Component<AppChromeComponentSign
     if (this.document instanceof EditorDocumentModel) {
       return this.document.updatedOn as Date;
     } else if (this.document instanceof SnippetVersionModel) {
-      return this.document.createdOn as Date;
+      return this.document.createdOn;
     } else {
       return null;
     }
