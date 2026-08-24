@@ -1,5 +1,13 @@
 # frontend-reglementaire-bijlage
 
+## 9.34.2
+
+### Patch Changes
+
+- [`263c3a3799eb95354687267297230dcf762d37be`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/263c3a3799eb95354687267297230dcf762d37be) Thanks [@piemonkey](https://github.com/piemonkey)! - Update to [@lblod/ember-rdfa-editor-lblod-plugins v38.2.0](https://github.com/lblod/ember-rdfa-editor-lblod-plugins/releases/tag/v38.2.0)
+
+- [#356](https://github.com/lblod/frontend-reglementaire-bijlage/pull/356) [`51cbc0256cf579a62042496198ad0e5e1ea09eac`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/51cbc0256cf579a62042496198ad0e5e1ea09eac) Thanks [@piemonkey](https://github.com/piemonkey)! - Configure location context actions and modal in snippet editor
+
 ## 9.34.1
 
 ### Patch Changes
