@@ -164,11 +164,11 @@ importers:
         specifier: 0.14.0
         version: 0.14.0(@babel/core@7.29.0)(ember-simple-auth@6.1.0(@babel/core@7.29.0)(@ember/test-helpers@3.3.1(@babel/core@7.29.0)(@glint/template@1.7.4)(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.29.0))(@glint/template@1.7.4)(rsvp@4.8.5)(webpack@5.97.1))(webpack@5.97.1))(@glint/template@1.7.4)(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.29.0))(@glint/template@1.7.4)(rsvp@4.8.5)(webpack@5.97.1))(eslint@9.39.4(jiti@2.6.1)))(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.29.0))(@glint/template@1.7.4)(rsvp@4.8.5)(webpack@5.97.1))
       '@lblod/ember-rdfa-editor':
-        specifier: 13.15.1
-        version: 13.15.1(td2gsefkxztwpixrrqk7g25uxm)
+        specifier: 13.18.0
+        version: 13.18.0(td2gsefkxztwpixrrqk7g25uxm)
       '@lblod/ember-rdfa-editor-lblod-plugins':
         specifier: 38.2.0
-        version: 38.2.0(wck74cbuqocs7lwuydpdv2ay3i)
+        version: 38.2.0(xgrllmhfnuz4srnxvfwe5d7bdi)
       '@release-it-plugins/lerna-changelog':
         specifier: ^6.0.0
         version: 6.1.0(release-it@16.3.0(encoding@0.1.13)(typescript@5.9.3))
@@ -1827,8 +1827,8 @@ packages:
       ember-template-imports:
         optional: true
 
-  '@lblod/ember-rdfa-editor@13.15.1':
-    resolution: {integrity: sha512-zZ1p3AkYxIO1m4Agqj7aV7VkkEmKiFB4XERQsnYTCFUXx7Mv5zEyjpAos9t4fP310PVBrPmiQqSqvOXGQ2lmKA==}
+  '@lblod/ember-rdfa-editor@13.18.0':
+    resolution: {integrity: sha512-wKSIx/wRElWv4YhbwvvHkMoyggCuvxjU70iCWRGS427sPatal3jDianj+EtLZFuxEP5by+HQhpefdMn80ydBlA==}
     peerDependencies:
       '@appuniversum/ember-appuniversum': ^3.11.0 || ^4.2.1
       '@ember/test-helpers': ^2.9.4 || ^3.2.1 || ^4.0.2 || ^5.0.0
@@ -10842,7 +10842,7 @@ snapshots:
     dependencies:
       '@codemirror/autocomplete': 6.18.4
       '@codemirror/language': 6.10.8
-      '@codemirror/state': 6.5.4
+      '@codemirror/state': 6.7.1
       '@codemirror/view': 6.39.12
       '@lezer/common': 1.2.3
       '@lezer/xml': 1.0.6
@@ -11934,7 +11934,7 @@ snapshots:
       - '@babel/core'
       - supports-color
 
-  '@lblod/ember-rdfa-editor-lblod-plugins@38.2.0(wck74cbuqocs7lwuydpdv2ay3i)':
+  '@lblod/ember-rdfa-editor-lblod-plugins@38.2.0(xgrllmhfnuz4srnxvfwe5d7bdi)':
     dependencies:
       '@appuniversum/ember-appuniversum': 4.2.2(@babel/core@7.29.0)(@ember/test-helpers@3.3.1(@babel/core@7.29.0)(@glint/template@1.7.4)(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.29.0))(@glint/template@1.7.4)(rsvp@4.8.5)(webpack@5.97.1))(webpack@5.97.1))(@glimmer/component@1.1.2(@babel/core@7.29.0))(@glint/template@1.7.4)(tracked-built-ins@4.1.0(@babel/core@7.29.0))
       '@babel/core': 7.29.0
@@ -11944,7 +11944,7 @@ snapshots:
       '@curvenote/prosemirror-utils': 1.0.5(prosemirror-model@1.25.9)(prosemirror-state@1.4.4)
       '@ember/string': 3.1.1
       '@embroider/macros': 1.20.5(@glint/template@1.7.4)
-      '@lblod/ember-rdfa-editor': 13.15.1(td2gsefkxztwpixrrqk7g25uxm)
+      '@lblod/ember-rdfa-editor': 13.18.0(td2gsefkxztwpixrrqk7g25uxm)
       '@lblod/lib-decision-shapes': 0.0.25(@babel/core@7.29.0)(@jest/transform@30.0.4)(@jest/types@30.0.1)(babel-jest@30.0.4(@babel/core@7.29.0))(jest-util@30.0.2)(jest@30.0.4(@types/node@25.5.0)(node-notifier@10.0.1))(typescript@5.9.3)
       '@lblod/marawa': 0.8.0-beta.6
       '@lblod/template-uuid-instantiator': 1.0.3
@@ -12003,13 +12003,13 @@ snapshots:
       - web-streams-polyfill
       - webpack
 
-  '@lblod/ember-rdfa-editor@13.15.1(td2gsefkxztwpixrrqk7g25uxm)':
+  '@lblod/ember-rdfa-editor@13.18.0(td2gsefkxztwpixrrqk7g25uxm)':
     dependencies:
       '@appuniversum/ember-appuniversum': 4.2.2(@babel/core@7.29.0)(@ember/test-helpers@3.3.1(@babel/core@7.29.0)(@glint/template@1.7.4)(ember-source@5.12.0(patch_hash=rkcvrh53qmynhoxmyesuzuwpyq)(@glimmer/component@1.1.2(@babel/core@7.29.0))(@glint/template@1.7.4)(rsvp@4.8.5)(webpack@5.97.1))(webpack@5.97.1))(@glimmer/component@1.1.2(@babel/core@7.29.0))(@glint/template@1.7.4)(tracked-built-ins@4.1.0(@babel/core@7.29.0))
       '@codemirror/commands': 6.10.1
       '@codemirror/lang-html': 6.4.11
       '@codemirror/lang-xml': 6.1.0
-      '@codemirror/state': 6.5.4
+      '@codemirror/state': 6.7.1
       '@codemirror/view': 6.39.12
       '@curvenote/prosemirror-utils': 1.0.5(prosemirror-model@1.25.9)(prosemirror-state@1.4.4)
       '@ember/optional-features': 2.3.0
