@@ -136,6 +136,7 @@
   },
   "pnpm": {
     "overrides": {
+      "@codemirror/state": "6.7.1",
       "@embroider/util": "1.13.5",
       "caniuse-lite": "1.0.30001809",
       "ember-auto-import": "$ember-auto-import",
