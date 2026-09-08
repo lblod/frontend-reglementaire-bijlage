@@ -1,17 +1,18 @@
 <AuDataTable
-  @content={{this.model.codelists}}
+  @content={{this.model.templateTags}}
   @fields="Label"
-  @noDataMessage={{t "codelist.crud.no-data"}}
+  @noDataMessage={{t "tag-management.crud.no-data"}}
   @size={{this.size}}
   @page={{this.page}}
-  @sort={{this.sort}} as |s|
+  @sort={{this.sort}}
+  as |s|
 >
   <s.menu as |menu|>
     <menu.general>
       <AuToolbar class="au-o-box" as |Group|>
         <Group>
           <AuHeading @skin="2">
-            {{t "codelist.name"}}
+            {{t "tag-management.manage-tags.title"}}
           </AuHeading>
         </Group>
         <Group class="au-c-toolbar__group--center">
@@ -24,11 +25,8 @@
               @onSearch={{this.search}}
             />
           </div>
-          <AuLink
-            @route="codelist-management.new"
-            @icon="add"
-            @skin="button">
-            {{t "codelist.crud.new"}}
+          <AuLink @route="tag-management.new" @icon="add" @skin="button">
+            {{t "tag-management.crud.new"}}
           </AuLink>
         </Group>
       </AuToolbar>
@@ -39,71 +37,76 @@
       <AuDataTableThSortable
         @field=":no-case:label"
         @currentSorting={{this.sort}}
-        @label={{t "codelist.attr.label"}}
+        @label={{t "utility.attr.name"}}
       />
-      <th>{{t "codelist.attr.id"}}</th>
+      <th>{{t "utility.attr.id"}}</th>
       <AuDataTableThSortable
         @field="createdOn"
         @currentSorting={{this.sort}}
-        @label={{t "codelist.attr.created-on"}}
+        @label={{t "utility.attr.created-on"}}
       />
       <th></th>
     </c.header>
-    <c.body as |codelist|>
+    <c.body as |tag|>
       <td>
         <AuLink
           @skin="primary"
-          @route="codelist-management.edit"
-          @model={{codelist.id}}
+          @route="tag-management.edit"
+          @model={{tag.id}}
         >
-          {{codelist.label}}
+          {{tag.label}}
         </AuLink>
       </td>
       <td>
-        {{codelist.id}}
+        {{tag.id}}
       </td>
       <td>
-        {{#if codelist.createdOn}}
-          {{detailed-date codelist.createdOn}}
+        {{#if tag.createdOn}}
+          {{detailed-date tag.createdOn}}
         {{else}}
           {{t "codelist.attr.not-found"}}
         {{/if}}
       </td>
       <td>
-         <AuButton
-            @skin="naked"
-            @icon="trash"
-            @alert={{true}}
-            {{on "click" (fn this.openRemoveModal codelist)}}
-          >
-            {{t "utility.delete"}}
-          </AuButton>
+        <AuButton
+          @skin="naked"
+          @icon="trash"
+          @alert={{true}}
+          {{on "click" (fn this.openRemoveModal tag)}}
+        >
+          {{t "utility.delete"}}
+        </AuButton>
       </td>
     </c.body>
   </s.content>
 </AuDataTable>
 
 <AuModal
-  @title={{t 'utility.confirmation.body'}}
+  @title={{t "utility.confirmation.body"}}
   @modalOpen={{this.isRemoveModalOpen}}
-  @closeModal={{this.closeRemoveModal}} as |Modal|
+  @closeModal={{this.closeRemoveModal}}
+  as |Modal|
 >
   <Modal.Body>
     <p>
-      {{t 'codelist.crud.confirm-deletion' name=this.modalCodelist.label htmlSafe=true}}
+      {{t
+        "codelist.crud.confirm-deletion"
+        name=this.modalCodelist.label
+        htmlSafe=true
+      }}
     </p>
   </Modal.Body>
-<Modal.Footer>
-  <AuButton
-    @alert={{true}}
-    @loading={{this.removeCodelist.isRunning}}
-    @loadingMessage={{t 'utility.deleting'}}
-    {{on 'click' (perform this.removeCodelist)}}
-  >
-    {{t 'codelist.crud.delete'}}
-  </AuButton>
-  <AuButton @skin='secondary' {{on 'click' this.closeRemoveModal}}>
-    {{t 'utility.cancel'}}
-  </AuButton>
-</Modal.Footer>
+  <Modal.Footer>
+    <AuButton
+      @alert={{true}}
+      @loading={{this.removeCodelist.isRunning}}
+      @loadingMessage={{t "utility.deleting"}}
+      {{on "click" (perform this.removeCodelist)}}
+    >
+      {{t "codelist.crud.delete"}}
+    </AuButton>
+    <AuButton @skin="secondary" {{on "click" this.closeRemoveModal}}>
+      {{t "utility.cancel"}}
+    </AuButton>
+  </Modal.Footer>
 </AuModal>
