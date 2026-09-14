@@ -18,7 +18,7 @@
         </Group>
         <Group>
           <TemplateExporter @templateUris={{this.selectedTemplates}} />
-          <TemplateImporter @onSuccess={{this.refresh}}/>
+          <TemplateImporter @onSuccess={{this.refresh}} />
           <div class="au-c-data-table__search">
             <SearchForm
               @value={{this.searchQuery}}
@@ -45,7 +45,7 @@
           <AuCheckbox
             id={{id}}
             @checked={{this.selectAllChecked}}
-            {{on 'click' this.onSelectAllChange}}
+            {{on "click" this.onSelectAllChange}}
           />
         {{/let}}
       </th>
@@ -75,7 +75,7 @@
             id={{id}}
             value={{documentContainer.uri}}
             @checked={{this.isSelected documentContainer.uri}}
-            {{on 'click' this.onTemplateSelectionChange}}
+            {{on "click" this.onTemplateSelectionChange}}
           />
         {{/let}}
       </td>
@@ -130,34 +130,44 @@
 >
   <Modal.Body>
     <form
-      class="au-o-flow"
+      class="au-c-form"
       id="create-meeting-form"
       {{on "submit" (perform this.saveTemplate)}}
     >
-      <AuLabel for="template-title">
-        {{t "template-management.title"}}
-      </AuLabel>
-      <AuInput
-        value={{this.editorDocument.title}}
-        @width="block"
-        id="template-title"
-        type="text"
-        {{on "input" this.handleTitleUpdate}}
-      />
-      <AuLabel for="template-type">
-        {{t "template-management.template-type.label"}}
-      </AuLabel>
-      <PowerSelect
-        id="template-type"
-        @allowClear={{false}}
-        @searchEnabled={{false}}
-        @options={{this.templateTypes}}
-        @selected={{this.templateTypeToCreate}}
-        @onChange={{this.updateTemplateType}}
-        as |templateType|
-      >
-        {{templateType.label}}
-      </PowerSelect>
+      <AuFormRow>
+        <AuLabel @required={{true}} for="template-title">
+          {{t "template-management.title"}}
+        </AuLabel>
+        <AuInput
+          value={{this.editorDocument.title}}
+          @width="block"
+          id="template-title"
+          type="text"
+          {{on "input" this.handleTitleUpdate}}
+        />
+      </AuFormRow>
+      <AuFormRow>
+        <AuLabel for="template-type">
+          {{t "template-management.template-type.label"}}
+        </AuLabel>
+        <PowerSelect
+          id="template-type"
+          @allowClear={{false}}
+          @searchEnabled={{false}}
+          @options={{this.templateTypes}}
+          @selected={{this.templateTypeToCreate}}
+          @onChange={{this.updateTemplateType}}
+          as |templateType|
+        >
+          {{templateType.label}}
+        </PowerSelect>
+      </AuFormRow>
+      <AuFormRow>
+        <AuLabel for="template-type">
+          {{t "template-management.tags.label"}}
+        </AuLabel>
+        <TemplateTagSelector @onChange={{this.updateTemplateTags}} />
+      </AuFormRow>
     </form>
   </Modal.Body>
   <Modal.Footer>
