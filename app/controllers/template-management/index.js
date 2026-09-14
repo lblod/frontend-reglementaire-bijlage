@@ -28,6 +28,7 @@ export default class TemplateManagementIndexController extends Controller {
   @tracked editorDocument;
   @tracked documentContainer;
   @tracked templateTypeToCreate = this.templateTypes[0];
+  @tracked tagsToCreate = [];
   @tracked createTemplateModalIsOpen;
   @tracked removeTemplateModalIsOpen;
   @tracked selectedTemplates = tracked(Set);
@@ -38,6 +39,11 @@ export default class TemplateManagementIndexController extends Controller {
   @action
   updateTemplateType(templateType) {
     this.templateTypeToCreate = templateType;
+  }
+
+  @action
+  updateTemplateTags(newTags) {
+    this.tagsToCreate = newTags;
   }
 
   getTemplateTypeLabel = async (documentContainer) => {
@@ -130,6 +136,12 @@ export default class TemplateManagementIndexController extends Controller {
 
   saveTemplate = task(async (event) => {
     event.preventDefault();
+
+    // Store all new tags
+    await Promise.all(
+      this.tagsToCreate.filter((tag) => !tag.id).map((tag) => tag.save()),
+    );
+
     await this.editorDocument.save();
 
     this.documentContainer.folder = await this.store.findRecord(
@@ -138,6 +150,16 @@ export default class TemplateManagementIndexController extends Controller {
     );
     this.documentContainer.currentVersion = this.editorDocument;
     await this.documentContainer.save();
+
+    let template = await this.documentContainer.template;
+    if (!template) {
+      template = this.store.createRecord('template', {
+        derivedFrom: this.documentContainer,
+      });
+    }
+
+    template.tags = this.tagsToCreate;
+    await template.save();
 
     this.editorDocument.documentContainer = this.documentContainer;
     await this.editorDocument.save();

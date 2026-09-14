@@ -13,7 +13,6 @@ import type RouterService from '@ember/routing/router-service';
 import TemplateTag from 'frontend-reglementaire-bijlage/models/template-tag';
 import type Store from 'frontend-reglementaire-bijlage/services/store';
 import { localCopy } from 'tracked-toolbox';
-import type Template from 'frontend-reglementaire-bijlage/models/template';
 
 type Args = {
   tag?: TemplateTag;
@@ -59,9 +58,7 @@ export default class TemplateTagEditModal extends Component<Args> {
   <template>
     <AuModal
       @title={{t
-        (if
-          this.tagLabel 'tag-management.edit.title' 'tag-management.new.title'
-        )
+        (if @tag.label 'tag-management.edit.title' 'tag-management.new.title')
       }}
       @modalOpen={{true}}
       @closeModal={{this.cancelEditTag}}
@@ -83,6 +80,7 @@ export default class TemplateTagEditModal extends Component<Args> {
               id='template-title'
               type='text'
               {{on 'input' this.updateTagName}}
+              required
             />
           </AuFormRow>
         </form>

@@ -104,6 +104,8 @@ template-management:
     label: Sjabloontype
     decision: Besluit
     regulatory-attachment: Reglementaire bijlage
+  tags:
+    label: Tags
   no-data-message: Geen sjablonen gevonden
   crud:
     label-filter: Label
@@ -216,7 +218,7 @@ tag-management:
   manage-tags:
     title: Beheer tags
   new:
-    title: Nieuwe tag aanmaken
+    title: Nieuwe tag
   edit:
     title: Tag bewerken
 
