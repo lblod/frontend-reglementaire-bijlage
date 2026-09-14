@@ -39,4 +39,3 @@ export default class TagManagementRoute extends Route {
     controller.reset();
   }
 }
-
