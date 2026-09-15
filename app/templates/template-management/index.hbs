@@ -65,7 +65,8 @@
         @currentSorting={{this.sort}}
         @label={{t "template-management.updated-on"}}
       />
-      <th>{{t "template-management.publish-date"}}</th>
+      {{!-- <th>{{t "template-management.publish-date"}}</th> --}}
+      <th>{{t "template-management.tags.label"}}</th>
       <th></th>
     </c.header>
     <c.body as |documentContainer|>
@@ -85,6 +86,27 @@
           @model={{documentContainer.id}}
           class="au-c-link"
         >{{documentContainer.currentVersion.title}}</LinkTo>
+        {{#let
+          (await (this.lastPublicationDate documentContainer))
+          as |lastPublicationDate|
+        }}
+          {{#if lastPublicationDate}}
+            <AuTooltip as |tooltip|>
+              <AuPill @skin="success" {{tooltip.target}}>
+                {{t "template-management.available"}}
+              </AuPill>
+              <tooltip.Content>
+                {{#if lastPublicationDate.validThrough}}
+                  <del
+                    datetime={{lastPublicationDate.validThrough}}
+                  >{{detailed-date lastPublicationDate.created}}</del>
+                {{else}}
+                  {{detailed-date lastPublicationDate.created}}
+                {{/if}}
+              </tooltip.Content>
+            </AuTooltip>
+          {{/if}}
+        {{/let}}
       </td>
       <td>
         {{await (this.getTemplateTypeLabel documentContainer)}}
@@ -92,32 +114,20 @@
       <td>{{detailed-date documentContainer.currentVersion.createdOn}}</td>
       <td>{{detailed-date documentContainer.currentVersion.updatedOn}}</td>
       <td>
-        {{#let
-          (await (this.lastPublicationDate documentContainer))
-          as |lastPublicationDate|
-        }}
-          {{#if lastPublicationDate}}
-            {{#if lastPublicationDate.validThrough}}
-              <del datetime={{lastPublicationDate.validThrough}}>{{detailed-date
-                  lastPublicationDate.created
-                }}</del>
-            {{else}}
-              {{detailed-date lastPublicationDate.created}}
-            {{/if}}
-          {{else}}
-            {{t "template-management.not-found"}}
-          {{/if}}
-        {{/let}}
+        {{!-- <TemplateTags @tags={{documentContainer.template.tags}} /> --}}
+        {{!-- {{#each documentContainer.template.tags as |tag|}}
+          {{tag.label}}
+        {{/each}} --}}
       </td>
-      <td>
+      <td class="au-u-padding-none">
         <AuButton
           @skin="naked"
           @icon="trash"
           @alert={{true}}
+          @hideText={{true}}
+          @size="large"
           {{on "click" (fn this.startRemoveTemplateFlow documentContainer)}}
-        >
-          {{t "utility.delete"}}
-        </AuButton>
+        />
       </td>
     </c.body>
   </table.content>
