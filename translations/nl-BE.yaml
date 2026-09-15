@@ -100,12 +100,15 @@ template-management:
   not-published: Niet uitgegeven
   available: Beschikbaar
   available-until: Beschikbaar tot {date}
+  published-on: Beschikbaar sinds
   template-type:
     label: Sjabloontype
     decision: Besluit
     regulatory-attachment: Reglementaire bijlage
   tags:
     label: Tags
+    show-less: Toon minder
+    show-all: Toon alle tags
   no-data-message: Geen sjablonen gevonden
   crud:
     label-filter: Label
@@ -125,6 +128,8 @@ template-edit:
   insert-title: Document-titel invoegen
   unpublish: Uitgave ongedaan maken
   unpublish-confirm: Weet je zeker dat je het uitgeven van deze sjabloon ongedaan wilt maken?
+  save-as-design: Bewaar als ontwerp
+  save-and-publish: Bewaar en maak beschikbaar
 auth:
   acmidm: Log in met acm/idm
   login: Meld u aan

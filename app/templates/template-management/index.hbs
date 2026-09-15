@@ -65,7 +65,6 @@
         @currentSorting={{this.sort}}
         @label={{t "template-management.updated-on"}}
       />
-      {{!-- <th>{{t "template-management.publish-date"}}</th> --}}
       <th>{{t "template-management.tags.label"}}</th>
       <th></th>
     </c.header>
@@ -80,12 +79,15 @@
           />
         {{/let}}
       </td>
-      <td>
+      <td class="au-u-word-nowrap template-management-table--title">
         <LinkTo
           @route="template-management.edit"
           @model={{documentContainer.id}}
           class="au-c-link"
-        >{{documentContainer.currentVersion.title}}</LinkTo>
+          title={{documentContainer.currentVersion.title}}
+        >
+          {{documentContainer.currentVersion.title}}
+        </LinkTo>
         {{#let
           (await (this.lastPublicationDate documentContainer))
           as |lastPublicationDate|
@@ -96,6 +98,7 @@
                 {{t "template-management.available"}}
               </AuPill>
               <tooltip.Content>
+                {{t "template-management.published-on"}}
                 {{#if lastPublicationDate.validThrough}}
                   <del
                     datetime={{lastPublicationDate.validThrough}}
@@ -108,16 +111,17 @@
           {{/if}}
         {{/let}}
       </td>
-      <td>
+      <td class="au-u-word-nowrap">
         {{await (this.getTemplateTypeLabel documentContainer)}}
       </td>
-      <td>{{detailed-date documentContainer.currentVersion.createdOn}}</td>
-      <td>{{detailed-date documentContainer.currentVersion.updatedOn}}</td>
+      <td class="au-u-word-nowrap">{{detailed-date
+          documentContainer.currentVersion.createdOn
+        }}</td>
+      <td class="au-u-word-nowrap">{{detailed-date
+          documentContainer.currentVersion.updatedOn
+        }}</td>
       <td>
-        {{!-- <TemplateTags @tags={{documentContainer.template.tags}} /> --}}
-        {{!-- {{#each documentContainer.template.tags as |tag|}}
-          {{tag.label}}
-        {{/each}} --}}
+        <TemplateTags @tags={{documentContainer.template.tags}} />
       </td>
       <td class="au-u-padding-none">
         <AuButton

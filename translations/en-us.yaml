@@ -100,10 +100,15 @@ template-management:
   not-published: Not published
   available: Available
   available-until: Available until {date}
+  published-on: Available since
   template-type:
     label: Template type
     decision: Decision
     regulatory-attachment: Regulatory attachment
+  tags:
+    label: Tags
+    show-less: Show less
+    show-all: Show all tags
   no-data-message: No templates found
   crud:
     label-filter: Label
@@ -123,6 +128,8 @@ template-edit:
   insert-title: Insert document title
   unpublish: Unpublish
   unpublish-confirm: Are you sure you want to unpublish this template?
+  save-as-design: Save as design
+  save-and-publish: Save and make available
 auth:
   acmidm: Log in with acm/idm
   login: Log in
