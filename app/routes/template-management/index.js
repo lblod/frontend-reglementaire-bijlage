@@ -34,7 +34,7 @@ export default class TemplateManagementIndexRoute extends Route {
         number: params.page,
         size: params.size,
       },
-      include: 'template',
+      include: 'template,folder,current-version,template.tags',
     };
 
     if (params.title) {
