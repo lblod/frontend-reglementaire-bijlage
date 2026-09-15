@@ -1,0 +1,41 @@
+.tag-overflow-list {
+  position: relative;
+  width: 100%;
+}
+
+.tag-overflow-list__measure {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+  display: flex;
+  gap: 6px;
+  white-space: nowrap;
+  top: 0;
+  left: 0;
+}
+
+.tag-overflow-list__visible {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  gap: 6px;
+}
+
+.tag-overflow-list--expanded .tag-overflow-list__visible {
+  flex-wrap: wrap;
+  overflow: visible;
+}
+
+.tag-pill {
+  white-space: nowrap;
+}
+
+.tag-pill--more {
+  cursor: pointer;
+}
+
+.tag-pill--collapse {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+}
