@@ -1,5 +1,11 @@
 # frontend-reglementaire-bijlage
 
+## 9.34.3
+
+### Patch Changes
+
+- [`b0535f3f32d319cebc3e4566b216f644812c69c3`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/b0535f3f32d319cebc3e4566b216f644812c69c3) Thanks [@piemonkey](https://github.com/piemonkey)! - Update [@lblod/ember-rdfa-editor to v13.18.0](https://github.com/lblod/ember-rdfa-editor/releases/tag/%40lblod%2Fember-rdfa-editor%4013.18.0)
+
 ## 9.34.2
 
 ### Patch Changes
