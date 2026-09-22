@@ -15,6 +15,8 @@ export default class TemplateManagementIndexRoute extends Route {
     size: { refreshModel: true },
     sort: { refreshModel: true },
     filter: { refreshModel: true },
+    templateTypes: { refreshModel: true },
+    templateTags: { refreshModel: true },
   };
 
   mergeQueryOptions(params) {
@@ -22,12 +24,15 @@ export default class TemplateManagementIndexRoute extends Route {
   }
 
   async model(params) {
-    const folders = [RS_STANDARD_FOLDER, DECISION_STANDARD_FOLDER];
+    const folders = params.templateTypes?.length > 0
+      ? params.templateTypes.map((templateType) => templateType.folder)
+      : [RS_STANDARD_FOLDER, DECISION_STANDARD_FOLDER];
     const options = {
       filter: {
         folder: {
           id: folders.join(','),
         },
+        'template.tags'
       },
       sort: params.sort,
       page: {

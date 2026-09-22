@@ -48,6 +48,10 @@
           @config={{this.config.snippet}}
         />
       {{/if}}
+      <TemplateManagement::PropertyEditModal
+        @templateType={{@model.templateType}}
+        @templateTags={{@model.templateTags}}
+      />
     </:leadingButtons>
   </AppChrome>
   <RdfaEditorContainer

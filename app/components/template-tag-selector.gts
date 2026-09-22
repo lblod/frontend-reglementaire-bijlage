@@ -8,7 +8,14 @@ import { localCopy } from 'tracked-toolbox';
 import { tracked } from '@glimmer/tracking';
 
 type Args = {
-  onChange: (tags: TemplateTag[]) => void;
+  onChange?: (tags: TemplateTag[]) => void;
+  selectedTags?: TemplateTag[];
+  allowCreate?: boolean;
+};
+
+type Signature = {
+  Args: Args;
+  Element: HTMLElement;
 };
 
 type SelectorOption = {
@@ -17,7 +24,7 @@ type SelectorOption = {
   searchTerm?: string;
 };
 
-export default class TemplateTagSelectorComponent extends Component<Args> {
+export default class TemplateTagSelectorComponent extends Component<Signature> {
   @service declare store: Store;
 
   @localCopy('args.selectedTags') selectedTags: TemplateTag[] = [];
@@ -50,6 +57,7 @@ export default class TemplateTagSelectorComponent extends Component<Args> {
   get options() {
     const options = [...this.tags.value, ...this.addedTags];
     if (
+      this.args.allowCreate &&
       this.searchTerm &&
       !options.find((tag) => tag.label === this.searchTerm)
     ) {
@@ -76,6 +84,7 @@ export default class TemplateTagSelectorComponent extends Component<Args> {
         @selected={{this.selectedTags}}
         @searchField='label'
         @onInput={{this.setSearchTerm}}
+        ...attributes
         as |tag|
       >
         {{tag.label}}

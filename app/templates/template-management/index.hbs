@@ -1,141 +1,153 @@
 {{page-title (t "template-management.page-title")}}
-<AuDataTable
-  @content={{this.model}}
-  @isLoading={{this.isLoadingModel}}
-  @noDataMessage={{t "template-management.no-data-message"}}
-  @sort={{this.sort}}
-  @page={{this.page}}
-  @size={{this.size}}
-  as |table|
->
-  <table.menu as |menu|>
-    <menu.general>
-      <AuToolbar class="au-o-box" @size="large" as |Group|>
-        <Group>
-          <AuHeading @skin="2">
-            {{t "template-management.page-title"}}
-          </AuHeading>
-        </Group>
-        <Group>
-          <TemplateExporter @templateUris={{this.selectedTemplates}} />
-          <TemplateImporter @onSuccess={{this.refresh}} />
-          <div class="au-c-data-table__search">
-            <SearchForm
-              @value={{this.searchQuery}}
-              @placeholder={{t "template-management.crud.label-filter"}}
-              @onInput={{this.updateSearchQuery}}
-              @onSearch={{this.search}}
-            />
-          </div>
-          {{#unless this.readOnly}}
-            <AuButton
-              @icon="add"
-              @iconAlignment="left"
-              {{on "click" this.startCreateTemplateFlow}}
-            >{{t "template-management.new"}}</AuButton>
-          {{/unless}}
-        </Group>
-      </AuToolbar>
-    </menu.general>
-  </table.menu>
-  <table.content as |c|>
-    <c.header>
-      <th>
-        {{#let (unique-id) as |id|}}
-          <AuCheckbox
-            id={{id}}
-            @checked={{this.selectAllChecked}}
-            {{on "click" this.onSelectAllChange}}
-          />
-        {{/let}}
-      </th>
-      <AuDataTableThSortable
-        @field=":no-case:currentVersion.title"
-        @currentSorting={{this.sort}}
-        @label={{t "template-management.title"}}
-      />
-      <th>{{t "template-management.template-type.label"}}</th>
-      <AuDataTableThSortable
-        @field="currentVersion.createdOn"
-        @currentSorting={{this.sort}}
-        @label={{t "template-management.created-on"}}
-      />
-      <AuDataTableThSortable
-        @field="currentVersion.updatedOn"
-        @currentSorting={{this.sort}}
-        @label={{t "template-management.updated-on"}}
-      />
-      <th>{{t "template-management.tags.label"}}</th>
-      <th></th>
-    </c.header>
-    <c.body as |documentContainer|>
-      <td>
-        {{#let (unique-id) as |id|}}
-          <AuCheckbox
-            id={{id}}
-            value={{documentContainer.uri}}
-            @checked={{this.isSelected documentContainer.uri}}
-            {{on "click" this.onTemplateSelectionChange}}
-          />
-        {{/let}}
-      </td>
-      <td class="au-u-word-nowrap template-management-table--title">
-        <LinkTo
-          @route="template-management.edit"
-          @model={{documentContainer.id}}
-          class="au-c-link"
-          title={{documentContainer.currentVersion.title}}
-        >
-          {{documentContainer.currentVersion.title}}
-        </LinkTo>
-        {{#let
-          (await (this.lastPublicationDate documentContainer))
-          as |lastPublicationDate|
-        }}
-          {{#if lastPublicationDate}}
-            <AuTooltip as |tooltip|>
-              <AuPill @skin="success" {{tooltip.target}}>
-                {{t "template-management.available"}}
-              </AuPill>
-              <tooltip.Content>
-                {{t "template-management.published-on"}}
-                {{#if lastPublicationDate.validThrough}}
-                  <del
-                    datetime={{lastPublicationDate.validThrough}}
-                  >{{detailed-date lastPublicationDate.created}}</del>
-                {{else}}
-                  {{detailed-date lastPublicationDate.created}}
-                {{/if}}
-              </tooltip.Content>
-            </AuTooltip>
-          {{/if}}
-        {{/let}}
-      </td>
-      <td class="au-u-word-nowrap">
-        {{await (this.getTemplateTypeLabel documentContainer)}}
-      </td>
-      <td class="au-u-word-nowrap">{{detailed-date
-          documentContainer.currentVersion.createdOn
-        }}</td>
-      <td class="au-u-word-nowrap">{{detailed-date
-          documentContainer.currentVersion.updatedOn
-        }}</td>
-      <td>
-        <TemplateTags @tags={{documentContainer.template.tags}} />
-      </td>
-      <td class="au-u-padding-none">
-        <AuButton
-          @skin="naked"
-          @icon="trash"
-          @alert={{true}}
-          @hideText={{true}}
-          @size="large"
-          {{on "click" (fn this.startRemoveTemplateFlow documentContainer)}}
+<AuMainContainer as |m|>
+  <m.sidebar>
+    <div class="au-c-sidebar">
+      <div class="au-c-sidebar__content">
+        <TemplateManagement::Filters
+          @onChangeTemplateTitle={{this.changeFilterTitle}}
+          @templateTitle={{this.searchQuery}}
+          @onChangeTemplateTypes={{this.changeFilterTemplateTypes}}
         />
-      </td>
-    </c.body>
-  </table.content>
-</AuDataTable>
+      </div>
+    </div>
+  </m.sidebar>
+  <m.content @scroll={{true}}>
+    <div class="au-d-component-block au-d-component-block--overflow">
+      <AuDataTable
+        @content={{this.model}}
+        @isLoading={{this.isLoadingModel}}
+        @noDataMessage={{t "template-management.no-data-message"}}
+        @sort={{this.sort}}
+        @page={{this.page}}
+        @size={{this.size}}
+        as |table|
+      >
+        <table.menu as |menu|>
+          <menu.general>
+            <AuToolbar class="au-o-box" @size="large" as |Group|>
+              <Group>
+                <AuHeading @skin="2">
+                  {{t "template-management.page-title"}}
+                </AuHeading>
+              </Group>
+              <Group>
+                <TemplateExporter @templateUris={{this.selectedTemplates}} />
+                <TemplateImporter @onSuccess={{this.refresh}} />
+                {{#unless this.readOnly}}
+                  <AuButton
+                    @icon="add"
+                    @iconAlignment="left"
+                    {{on "click" this.startCreateTemplateFlow}}
+                  >{{t "template-management.new"}}</AuButton>
+                {{/unless}}
+              </Group>
+            </AuToolbar>
+          </menu.general>
+        </table.menu>
+        <table.content as |c|>
+          <c.header>
+            <th>
+              {{#let (unique-id) as |id|}}
+                <AuCheckbox
+                  id={{id}}
+                  @checked={{this.selectAllChecked}}
+                  {{on "click" this.onSelectAllChange}}
+                />
+              {{/let}}
+            </th>
+            <AuDataTableThSortable
+              @field=":no-case:currentVersion.title"
+              @currentSorting={{this.sort}}
+              @label={{t "template-management.title"}}
+            />
+            <th>{{t "template-management.template-type.label"}}</th>
+            <AuDataTableThSortable
+              @field="currentVersion.createdOn"
+              @currentSorting={{this.sort}}
+              @label={{t "template-management.created-on"}}
+            />
+            <AuDataTableThSortable
+              @field="currentVersion.updatedOn"
+              @currentSorting={{this.sort}}
+              @label={{t "template-management.updated-on"}}
+            />
+            <th>{{t "template-management.tags.label"}}</th>
+            <th></th>
+          </c.header>
+          <c.body as |documentContainer|>
+            <td>
+              {{#let (unique-id) as |id|}}
+                <AuCheckbox
+                  id={{id}}
+                  value={{documentContainer.uri}}
+                  @checked={{this.isSelected documentContainer.uri}}
+                  {{on "click" this.onTemplateSelectionChange}}
+                />
+              {{/let}}
+            </td>
+            <td class="au-u-word-nowrap template-management-table--title">
+              <LinkTo
+                @route="template-management.edit"
+                @model={{documentContainer.id}}
+                class="au-c-link"
+                title={{documentContainer.currentVersion.title}}
+              >
+                {{documentContainer.currentVersion.title}}
+              </LinkTo>
+              {{#let
+                (await (this.lastPublicationDate documentContainer))
+                as |lastPublicationDate|
+              }}
+                {{#if lastPublicationDate}}
+                  <AuTooltip as |tooltip|>
+                    <AuPill @skin="success" {{tooltip.target}}>
+                      {{t "template-management.available"}}
+                    </AuPill>
+                    <tooltip.Content>
+                      {{t "template-management.published-on"}}
+                      {{#if lastPublicationDate.validThrough}}
+                        <del
+                          datetime={{lastPublicationDate.validThrough}}
+                        >{{detailed-date lastPublicationDate.created}}</del>
+                      {{else}}
+                        {{detailed-date lastPublicationDate.created}}
+                      {{/if}}
+                    </tooltip.Content>
+                  </AuTooltip>
+                {{/if}}
+              {{/let}}
+            </td>
+            <td class="au-u-word-nowrap">
+              {{await (this.getTemplateTypeLabel documentContainer)}}
+            </td>
+            <td class="au-u-word-nowrap">{{detailed-date
+                documentContainer.currentVersion.createdOn
+              }}</td>
+            <td class="au-u-word-nowrap">{{detailed-date
+                documentContainer.currentVersion.updatedOn
+              }}</td>
+            <td>
+              <TemplateTags @tags={{documentContainer.template.tags}} />
+            </td>
+            <td class="au-u-padding-none">
+              <AuButton
+                @skin="naked"
+                @icon="trash"
+                @alert={{true}}
+                @hideText={{true}}
+                @size="large"
+                {{on
+                  "click"
+                  (fn this.startRemoveTemplateFlow documentContainer)
+                }}
+              />
+            </td>
+          </c.body>
+        </table.content>
+      </AuDataTable>
+    </div>
+  </m.content>
+</AuMainContainer>
 <AuModal
   @title={{t "template-management.create-modal.title"}}
   @modalOpen={{this.createTemplateModalIsOpen}}
@@ -168,7 +180,7 @@
           id="template-type"
           @allowClear={{false}}
           @searchEnabled={{false}}
-          @options={{this.templateTypes}}
+          @options={{this.allTemplateTypes}}
           @selected={{this.templateTypeToCreate}}
           @onChange={{this.updateTemplateType}}
           as |templateType|
@@ -180,7 +192,10 @@
         <AuLabel for="template-type">
           {{t "template-management.tags.label"}}
         </AuLabel>
-        <TemplateTagSelector @onChange={{this.updateTemplateTags}} />
+        <TemplateTagSelector
+          @allowCreate={{true}}
+          @onChange={{this.updateTemplateTags}}
+        />
       </AuFormRow>
     </form>
   </Modal.Body>

@@ -1,6 +1,11 @@
 import type IntlService from 'ember-intl/services/intl';
 import { DECISION_STANDARD_FOLDER, RS_STANDARD_FOLDER } from './constants';
 
+export type TemplateType = {
+  folder: string;
+  label: string;
+}
+
 /**
  * @param intl - ember intl service to translate the labels correctly
  */

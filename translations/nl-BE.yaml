@@ -101,6 +101,7 @@ template-management:
   available: Beschikbaar
   available-until: Beschikbaar tot {date}
   published-on: Beschikbaar sinds
+  template-information: Sjablooninformatie
   template-type:
     label: Sjabloontype
     decision: Besluit
@@ -120,6 +121,11 @@ template-management:
     title: Weet u zeker dat u dit sjabloon wilt verwijderen?
     remove: Sjabloon verwijderen
     cancel: Terug
+  filters:
+    label: Filters
+    template-name: Naam sjabloon
+    tags: Tag(s)
+    reset-all: Herstel alle filters
 template-edit:
   edit: Wijzig sjabloon
   return: Terug naar sjablonenoverzicht
