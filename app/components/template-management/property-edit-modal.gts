@@ -22,9 +22,11 @@ type Args = {
 
 export default class PropertyEditModal extends Component<Args> {
   @tracked isModalOpen = false;
+  @tracked newTemplateTags: TemplateTag[] | undefined = undefined;
 
   openModal = () => {
     this.isModalOpen = true;
+    this.newTemplateTags = undefined;
   };
 
   closeModal = () => {
@@ -34,15 +36,20 @@ export default class PropertyEditModal extends Component<Args> {
   changeTemplateType = (newTemplateType: TemplateType) => {
     this.args.onChange?.({
       templateType: newTemplateType,
-      templateTags: this.args.templateTags,
+      // templateTags: this.args.templateTags,
     });
   };
 
   changeTemplateTags = (newTemplateTags: TemplateTag[]) => {
-    this.args.onChange?.({
-      templateType: this.args.templateType,
-      templateTags: newTemplateTags,
-    });
+    this.newTemplateTags = newTemplateTags;
+    // this.args.onChange?.({
+    //   // templateType: this.args.templateType,
+    //   templateTags: newTemplateTags,
+    // });
+  };
+  onSave = () => {
+    this.args.onChange?.({ templateTags: this.newTemplateTags });
+    this.closeModal();
   };
 
   <template>
@@ -80,7 +87,7 @@ export default class PropertyEditModal extends Component<Args> {
         <AuButton @skin='secondary' {{on 'click' this.closeModal}}>{{t
             'utility.cancel'
           }}</AuButton>
-        <AuButton>{{t 'utility.save'}}</AuButton>
+        <AuButton {{on 'click' this.onSave}}>{{t 'utility.save'}}</AuButton>
       </:footer>
     </AuModal>
   </template>

@@ -4,7 +4,7 @@ import { DECISION_STANDARD_FOLDER, RS_STANDARD_FOLDER } from './constants';
 export type TemplateType = {
   folder: string;
   label: string;
-}
+};
 
 /**
  * @param intl - ember intl service to translate the labels correctly
@@ -26,6 +26,6 @@ export function getTemplateTypes(intl: IntlService) {
  * @param type - uuid for the type of template
  * @param intl - ember intl service to translate the labels correctly
  */
-export function getTemplateType(type: string, intl: IntlService) {
+export function getTemplateType(type: string | undefined, intl: IntlService) {
   return getTemplateTypes(intl).find(({ folder }) => folder === type);
 }

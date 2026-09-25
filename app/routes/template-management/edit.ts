@@ -9,10 +9,7 @@ import type TemplateVersion from 'frontend-reglementaire-bijlage/models/template
 import type SessionService from 'frontend-reglementaire-bijlage/services/session';
 import type { ModelFrom } from 'frontend-reglementaire-bijlage/utils/type-utils';
 import { hash } from 'rsvp';
-import {
-  getTemplateType,
-  getTemplateTypes,
-} from 'frontend-reglementaire-bijlage/utils/template-type';
+import { getTemplateType } from 'frontend-reglementaire-bijlage/utils/template-type';
 import type IntlService from 'ember-intl/services/intl';
 import type TemplateTag from 'frontend-reglementaire-bijlage/models/template-tag';
 
@@ -27,32 +24,29 @@ export default class TemplateManagementEditRoute extends Route {
       'document-container',
       params.id,
       {
-        include: 'current-version,folder',
+        include:
+          'current-version,folder,template,template.tags,template.current-version',
         reload: true,
       },
     )) as DocumentContainerModel;
-    const templates: Template[] = (
-      await this.store.query('template', {
-        filter: {
-          'derived-from': {
-            id: documentContainer.id,
-          },
-        },
-        // See template-management/index.js for details of this hack
-        avoid_cache: new Date().toISOString(),
-        include: 'current-version,tags',
-      })
-    ).slice() as Template[];
-    const templateVersion = templates[0]?.currentVersion as
+    const templateContainer = (await documentContainer.template) as
+      | Template
+      | undefined;
+    const templateVersion = (await templateContainer?.currentVersion) as
       | TemplateVersion
       | undefined;
-    const templateTags = await templates[0]?.tags;
-    const templateTypeId = await documentContainer.templateTypeId;
+    const templateTags = (await templateContainer?.tags) as
+      | TemplateTag[]
+      | undefined;
+    const templateTypeId = (await documentContainer.templateTypeId) as
+      | string
+      | undefined;
 
     return hash({
       documentContainer,
       editorDocument: documentContainer.currentVersion as EditorDocumentModel,
       templateType: getTemplateType(templateTypeId, this.intl),
+      templateContainer,
       templateVersion,
       templateTags,
     });
