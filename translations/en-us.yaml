@@ -62,6 +62,10 @@ utility:
   saved: Saved
   loading: Loading...
   retry: Retry
+  attr:
+    name: Name
+    created-on: Created on
+    id: Id
 landing-page:
   templates:
     title: Template management
@@ -75,6 +79,10 @@ landing-page:
     title: Snippets
     content: Manage snippets that are used in a template
     button: Go to snippets
+  tags:
+    title: Tag Management
+    content: Manage tags that are used in for a template
+    button: Go to tag management
 legal:
   accessibility-statement: Accessibility statement
   cookie-statement: Cookie statement
@@ -92,10 +100,15 @@ template-management:
   not-published: Not published
   available: Available
   available-until: Available until {date}
+  published-on: Available since
   template-type:
     label: Template type
     decision: Decision
     regulatory-attachment: Regulatory attachment
+  tags:
+    label: Tags
+    show-less: Show less
+    show-all: Show all tags
   no-data-message: No templates found
   crud:
     label-filter: Label
@@ -115,6 +128,8 @@ template-edit:
   insert-title: Insert document title
   unpublish: Unpublish
   unpublish-confirm: Are you sure you want to unpublish this template?
+  save-as-design: Save as design
+  save-and-publish: Save and make available
 auth:
   acmidm: Log in with acm/idm
   login: Log in
@@ -205,6 +220,18 @@ snippet-edit:
     general-nodes: General nodes
     decision-nodes: Decision nodes
     regulatory-statement-nodes: Regulatory statement nodes
+
+tag-management:
+  title: Tag Management
+  crud:
+    new: Create tag
+    no-data: There are no tags available
+  manage-tags:
+    title: Manage tags
+  new:
+    title: Create new tag
+  edit:
+    title: Edit tag
 
 editor-document-title:
   placeholder: Untitled document

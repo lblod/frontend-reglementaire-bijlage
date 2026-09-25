@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 import { service } from '@ember/service';
 import { task } from 'ember-concurrency';
 import type Features from 'ember-feature-flags';
-import { and, not } from 'ember-truth-helpers';
+import { and, not, or } from 'ember-truth-helpers';
 import perform from 'ember-concurrency/helpers/perform';
 import AuToolbar from '@appuniversum/ember-appuniversum/components/au-toolbar';
 import AuPill from '@appuniversum/ember-appuniversum/components/au-pill';
@@ -17,6 +17,7 @@ import humanFriendlyDate from '../helpers/human-friendly-date';
 import AuIcon from '@appuniversum/ember-appuniversum/components/au-icon';
 import EditorDocumentTitle from './editor-document-title';
 import AuButton from '@appuniversum/ember-appuniversum/components/au-button';
+import AuDropdown from '@appuniversum/ember-appuniversum/components/au-dropdown';
 import { on } from '@ember/modifier';
 
 export interface PublishSaveAction {
@@ -120,19 +121,33 @@ export default class AppChromeComponent extends Component<AppChromeComponentSign
               {{/unless}}
             </ul>
             {{yield to='leadingButtons'}}
-            {{#if @save}}
-              <AuButton
-                {{on 'click' @save.action}}
-                @disabled={{@save.isRunning}}
-              >{{t 'utility.save'}}</AuButton>
-            {{/if}}
-            {{#if @publish}}
-              <AuButton
-                {{on 'click' @publish.action}}
-                @disabled={{@publish.isRunning}}
-              >{{t 'utility.save-and-publish'}}
-              </AuButton>
-            {{/if}}
+            <AuDropdown
+              @title={{t 'utility.save'}}
+              @skin='primary'
+              @disabled={{or @save.isRunning @publish.isRunning}}
+            >
+              {{! template-lint-disable require-context-role }}
+              {{#if @save}}
+                <AuButton
+                  {{on 'click' @save.action}}
+                  @skin='link'
+                  role='menuitem'
+                  @disabled={{@save.isRunning}}
+                >
+                  {{t 'template-edit.save-as-design'}}
+                </AuButton>
+              {{/if}}
+              {{#if @publish}}
+                <AuButton
+                  {{on 'click' @publish.action}}
+                  @skin='link'
+                  role='menuitem'
+                  @disabled={{@publish.isRunning}}
+                >
+                  {{t 'template-edit.save-and-publish'}}
+                </AuButton>
+              {{/if}}
+            </AuDropdown>
           </Group>
         </AuToolbar>
       </div>

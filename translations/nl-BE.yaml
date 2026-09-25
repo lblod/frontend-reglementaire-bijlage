@@ -62,6 +62,10 @@ utility:
   saved: Opgeslagen
   loading: Aan het laden...
   retry: Probeer opnieuw
+  attr:
+    name: Naam
+    created-on: Aangemaakt op
+    id: Id
 landing-page:
   templates:
     title: Sjabloonbeheer
@@ -75,6 +79,10 @@ landing-page:
     title: Fragmentenlijsten
     content: Beheer fragmentenlijsten die gebruikt worden in sjablonen
     button: Ga naar fragmentenlijsten
+  tags:
+    title: Tagbeheer
+    content: Beheer tags die gebruikt worden voor sjablonen
+    button: Ga naar tagbeheer
 legal:
   accessibility-statement: Toegankelijkheidsverklaring
   cookie-statement: Cookieverklaring
@@ -92,10 +100,16 @@ template-management:
   not-published: Niet uitgegeven
   available: Beschikbaar
   available-until: Beschikbaar tot {date}
+  published-on: Beschikbaar sinds
+  template-information: Sjablooninformatie
   template-type:
     label: Sjabloontype
     decision: Besluit
     regulatory-attachment: Reglementaire bijlage
+  tags:
+    label: Tags
+    show-less: Toon minder
+    show-all: Toon alle tags
   no-data-message: Geen sjablonen gevonden
   crud:
     label-filter: Label
@@ -107,6 +121,11 @@ template-management:
     title: Weet u zeker dat u dit sjabloon wilt verwijderen?
     remove: Sjabloon verwijderen
     cancel: Terug
+  filters:
+    label: Filters
+    template-name: Naam sjabloon
+    tags: Tag(s)
+    reset-all: Herstel alle filters
 template-edit:
   edit: Wijzig sjabloon
   return: Terug naar sjablonenoverzicht
@@ -115,6 +134,8 @@ template-edit:
   insert-title: Document-titel invoegen
   unpublish: Uitgave ongedaan maken
   unpublish-confirm: Weet je zeker dat je het uitgeven van deze sjabloon ongedaan wilt maken?
+  save-as-design: Bewaar als ontwerp
+  save-and-publish: Bewaar en maak beschikbaar
 auth:
   acmidm: Log in met acm/idm
   login: Meld u aan
@@ -199,6 +220,18 @@ snippet-edit:
     general-nodes: Algemene nodes
     decision-nodes: Besluit nodes
     regulatory-statement-nodes: Reglementaire Bijlage nodes
+
+tag-management:
+  title: Tagbeheer
+  crud:
+    new: Tag aanmaken
+    no-data: Er zijn geen tags beschikbaar
+  manage-tags:
+    title: Beheer tags
+  new:
+    title: Nieuwe tag
+  edit:
+    title: Tag bewerken
 
 editor-document-title:
   placeholder: Naamloos document

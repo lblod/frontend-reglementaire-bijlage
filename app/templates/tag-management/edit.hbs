@@ -1,0 +1,6 @@
+{{page-title (t "tag-management.edit.title")}}
+<TemplateTagEditModal
+  @tag={{@model}}
+  @isSaving={{this.saveTag.isRunning}}
+  @onSave={{this.saveTag.perform}}
+/>

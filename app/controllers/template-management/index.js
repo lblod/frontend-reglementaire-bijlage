@@ -7,6 +7,7 @@ import { localCopy } from 'tracked-toolbox';
 import isAfter from 'date-fns/isAfter';
 import { isBlank } from '../../utils/strings';
 import { getTemplateType, getTemplateTypes } from '../../utils/template-type';
+import { debounce } from 'reactiveweb/debounce';
 
 export default class TemplateManagementIndexController extends Controller {
   @service store;
@@ -17,7 +18,7 @@ export default class TemplateManagementIndexController extends Controller {
   @service intl;
 
   // queryParams
-  queryParams = ['title', 'page', 'size', 'sort'];
+  queryParams = ['title', 'page', 'size', 'sort', 'templateTags'];
   @tracked page = 0;
   @tracked size = 20;
   @tracked title = '';
@@ -27,17 +28,40 @@ export default class TemplateManagementIndexController extends Controller {
 
   @tracked editorDocument;
   @tracked documentContainer;
-  @tracked templateTypeToCreate = this.templateTypes[0];
+  @tracked templateTypeToCreate = this.allTemplateTypes[0];
+  @tracked tagsToCreate = [];
   @tracked createTemplateModalIsOpen;
   @tracked removeTemplateModalIsOpen;
   @tracked selectedTemplates = tracked(Set);
   @tracked lastCheckedTemplate;
 
-  templateTypes = getTemplateTypes(this.intl);
+  allTemplateTypes = getTemplateTypes(this.intl);
+
+  @tracked templateTypes = this.allTemplateTypes;
+  @tracked templateTags = [];
+
+  debouncedTitle = debounce(500, () => this.title, '');
+
+  changeFilterTitle = (newTitle) => {
+    this.debouncedTitle = newTitle; // TODO why not working?
+  };
+
+  changeFilterTemplateTypes = (newTemplateTypes) => {
+    this.templateTypes = newTemplateTypes;
+  };
+
+  changeFilterTemplateTags = (newTemplateTags) => {
+    this.templateTags = newTemplateTags.map((templateTag) => templateTag.id);
+  };
 
   @action
   updateTemplateType(templateType) {
     this.templateTypeToCreate = templateType;
+  }
+
+  @action
+  updateTemplateTags(newTags) {
+    this.tagsToCreate = newTags;
   }
 
   getTemplateTypeLabel = async (documentContainer) => {
@@ -120,7 +144,7 @@ export default class TemplateManagementIndexController extends Controller {
   cancelCreateTemplate() {
     this.editorDocument = undefined;
     this.documentContainer = undefined;
-    this.folder = this.templateTypes[0];
+    this.folder = this.allTemplateTypes[0];
     this.createTemplateModalIsOpen = false;
   }
 
@@ -130,6 +154,12 @@ export default class TemplateManagementIndexController extends Controller {
 
   saveTemplate = task(async (event) => {
     event.preventDefault();
+
+    // Store all new tags
+    await Promise.all(
+      this.tagsToCreate.filter((tag) => !tag.id).map((tag) => tag.save()),
+    );
+
     await this.editorDocument.save();
 
     this.documentContainer.folder = await this.store.findRecord(
@@ -138,6 +168,16 @@ export default class TemplateManagementIndexController extends Controller {
     );
     this.documentContainer.currentVersion = this.editorDocument;
     await this.documentContainer.save();
+
+    let template = await this.documentContainer.template;
+    if (!template) {
+      template = this.store.createRecord('template', {
+        derivedFrom: this.documentContainer,
+      });
+    }
+
+    template.tags = this.tagsToCreate;
+    await template.save();
 
     this.editorDocument.documentContainer = this.documentContainer;
     await this.editorDocument.save();
@@ -196,12 +236,6 @@ export default class TemplateManagementIndexController extends Controller {
   @action
   logout() {
     this.session.invalidate();
-  }
-
-  @action
-  updateSearchQuery(event) {
-    event.preventDefault();
-    this.searchQuery = event.target.value;
   }
 
   @action
