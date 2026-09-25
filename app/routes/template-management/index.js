@@ -24,15 +24,15 @@ export default class TemplateManagementIndexRoute extends Route {
   }
 
   async model(params) {
-    const folders = params.templateTypes?.length > 0
-      ? params.templateTypes.map((templateType) => templateType.folder)
-      : [RS_STANDARD_FOLDER, DECISION_STANDARD_FOLDER];
+    const folders =
+      params.templateTypes?.length > 0
+        ? params.templateTypes.map((templateType) => templateType.folder)
+        : [RS_STANDARD_FOLDER, DECISION_STANDARD_FOLDER];
     const options = {
       filter: {
         folder: {
           id: folders.join(','),
         },
-        'template.tags'
       },
       sort: params.sort,
       page: {
@@ -44,6 +44,9 @@ export default class TemplateManagementIndexRoute extends Route {
 
     if (params.title) {
       options['filter[current-version][title]'] = params.title;
+    }
+    if (params.templateTags?.length) {
+      options['filter[template][tags][:id:]'] = params.templateTags.join(',');
     }
     return await this.store.query('document-container', options);
   }

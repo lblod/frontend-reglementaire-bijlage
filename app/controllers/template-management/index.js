@@ -18,7 +18,7 @@ export default class TemplateManagementIndexController extends Controller {
   @service intl;
 
   // queryParams
-  queryParams = ['title', 'page', 'size', 'sort'];
+  queryParams = ['title', 'page', 'size', 'sort', 'templateTags'];
   @tracked page = 0;
   @tracked size = 20;
   @tracked title = '';
@@ -47,7 +47,6 @@ export default class TemplateManagementIndexController extends Controller {
   };
 
   changeFilterTemplateTypes = (newTemplateTypes) => {
-    console.log(newTemplateTypes);
     this.templateTypes = newTemplateTypes;
   };
 
