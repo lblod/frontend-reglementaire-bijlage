@@ -54,8 +54,8 @@ importers:
         specifier: ^4.0.3
         version: 4.0.3(ember-source@5.12.0(patch_hash=a4e20cda60b0a90f13d20309583b6b6b01b32cd3d711b9d1461a7ffa70316644)(@glimmer/component@1.1.2(@babel/core@7.29.0(supports-color@8.1.1))(supports-color@8.1.1))(@glint/template@1.7.4)(rsvp@4.8.5)(supports-color@8.1.1)(webpack@5.97.1(uglify-js@3.19.3)))(supports-color@8.1.1)
       reactiveweb:
-        specifier: ^1.3.0
-        version: 1.9.1(@babel/core@7.29.0(supports-color@8.1.1))(@ember/test-waiters@3.1.0(supports-color@8.1.1))(@glimmer/component@1.1.2(@babel/core@7.29.0(supports-color@8.1.1))(supports-color@8.1.1))(@glint/template@1.7.4)(supports-color@8.1.1)
+        specifier: ^1.9.4
+        version: 1.9.4(@babel/core@7.29.0(supports-color@8.1.1))(@ember/test-waiters@3.1.0(supports-color@8.1.1))(@glimmer/component@1.1.2(@babel/core@7.29.0(supports-color@8.1.1))(supports-color@8.1.1))(@glint/template@1.7.4)(supports-color@8.1.1)
       tracked-toolbox:
         specifier: ^2.0.0
         version: 2.2.0(@babel/core@7.29.0(supports-color@8.1.1))(supports-color@8.1.1)
@@ -8166,8 +8166,8 @@ packages:
   react-is@18.3.1:
     resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
 
-  reactiveweb@1.9.1:
-    resolution: {integrity: sha512-bd/Iyk8wm9A8qyxKVu8w4M4POWOtZErRKr6EJwnrBitceSLlY+yk1/m9AuKec/5XvcNnDi1NRdvBQDBEaVpk6A==}
+  reactiveweb@1.9.4:
+    resolution: {integrity: sha512-t0a4uIDCQ8/Mo+dv48ZLXlH83yDOCz1UaqEjS4kZcaipyLVuxFhDH5ox2s3Q1Mp+BTWoPslsJvSkoOXN8wcSMA==}
     peerDependencies:
       '@ember/test-waiters': ^3.1.0
 
@@ -11996,7 +11996,7 @@ snapshots:
       rdf-ext: 2.5.2(web-streams-polyfill@3.3.3)
       rdf-validate-shacl: 0.6.5(supports-color@8.1.1)
       rdfa-streaming-parser: 3.0.2
-      reactiveweb: 1.9.1(@babel/core@7.29.0(supports-color@8.1.1))(@ember/test-waiters@3.1.0(supports-color@8.1.1))(@glimmer/component@1.1.2(@babel/core@7.29.0(supports-color@8.1.1))(supports-color@8.1.1))(@glint/template@1.7.4)(supports-color@8.1.1)
+      reactiveweb: 1.9.4(@babel/core@7.29.0(supports-color@8.1.1))(@ember/test-waiters@3.1.0(supports-color@8.1.1))(@glimmer/component@1.1.2(@babel/core@7.29.0(supports-color@8.1.1))(supports-color@8.1.1))(@glint/template@1.7.4)(supports-color@8.1.1)
       stream-browserify: 3.0.0
       tracked-built-ins: 4.1.0(@babel/core@7.29.0(supports-color@8.1.1))(supports-color@8.1.1)
       tracked-toolbox: 2.2.0(@babel/core@7.29.0(supports-color@8.1.1))(supports-color@8.1.1)
@@ -12083,7 +12083,7 @@ snapshots:
       prosemirror-transform: 1.11.0
       prosemirror-view: 1.41.6
       rdf-data-factory: 2.0.2
-      reactiveweb: 1.9.1(@babel/core@7.29.0(supports-color@8.1.1))(@ember/test-waiters@3.1.0(supports-color@8.1.1))(@glimmer/component@1.1.2(@babel/core@7.29.0(supports-color@8.1.1))(supports-color@8.1.1))(@glint/template@1.7.4)(supports-color@8.1.1)
+      reactiveweb: 1.9.4(@babel/core@7.29.0(supports-color@8.1.1))(@ember/test-waiters@3.1.0(supports-color@8.1.1))(@glimmer/component@1.1.2(@babel/core@7.29.0(supports-color@8.1.1))(supports-color@8.1.1))(@glint/template@1.7.4)(supports-color@8.1.1)
       relative-to-absolute-iri: 1.0.7
       tracked-built-ins: 4.1.0(@babel/core@7.29.0(supports-color@8.1.1))(supports-color@8.1.1)
       tracked-toolbox: 2.2.0(@babel/core@7.29.0(supports-color@8.1.1))(supports-color@8.1.1)
@@ -20412,11 +20412,10 @@ snapshots:
 
   react-is@18.3.1: {}
 
-  reactiveweb@1.9.1(@babel/core@7.29.0(supports-color@8.1.1))(@ember/test-waiters@3.1.0(supports-color@8.1.1))(@glimmer/component@1.1.2(@babel/core@7.29.0(supports-color@8.1.1))(supports-color@8.1.1))(@glint/template@1.7.4)(supports-color@8.1.1):
+  reactiveweb@1.9.4(@babel/core@7.29.0(supports-color@8.1.1))(@ember/test-waiters@3.1.0(supports-color@8.1.1))(@glimmer/component@1.1.2(@babel/core@7.29.0(supports-color@8.1.1))(supports-color@8.1.1))(@glint/template@1.7.4)(supports-color@8.1.1):
     dependencies:
       '@ember/test-waiters': 3.1.0(supports-color@8.1.1)
       '@embroider/addon-shim': 1.10.2(supports-color@8.1.1)
-      '@embroider/macros': 1.19.7(@glint/template@1.7.4)(supports-color@8.1.1)
       decorator-transforms: 2.3.1(@babel/core@7.29.0(supports-color@8.1.1))
       ember-resources: 7.0.7(@glimmer/component@1.1.2(@babel/core@7.29.0(supports-color@8.1.1))(supports-color@8.1.1))(@glint/template@1.7.4)(supports-color@8.1.1)
     transitivePeerDependencies:

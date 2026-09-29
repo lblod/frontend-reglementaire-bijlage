@@ -5,6 +5,7 @@ import AuInput from '@appuniversum/ember-appuniversum/components/au-input';
 import AuHeading from '@appuniversum/ember-appuniversum/components/au-heading';
 import AuButton from '@appuniversum/ember-appuniversum/components/au-button';
 import AuCheckboxGroup from '@appuniversum/ember-appuniversum/components/au-checkbox-group';
+import PowerSelect from 'ember-power-select/components/power-select';
 import t from 'ember-intl/helpers/t';
 import TemplateTagSelector from 'frontend-reglementaire-bijlage/components/template-tag-selector';
 import {
@@ -18,7 +19,10 @@ import {
 } from 'frontend-reglementaire-bijlage/utils/constants';
 import type IntlService from 'ember-intl/services/intl';
 import { service } from '@ember/service';
-import type TemplateTag from 'frontend-reglementaire-bijlage/models/template-tag';
+import { getPromiseState } from 'reactiveweb/get-promise-state';
+import TemplateTag from 'frontend-reglementaire-bijlage/models/template-tag';
+import type Store from '@ember-data/store';
+import { cached } from '@glimmer/tracking';
 
 type Args = {
   templateTitle?: string;
@@ -26,15 +30,37 @@ type Args = {
   onChangeTemplateTypes?: (templateType: TemplateType[]) => void;
   onChangeTemplateTitle?: (title: string) => void;
   onChangeTemplateTags?: (tags: TemplateTag[]) => void;
+  selectedTemplateTypes: TemplateType[];
+  selectedTagIds: string[];
 };
 
 export default class TemplateManagementFilters extends Component<Args> {
   @service declare intl: IntlService;
+  @service declare store: Store;
 
   changeTitle = (event: Event) => {
     const newTitle = (event.target as HTMLInputElement).value;
     this.args.onChangeTemplateTitle?.(newTitle);
   };
+  get selectedTemplateTypes() {
+    return this.args.selectedTemplateTypes.map((t) => t.folder);
+  }
+  @cached
+  get tagsPromise() {
+    return getPromiseState(
+      Promise.all(
+        this.args.selectedTagIds.map((id) =>
+          this.store.findRecord<TemplateTag>('template-tag', id),
+        ),
+      ),
+    );
+  }
+  get selectedTags() {
+    if ((this.args.selectedTagIds.length = 0)) {
+      return [];
+    }
+    return this.tagsPromise.resolved ?? [];
+  }
 
   changeTypes = (folders: string[]) => {
     console.log('change');
@@ -79,6 +105,7 @@ export default class TemplateManagementFilters extends Component<Args> {
           </AuLabel>
           <AuCheckboxGroup
             @onChange={{this.changeTypes}}
+            @selected={{this.selectedTemplateTypes}}
             id='filter-template-type'
             as |Group|
           >
@@ -94,10 +121,14 @@ export default class TemplateManagementFilters extends Component<Args> {
           <AuLabel for='filter-tags'>
             {{t 'template-management.filters.tags'}}
           </AuLabel>
-          <TemplateTagSelector
-            @onChange={{@onChangeTemplateTags}}
-            id='filter-tags'
-          />
+          {{#unless this.tagsPromise.isLoading}}
+            <TemplateTagSelector
+              @onChange={{@onChangeTemplateTags}}
+              @selectedTags={{this.selectedTags}}
+              id='filter-tags'
+            />
+
+          {{/unless}}
         </AuFormRow>
         <AuButton
           {{on 'click' this.resetFilters}}

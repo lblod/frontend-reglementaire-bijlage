@@ -24,7 +24,7 @@ type Args = {
 export default class TemplateTagEditModal extends Component<Args> {
   @service declare router: RouterService;
   @service declare store: Store;
-  @localCopy('args.tag.label') tagLabel;
+  @localCopy('args.tag.label') tagLabel: string | null = null;
 
   get isInvalidTagTitle() {
     return isBlank(this.tagLabel);
@@ -34,7 +34,7 @@ export default class TemplateTagEditModal extends Component<Args> {
     this.router.transitionTo('tag-management');
   };
 
-  updateTagName = (event: InputEvent) => {
+  updateTagName = (event: Event) => {
     const newName = (event.target as HTMLInputElement).value;
     this.tagLabel = newName;
   };

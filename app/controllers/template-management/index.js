@@ -37,7 +37,7 @@ export default class TemplateManagementIndexController extends Controller {
 
   allTemplateTypes = getTemplateTypes(this.intl);
 
-  @tracked templateTypes = this.allTemplateTypes;
+  @tracked templateTypes = [];
   @tracked templateTags = [];
 
   debouncedTitle = debounce(500, () => this.title, '');
@@ -52,6 +52,11 @@ export default class TemplateManagementIndexController extends Controller {
 
   changeFilterTemplateTags = (newTemplateTags) => {
     this.templateTags = newTemplateTags.map((templateTag) => templateTag.id);
+  };
+  resetFilters = () => {
+    this.templateTags = [];
+    this.templateTypes = [];
+    this.debouncedTitle = '';
   };
 
   @action
