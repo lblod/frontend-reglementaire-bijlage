@@ -6,50 +6,33 @@ import AuLabel from '@appuniversum/ember-appuniversum/components/au-label';
 import { tracked } from '@glimmer/tracking';
 import t from 'ember-intl/helpers/t';
 import { on } from '@ember/modifier';
-import TemplateTypeSelector from 'frontend-reglementaire-bijlage/components/template-management/template-type-selector';
-import { type TemplateType } from 'frontend-reglementaire-bijlage/utils/template-type';
 import TemplateTagSelector from 'frontend-reglementaire-bijlage/components/template-tag-selector';
 import type TemplateTag from 'frontend-reglementaire-bijlage/models/template-tag';
+import { localCopy } from 'tracked-toolbox';
 
 type Args = {
-  templateType: TemplateType;
   templateTags: TemplateTag[];
-  onChange: (args: {
-    templateType?: TemplateType;
-    templateTags?: TemplateTag[];
-  }) => void;
+  onSave: (templateTags?: TemplateTag[]) => Promise<void>;
 };
 
 export default class PropertyEditModal extends Component<Args> {
   @tracked isModalOpen = false;
-  @tracked newTemplateTags: TemplateTag[] | undefined = undefined;
+  @localCopy('args.templateTags') newTemplateTags: TemplateTag[] = [];
 
   openModal = () => {
     this.isModalOpen = true;
-    this.newTemplateTags = undefined;
   };
 
   closeModal = () => {
     this.isModalOpen = false;
   };
 
-  changeTemplateType = (newTemplateType: TemplateType) => {
-    this.args.onChange?.({
-      templateType: newTemplateType,
-      // templateTags: this.args.templateTags,
-    });
-  };
-
   changeTemplateTags = (newTemplateTags: TemplateTag[]) => {
     this.newTemplateTags = newTemplateTags;
-    // this.args.onChange?.({
-    //   // templateType: this.args.templateType,
-    //   templateTags: newTemplateTags,
-    // });
   };
 
-  onSave = () => {
-    this.args.onChange?.({ templateTags: this.newTemplateTags });
+  onSave = async () => {
+    await this.args.onSave?.(this.newTemplateTags ?? undefined);
     this.closeModal();
   };
 
@@ -67,10 +50,6 @@ export default class PropertyEditModal extends Component<Args> {
             <AuLabel for='decision-type'>{{t
                 'template-management.template-type.label'
               }}</AuLabel>
-            <TemplateTypeSelector
-              @onChange={{this.changeTemplateType}}
-              @selected={{@templateType}}
-            />
           </AuFormRow>
           <AuFormRow>
             <AuLabel for='decision-type'>{{t
@@ -78,7 +57,7 @@ export default class PropertyEditModal extends Component<Args> {
               }}</AuLabel>
             <TemplateTagSelector
               @allowCreate={{true}}
-              @selectedTags={{@templateTags}}
+              @selectedTags={{this.newTemplateTags}}
               @onChange={{this.changeTemplateTags}}
             />
           </AuFormRow>

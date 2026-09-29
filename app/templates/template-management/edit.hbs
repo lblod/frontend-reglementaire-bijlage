@@ -51,7 +51,8 @@
       <TemplateManagement::PropertyEditModal
         @templateType={{@model.templateType}}
         @templateTags={{@model.templateTags}}
-        @onChange={{this.onPropertyEdit}}
+        @onChange={{this.changeSelectedTags}}
+        @onSave={{this.saveTags}}
       />
     </:leadingButtons>
   </AppChrome>

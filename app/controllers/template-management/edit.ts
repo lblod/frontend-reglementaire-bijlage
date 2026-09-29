@@ -193,8 +193,8 @@ const GEMEENTE_CLASSIFICATION_URI =
 
 import { locationModalsPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin';
 import { getContextualActionGroups as locationActionsGroups } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin/contextual-actions';
-import type PropertyEditModal from 'frontend-reglementaire-bijlage/components/template-management/property-edit-modal';
 import { setTemplateTags } from 'frontend-reglementaire-bijlage/api/document-container';
+import type TemplateTag from 'frontend-reglementaire-bijlage/models/template-tag';
 
 export default class TemplateManagementEditController extends Controller {
   @service declare store: Store;
@@ -806,6 +806,7 @@ export default class TemplateManagementEditController extends Controller {
       return result;
     },
   );
+
   predicateOptionGeneratorTask = restartableTask(
     async (args: TargetOptionGeneratorArgs) => {
       await timeout(200);
@@ -814,6 +815,7 @@ export default class TemplateManagementEditController extends Controller {
       return result;
     },
   );
+
   objectOptionGeneratorTask = restartableTask(
     async (args: TargetOptionGeneratorArgs) => {
       await timeout(200);
@@ -834,6 +836,7 @@ export default class TemplateManagementEditController extends Controller {
       endpoint: '/sparql',
     };
   }
+
   @action
   insertThing(thing: keyof typeof citerraMap) {
     if (this.editor) {
@@ -850,11 +853,10 @@ export default class TemplateManagementEditController extends Controller {
       );
     }
   }
-  onPropertyEdit = async (
-    args: Parameters<PropertyEditModal['args']['onChange']>[0],
-  ) => {
-    if (args.templateTags && this.documentContainer) {
-      await setTemplateTags(this.documentContainer, args.templateTags);
+
+  saveTags = async (templateTags?: TemplateTag[]) => {
+    if (templateTags && this.documentContainer) {
+      await setTemplateTags(this.documentContainer, templateTags);
     }
   };
 }
