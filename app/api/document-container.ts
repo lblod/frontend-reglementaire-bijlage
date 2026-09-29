@@ -5,8 +5,8 @@ export async function setTemplateTags(
   documentContainer: DocumentContainer,
   tags: TemplateTag[],
 ) {
-  documentContainer.tags = tags;
   const newTags = tags.filter((tag) => tag.isNew);
   await Promise.all(newTags.map((nt) => nt.save()));
+  documentContainer.tags = tags;
   await documentContainer.save();
 }
