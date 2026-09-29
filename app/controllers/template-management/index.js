@@ -53,6 +53,7 @@ export default class TemplateManagementIndexController extends Controller {
   changeFilterTemplateTags = (newTemplateTags) => {
     this.templateTags = newTemplateTags.map((templateTag) => templateTag.id);
   };
+
   resetFilters = () => {
     this.templateTags = [];
     this.templateTypes = [];
@@ -151,6 +152,7 @@ export default class TemplateManagementIndexController extends Controller {
     this.documentContainer = undefined;
     this.folder = this.allTemplateTypes[0];
     this.createTemplateModalIsOpen = false;
+    this.tagsToCreate = [];
   }
 
   get isInvalidTemplateTitle() {
@@ -268,7 +270,7 @@ export default class TemplateManagementIndexController extends Controller {
     const value = event.target.value;
     if (event.target.checked) {
       if (event.shiftKey && this.lastCheckedTemplate) {
-        const documentContainers = [...this.model];
+        const documentContainers = [...this.model.documentContainer];
         const index1 = documentContainers.findIndex(
           (container) => container.uri === this.lastCheckedTemplate,
         );
@@ -297,7 +299,7 @@ export default class TemplateManagementIndexController extends Controller {
   @action
   onSelectAllChange() {
     if (event.target.checked) {
-      const documentContainers = [...this.model];
+      const documentContainers = [...this.model.documentContainer];
       this.selectedTemplates = tracked(
         new Set(documentContainers.map((container) => container.uri)),
       );

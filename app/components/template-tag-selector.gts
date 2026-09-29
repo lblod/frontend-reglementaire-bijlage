@@ -4,7 +4,6 @@ import type Store from 'frontend-reglementaire-bijlage/services/store';
 import { service } from '@ember/service';
 import PowerSelect from 'ember-power-select/components/power-select';
 import TemplateTag from 'frontend-reglementaire-bijlage/models/template-tag';
-import { localCopy } from 'tracked-toolbox';
 import { tracked } from '@glimmer/tracking';
 
 type Args = {
@@ -28,8 +27,6 @@ type SelectorOption = TemplateTag | NewTag;
 
 export default class TemplateTagSelectorComponent extends Component<Signature> {
   @service declare store: Store;
-
-  @localCopy('args.selectedTags') selectedTags: TemplateTag[] = [];
 
   @tracked searchTerm: string | null = null;
   @tracked addedTags: TemplateTag[] = [];
@@ -61,18 +58,19 @@ export default class TemplateTagSelectorComponent extends Component<Signature> {
       );
     }
     const addOption = newTags[0];
+    let newSelectedTags;
     if (addOption) {
       const newOption = this.store.createRecord<TemplateTag>('template-tag', {
         label: addOption.searchTerm,
         createdOn: new Date(),
       });
       this.addedTags = [...this.addedTags, newOption];
-      this.selectedTags = [...existingTags, newOption];
+      newSelectedTags = [...existingTags, newOption];
     } else {
-      this.selectedTags = existingTags;
+      newSelectedTags = existingTags;
     }
 
-    this.args.onChange?.(this.selectedTags);
+    this.args.onChange?.(newSelectedTags);
   };
 
   get options() {
@@ -105,7 +103,7 @@ export default class TemplateTagSelectorComponent extends Component<Signature> {
         @options={{this.options}}
         @multiple={{true}}
         @searchEnabled={{true}}
-        @selected={{this.selectedTags}}
+        @selected={{@selectedTags}}
         @searchField='label'
         @onInput={{this.setSearchTerm}}
         ...attributes

@@ -10,7 +10,7 @@
           @onChangeTemplateTags={{this.changeFilterTemplateTags}}
           @onResetFilters={{this.resetFilters}}
           @selectedTemplateTypes={{this.templateTypes}}
-          @selectedTagIds={{this.templateTags}}
+          @selectedTags={{this.model.selectedTags}}
         />
       </div>
     </div>
@@ -18,7 +18,7 @@
   <m.content @scroll={{true}}>
     <div class="au-d-component-block au-d-component-block--overflow">
       <AuDataTable
-        @content={{this.model}}
+        @content={{this.model.documentContainer}}
         @isLoading={{this.isLoadingModel}}
         @noDataMessage={{t "template-management.no-data-message"}}
         @sort={{this.sort}}
@@ -199,6 +199,7 @@
         <TemplateTagSelector
           @allowCreate={{true}}
           @onChange={{this.updateTemplateTags}}
+          @selectedTags={{this.tagsToCreate}}
         />
       </AuFormRow>
     </form>

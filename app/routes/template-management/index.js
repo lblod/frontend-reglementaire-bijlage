@@ -48,7 +48,20 @@ export default class TemplateManagementIndexRoute extends Route {
     if (params.templateTags?.length) {
       options['filter[template][tags][:id:]'] = params.templateTags.join(',');
     }
-    return await this.store.query('document-container', options);
+
+    const [documentContainer, selectedTags] = await Promise.all([
+      this.store.query('document-container', options),
+      Promise.all(
+        params.templateTags?.map((id) =>
+          this.store.findRecord('template-tag', id),
+        ) ?? [],
+      ),
+    ]);
+
+    return {
+      documentContainer,
+      selectedTags,
+    };
   }
 
   setupController(controller, model) {
