@@ -97,20 +97,18 @@ export default class TemplateTagSelectorComponent extends Component<Signature> {
   };
 
   <template>
-    {{#if this.tags.value}}
-      <PowerSelect
-        @onChange={{this.changeSelection}}
-        @options={{this.options}}
-        @multiple={{true}}
-        @searchEnabled={{true}}
-        @selected={{@selectedTags}}
-        @searchField='label'
-        @onInput={{this.setSearchTerm}}
-        ...attributes
-        as |tag|
-      >
-        {{tag.label}}
-      </PowerSelect>
-    {{/if}}
+    <PowerSelect
+      @onChange={{this.changeSelection}}
+      @options={{this.options}}
+      @multiple={{true}}
+      @searchEnabled={{true}}
+      @selected={{@selectedTags}}
+      @searchField='label'
+      @onInput={{this.setSearchTerm}}
+      ...attributes
+      as |tag|
+    >
+      {{tag.label}}
+    </PowerSelect>
   </template>
 }
