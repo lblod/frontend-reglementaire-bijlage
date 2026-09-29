@@ -47,12 +47,12 @@ export default class TemplateTagEditModal extends Component<Args> {
       tag = this.store.createRecord('template-tag', {
         createdOn: new Date(),
         label: this.tagLabel,
-      }) as TemplateTag;
+      });
     } else {
       tag.label = this.tagLabel;
     }
 
-    this.args.onSave?.(tag);
+    this.args.onSave?.(tag as TemplateTag); // tag will always be defined here
   };
 
   <template>

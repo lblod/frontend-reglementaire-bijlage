@@ -600,7 +600,7 @@ export default class TemplateManagementEditController extends Controller {
   }
 
   get internalTypeName(): 'decision' | 'regulatory-attachment' {
-    return this.model?.templateType.folder === DECISION_STANDARD_FOLDER
+    return this.model?.templateType?.folder === DECISION_STANDARD_FOLDER
       ? 'decision'
       : 'regulatory-attachment';
   }
@@ -614,7 +614,7 @@ export default class TemplateManagementEditController extends Controller {
         startsDirty: false,
       });
       this.assignedSnippetListsIds = this.documentSnippetListIds;
-    } else if (this.model?.templateType.folder === DECISION_STANDARD_FOLDER) {
+    } else if (this.model?.templateType?.folder === DECISION_STANDARD_FOLDER) {
       // This is a decision with no content, so we need to insert a decision (besluit) node so that
       // any of the decision-based plugins work
       const decisionNodeType = this.editor.schema.nodes['block_rdfa'];
