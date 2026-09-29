@@ -51,6 +51,7 @@ utility:
   remove-concept: Verwijder concept
   export-to-html: "Exporteer als HTML"
   to-recycle-bin: "Naar prullenmand"
+  checking: Aan het controleren…
   confirmation:
     title: Bevestigen
     body: Ben je zeker?

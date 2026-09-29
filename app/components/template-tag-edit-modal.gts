@@ -13,6 +13,9 @@ import type RouterService from '@ember/routing/router-service';
 import TemplateTag from 'frontend-reglementaire-bijlage/models/template-tag';
 import type Store from 'frontend-reglementaire-bijlage/services/store';
 import { localCopy } from 'tracked-toolbox';
+import { restartableTask, timeout } from 'ember-concurrency';
+import { tracked } from '@glimmer/tracking';
+import { or } from 'ember-truth-helpers';
 
 type Args = {
   tag?: TemplateTag;
@@ -26,17 +29,26 @@ export default class TemplateTagEditModal extends Component<Args> {
   @service declare store: Store;
   @localCopy('args.tag.label') tagLabel: string | null = null;
 
+  @tracked titleExists = true;
+
+  checkTitle = restartableTask(async (event: Event) => {
+    this.titleExists = true;
+    const newLabel = (event.target as HTMLInputElement).value;
+    this.tagLabel = newLabel;
+    await timeout(300);
+    const tags = await this.store.query('template-tag', {
+      'filter[:exact:label]': newLabel,
+    });
+
+    this.titleExists = tags.length > 0;
+  });
+
   get isInvalidTagTitle() {
-    return isBlank(this.tagLabel);
+    return this.titleExists || isBlank(this.tagLabel);
   }
 
   cancelEditTag = () => {
     this.router.transitionTo('tag-management');
-  };
-
-  updateTagName = (event: Event) => {
-    const newName = (event.target as HTMLInputElement).value;
-    this.tagLabel = newName;
   };
 
   saveTag = (event: Event) => {
@@ -79,7 +91,7 @@ export default class TemplateTagEditModal extends Component<Args> {
               @width='block'
               id='template-title'
               type='text'
-              {{on 'input' this.updateTagName}}
+              {{on 'input' this.checkTitle.perform}}
               required
             />
           </AuFormRow>
@@ -94,7 +106,8 @@ export default class TemplateTagEditModal extends Component<Args> {
             class='au-c-button'
             form='create-meeting-form'
             @disabled={{this.isInvalidTagTitle}}
-            @loading={{@isSaving}}
+            @loading={{or @isSaving this.checkTitle.isRunning}}
+            @loadingMessage={{if this.checkTitle.isRunning (t "utility.checking") undefined}}
             {{on 'click' this.saveTag}}
           >
             {{t 'template-management.create-modal.save'}}

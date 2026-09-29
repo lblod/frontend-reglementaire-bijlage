@@ -5,7 +5,7 @@ import { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
 import { localCopy } from 'tracked-toolbox';
 
-export default class CodelistManagementIndexController extends Controller {
+export default class TagManagementController extends Controller {
   @service router;
 
   queryParams = ['page', 'size', 'label', 'sort'];

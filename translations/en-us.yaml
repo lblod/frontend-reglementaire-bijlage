@@ -51,6 +51,7 @@ utility:
   remove-concept: Remove concept
   export-to-html: "Export to HTML"
   to-recycle-bin: "Move to recycle bin"
+  checking: Checking…
   confirmation:
     title: Confirm
     body: Are you sure?

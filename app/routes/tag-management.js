@@ -21,6 +21,7 @@ export default class TagManagementRoute extends Route {
   async model(params) {
     let query = {
       sort: params.sort,
+      filter: {},
     };
     if (params.label) {
       query.filter.label = params.label;
