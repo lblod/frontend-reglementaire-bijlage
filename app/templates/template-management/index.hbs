@@ -40,9 +40,21 @@
                 {{#unless this.readOnly}}
                   <AuButton
                     @icon="add"
-                    @iconAlignment="left"
                     {{on "click" this.startCreateTemplateFlow}}
                   >{{t "template-management.new"}}</AuButton>
+                  {{#if this.isReadMode}}
+                    <AuButton
+                      {{on "click" this.enableEditMode}}
+                      @skin="secondary"
+                      @icon="pencil"
+                    >{{t "template-management.edit-mode"}}</AuButton>
+                  {{else}}
+                    <AuButton
+                      {{on "click" this.enableReadMode}}
+                      @skin="secondary"
+                      @icon="pencil"
+                    >{{t "template-management.read-mode"}}</AuButton>
+                  {{/if}}
                 {{/unless}}
               </Group>
             </AuToolbar>
@@ -131,7 +143,15 @@
                 documentContainer.currentVersion.updatedOn
               }}</td>
             <td>
-              <TemplateTags @tags={{documentContainer.tags}} />
+              {{#if this.isReadMode}}
+                <TemplateTags @tags={{documentContainer.tags}} />
+              {{else}}
+                <TemplateTagSelector
+                  @onChange={{fn this.changeTagsFor documentContainer}}
+                  @selectedTags={{documentContainer.tags}}
+                  @allowCreate={{true}}
+                />
+              {{/if}}
             </td>
             <td class="au-u-padding-none">
               <AuButton

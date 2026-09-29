@@ -101,6 +101,8 @@ template-management:
   available: Available
   available-until: Available until {date}
   published-on: Available since
+  edit-mode: Edit mode
+  read-mode: Read mode
   template-type:
     label: Template type
     decision: Decision
@@ -234,6 +236,7 @@ tag-management:
     title: Create new tag
   edit:
     title: Edit tag
+  create-new-tag: Create new tag "{tagName}"
 
 editor-document-title:
   placeholder: Untitled document
