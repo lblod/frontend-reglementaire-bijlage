@@ -1,14 +1,13 @@
 import Controller from '@ember/controller';
-import { task } from 'ember-concurrency';
+import { restartableTask, task, timeout } from 'ember-concurrency';
 import { service } from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from 'tracked-built-ins';
-import { localCopy } from 'tracked-toolbox';
 import isAfter from 'date-fns/isAfter';
 import { isBlank } from '../../utils/strings';
 import { getTemplateType, getTemplateTypes } from '../../utils/template-type';
-import { debounce } from 'reactiveweb/debounce';
-import { setTemplateTags } from 'frontend-reglementaire-bijlage/api/document-container';
+
+const TITLE_SEARCH_DEBOUNCE_TIME = 300;
 
 export default class TemplateManagementIndexController extends Controller {
   @service store;
@@ -25,8 +24,6 @@ export default class TemplateManagementIndexController extends Controller {
   @tracked title = '';
   sort = '-current-version.created-on';
 
-  @localCopy('title', '') searchQuery;
-
   @tracked editorDocument;
   @tracked documentContainer;
   @tracked templateTypeToCreate = this.allTemplateTypes[0];
@@ -41,12 +38,6 @@ export default class TemplateManagementIndexController extends Controller {
   @tracked templateTypes = [];
   @tracked templateTags = [];
 
-  debouncedTitle = debounce(500, () => this.title, '');
-
-  changeFilterTitle = (newTitle) => {
-    this.debouncedTitle = newTitle; // TODO why not working?
-  };
-
   changeFilterTemplateTypes = (newTemplateTypes) => {
     this.templateTypes = newTemplateTypes;
   };
@@ -58,7 +49,7 @@ export default class TemplateManagementIndexController extends Controller {
   resetFilters = () => {
     this.templateTags = [];
     this.templateTypes = [];
-    this.debouncedTitle = '';
+    this.title = '';
   };
 
   @action
@@ -179,7 +170,6 @@ export default class TemplateManagementIndexController extends Controller {
     this.documentContainer.tags = this.tagsToCreate;
     await this.documentContainer.save();
 
-
     this.editorDocument.documentContainer = this.documentContainer;
     await this.editorDocument.save();
 
@@ -239,12 +229,13 @@ export default class TemplateManagementIndexController extends Controller {
     this.session.invalidate();
   }
 
-  @action
-  search(event) {
+  changeFilterTitle = restartableTask(async (newTitle) => {
     event.preventDefault();
-    this.title = this.searchQuery;
+    await timeout(TITLE_SEARCH_DEBOUNCE_TIME);
+
+    this.title = newTitle;
     this.resetPagination();
-  }
+  });
 
   resetPagination() {
     this.page = 0;

@@ -4,8 +4,8 @@
     <div class="au-c-sidebar">
       <div class="au-c-sidebar__content">
         <TemplateManagement::Filters
-          @onChangeTemplateTitle={{this.changeFilterTitle}}
-          @templateTitle={{this.searchQuery}}
+          @onChangeTemplateTitle={{this.changeFilterTitle.perform}}
+          @templateTitle={{this.title}}
           @onChangeTemplateTypes={{this.changeFilterTemplateTypes}}
           @onChangeTemplateTags={{this.changeFilterTemplateTags}}
           @onResetFilters={{this.resetFilters}}
