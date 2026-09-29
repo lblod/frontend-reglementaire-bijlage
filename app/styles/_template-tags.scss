@@ -10,8 +10,6 @@
   display: flex;
   gap: 6px;
   white-space: nowrap;
-  top: 0;
-  left: 0;
   height: 0;
 }
 
@@ -24,11 +22,13 @@
 
 .tag-overflow-list--expanded .tag-overflow-list__visible {
   flex-wrap: wrap;
-  overflow: visible;
 }
 
 .tag-pill {
+  display: inline-block;
   white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .tag-pill--more {

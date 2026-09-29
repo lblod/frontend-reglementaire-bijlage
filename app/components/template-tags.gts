@@ -123,7 +123,7 @@ export default class TemplateTagsComponent extends Component<Args> {
       </div>
       <div class='tag-overflow-list__visible'>
         {{#each this.visibleTags as |tag|}}
-          <AuPill class='tag-pill'>
+          <AuPill class='tag-pill' title={{tag.label}}>
             {{tag.label}}
           </AuPill>
         {{/each}}
