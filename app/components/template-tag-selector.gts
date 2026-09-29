@@ -5,6 +5,7 @@ import { service } from '@ember/service';
 import PowerSelect from 'ember-power-select/components/power-select';
 import TemplateTag from 'frontend-reglementaire-bijlage/models/template-tag';
 import { tracked } from '@glimmer/tracking';
+import type IntlService from 'ember-intl/services/intl';
 
 type Args = {
   onChange?: (tags: TemplateTag[]) => void;
@@ -27,6 +28,7 @@ type SelectorOption = TemplateTag | NewTag;
 
 export default class TemplateTagSelectorComponent extends Component<Signature> {
   @service declare store: Store;
+  @service declare intl: IntlService;
 
   @tracked searchTerm: string | null = null;
   @tracked addedTags: TemplateTag[] = [];
@@ -85,7 +87,9 @@ export default class TemplateTagSelectorComponent extends Component<Signature> {
     ) {
       options.push({
         optionType: 'new',
-        label: `Create new tag "${this.searchTerm}"`,
+        label: this.intl.t('tag-management.create-new-tag', {
+          tagName: this.searchTerm,
+        }),
         searchTerm: this.searchTerm,
       });
     }
