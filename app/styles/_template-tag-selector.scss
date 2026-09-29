@@ -1,0 +1,15 @@
+.template-tag-selector-powerselect .ember-power-select-multiple-option {
+  max-width: 95%;
+}
+
+.template-tag-selector-item {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+
+.template-tag-selector-powerselect
+  .ember-power-select-multiple-option
+  .ember-power-select-multiple-remove-btn {
+  flex-shrink: 0;
+}

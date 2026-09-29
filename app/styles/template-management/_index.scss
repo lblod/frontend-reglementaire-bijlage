@@ -1,0 +1,7 @@
+@import "./filters";
+
+@include mq($au-main-container-breakpoint) {
+  .template-management__sidebar {
+    max-width: 15%;
+  }
+}

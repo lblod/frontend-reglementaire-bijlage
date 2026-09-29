@@ -109,10 +109,13 @@ export default class TemplateTagSelectorComponent extends Component<Signature> {
       @selected={{@selectedTags}}
       @searchField='label'
       @onInput={{this.setSearchTerm}}
+      class='template-tag-selector-powerselect'
       ...attributes
       as |tag|
     >
-      {{tag.label}}
+      <span class='template-tag-selector-item' title={{tag.label}}>
+        {{tag.label}}
+      </span>
     </PowerSelect>
   </template>
 }

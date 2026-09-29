@@ -101,11 +101,13 @@ export default class TemplateManagementFilters extends Component<Args> {
           <AuLabel for='filter-tags'>
             {{t 'template-management.filters.tags'}}
           </AuLabel>
-          <TemplateTagSelector
-            @onChange={{@onChangeTemplateTags}}
-            @selectedTags={{@selectedTags}}
-            id='filter-tags'
-          />
+          <div class='tag-selector-container'>
+            <TemplateTagSelector
+              @onChange={{@onChangeTemplateTags}}
+              @selectedTags={{@selectedTags}}
+              id='filter-tags'
+            />
+          </div>
 
         </AuFormRow>
         <AuButton
