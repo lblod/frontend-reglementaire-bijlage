@@ -48,11 +48,6 @@ export default class PropertyEditModal extends Component<Args> {
         <form class='au-c-form'>
           <AuFormRow>
             <AuLabel for='decision-type'>{{t
-                'template-management.template-type.label'
-              }}</AuLabel>
-          </AuFormRow>
-          <AuFormRow>
-            <AuLabel for='decision-type'>{{t
                 'template-management.tags.label'
               }}</AuLabel>
             <TemplateTagSelector
