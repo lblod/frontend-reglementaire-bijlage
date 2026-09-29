@@ -41,18 +41,18 @@ export default class TemplateTagEditModal extends Component<Args> {
 
   saveTag = (event: Event) => {
     event.preventDefault();
-
     let { tag } = this.args;
     if (!tag) {
-      tag = this.store.createRecord('template-tag', {
-        createdOn: new Date(),
-        label: this.tagLabel,
-      });
+      this.args.onSave?.(
+        this.store.createRecord('template-tag', {
+          createdOn: new Date(),
+          label: this.tagLabel,
+        }),
+      );
     } else {
       tag.label = this.tagLabel;
+      this.args.onSave?.(tag);
     }
-
-    this.args.onSave?.(tag as TemplateTag); // tag will always be defined here
   };
 
   <template>
