@@ -3,7 +3,7 @@ import { trackedFunction } from 'reactiveweb/function';
 import type Store from 'frontend-reglementaire-bijlage/services/store';
 import { service } from '@ember/service';
 import PowerSelect from 'ember-power-select/components/power-select';
-import type TemplateTag from 'frontend-reglementaire-bijlage/models/template-tag';
+import TemplateTag from 'frontend-reglementaire-bijlage/models/template-tag';
 import { localCopy } from 'tracked-toolbox';
 import { tracked } from '@glimmer/tracking';
 
@@ -18,51 +18,75 @@ type Signature = {
   Element: HTMLElement;
 };
 
-type SelectorOption = {
+type NewTag = {
   label: string;
-  isAddOption?: boolean;
+  // this works better than a boolean "isNew" for runtime type-checking
+  optionType: 'new';
   searchTerm?: string;
 };
+type SelectorOption = TemplateTag | NewTag;
 
 export default class TemplateTagSelectorComponent extends Component<Signature> {
   @service declare store: Store;
 
   @localCopy('args.selectedTags') selectedTags: TemplateTag[] = [];
 
-  @tracked searchTerm = null;
-  @tracked addedTags = [];
+  @tracked searchTerm: string | null = null;
+  @tracked addedTags: TemplateTag[] = [];
 
-  tags = trackedFunction(this, async () => {
-    const tags = await this.store.countAndFetchAll('template-tag', {});
+  tags = trackedFunction<Promise<TemplateTag[]>>(this, async () => {
+    const tags = (await this.store.countAndFetchAll('template-tag', {}))
+      .content as TemplateTag[];
     return tags.slice();
   });
 
   changeSelection = (selectedTags: SelectorOption[]) => {
-    const addOption = selectedTags.find((option) => option.isAddOption);
+    // split up the selected options into existing and new tags
+    // this is a bit verbose but it's the most type-safe way to do this
+    const existingTags: TemplateTag[] = [];
+    const newTags: NewTag[] = [];
+    for (const tagOrNew of selectedTags) {
+      if ('optionType' in tagOrNew) {
+        newTags.push(tagOrNew);
+      } else {
+        existingTags.push(tagOrNew);
+      }
+    }
     this.searchTerm = null;
+    // power-select doesn't allow you to make more than 1 new option at at time
+    // but just in case
+    if (newTags.length > 1) {
+      throw new Error(
+        'unexpected state, only one new tag should be created at a time',
+      );
+    }
+    const addOption = newTags[0];
     if (addOption) {
-      const newOption = this.store.createRecord('template-tag', {
+      const newOption = this.store.createRecord<TemplateTag>('template-tag', {
         label: addOption.searchTerm,
         createdOn: new Date(),
       });
       this.addedTags = [...this.addedTags, newOption];
-      this.selectedTags = [...selectedTags.slice(0, -1), newOption];
+      this.selectedTags = [...existingTags, newOption];
     } else {
-      this.selectedTags = selectedTags;
+      this.selectedTags = existingTags;
     }
 
     this.args.onChange?.(this.selectedTags);
   };
 
   get options() {
-    const options = [...this.tags.value, ...this.addedTags];
+    const options: SelectorOption[] = [
+      ...(this.tags.value ?? []),
+      ...this.addedTags,
+    ];
     if (
       this.args.allowCreate &&
       this.searchTerm &&
       !options.find((tag) => tag.label === this.searchTerm)
     ) {
       options.push({
-        isAddOption: true,
+        optionType: 'new',
         label: `Create new tag "${this.searchTerm}"`,
         searchTerm: this.searchTerm,
       });
@@ -70,7 +94,7 @@ export default class TemplateTagSelectorComponent extends Component<Signature> {
     return options;
   }
 
-  setSearchTerm = (term) => {
+  setSearchTerm = (term: string) => {
     this.searchTerm = term;
   };
 
