@@ -39,14 +39,14 @@ export default class TemplateManagementIndexRoute extends Route {
         number: params.page,
         size: params.size,
       },
-      include: 'template,folder,current-version,template.tags',
+      include: 'template,folder,current-version,tags',
     };
 
     if (params.title) {
       options['filter[current-version][title]'] = params.title;
     }
     if (params.templateTags?.length) {
-      options['filter[template][tags][:id:]'] = params.templateTags.join(',');
+      options['filter[tags][:id:]'] = params.templateTags.join(',');
     }
 
     const [documentContainer, selectedTags] = await Promise.all([

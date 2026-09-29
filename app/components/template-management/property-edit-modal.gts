@@ -47,6 +47,7 @@ export default class PropertyEditModal extends Component<Args> {
     //   templateTags: newTemplateTags,
     // });
   };
+
   onSave = () => {
     this.args.onChange?.({ templateTags: this.newTemplateTags });
     this.closeModal();

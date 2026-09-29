@@ -194,7 +194,7 @@ const GEMEENTE_CLASSIFICATION_URI =
 import { locationModalsPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin';
 import { getContextualActionGroups as locationActionsGroups } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin/contextual-actions';
 import type PropertyEditModal from 'frontend-reglementaire-bijlage/components/template-management/property-edit-modal';
-import { setTemplateTags } from 'frontend-reglementaire-bijlage/api/template';
+import { setTemplateTags } from 'frontend-reglementaire-bijlage/api/document-container';
 
 export default class TemplateManagementEditController extends Controller {
   @service declare store: Store;
@@ -667,9 +667,6 @@ export default class TemplateManagementEditController extends Controller {
   get documentContainer() {
     return this.model.documentContainer;
   }
-  get templateContainer() {
-    return this.model.templateContainer;
-  }
 
   publish = task(async () => {
     await this.save.perform();
@@ -856,8 +853,8 @@ export default class TemplateManagementEditController extends Controller {
   onPropertyEdit = async (
     args: Parameters<PropertyEditModal['args']['onChange']>[0],
   ) => {
-    if (args.templateTags && this.templateContainer) {
-      await setTemplateTags(this.templateContainer, args.templateTags);
+    if (args.templateTags && this.documentContainer) {
+      await setTemplateTags(this.documentContainer, args.templateTags);
     }
   };
 }

@@ -8,6 +8,7 @@ import isAfter from 'date-fns/isAfter';
 import { isBlank } from '../../utils/strings';
 import { getTemplateType, getTemplateTypes } from '../../utils/template-type';
 import { debounce } from 'reactiveweb/debounce';
+import { setTemplateTags } from 'frontend-reglementaire-bijlage/api/document-container';
 
 export default class TemplateManagementIndexController extends Controller {
   @service store;
@@ -174,17 +175,10 @@ export default class TemplateManagementIndexController extends Controller {
       this.templateTypeToCreate.folder,
     );
     this.documentContainer.currentVersion = this.editorDocument;
+
+    this.documentContainer.tags = this.tagsToCreate;
     await this.documentContainer.save();
 
-    let template = await this.documentContainer.template;
-    if (!template) {
-      template = this.store.createRecord('template', {
-        derivedFrom: this.documentContainer,
-      });
-    }
-
-    template.tags = this.tagsToCreate;
-    await template.save();
 
     this.editorDocument.documentContainer = this.documentContainer;
     await this.editorDocument.save();

@@ -25,7 +25,7 @@ export default class TemplateManagementEditRoute extends Route {
       params.id,
       {
         include:
-          'current-version,folder,template,template.tags,template.current-version',
+          'current-version,folder,template,tags,template.current-version',
         reload: true,
       },
     )) as DocumentContainerModel;
@@ -35,7 +35,7 @@ export default class TemplateManagementEditRoute extends Route {
     const templateVersion = (await templateContainer?.currentVersion) as
       | TemplateVersion
       | undefined;
-    const templateTags = (await templateContainer?.tags) as
+    const templateTags = (await documentContainer?.tags) as
       | TemplateTag[]
       | undefined;
     const templateTypeId = (await documentContainer.templateTypeId) as
@@ -46,7 +46,6 @@ export default class TemplateManagementEditRoute extends Route {
       documentContainer,
       editorDocument: documentContainer.currentVersion as EditorDocumentModel,
       templateType: getTemplateType(templateTypeId, this.intl),
-      templateContainer,
       templateVersion,
       templateTags,
     });
