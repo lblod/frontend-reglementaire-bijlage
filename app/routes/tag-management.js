@@ -5,6 +5,7 @@ import { hash } from 'rsvp';
 export default class TagManagementRoute extends Route {
   @service store;
   @service currentSession;
+  @service session;
 
   queryParams = {
     label: { refreshModel: true },
@@ -13,18 +14,13 @@ export default class TagManagementRoute extends Route {
     sort: { refreshModel: true },
   };
 
+  beforeModel(transition) {
+    this.session.requireAuthentication(transition, 'login');
+  }
+
   async model(params) {
     let query = {
       sort: params.sort,
-      // page: {
-      //   number: params.page,
-      //   size: params.size,
-      // },
-      // filter: {
-      //   publisher: {
-      //     id: this.currentSession.group.id,
-      //   },
-      // },
     };
     if (params.label) {
       query.filter.label = params.label;
