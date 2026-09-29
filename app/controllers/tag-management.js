@@ -17,7 +17,7 @@ export default class CodelistManagementIndexController extends Controller {
   @localCopy('label', '') searchQuery;
 
   @tracked isRemoveModalOpen = false;
-  @tracked modalCodelist;
+  @tracked modalTag;
 
   @action
   updateSearchQuery(event) {
@@ -36,21 +36,18 @@ export default class CodelistManagementIndexController extends Controller {
     this.page = 0;
   }
 
-  @action openRemoveModal(codelist) {
-    this.modalCodelist = codelist;
+  @action openRemoveModal(tag) {
+    this.modalTag = tag;
     this.isRemoveModalOpen = true;
   }
 
   @action closeRemoveModal() {
-    this.modalCodelist = null;
+    this.modalTag = null;
     this.isRemoveModalOpen = false;
   }
 
-  removeCodelist = task(async () => {
-    const concepts = await this.modalCodelist.concepts;
-    await Promise.all(concepts.map((option) => option.destroyRecord()));
-
-    await this.modalCodelist.destroyRecord();
+  removeTag = task(async () => {
+    await this.modalTag.destroyRecord();
     this.reset();
     this.router.refresh();
   });

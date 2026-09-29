@@ -1,4 +1,4 @@
-{{page-title (t 'snippets.manage-snippet-lists.title')}}
+{{page-title (t 'tag-management.manage-tags.title')}}
 <BreadcrumbsItem as |linkClass|>
   <AuLink @route='snippet-management' class={{linkClass}}>
     {{t 'tag-management.title'}}
@@ -96,8 +96,8 @@
   <Modal.Body>
     <p>
       {{t
-        "codelist.crud.confirm-deletion"
-        name=this.modalCodelist.label
+        "tag-management.crud.confirm-deletion"
+        name=this.modalTag.label
         htmlSafe=true
       }}
     </p>
@@ -105,11 +105,11 @@
   <Modal.Footer>
     <AuButton
       @alert={{true}}
-      @loading={{this.removeCodelist.isRunning}}
+      @loading={{this.removeTag.isRunning}}
       @loadingMessage={{t "utility.deleting"}}
-      {{on "click" (perform this.removeCodelist)}}
+      {{on "click" (perform this.removeTag)}}
     >
-      {{t "codelist.crud.delete"}}
+      {{t "tag-management.crud.delete"}}
     </AuButton>
     <AuButton @skin="secondary" {{on "click" this.closeRemoveModal}}>
       {{t "utility.cancel"}}

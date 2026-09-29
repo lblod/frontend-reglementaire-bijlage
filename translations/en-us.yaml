@@ -226,6 +226,8 @@ tag-management:
   crud:
     new: Create tag
     no-data: There are no tags available
+    confirm-deletion: Confirm to remove tag <strong>{name}</strong>
+    delete: Remove Tag
   manage-tags:
     title: Manage tags
   new:
