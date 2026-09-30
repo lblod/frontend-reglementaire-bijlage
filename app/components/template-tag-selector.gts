@@ -11,6 +11,7 @@ type Args = {
   onChange?: (tags: TemplateTag[]) => void;
   selectedTags?: TemplateTag[];
   allowCreate?: boolean;
+  tagList?: TemplateTag[];
 };
 
 type Signature = {
@@ -76,8 +77,9 @@ export default class TemplateTagSelectorComponent extends Component<Signature> {
   };
 
   get options() {
+    const tagsToUse = this.args.tagList ?? this.tags.value
     const options: SelectorOption[] = [
-      ...(this.tags.value ?? []),
+      ...(tagsToUse ?? []),
       ...this.addedTags,
     ];
     if (

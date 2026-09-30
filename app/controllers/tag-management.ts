@@ -4,9 +4,11 @@ import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
 import { localCopy } from 'tracked-toolbox';
+import type RouterService from '@ember/routing/router-service';
+import type TemplateTag from 'frontend-reglementaire-bijlage/models/template-tag';
 
 export default class TagManagementController extends Controller {
-  @service router;
+  @service declare router: RouterService;
 
   queryParams = ['page', 'size', 'label', 'sort'];
   @tracked page = 0;
@@ -14,19 +16,19 @@ export default class TagManagementController extends Controller {
   @tracked label = '';
   @tracked sort = '-created-on';
 
-  @localCopy('label', '') searchQuery;
+  @localCopy('label', '') declare searchQuery: string;
 
   @tracked isRemoveModalOpen = false;
-  @tracked modalTag;
+  @tracked modalTag: TemplateTag | null = null;
 
   @action
-  updateSearchQuery(event) {
+  updateSearchQuery(event: Event) {
     event.preventDefault();
-    this.searchQuery = event.target.value;
+    this.searchQuery = (event.target as HTMLInputElement).value;
   }
 
   @action
-  search(event) {
+  search(event: Event) {
     event.preventDefault();
     this.label = this.searchQuery;
     this.resetPagination();
@@ -36,7 +38,7 @@ export default class TagManagementController extends Controller {
     this.page = 0;
   }
 
-  @action openRemoveModal(tag) {
+  @action openRemoveModal(tag: TemplateTag) {
     this.modalTag = tag;
     this.isRemoveModalOpen = true;
   }
@@ -47,7 +49,7 @@ export default class TagManagementController extends Controller {
   }
 
   removeTag = task(async () => {
-    await this.modalTag.destroyRecord();
+    await this.modalTag?.destroyRecord();
     this.reset();
     this.router.refresh();
   });

@@ -66,6 +66,15 @@ export default class TemplateManagementIndexController extends Controller {
     this.title = '';
   };
 
+  get tagList() {
+    // we get a reactive, sync array of which template tags are in the store
+    // this means any new tags we make are immediately available and rerender the ui
+    // without making extra requests.
+    // On initial load this is filled with all tags from the backend, because the route
+    // fetches them
+    return this.store.peekAll('template-tag');
+  }
+
   @action
   updateTemplateType(templateType) {
     this.templateTypeToCreate = templateType;
