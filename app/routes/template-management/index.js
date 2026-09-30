@@ -69,4 +69,8 @@ export default class TemplateManagementIndexRoute extends Route {
 
     controller.set('refresh', this.refresh.bind(this));
   }
+
+  resetController(controller) {
+    controller.reset();
+  }
 }

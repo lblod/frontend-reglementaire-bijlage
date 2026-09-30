@@ -57,7 +57,7 @@ export default class TemplateManagementIndexController extends Controller {
   };
 
   changeTagsFor = async (documentContainer, tags) => {
-    await setTemplateTags(documentContainer, tags)
+    await setTemplateTags(documentContainer, tags);
   };
 
   resetFilters = () => {
@@ -253,6 +253,12 @@ export default class TemplateManagementIndexController extends Controller {
 
   resetPagination() {
     this.page = 0;
+  }
+
+  reset() {
+    this.resetPagination();
+    this.resetFilters();
+    this.isReadMode = true;
   }
 
   @action
