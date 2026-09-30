@@ -1,16 +1,5 @@
-import { service } from '@ember/service';
-import BaseSessionService from 'ember-simple-auth/services/session';
-import ENV from 'frontend-reglementaire-bijlage/config/environment';
-export default class SessionService extends BaseSessionService {
-  @service currentSession;
+// this file needs to be JS to correctly override the service that's defined in
+// the ember-simple-auth addon.
+// We can revisit this once we upgrade that addon to v7 or higher
+export { default } from './app-session';
 
-  handleAuthentication(routeAfterAuthentication) {
-    super.handleAuthentication(routeAfterAuthentication);
-    this.currentSession.load();
-  }
-
-  handleInvalidation() {
-    const logoutUrl = ENV['torii']['providers']['acmidm-oauth2']['logoutUrl'];
-    super.handleInvalidation(logoutUrl);
-  }
-}

@@ -19,6 +19,13 @@ declare const config: {
   insertVariablePlugin: { endpoint: string };
   mowRegistryEndpoint: string;
   roadsignImageBaseUrl: string;
+  torii: {
+    providers: {
+      'acmidm-oauth2': {
+        logoutUrl: string;
+      };
+    };
+  };
 };
 
 export default config;
