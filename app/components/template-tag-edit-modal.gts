@@ -36,7 +36,7 @@ export default class TemplateTagEditModal extends Component<Args> {
     this.titleExists = true;
     const newLabel = (event.target as HTMLInputElement).value;
     this.tagLabel = newLabel;
-    if (!this.tagLabel) {
+    if (!this.tagLabel || !this.labelChanged) {
       this.titleExists = false;
       return;
     }
@@ -50,6 +50,14 @@ export default class TemplateTagEditModal extends Component<Args> {
 
   get isInvalidTagTitle() {
     return this.titleExists || isBlank(this.tagLabel);
+  }
+
+  get saveIsDisabled() {
+    return this.isInvalidTagTitle || !this.labelChanged;
+  }
+
+  get labelChanged() {
+    return this.tagLabel !== this.args.tag?.label;
   }
 
   cancelEditTag = () => {
@@ -124,7 +132,7 @@ export default class TemplateTagEditModal extends Component<Args> {
           <AuButton
             class='au-c-button'
             form='create-meeting-form'
-            @disabled={{this.isInvalidTagTitle}}
+            @disabled={{this.saveIsDisabled}}
             @loading={{or @isSaving this.checkTitle.isRunning}}
             @loadingMessage={{if
               this.checkTitle.isRunning
