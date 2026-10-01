@@ -231,6 +231,7 @@ tag-management:
     no-data: There are no tags available
     confirm-deletion: Confirm to remove tag <strong>{name}</strong>
     delete: Remove Tag
+    already-exists: This tag already exists
   manage-tags:
     title: Manage tags
   new:

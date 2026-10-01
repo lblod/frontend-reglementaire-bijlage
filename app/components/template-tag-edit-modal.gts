@@ -5,6 +5,7 @@ import AuLabel from '@appuniversum/ember-appuniversum/components/au-label';
 import AuInput from '@appuniversum/ember-appuniversum/components/au-input';
 import AuButtonGroup from '@appuniversum/ember-appuniversum/components/au-button-group';
 import AuButton from '@appuniversum/ember-appuniversum/components/au-button';
+import AuAlert from '@appuniversum/ember-appuniversum/components/au-alert';
 import { on } from '@ember/modifier';
 import t from 'ember-intl/helpers/t';
 import { isBlank } from 'frontend-reglementaire-bijlage/utils/strings';
@@ -15,7 +16,7 @@ import type Store from 'frontend-reglementaire-bijlage/services/store';
 import { localCopy } from 'tracked-toolbox';
 import { restartableTask, timeout } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
-import { or } from 'ember-truth-helpers';
+import { or, and } from 'ember-truth-helpers';
 
 type Args = {
   tag?: TemplateTag;
@@ -29,12 +30,16 @@ export default class TemplateTagEditModal extends Component<Args> {
   @service declare store: Store;
   @localCopy('args.tag.label') tagLabel: string | null = null;
 
-  @tracked titleExists = true;
+  @tracked titleExists = false;
 
   checkTitle = restartableTask(async (event: Event) => {
     this.titleExists = true;
     const newLabel = (event.target as HTMLInputElement).value;
     this.tagLabel = newLabel;
+    if (!this.tagLabel) {
+      this.titleExists = false;
+      return;
+    }
     await timeout(300);
     const tags = await this.store.query('template-tag', {
       'filter[:exact:label]': newLabel,
@@ -53,6 +58,7 @@ export default class TemplateTagEditModal extends Component<Args> {
 
   saveTag = (event: Event) => {
     event.preventDefault();
+    if (this.isInvalidTagTitle) return;
     let { tag } = this.args;
     if (!tag) {
       this.args.onSave?.(
@@ -93,7 +99,20 @@ export default class TemplateTagEditModal extends Component<Args> {
               type='text'
               {{on 'input' this.checkTitle.perform}}
               required
+              autocomplete='off'
             />
+          </AuFormRow>
+          <AuFormRow>
+            {{#if (and this.checkTitle.isIdle this.titleExists)}}
+              <AuAlert
+                class='au-u-1-1 au-u-margin-bottom-none'
+                @size='small'
+                @skin='warning'
+                @icon='alert-triangle'
+              >
+                {{t 'tag-management.crud.already-exists'}}
+              </AuAlert>
+            {{/if}}
           </AuFormRow>
         </form>
       </Modal.Body>
@@ -107,7 +126,11 @@ export default class TemplateTagEditModal extends Component<Args> {
             form='create-meeting-form'
             @disabled={{this.isInvalidTagTitle}}
             @loading={{or @isSaving this.checkTitle.isRunning}}
-            @loadingMessage={{if this.checkTitle.isRunning (t "utility.checking") undefined}}
+            @loadingMessage={{if
+              this.checkTitle.isRunning
+              (t 'utility.checking')
+              undefined
+            }}
             {{on 'click' this.saveTag}}
           >
             {{t 'template-management.create-modal.save'}}

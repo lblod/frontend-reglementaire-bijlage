@@ -231,6 +231,7 @@ tag-management:
     no-data: Er zijn geen tags beschikbaar
     confirm-deletion: Bevestig om tag <strong>{name}</strong> te verwijderen
     delete: Tag verwijderen
+    already-exists: Deze tag bestaat reeds
   manage-tags:
     title: Beheer tags
   new:
