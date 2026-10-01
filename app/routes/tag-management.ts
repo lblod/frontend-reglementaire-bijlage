@@ -6,13 +6,14 @@ import type TagManagementController from 'frontend-reglementaire-bijlage/control
 import type CurrentSessionService from 'frontend-reglementaire-bijlage/services/current-session';
 import type SessionService from 'frontend-reglementaire-bijlage/services/app-session';
 import { hash } from 'rsvp';
+import TemplateTag from 'frontend-reglementaire-bijlage/models/template-tag';
 
-interface Parameters {
-  label?: string;
-  page?: number;
-  size?: number;
-  sort?: string;
-}
+type Parameters = {
+  label: string;
+  page: number;
+  size: number;
+  sort: string;
+};
 
 export default class TagManagementRoute extends Route {
   @service declare store: Store;
@@ -37,11 +38,15 @@ export default class TagManagementRoute extends Route {
     }
     const query = {
       sort: params.sort,
+      page: {
+        number: params.page,
+        size: params.size,
+      },
       filter,
     };
 
     return hash({
-      templateTags: this.store.query('template-tag', query),
+      templateTags: this.store.query<TemplateTag>('template-tag', query),
     });
   }
 
