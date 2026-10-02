@@ -39,6 +39,9 @@ export default class TemplateTagSelectorComponent extends Component<Signature> {
       .content as TemplateTag[];
     return tags.slice();
   });
+  get tagListIsExternal() {
+    return Boolean(this.args.tagList);
+  }
 
   changeSelection = (selectedTags: SelectorOption[]) => {
     // split up the selected options into existing and new tags
@@ -67,7 +70,9 @@ export default class TemplateTagSelectorComponent extends Component<Signature> {
         label: addOption.searchTerm,
         createdOn: new Date(),
       });
-      this.addedTags = [...this.addedTags, newOption];
+      if (!this.tagListIsExternal) {
+        this.addedTags = [...this.addedTags, newOption];
+      }
       newSelectedTags = [...existingTags, newOption];
     } else {
       newSelectedTags = existingTags;
@@ -77,11 +82,11 @@ export default class TemplateTagSelectorComponent extends Component<Signature> {
   };
 
   get options() {
-    const tagsToUse = this.args.tagList ?? this.tags.value
-    const options: SelectorOption[] = [
-      ...(tagsToUse ?? []),
+    const options: SelectorOption[] = this.args.tagList?.slice() ?? [
+      ...(this.tags.value?.slice() ?? []),
       ...this.addedTags,
     ];
+
     if (
       this.args.allowCreate &&
       this.searchTerm &&
