@@ -6,6 +6,7 @@ import PowerSelect from 'ember-power-select/components/power-select';
 import TemplateTag from 'frontend-reglementaire-bijlage/models/template-tag';
 import { tracked } from '@glimmer/tracking';
 import type IntlService from 'ember-intl/services/intl';
+import { sortTags } from 'frontend-reglementaire-bijlage/utils/template-tags';
 
 type Args = {
   onChange?: (tags: TemplateTag[]) => void;
@@ -77,11 +78,8 @@ export default class TemplateTagSelectorComponent extends Component<Signature> {
   };
 
   get options() {
-    const tagsToUse = this.args.tagList ?? this.tags.value
-    const options: SelectorOption[] = [
-      ...(tagsToUse ?? []),
-      ...this.addedTags,
-    ];
+    const tagsToUse = this.args.tagList ?? this.tags.value;
+    const options: SelectorOption[] = [...(tagsToUse ?? []), ...this.addedTags];
     if (
       this.args.allowCreate &&
       this.searchTerm &&
@@ -95,7 +93,8 @@ export default class TemplateTagSelectorComponent extends Component<Signature> {
         searchTerm: this.searchTerm,
       });
     }
-    return options;
+
+    return sortTags(options);
   }
 
   setSearchTerm = (term: string) => {

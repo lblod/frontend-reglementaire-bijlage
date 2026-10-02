@@ -5,6 +5,7 @@ import { modifier } from 'ember-modifier';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import t from 'ember-intl/helpers/t';
+import { sortTags } from 'frontend-reglementaire-bijlage/utils/template-tags';
 
 type Args = {
   tags?: TemplateTag[];
@@ -34,7 +35,7 @@ export default class TemplateTagsComponent extends Component<Args> {
   }
 
   get sortedTags() {
-    return this.tags.map((tag: TemplateTag) => tag.label as string).toSorted();
+    return sortTags(this.tags).map((tag) => tag.label);
   }
 
   containerModifier = modifier((element: HTMLElement) => {
