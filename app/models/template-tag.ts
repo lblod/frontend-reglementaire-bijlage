@@ -9,5 +9,5 @@ export default class TemplateTag extends ConceptModel {
     inverse: 'tags',
     async: true,
   })
-  declare documentContainer: AsyncHasMany<DocumentContainer>;
+  declare documentContainers: AsyncHasMany<DocumentContainer>;
 }
