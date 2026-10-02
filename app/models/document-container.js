@@ -18,7 +18,7 @@ export default class DocumentContainerModel extends Model {
     as: 'document-container',
   })
   template;
-  @hasMany('template-tag', { inverse: 'documentContainer', async: true }) tags;
+  @hasMany('template-tag', { inverse: 'documentContainers', async: true }) tags;
 
   get templateTypeId() {
     return this.folder.then((folder) => folder?.id);
