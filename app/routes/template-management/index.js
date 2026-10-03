@@ -15,6 +15,8 @@ export default class TemplateManagementIndexRoute extends Route {
     size: { refreshModel: true },
     sort: { refreshModel: true },
     filter: { refreshModel: true },
+    templateTypes: { refreshModel: true },
+    templateTags: { refreshModel: true },
   };
 
   mergeQueryOptions(params) {
@@ -22,7 +24,10 @@ export default class TemplateManagementIndexRoute extends Route {
   }
 
   async model(params) {
-    const folders = [RS_STANDARD_FOLDER, DECISION_STANDARD_FOLDER];
+    const folders =
+      params.templateTypes?.length > 0
+        ? params.templateTypes.map((templateType) => templateType.folder)
+        : [RS_STANDARD_FOLDER, DECISION_STANDARD_FOLDER];
     const options = {
       filter: {
         folder: {
@@ -34,17 +39,41 @@ export default class TemplateManagementIndexRoute extends Route {
         number: params.page,
         size: params.size,
       },
+      include: 'template,folder,current-version,tags',
     };
 
     if (params.title) {
       options['filter[current-version][title]'] = params.title;
     }
-    return await this.store.query('document-container', options);
+    if (params.templateTags?.length) {
+      options['filter[tags][:id:]'] = params.templateTags.join(',');
+    }
+
+    const [documentContainer, selectedTags, allTags] = await Promise.all([
+      this.store.query('document-container', options),
+      Promise.all(
+        params.templateTags?.map((id) =>
+          this.store.findRecord('template-tag', id),
+        ) ?? [],
+      ),
+      this.store.countAndFetchAll('template-tag', {}),
+    ]);
+
+    return {
+      documentContainer,
+      selectedTags,
+      // make sure to preload all tags into the ED store
+      allTags,
+    };
   }
 
   setupController(controller, model) {
     super.setupController(controller, model);
 
     controller.set('refresh', this.refresh.bind(this));
+  }
+
+  resetController(controller) {
+    controller.reset();
   }
 }

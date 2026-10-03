@@ -1,12 +1,14 @@
 import Controller from '@ember/controller';
-import { task } from 'ember-concurrency';
+import { restartableTask, task, timeout } from 'ember-concurrency';
 import { service } from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from 'tracked-built-ins';
-import { localCopy } from 'tracked-toolbox';
 import isAfter from 'date-fns/isAfter';
 import { isBlank } from '../../utils/strings';
 import { getTemplateType, getTemplateTypes } from '../../utils/template-type';
+import { setTemplateTags } from 'frontend-reglementaire-bijlage/api/document-container';
+
+const TITLE_SEARCH_DEBOUNCE_TIME = 300;
 
 export default class TemplateManagementIndexController extends Controller {
   @service store;
@@ -17,27 +19,70 @@ export default class TemplateManagementIndexController extends Controller {
   @service intl;
 
   // queryParams
-  queryParams = ['title', 'page', 'size', 'sort'];
+  queryParams = ['title', 'page', 'size', 'sort', 'templateTags'];
   @tracked page = 0;
   @tracked size = 20;
   @tracked title = '';
   sort = '-current-version.created-on';
 
-  @localCopy('title', '') searchQuery;
-
   @tracked editorDocument;
   @tracked documentContainer;
-  @tracked templateTypeToCreate = this.templateTypes[0];
+  @tracked templateTypeToCreate = this.allTemplateTypes[0];
+  @tracked tagsToCreate = [];
   @tracked createTemplateModalIsOpen;
   @tracked removeTemplateModalIsOpen;
   @tracked selectedTemplates = tracked(Set);
   @tracked lastCheckedTemplate;
 
-  templateTypes = getTemplateTypes(this.intl);
+  allTemplateTypes = getTemplateTypes(this.intl);
+
+  @tracked templateTypes = [];
+  @tracked templateTags = [];
+  @tracked isReadMode = true;
+
+  changeFilterTemplateTypes = (newTemplateTypes) => {
+    this.templateTypes = newTemplateTypes;
+  };
+
+  changeFilterTemplateTags = (newTemplateTags) => {
+    this.templateTags = newTemplateTags.map((templateTag) => templateTag.id);
+  };
+
+  enableEditMode = () => {
+    this.isReadMode = false;
+  };
+
+  enableReadMode = () => {
+    this.isReadMode = true;
+  };
+
+  changeTagsFor = async (documentContainer, tags) => {
+    await setTemplateTags(documentContainer, tags);
+  };
+
+  resetFilters = () => {
+    this.templateTags = [];
+    this.templateTypes = [];
+    this.title = '';
+  };
+
+  get tagList() {
+    // we get a reactive, sync array of which template tags are in the store
+    // this means any new tags we make are immediately available and rerender the ui
+    // without making extra requests.
+    // On initial load this is filled with all tags from the backend, because the route
+    // fetches them
+    return this.store.peekAll('template-tag');
+  }
 
   @action
   updateTemplateType(templateType) {
     this.templateTypeToCreate = templateType;
+  }
+
+  @action
+  updateTemplateTags(newTags) {
+    this.tagsToCreate = newTags;
   }
 
   getTemplateTypeLabel = async (documentContainer) => {
@@ -120,8 +165,9 @@ export default class TemplateManagementIndexController extends Controller {
   cancelCreateTemplate() {
     this.editorDocument = undefined;
     this.documentContainer = undefined;
-    this.folder = this.templateTypes[0];
+    this.folder = this.allTemplateTypes[0];
     this.createTemplateModalIsOpen = false;
+    this.tagsToCreate = [];
   }
 
   get isInvalidTemplateTitle() {
@@ -130,6 +176,12 @@ export default class TemplateManagementIndexController extends Controller {
 
   saveTemplate = task(async (event) => {
     event.preventDefault();
+
+    // Store all new tags
+    await Promise.all(
+      this.tagsToCreate.filter((tag) => !tag.id).map((tag) => tag.save()),
+    );
+
     await this.editorDocument.save();
 
     this.documentContainer.folder = await this.store.findRecord(
@@ -137,6 +189,8 @@ export default class TemplateManagementIndexController extends Controller {
       this.templateTypeToCreate.folder,
     );
     this.documentContainer.currentVersion = this.editorDocument;
+
+    this.documentContainer.tags = this.tagsToCreate;
     await this.documentContainer.save();
 
     this.editorDocument.documentContainer = this.documentContainer;
@@ -198,21 +252,22 @@ export default class TemplateManagementIndexController extends Controller {
     this.session.invalidate();
   }
 
-  @action
-  updateSearchQuery(event) {
+  changeFilterTitle = restartableTask(async (newTitle) => {
     event.preventDefault();
-    this.searchQuery = event.target.value;
-  }
+    await timeout(TITLE_SEARCH_DEBOUNCE_TIME);
 
-  @action
-  search(event) {
-    event.preventDefault();
-    this.title = this.searchQuery;
+    this.title = newTitle;
     this.resetPagination();
-  }
+  });
 
   resetPagination() {
     this.page = 0;
+  }
+
+  reset() {
+    this.resetPagination();
+    this.resetFilters();
+    this.isReadMode = true;
   }
 
   @action
@@ -229,7 +284,7 @@ export default class TemplateManagementIndexController extends Controller {
     const value = event.target.value;
     if (event.target.checked) {
       if (event.shiftKey && this.lastCheckedTemplate) {
-        const documentContainers = [...this.model];
+        const documentContainers = [...this.model.documentContainer];
         const index1 = documentContainers.findIndex(
           (container) => container.uri === this.lastCheckedTemplate,
         );
@@ -258,7 +313,7 @@ export default class TemplateManagementIndexController extends Controller {
   @action
   onSelectAllChange() {
     if (event.target.checked) {
-      const documentContainers = [...this.model];
+      const documentContainers = [...this.model.documentContainer];
       this.selectedTemplates = tracked(
         new Set(documentContainers.map((container) => container.uri)),
       );

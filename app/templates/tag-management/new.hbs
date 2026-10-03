@@ -1,0 +1,6 @@
+{{! @glint-nocheck }}
+{{page-title (t "tag-management.new.title")}}
+<this.TemplateTagEditModal
+  @isSaving={{this.saveTag.isRunning}}
+  @onSave={{this.saveTag.perform}}
+/>

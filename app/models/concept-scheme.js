@@ -5,6 +5,7 @@ export default class ConceptScheme extends Model {
   @hasMany('skos-concept', {
     inverse: 'inScheme',
     async: true,
+    polymorphic: true,
     as: 'concept-scheme',
   })
   concepts;

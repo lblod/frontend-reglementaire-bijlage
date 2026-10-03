@@ -32,4 +32,8 @@ Router.map(function () {
       this.route('edit-snippet', { path: '/:snippet_id/edit-snippet' });
     });
   });
+  this.route('tag-management', function () {
+    this.route('new');
+    this.route('edit', { path: '/:id/edit' });
+  });
 });

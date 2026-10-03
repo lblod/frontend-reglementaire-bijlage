@@ -193,6 +193,8 @@ const GEMEENTE_CLASSIFICATION_URI =
 
 import { locationModalsPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin';
 import { getContextualActionGroups as locationActionsGroups } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin/contextual-actions';
+import { setTemplateTags } from 'frontend-reglementaire-bijlage/api/document-container';
+import type TemplateTag from 'frontend-reglementaire-bijlage/models/template-tag';
 
 export default class TemplateManagementEditController extends Controller {
   @service declare store: Store;
@@ -598,7 +600,7 @@ export default class TemplateManagementEditController extends Controller {
   }
 
   get internalTypeName(): 'decision' | 'regulatory-attachment' {
-    return this.model?.templateTypeId === DECISION_STANDARD_FOLDER
+    return this.model?.templateType?.folder === DECISION_STANDARD_FOLDER
       ? 'decision'
       : 'regulatory-attachment';
   }
@@ -612,7 +614,7 @@ export default class TemplateManagementEditController extends Controller {
         startsDirty: false,
       });
       this.assignedSnippetListsIds = this.documentSnippetListIds;
-    } else if (this.model?.templateTypeId === DECISION_STANDARD_FOLDER) {
+    } else if (this.model?.templateType?.folder === DECISION_STANDARD_FOLDER) {
       // This is a decision with no content, so we need to insert a decision (besluit) node so that
       // any of the decision-based plugins work
       const decisionNodeType = this.editor.schema.nodes['block_rdfa'];
@@ -661,6 +663,9 @@ export default class TemplateManagementEditController extends Controller {
 
   get editorDocument() {
     return this._editorDocument || this.model.editorDocument;
+  }
+  get documentContainer() {
+    return this.model.documentContainer;
   }
 
   publish = task(async () => {
@@ -801,6 +806,7 @@ export default class TemplateManagementEditController extends Controller {
       return result;
     },
   );
+
   predicateOptionGeneratorTask = restartableTask(
     async (args: TargetOptionGeneratorArgs) => {
       await timeout(200);
@@ -809,6 +815,7 @@ export default class TemplateManagementEditController extends Controller {
       return result;
     },
   );
+
   objectOptionGeneratorTask = restartableTask(
     async (args: TargetOptionGeneratorArgs) => {
       await timeout(200);
@@ -829,6 +836,7 @@ export default class TemplateManagementEditController extends Controller {
       endpoint: '/sparql',
     };
   }
+
   @action
   insertThing(thing: keyof typeof citerraMap) {
     if (this.editor) {
@@ -845,4 +853,10 @@ export default class TemplateManagementEditController extends Controller {
       );
     }
   }
+
+  saveTags = async (templateTags?: TemplateTag[]) => {
+    if (templateTags && this.documentContainer) {
+      await setTemplateTags(this.documentContainer, templateTags);
+    }
+  };
 }

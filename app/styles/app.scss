@@ -15,6 +15,9 @@
 @import 'breadcrumbs';
 @import '_c-app-chrome';
 @import 'document-validation';
+@import 'template-tags';
+@import 'template-management';
+@import 'template-tag-selector';
 
 
 
@@ -161,4 +164,19 @@ tr.sortable-item.is-dragging {
 
 .drag-icon-cell {
   cursor: move;
+}
+
+.white-space-nowrap {
+  white-space: nowrap;
+}
+
+.template-management-table--title {
+  display: flex;
+  gap: 0.6rem;
+
+  a {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;
+  }
 }

@@ -11,6 +11,14 @@ export default class DocumentContainerModel extends Model {
   revisions;
   @hasMany('snippet-list', { inverse: null, async: true })
   linkedSnippetLists;
+  @belongsTo('template', {
+    inverse: 'derivedFrom',
+    async: true,
+    polymorphic: true,
+    as: 'document-container',
+  })
+  template;
+  @hasMany('template-tag', { inverse: 'documentContainers', async: true }) tags;
 
   get templateTypeId() {
     return this.folder.then((folder) => folder?.id);
