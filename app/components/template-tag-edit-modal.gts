@@ -28,7 +28,7 @@ type Args = {
 export default class TemplateTagEditModal extends Component<Args> {
   @service declare router: RouterService;
   @service declare store: Store;
-  @localCopy('args.tag.label') tagLabel: string | null = null;
+  @localCopy('args.tag.value') tagLabel: string | null = null;
 
   @tracked titleExists = false;
 
@@ -42,7 +42,7 @@ export default class TemplateTagEditModal extends Component<Args> {
     }
     await timeout(300);
     const tags = await this.store.query('template-tag', {
-      'filter[:exact:label]': newLabel,
+      'filter[:exact:value]': newLabel,
     });
 
     this.titleExists = tags.length > 0;
@@ -57,7 +57,7 @@ export default class TemplateTagEditModal extends Component<Args> {
   }
 
   get labelChanged() {
-    return this.tagLabel !== this.args.tag?.label;
+    return this.tagLabel !== this.args.tag?.value;
   }
 
   cancelEditTag = () => {
@@ -66,17 +66,17 @@ export default class TemplateTagEditModal extends Component<Args> {
 
   saveTag = (event: Event) => {
     event.preventDefault();
-    if (this.isInvalidTagTitle) return;
+    if (!this.tagLabel || this.isInvalidTagTitle) return;
     let { tag } = this.args;
     if (!tag) {
       this.args.onSave?.(
-        this.store.createRecord('template-tag', {
+        this.store.createRecord<TemplateTag>('template-tag', {
           createdOn: new Date(),
-          label: this.tagLabel,
+          value: this.tagLabel,
         }),
       );
     } else {
-      tag.label = this.tagLabel;
+      tag.value = this.tagLabel;
       this.args.onSave?.(tag);
     }
   };
@@ -84,7 +84,7 @@ export default class TemplateTagEditModal extends Component<Args> {
   <template>
     <AuModal
       @title={{t
-        (if @tag.label 'tag-management.edit.title' 'tag-management.new.title')
+        (if @tag.value 'tag-management.edit.title' 'tag-management.new.title')
       }}
       @modalOpen={{true}}
       @closeModal={{this.cancelEditTag}}

@@ -34,7 +34,7 @@ export default class TemplateTagsComponent extends Component<Args> {
   }
 
   get sortedTags() {
-    return this.tags.map((tag: TemplateTag) => tag.label as string).toSorted();
+    return this.tags.map((tag: TemplateTag) => tag.value as string).toSorted();
   }
 
   containerModifier = modifier((element: HTMLElement) => {
@@ -111,7 +111,7 @@ export default class TemplateTagsComponent extends Component<Args> {
         {{#each this.tags as |tag|}}
           <span data-measure-tag>
             <AuPill class='tag-pill'>
-              {{tag.label}}
+              {{tag.value}}
             </AuPill>
           </span>
         {{/each}}
@@ -123,8 +123,8 @@ export default class TemplateTagsComponent extends Component<Args> {
       </div>
       <div class='tag-overflow-list__visible'>
         {{#each this.visibleTags as |tag|}}
-          <AuPill class='tag-pill' title={{tag.label}}>
-            {{tag.label}}
+          <AuPill class='tag-pill' title={{tag.value}}>
+            {{tag.value}}
           </AuPill>
         {{/each}}
 

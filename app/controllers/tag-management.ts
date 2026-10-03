@@ -10,13 +10,13 @@ import type TemplateTag from 'frontend-reglementaire-bijlage/models/template-tag
 export default class TagManagementController extends Controller {
   @service declare router: RouterService;
 
-  queryParams = ['page', 'size', 'label', 'sort'];
+  queryParams = ['page', 'size', 'value', 'sort'];
   @tracked page = 0;
   @tracked size = 20;
-  @tracked label = '';
+  @tracked value = '';
   @tracked sort = '-created-on';
 
-  @localCopy('label', '') declare searchQuery: string;
+  @localCopy('value', '') declare searchQuery: string;
 
   @tracked isRemoveModalOpen = false;
   @tracked modalTag: TemplateTag | null = null;
@@ -30,7 +30,7 @@ export default class TagManagementController extends Controller {
   @action
   search(event: Event) {
     event.preventDefault();
-    this.label = this.searchQuery;
+    this.value = this.searchQuery;
     this.resetPagination();
   }
 

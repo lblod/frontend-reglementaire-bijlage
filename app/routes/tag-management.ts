@@ -9,7 +9,7 @@ import { hash } from 'rsvp';
 import TemplateTag from 'frontend-reglementaire-bijlage/models/template-tag';
 
 type Parameters = {
-  label: string;
+  value: string;
   page: number;
   size: number;
   sort: string;
@@ -21,7 +21,7 @@ export default class TagManagementRoute extends Route {
   @service declare session: SessionService;
 
   queryParams = {
-    label: { refreshModel: true },
+    value: { refreshModel: true },
     page: { refreshModel: true },
     size: { refreshModel: true },
     sort: { refreshModel: true },
@@ -33,8 +33,8 @@ export default class TagManagementRoute extends Route {
 
   async model(params: Parameters) {
     const filter: Record<string, string> = {};
-    if (params.label) {
-      filter['label'] = params.label;
+    if (params.value) {
+      filter['value'] = params.value;
     }
     const query = {
       sort: params.sort,

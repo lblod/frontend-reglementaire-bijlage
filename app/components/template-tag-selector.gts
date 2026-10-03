@@ -20,7 +20,7 @@ type Signature = {
 };
 
 type NewTag = {
-  label: string;
+  value: string;
   // this works better than a boolean "isNew" for runtime type-checking
   optionType: 'new';
   searchTerm?: string;
@@ -67,7 +67,7 @@ export default class TemplateTagSelectorComponent extends Component<Signature> {
     let newSelectedTags;
     if (addOption) {
       const newOption = this.store.createRecord<TemplateTag>('template-tag', {
-        label: addOption.searchTerm,
+        value: addOption.searchTerm,
         createdOn: new Date(),
       });
       if (!this.tagListIsExternal) {
@@ -90,11 +90,11 @@ export default class TemplateTagSelectorComponent extends Component<Signature> {
     if (
       this.args.allowCreate &&
       this.searchTerm &&
-      !options.find((tag) => tag.label === this.searchTerm)
+      !options.find((tag) => tag.value === this.searchTerm)
     ) {
       options.push({
         optionType: 'new',
-        label: this.intl.t('tag-management.create-new-tag', {
+        value: this.intl.t('tag-management.create-new-tag', {
           tagName: this.searchTerm,
         }),
         searchTerm: this.searchTerm,
@@ -114,14 +114,14 @@ export default class TemplateTagSelectorComponent extends Component<Signature> {
       @multiple={{true}}
       @searchEnabled={{true}}
       @selected={{@selectedTags}}
-      @searchField='label'
+      @searchField='value'
       @onInput={{this.setSearchTerm}}
       class='template-tag-selector-powerselect'
       ...attributes
       as |tag|
     >
-      <span class='template-tag-selector-item' title={{tag.label}}>
-        {{tag.label}}
+      <span class='template-tag-selector-item' title={{tag.value}}>
+        {{tag.value}}
       </span>
     </PowerSelect>
   </template>
