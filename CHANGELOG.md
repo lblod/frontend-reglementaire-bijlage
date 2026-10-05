@@ -1,5 +1,11 @@
 # frontend-reglementaire-bijlage
 
+## 9.35.0
+
+### Minor Changes
+
+- [#357](https://github.com/lblod/frontend-reglementaire-bijlage/pull/357) [`39286a2aceea80bcadb312f53e604a55c537229b`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/39286a2aceea80bcadb312f53e604a55c537229b) Thanks [@kobemertens](https://github.com/kobemertens)! - Add tags functionality
+
 ## 9.34.3
 
 ### Patch Changes
