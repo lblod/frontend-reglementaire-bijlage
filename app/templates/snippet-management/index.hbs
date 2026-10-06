@@ -35,16 +35,6 @@
                 @snippetListUris={{this.selectedSnippetLists}}
               />
               <TemplateImporter @onSuccess={{this.refresh}} />
-              <div class="au-c-data-table__search">
-                <SearchForm
-                  @value={{this.searchQuery}}
-                  @placeholder={{t
-                    "snippets.manage-snippet-lists.search.placeholder"
-                  }}
-                  @onInput={{this.updateSearchQuery}}
-                  @onSearch={{this.search}}
-                />
-              </div>
               <AuLink
                 @icon="add"
                 @skin="button"
