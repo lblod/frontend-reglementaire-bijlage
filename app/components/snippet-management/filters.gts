@@ -48,7 +48,7 @@ export default class SnippetManagementFiltersComponent extends Component<Args> {
       >
         <AuFormRow>
           <AuLabel for='filter-template-title'>
-            {{t 'reglementaire-bijlage-titel.description'}}
+            {{t 'snippets.filters.label'}}
           </AuLabel>
           <AuInput
             {{on 'input' this.changeTitle}}

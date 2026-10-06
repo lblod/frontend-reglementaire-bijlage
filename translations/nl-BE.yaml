@@ -167,6 +167,8 @@ static-page:
   cookie-policy: Cookieverklaring
   accesibility-statement: Toegankelijkheidsverklaring
 snippets:
+  filters: 
+    label: Label
   manage-snippet-lists:
     title: Beheer fragmentlijsten
     make-new: Maak nieuwe fragmentlijst aan
