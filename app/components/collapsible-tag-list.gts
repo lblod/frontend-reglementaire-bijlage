@@ -10,7 +10,7 @@ type Args = {
   tags?: Tag[];
 };
 
-export default class TemplateTagsComponent extends Component<Args> {
+export default class CollapsibleTagListComponent extends Component<Args> {
   @tracked visibleCount = this.tags.length;
   @tracked isExpanded = false;
 

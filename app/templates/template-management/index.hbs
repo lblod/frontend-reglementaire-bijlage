@@ -144,7 +144,7 @@
             }}</td>
           <td>
             {{#if this.isReadMode}}
-              <TemplateTags @tags={{documentContainer.tags}} />
+              <CollapsibleTagList @tags={{documentContainer.tags}} />
             {{else}}
               <TemplateTagSelector
                 @onChange={{fn this.changeTagsFor documentContainer}}
