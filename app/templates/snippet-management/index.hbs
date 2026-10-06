@@ -1,101 +1,122 @@
-<div class="au-c-body-container au-c-body-container--scroll">
-  <AuDataTable
-    @content={{this.model}}
-    @fields="label importedResources"
-    @noDataMessage={{t "snippets.manage-snippet-lists.table.no-data"}}
-    @size={{this.size}}
-    @page={{this.page}}
-    @sort={{this.sort}}
-    as |s|
-  >
-    <s.menu as |menu|>
-      <menu.general>
-        <AuToolbar class="au-o-box" as |Group|>
-          <Group>
-            <AuHeading @skin="2">
-              {{t "snippets.manage-snippet-lists.title"}}
-            </AuHeading>
-          </Group>
-          <Group class="au-c-toolbar__group--center">
-            <TemplateExporter @snippetListUris={{this.selectedSnippetLists}} />
-            <TemplateImporter @onSuccess={{this.refresh}}/>
-            <div class="au-c-data-table__search">
-              <SearchForm
-                @value={{this.searchQuery}}
-                @placeholder={{t
-                  "snippets.manage-snippet-lists.search.placeholder"
-                }}
-                @onInput={{this.updateSearchQuery}}
-                @onSearch={{this.search}}
-              />
-            </div>
-            <AuLink @icon="add" @skin="button" @route="snippet-management.new">
-              {{t "snippets.manage-snippet-lists.make-new"}}
-            </AuLink>
-          </Group>
-        </AuToolbar>
-      </menu.general>
-    </s.menu>
-    <s.content as |c|>
-      <c.header>
-        <th>
-          {{#let (unique-id) as |id|}}
-            <AuCheckbox
-              id={{id}}
-              @checked={{this.selectAllChecked}}
-              {{on "click" this.onSelectAllChange}}
-            />
-          {{/let}}
-        </th>
-        <AuDataTableThSortable
-          @field=":no-case:label"
-          @currentSorting={{this.sort}}
-          @label={{t "snippets.manage-snippet-lists.table.columns.label"}}
+<AuMainContainer as |m|>
+  <m.sidebar class="snippet-management__sidebar">
+    <div class="au-c-sidebar">
+      <div class="au-c-sidebar__content">
+        <SnippetManagement::Filters
+          @onChangeTemplateTitle={{this.changeFilterTitle.perform}}
+          @templateTitle={{this.title}}
+          @onChangeTemplateTags={{this.changeFilterTemplateTags}}
+          @onResetFilters={{this.resetFilters}}
+          @selectedTags={{this.model.selectedTags}}
         />
-        <th>{{t "snippets.manage-snippet-lists.table.columns.id"}}</th>
-        <th>{{t "snippets.manage-snippet-lists.table.columns.imported"}}</th>
-        <th></th>
-      </c.header>
-      <c.body as |snippetList|>
-        <td>
-          {{#let (unique-id) as |id|}}
-            <AuCheckbox
-              id={{id}}
-              value={{snippetList.uri}}
-              @checked={{this.isSelected snippetList.uri}}
-              {{on "click" this.onSnippetListSelectionChange}}
-            />
-          {{/let}}
-        </td>
-        <td>
-          <AuLink
-            @skin="primary"
-            @route="snippet-management.edit"
-            @model={{snippetList.id}}
-          >
-            {{snippetList.label}}
-          </AuLink>
-        </td>
-        <td>
-          {{snippetList.id}}
-        </td>
-        <td>
-          {{snippetList.importedResources}}
-        </td>
-        <td>
-          <AuButton
-            @skin="naked"
-            @icon="trash"
-            @alert={{true}}
-            {{on "click" (fn this.openRemoveModal snippetList)}}
-          >
-            {{t "utility.delete"}}
-          </AuButton>
-        </td>
-      </c.body>
-    </s.content>
-  </AuDataTable>
-</div>
+      </div>
+    </div>
+  </m.sidebar>
+  <m.content @scroll={{true}}>
+    <AuDataTable
+      @content={{this.model}}
+      @fields="label importedResources"
+      @noDataMessage={{t "snippets.manage-snippet-lists.table.no-data"}}
+      @size={{this.size}}
+      @page={{this.page}}
+      @sort={{this.sort}}
+      as |s|
+    >
+      <s.menu as |menu|>
+        <menu.general>
+          <AuToolbar class="au-o-box" as |Group|>
+            <Group>
+              <AuHeading @skin="2">
+                {{t "snippets.manage-snippet-lists.title"}}
+              </AuHeading>
+            </Group>
+            <Group class="au-c-toolbar__group--center">
+              <TemplateExporter
+                @snippetListUris={{this.selectedSnippetLists}}
+              />
+              <TemplateImporter @onSuccess={{this.refresh}} />
+              <div class="au-c-data-table__search">
+                <SearchForm
+                  @value={{this.searchQuery}}
+                  @placeholder={{t
+                    "snippets.manage-snippet-lists.search.placeholder"
+                  }}
+                  @onInput={{this.updateSearchQuery}}
+                  @onSearch={{this.search}}
+                />
+              </div>
+              <AuLink
+                @icon="add"
+                @skin="button"
+                @route="snippet-management.new"
+              >
+                {{t "snippets.manage-snippet-lists.make-new"}}
+              </AuLink>
+            </Group>
+          </AuToolbar>
+        </menu.general>
+      </s.menu>
+      <s.content as |c|>
+        <c.header>
+          <th>
+            {{#let (unique-id) as |id|}}
+              <AuCheckbox
+                id={{id}}
+                @checked={{this.selectAllChecked}}
+                {{on "click" this.onSelectAllChange}}
+              />
+            {{/let}}
+          </th>
+          <AuDataTableThSortable
+            @field=":no-case:label"
+            @currentSorting={{this.sort}}
+            @label={{t "snippets.manage-snippet-lists.table.columns.label"}}
+          />
+          <th>{{t "snippets.manage-snippet-lists.table.columns.id"}}</th>
+          <th>{{t "snippets.manage-snippet-lists.table.columns.imported"}}</th>
+          <th></th>
+        </c.header>
+        <c.body as |snippetList|>
+          <td>
+            {{#let (unique-id) as |id|}}
+              <AuCheckbox
+                id={{id}}
+                value={{snippetList.uri}}
+                @checked={{this.isSelected snippetList.uri}}
+                {{on "click" this.onSnippetListSelectionChange}}
+              />
+            {{/let}}
+          </td>
+          <td>
+            <AuLink
+              @skin="primary"
+              @route="snippet-management.edit"
+              @model={{snippetList.id}}
+            >
+              {{snippetList.label}}
+            </AuLink>
+          </td>
+          <td>
+            {{snippetList.id}}
+          </td>
+          <td>
+            {{snippetList.importedResources}}
+          </td>
+          <td>
+            <AuButton
+              @skin="naked"
+              @icon="trash"
+              @alert={{true}}
+              {{on "click" (fn this.openRemoveModal snippetList)}}
+            >
+              {{t "utility.delete"}}
+            </AuButton>
+          </td>
+        </c.body>
+      </s.content>
+    </AuDataTable>
+  </m.content>
+</AuMainContainer>
 <AuModal
   @title={{t "utility.confirmation.body"}}
   @modalOpen={{this.isRemoveModalOpen}}
