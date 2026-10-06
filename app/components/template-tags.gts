@@ -1,13 +1,13 @@
 import Component from '@glimmer/component';
 import AuPill from '@appuniversum/ember-appuniversum/components/au-pill';
-import type TemplateTag from 'frontend-reglementaire-bijlage/models/template-tag';
+import type Tag from 'frontend-reglementaire-bijlage/models/tag';
 import { modifier } from 'ember-modifier';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import t from 'ember-intl/helpers/t';
 
 type Args = {
-  tags?: TemplateTag[];
+  tags?: Tag[];
 };
 
 export default class TemplateTagsComponent extends Component<Args> {
@@ -34,7 +34,7 @@ export default class TemplateTagsComponent extends Component<Args> {
   }
 
   get sortedTags() {
-    return this.tags.map((tag: TemplateTag) => tag.value as string).toSorted();
+    return this.tags.map((tag: Tag) => tag.value as string).toSorted();
   }
 
   containerModifier = modifier((element: HTMLElement) => {

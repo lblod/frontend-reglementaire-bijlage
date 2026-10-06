@@ -6,6 +6,6 @@ export default class TagManagementEditRoute extends Route {
   @service declare store: Store;
 
   async model(params: { id: string }) {
-    return this.store.findRecord('template-tag', params.id, {});
+    return this.store.findRecord('tag', params.id, {});
   }
 }

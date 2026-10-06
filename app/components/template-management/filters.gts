@@ -18,7 +18,7 @@ import {
 } from 'frontend-reglementaire-bijlage/utils/constants';
 import type IntlService from 'ember-intl/services/intl';
 import { service } from '@ember/service';
-import TemplateTag from 'frontend-reglementaire-bijlage/models/template-tag';
+import Tag from 'frontend-reglementaire-bijlage/models/tag';
 import type Store from '@ember-data/store';
 
 type Args = {
@@ -26,9 +26,9 @@ type Args = {
   onResetFilters?: () => void;
   onChangeTemplateTypes?: (templateType: TemplateType[]) => void;
   onChangeTemplateTitle?: (title: string) => void;
-  onChangeTemplateTags?: (tags: TemplateTag[]) => void;
+  onChangeTemplateTags?: (tags: Tag[]) => void;
   selectedTemplateTypes: TemplateType[];
-  selectedTags: TemplateTag[];
+  selectedTags: Tag[];
 };
 
 export default class TemplateManagementFilters extends Component<Args> {

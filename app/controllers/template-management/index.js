@@ -72,7 +72,7 @@ export default class TemplateManagementIndexController extends Controller {
     // without making extra requests.
     // On initial load this is filled with all tags from the backend, because the route
     // fetches them
-    return this.store.peekAll('template-tag');
+    return this.store.peekAll('tag');
   }
 
   @action

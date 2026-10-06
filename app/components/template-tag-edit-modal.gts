@@ -11,7 +11,7 @@ import t from 'ember-intl/helpers/t';
 import { isBlank } from 'frontend-reglementaire-bijlage/utils/strings';
 import { service } from '@ember/service';
 import type RouterService from '@ember/routing/router-service';
-import TemplateTag from 'frontend-reglementaire-bijlage/models/template-tag';
+import Tag from 'frontend-reglementaire-bijlage/models/tag';
 import type Store from 'frontend-reglementaire-bijlage/services/store';
 import { localCopy } from 'tracked-toolbox';
 import { restartableTask, timeout } from 'ember-concurrency';
@@ -19,10 +19,10 @@ import { tracked } from '@glimmer/tracking';
 import { or, and } from 'ember-truth-helpers';
 
 type Args = {
-  tag?: TemplateTag;
+  tag?: Tag;
   isSaving: boolean;
 
-  onSave?: (tag: TemplateTag) => void;
+  onSave?: (tag: Tag) => void;
 };
 
 export default class TemplateTagEditModal extends Component<Args> {
@@ -41,7 +41,7 @@ export default class TemplateTagEditModal extends Component<Args> {
       return;
     }
     await timeout(300);
-    const tags = await this.store.query('template-tag', {
+    const tags = await this.store.query('tag', {
       'filter[:exact:value]': newLabel,
     });
 
@@ -70,7 +70,7 @@ export default class TemplateTagEditModal extends Component<Args> {
     let { tag } = this.args;
     if (!tag) {
       this.args.onSave?.(
-        this.store.createRecord<TemplateTag>('template-tag', {
+        this.store.createRecord<Tag>('tag', {
           createdOn: new Date(),
           value: this.tagLabel,
         }),
