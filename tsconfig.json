@@ -22,14 +22,10 @@
     ],
 
     "paths": {
-      "frontend-reglementaire-bijlage/tests/*": ["tests/*"],
-      "frontend-reglementaire-bijlage/*": ["app/*"],
-      "*": ["types/*"]
+      "frontend-reglementaire-bijlage/tests/*": ["./tests/*"],
+      "frontend-reglementaire-bijlage/*": ["./app/*"],
+      "*": ["./types/*"]
     }
   },
-  "exclude": ["node_modules", "dist"],
-  "glint": {
-    "environment": ["ember-loose", "ember-template-imports"],
-    "checkStandaloneTemplates": false
-  }
+  "exclude": ["node_modules", "dist"]
 }
