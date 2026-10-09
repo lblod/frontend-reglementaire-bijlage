@@ -6,7 +6,7 @@ import { tracked } from 'tracked-built-ins';
 import isAfter from 'date-fns/isAfter';
 import { isBlank } from '../../utils/strings';
 import { getTemplateType, getTemplateTypes } from '../../utils/template-type';
-import { setTemplateTags } from 'frontend-reglementaire-bijlage/api/document-container';
+import { setTags } from 'frontend-reglementaire-bijlage/api/document-container';
 
 const TITLE_SEARCH_DEBOUNCE_TIME = 300;
 
@@ -42,10 +42,12 @@ export default class TemplateManagementIndexController extends Controller {
 
   changeFilterTemplateTypes = (newTemplateTypes) => {
     this.templateTypes = newTemplateTypes;
+    this.resetPagination();
   };
 
   changeFilterTemplateTags = (newTemplateTags) => {
     this.templateTags = newTemplateTags.map((templateTag) => templateTag.id);
+    this.resetPagination();
   };
 
   enableEditMode = () => {
@@ -57,13 +59,14 @@ export default class TemplateManagementIndexController extends Controller {
   };
 
   changeTagsFor = async (documentContainer, tags) => {
-    await setTemplateTags(documentContainer, tags);
+    await setTags(documentContainer, tags);
   };
 
   resetFilters = () => {
     this.templateTags = [];
     this.templateTypes = [];
     this.title = '';
+    this.resetPagination();
   };
 
   get tagList() {
@@ -72,7 +75,7 @@ export default class TemplateManagementIndexController extends Controller {
     // without making extra requests.
     // On initial load this is filled with all tags from the backend, because the route
     // fetches them
-    return this.store.peekAll('template-tag');
+    return this.store.peekAll('tag');
   }
 
   @action

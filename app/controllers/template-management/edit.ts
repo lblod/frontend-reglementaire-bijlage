@@ -193,8 +193,8 @@ const GEMEENTE_CLASSIFICATION_URI =
 
 import { locationModalsPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin';
 import { getContextualActionGroups as locationActionsGroups } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin/contextual-actions';
-import { setTemplateTags } from 'frontend-reglementaire-bijlage/api/document-container';
-import type TemplateTag from 'frontend-reglementaire-bijlage/models/template-tag';
+import { setTags } from 'frontend-reglementaire-bijlage/api/document-container';
+import type Tag from 'frontend-reglementaire-bijlage/models/tag';
 
 export default class TemplateManagementEditController extends Controller {
   @service declare store: Store;
@@ -854,9 +854,9 @@ export default class TemplateManagementEditController extends Controller {
     }
   }
 
-  saveTags = async (templateTags?: TemplateTag[]) => {
+  saveTags = async (templateTags?: Tag[]) => {
     if (templateTags && this.documentContainer) {
-      await setTemplateTags(this.documentContainer, templateTags);
+      await setTags(this.documentContainer, templateTags);
     }
   };
 }

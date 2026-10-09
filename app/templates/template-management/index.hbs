@@ -144,9 +144,9 @@
             }}</td>
           <td>
             {{#if this.isReadMode}}
-              <TemplateTags @tags={{documentContainer.tags}} />
+              <CollapsibleTagList @tags={{documentContainer.tags}} />
             {{else}}
-              <TemplateTagSelector
+              <TagSelector
                 @onChange={{fn this.changeTagsFor documentContainer}}
                 @selectedTags={{documentContainer.tags}}
                 @allowCreate={{true}}
@@ -213,7 +213,7 @@
         <AuLabel for="template-type">
           {{t "template-management.tags.label"}}
         </AuLabel>
-        <TemplateTagSelector
+        <TagSelector
           @allowCreate={{true}}
           @onChange={{this.updateTemplateTags}}
           @selectedTags={{this.tagsToCreate}}

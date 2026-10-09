@@ -5,7 +5,7 @@ import { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
 import { localCopy } from 'tracked-toolbox';
 import type RouterService from '@ember/routing/router-service';
-import type TemplateTag from 'frontend-reglementaire-bijlage/models/template-tag';
+import type Tag from 'frontend-reglementaire-bijlage/models/tag';
 
 export default class TagManagementController extends Controller {
   @service declare router: RouterService;
@@ -19,7 +19,7 @@ export default class TagManagementController extends Controller {
   @localCopy('value', '') declare searchQuery: string;
 
   @tracked isRemoveModalOpen = false;
-  @tracked modalTag: TemplateTag | null = null;
+  @tracked modalTag: Tag | null = null;
 
   @action
   updateSearchQuery(event: Event) {
@@ -38,7 +38,7 @@ export default class TagManagementController extends Controller {
     this.page = 0;
   }
 
-  @action openRemoveModal(tag: TemplateTag) {
+  @action openRemoveModal(tag: Tag) {
     this.modalTag = tag;
     this.isRemoveModalOpen = true;
   }

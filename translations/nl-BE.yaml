@@ -167,6 +167,8 @@ static-page:
   cookie-policy: Cookieverklaring
   accesibility-statement: Toegankelijkheidsverklaring
 snippets:
+  filters: 
+    label: Label
   manage-snippet-lists:
     title: Beheer fragmentlijsten
     make-new: Maak nieuwe fragmentlijst aan
@@ -175,6 +177,7 @@ snippets:
         label: Label
         id: Id
         imported: Geïmporteerde resources
+        tags: Tags
       no-data: Geen fragmentlijsten gevonden
     snippet-list-deletion:
       confirm: Bevestig om fragmentlijst <strong>{name}</strong> te verwijderen

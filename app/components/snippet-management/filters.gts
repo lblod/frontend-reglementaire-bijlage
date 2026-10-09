@@ -4,51 +4,23 @@ import AuLabel from '@appuniversum/ember-appuniversum/components/au-label';
 import AuInput from '@appuniversum/ember-appuniversum/components/au-input';
 import AuHeading from '@appuniversum/ember-appuniversum/components/au-heading';
 import AuButton from '@appuniversum/ember-appuniversum/components/au-button';
-import AuCheckboxGroup from '@appuniversum/ember-appuniversum/components/au-checkbox-group';
 import t from 'ember-intl/helpers/t';
 import TemplateTagSelector from 'frontend-reglementaire-bijlage/components/tag-selector';
-import {
-  getTemplateType,
-  type TemplateType,
-} from 'frontend-reglementaire-bijlage/utils/template-type';
 import { on } from '@ember/modifier';
-import {
-  DECISION_STANDARD_FOLDER,
-  RS_STANDARD_FOLDER,
-} from 'frontend-reglementaire-bijlage/utils/constants';
-import type IntlService from 'ember-intl/services/intl';
-import { service } from '@ember/service';
 import Tag from 'frontend-reglementaire-bijlage/models/tag';
-import type Store from 'frontend-reglementaire-bijlage/services/store';
 
 type Args = {
-  templateTitle?: string;
+  label?: string;
   onResetFilters?: () => void;
-  onChangeTemplateTypes?: (templateType: TemplateType[]) => void;
-  onChangeTemplateTitle?: (title: string) => void;
-  onChangeTemplateTags?: (tags: Tag[]) => void;
-  selectedTemplateTypes: TemplateType[];
+  onChangeLabel?: (title: string) => void;
+  onChangeTags?: (tags: Tag[]) => void;
   selectedTags: Tag[];
 };
 
-export default class TemplateManagementFilters extends Component<Args> {
-  @service declare intl: IntlService;
-  @service declare store: Store;
-
+export default class SnippetManagementFiltersComponent extends Component<Args> {
   changeTitle = (event: Event) => {
     const newTitle = (event.target as HTMLInputElement).value;
-    this.args.onChangeTemplateTitle?.(newTitle);
-  };
-  get selectedTemplateTypes() {
-    return this.args.selectedTemplateTypes.map((t) => t.folder);
-  }
-
-  changeTypes = (folders: string[]) => {
-    const templateTypes = folders.flatMap(
-      (folder) => getTemplateType(folder, this.intl) ?? [],
-    );
-
-    this.args.onChangeTemplateTypes?.(templateTypes);
+    this.args.onChangeLabel?.(newTitle);
   };
 
   resetFilters = () => {
@@ -70,32 +42,14 @@ export default class TemplateManagementFilters extends Component<Args> {
       >
         <AuFormRow>
           <AuLabel for='filter-template-title'>
-            {{t 'reglementaire-bijlage-titel.description'}}
+            {{t 'snippets.filters.label'}}
           </AuLabel>
           <AuInput
             {{on 'input' this.changeTitle}}
             class='au-u-1-1'
             id='filter-template-title'
-            value={{@templateTitle}}
+            value={{@label}}
           />
-        </AuFormRow>
-        <AuFormRow>
-          <AuLabel for='filter-template-type'>
-            {{t 'template-management.template-type.label'}}
-          </AuLabel>
-          <AuCheckboxGroup
-            @onChange={{this.changeTypes}}
-            @selected={{this.selectedTemplateTypes}}
-            id='filter-template-type'
-            as |Group|
-          >
-            <Group.Checkbox @value={{DECISION_STANDARD_FOLDER}}>{{t
-                'template-management.template-type.decision'
-              }}</Group.Checkbox>
-            <Group.Checkbox @value={{RS_STANDARD_FOLDER}}>{{t
-                'template-management.template-type.regulatory-attachment'
-              }}</Group.Checkbox>
-          </AuCheckboxGroup>
         </AuFormRow>
         <AuFormRow>
           <AuLabel for='filter-tags'>
@@ -103,7 +57,7 @@ export default class TemplateManagementFilters extends Component<Args> {
           </AuLabel>
           <div class='tag-selector-container'>
             <TemplateTagSelector
-              @onChange={{@onChangeTemplateTags}}
+              @onChange={{@onChangeTags}}
               @selectedTags={{@selectedTags}}
               id='filter-tags'
             />

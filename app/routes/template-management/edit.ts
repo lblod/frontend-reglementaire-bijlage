@@ -11,7 +11,7 @@ import type { ModelFrom } from 'frontend-reglementaire-bijlage/utils/type-utils'
 import { hash } from 'rsvp';
 import { getTemplateType } from 'frontend-reglementaire-bijlage/utils/template-type';
 import type IntlService from 'ember-intl/services/intl';
-import type TemplateTag from 'frontend-reglementaire-bijlage/models/template-tag';
+import type Tag from 'frontend-reglementaire-bijlage/models/tag';
 
 export default class TemplateManagementEditRoute extends Route {
   @service declare store: Store;
@@ -36,7 +36,7 @@ export default class TemplateManagementEditRoute extends Route {
       | TemplateVersion
       | undefined;
     const templateTags = (await documentContainer?.tags) as
-      | TemplateTag[]
+      | Tag[]
       | undefined;
     const templateTypeId = (await documentContainer.templateTypeId) as
       | string

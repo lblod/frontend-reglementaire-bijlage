@@ -6,7 +6,7 @@ import type TagManagementController from 'frontend-reglementaire-bijlage/control
 import type CurrentSessionService from 'frontend-reglementaire-bijlage/services/current-session';
 import type SessionService from 'frontend-reglementaire-bijlage/services/app-session';
 import { hash } from 'rsvp';
-import TemplateTag from 'frontend-reglementaire-bijlage/models/template-tag';
+import Tag from 'frontend-reglementaire-bijlage/models/tag';
 
 type Parameters = {
   value: string;
@@ -46,7 +46,7 @@ export default class TagManagementRoute extends Route {
     };
 
     return hash({
-      templateTags: this.store.query<TemplateTag>('template-tag', query),
+      templateTags: this.store.query<Tag>('tag', query),
     });
   }
 
