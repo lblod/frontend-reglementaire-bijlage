@@ -6,7 +6,7 @@ import { tracked } from 'tracked-built-ins';
 import isAfter from 'date-fns/isAfter';
 import { isBlank } from '../../utils/strings';
 import { getTemplateType, getTemplateTypes } from '../../utils/template-type';
-import { setTemplateTags } from 'frontend-reglementaire-bijlage/api/document-container';
+import { setTags } from 'frontend-reglementaire-bijlage/api/document-container';
 
 const TITLE_SEARCH_DEBOUNCE_TIME = 300;
 
@@ -57,7 +57,7 @@ export default class TemplateManagementIndexController extends Controller {
   };
 
   changeTagsFor = async (documentContainer, tags) => {
-    await setTemplateTags(documentContainer, tags);
+    await setTags(documentContainer, tags);
   };
 
   resetFilters = () => {
