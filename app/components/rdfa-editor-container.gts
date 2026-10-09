@@ -126,10 +126,12 @@ export default class RdfaEditorContainerComponent extends Component<Signature> {
 
   <template>
     <AuBodyContainer
-      {{! @glint-ignore}}
+      {{! @glint-expect-error glint doesn't support RDFa attributes (yet)}}
       vocab='{{this.vocab}}'
       {{didInsert this.setPrefix}}
+      {{! @glint-expect-error glint doesn't support RDFa attributes (yet)}}
       property='{{@property}}'
+      {{! @glint-expect-error glint doesn't support RDFa attributes (yet)}}
       resource='#'
     >
       {{#if @busy}}
