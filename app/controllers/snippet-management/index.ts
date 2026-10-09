@@ -4,11 +4,15 @@ import { task } from 'ember-concurrency';
 import { tracked } from 'tracked-built-ins';
 import { action } from '@ember/object';
 import { localCopy } from 'tracked-toolbox';
+import type Store from 'frontend-reglementaire-bijlage/services/store';
+import type Router from 'frontend-reglementaire-bijlage/router';
+import type CurrentSessionService from 'frontend-reglementaire-bijlage/services/current-session';
+import SnippetList from 'frontend-reglementaire-bijlage/models/snippet-list';
 
 export default class SnippetManagementIndexController extends Controller {
-  @service store;
-  @service router;
-  @service currentSession;
+  @service declare store: Store;
+  @service declare router: Router;
+  @service declare currentSession: CurrentSessionService;
 
   queryParams = ['page', 'size', 'label', 'sort'];
   @tracked page = 0;
@@ -16,22 +20,22 @@ export default class SnippetManagementIndexController extends Controller {
   @tracked label = '';
   @tracked sort = '-created-on';
 
-  @localCopy('label', '') searchQuery;
+  @localCopy('label', '') searchQuery = '';
 
   @tracked selectedSnippetLists = tracked(Set);
-  @tracked lastCheckedSnippetList;
+  @tracked lastCheckedSnippetList: string | null = null;
 
   @tracked isRemoveModalOpen = false;
-  @tracked deletingSnippetList;
+  @tracked deletingSnippetList: SnippetList | null = null;
 
   @action
-  updateSearchQuery(event) {
+  updateSearchQuery(event: Event) {
     event.preventDefault();
-    this.searchQuery = event.target.value;
+    this.searchQuery = (event.target as HTMLInputElement).value;
   }
 
   @action
-  search(event) {
+  search(event: Event) {
     event.preventDefault();
     this.label = this.searchQuery;
     this.resetPagination();
@@ -42,6 +46,7 @@ export default class SnippetManagementIndexController extends Controller {
   }
 
   removeSnippetList = task(async () => {
+    if (!this.deletingSnippetList) return;
     const snippets = await this.deletingSnippetList.snippets;
 
     await Promise.all(
@@ -60,7 +65,7 @@ export default class SnippetManagementIndexController extends Controller {
   });
 
   @action
-  openRemoveModal(snippet) {
+  openRemoveModal(snippet: SnippetList) {
     this.deletingSnippetList = snippet;
     this.isRemoveModalOpen = true;
   }
@@ -71,16 +76,17 @@ export default class SnippetManagementIndexController extends Controller {
     this.isRemoveModalOpen = false;
   }
 
-  isSelected = (uri) => {
+  isSelected = (uri: string) => {
     return this.selectedSnippetLists.has(uri);
   };
 
   @action
-  onSnippetListSelectionChange(event) {
-    const value = event.target.value;
-    if (event.target.checked) {
-      if (event.shiftKey && this.lastCheckedSnippetList) {
-        const snippetLists = [...this.model];
+  onSnippetListSelectionChange(event: Event) {
+    const element = event.target as HTMLInputElement;
+    const value = element.value;
+    if (element.checked) {
+      if ((event as KeyboardEvent).shiftKey && this.lastCheckedSnippetList) {
+        const snippetLists: SnippetList[] = [...this.model];
         const index1 = snippetLists.findIndex(
           (list) => list.uri === this.lastCheckedSnippetList,
         );
@@ -90,7 +96,7 @@ export default class SnippetManagementIndexController extends Controller {
         const startIndex = Math.min(index1, index2);
         const endIndex = Math.max(index1, index2);
         for (let i = startIndex; i <= endIndex; i++) {
-          const snippetList = snippetLists[i];
+          const snippetList = snippetLists[i] as SnippetList;
           this.selectedSnippetLists.add(snippetList.uri);
         }
       } else {
@@ -107,8 +113,8 @@ export default class SnippetManagementIndexController extends Controller {
   }
 
   @action
-  onSelectAllChange() {
-    if (event.target.checked) {
+  onSelectAllChange(event: Event) {
+    if ((event.target as HTMLInputElement).checked) {
       const snippetLists = [...this.model];
       this.selectedSnippetLists = tracked(
         new Set(snippetLists.map((list) => list.uri)),
