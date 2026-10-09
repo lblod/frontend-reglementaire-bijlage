@@ -19,7 +19,7 @@ import {
 import type IntlService from 'ember-intl/services/intl';
 import { service } from '@ember/service';
 import Tag from 'frontend-reglementaire-bijlage/models/tag';
-import type Store from '@ember-data/store';
+import type Store from 'frontend-reglementaire-bijlage/services/store';
 
 type Args = {
   templateTitle?: string;

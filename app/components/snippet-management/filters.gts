@@ -7,10 +7,7 @@ import AuButton from '@appuniversum/ember-appuniversum/components/au-button';
 import t from 'ember-intl/helpers/t';
 import TemplateTagSelector from 'frontend-reglementaire-bijlage/components/template-tag-selector';
 import { on } from '@ember/modifier';
-import type IntlService from 'ember-intl/services/intl';
-import { service } from '@ember/service';
 import Tag from 'frontend-reglementaire-bijlage/models/tag';
-import type Store from '@ember-data/store';
 
 type Args = {
   templateTitle?: string;
@@ -21,9 +18,6 @@ type Args = {
 };
 
 export default class SnippetManagementFiltersComponent extends Component<Args> {
-  @service declare intl: IntlService;
-  @service declare store: Store;
-
   changeTitle = (event: Event) => {
     const newTitle = (event.target as HTMLInputElement).value;
     this.args.onChangeTemplateTitle?.(newTitle);
