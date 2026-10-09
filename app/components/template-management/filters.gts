@@ -6,7 +6,7 @@ import AuHeading from '@appuniversum/ember-appuniversum/components/au-heading';
 import AuButton from '@appuniversum/ember-appuniversum/components/au-button';
 import AuCheckboxGroup from '@appuniversum/ember-appuniversum/components/au-checkbox-group';
 import t from 'ember-intl/helpers/t';
-import TemplateTagSelector from 'frontend-reglementaire-bijlage/components/template-tag-selector';
+import TemplateTagSelector from 'frontend-reglementaire-bijlage/components/tag-selector';
 import {
   getTemplateType,
   type TemplateType,

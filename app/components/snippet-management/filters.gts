@@ -5,7 +5,7 @@ import AuInput from '@appuniversum/ember-appuniversum/components/au-input';
 import AuHeading from '@appuniversum/ember-appuniversum/components/au-heading';
 import AuButton from '@appuniversum/ember-appuniversum/components/au-button';
 import t from 'ember-intl/helpers/t';
-import TemplateTagSelector from 'frontend-reglementaire-bijlage/components/template-tag-selector';
+import TemplateTagSelector from 'frontend-reglementaire-bijlage/components/tag-selector';
 import { on } from '@ember/modifier';
 import Tag from 'frontend-reglementaire-bijlage/models/tag';
 

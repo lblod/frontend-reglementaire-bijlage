@@ -27,7 +27,7 @@ type NewTag = {
 };
 type SelectorOption = Tag | NewTag;
 
-export default class TemplateTagSelectorComponent extends Component<Signature> {
+export default class TagSelector extends Component<Signature> {
   @service declare store: Store;
   @service declare intl: IntlService;
 
@@ -39,6 +39,7 @@ export default class TemplateTagSelectorComponent extends Component<Signature> {
       .content as Tag[];
     return tags.slice();
   });
+
   get tagListIsExternal() {
     return Boolean(this.args.tagList);
   }
