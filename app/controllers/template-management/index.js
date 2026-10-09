@@ -42,10 +42,12 @@ export default class TemplateManagementIndexController extends Controller {
 
   changeFilterTemplateTypes = (newTemplateTypes) => {
     this.templateTypes = newTemplateTypes;
+    this.resetPagination();
   };
 
   changeFilterTemplateTags = (newTemplateTags) => {
     this.templateTags = newTemplateTags.map((templateTag) => templateTag.id);
+    this.resetPagination();
   };
 
   enableEditMode = () => {
@@ -64,6 +66,7 @@ export default class TemplateManagementIndexController extends Controller {
     this.templateTags = [];
     this.templateTypes = [];
     this.title = '';
+    this.resetPagination();
   };
 
   get tagList() {
