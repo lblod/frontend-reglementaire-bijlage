@@ -42,6 +42,19 @@
               >
                 {{t "snippets.manage-snippet-lists.make-new"}}
               </AuLink>
+              {{#if this.isReadMode}}
+                <AuButton
+                  {{on "click" (set this "isReadMode" false)}}
+                  @skin="secondary"
+                  @icon="pencil"
+                >{{t "template-management.edit-mode"}}</AuButton>
+              {{else}}
+                <AuButton
+                  {{on "click" (set this "isReadMode" true)}}
+                  @skin="secondary"
+                  @icon="pencil"
+                >{{t "template-management.read-mode"}}</AuButton>
+              {{/if}}
             </Group>
           </AuToolbar>
         </menu.general>
@@ -64,6 +77,7 @@
           />
           <th>{{t "snippets.manage-snippet-lists.table.columns.id"}}</th>
           <th>{{t "snippets.manage-snippet-lists.table.columns.imported"}}</th>
+          <th>{{t "snippets.manage-snippet-lists.table.columns.tags"}}</th>
           <th></th>
         </c.header>
         <c.body as |snippetList|>
@@ -93,10 +107,23 @@
             {{snippetList.importedResources}}
           </td>
           <td>
+            {{#if this.isReadMode}}
+              <CollapsibleTagList @tags={{snippetList.tags}} />
+            {{else}}
+              <TagSelector
+                @onChange={{fn this.changeTagsFor snippetList}}
+                @selectedTags={{snippetList.tags}}
+                @allowCreate={{true}}
+                @tagList={{this.tagList}}
+              />
+            {{/if}}
+          </td>
+          <td class="au-u-padding-right-none">
             <AuButton
               @skin="naked"
               @icon="trash"
               @alert={{true}}
+              @hideText={{true}}
               {{on "click" (fn this.openRemoveModal snippetList)}}
             >
               {{t "utility.delete"}}

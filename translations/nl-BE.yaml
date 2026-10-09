@@ -177,6 +177,7 @@ snippets:
         label: Label
         id: Id
         imported: Geïmporteerde resources
+        tags: Tags
       no-data: Geen fragmentlijsten gevonden
     snippet-list-deletion:
       confirm: Bevestig om fragmentlijst <strong>{name}</strong> te verwijderen

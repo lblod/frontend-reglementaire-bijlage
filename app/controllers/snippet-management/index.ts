@@ -9,6 +9,7 @@ import type Router from 'frontend-reglementaire-bijlage/router';
 import type CurrentSessionService from 'frontend-reglementaire-bijlage/services/current-session';
 import SnippetList from 'frontend-reglementaire-bijlage/models/snippet-list';
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
+import { setTags } from 'frontend-reglementaire-bijlage/api/document-container';
 
 const LABEL_SEARCH_DEBOUNCE_TIME = 300;
 
@@ -49,11 +50,13 @@ export default class SnippetManagementIndexController extends Controller {
 
   changeFilterTags = (tags: Tag[]) => {
     this.tags = tags.map((tag) => tag.id);
+    this.resetPagination();
   };
 
   resetFilters = () => {
     this.tags = [];
     this.label = '';
+    this.resetPagination();
   };
 
   resetPagination() {
@@ -123,9 +126,22 @@ export default class SnippetManagementIndexController extends Controller {
     }
   }
 
+  get tagList() {
+    // we get a reactive, sync array of which template tags are in the store
+    // this means any new tags we make are immediately available and rerender the ui
+    // without making extra requests.
+    // On initial load this is filled with all tags from the backend, because the route
+    // fetches them
+    return this.store.peekAll('tag');
+  }
+
   get selectAllChecked() {
     return this.selectedSnippetLists.size > 0;
   }
+
+  changeTagsFor = async (snippetList: SnippetList, tags: Tag[]) => {
+    await setTags(snippetList, tags);
+  };
 
   @action
   onSelectAllChange(event: Event) {
