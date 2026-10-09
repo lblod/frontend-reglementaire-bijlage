@@ -10,17 +10,17 @@ import { on } from '@ember/modifier';
 import Tag from 'frontend-reglementaire-bijlage/models/tag';
 
 type Args = {
-  templateTitle?: string;
+  label?: string;
   onResetFilters?: () => void;
-  onChangeTemplateTitle?: (title: string) => void;
-  onChangeTemplateTags?: (tags: Tag[]) => void;
+  onChangeLabel?: (title: string) => void;
+  onChangeTags?: (tags: Tag[]) => void;
   selectedTags: Tag[];
 };
 
 export default class SnippetManagementFiltersComponent extends Component<Args> {
   changeTitle = (event: Event) => {
     const newTitle = (event.target as HTMLInputElement).value;
-    this.args.onChangeTemplateTitle?.(newTitle);
+    this.args.onChangeLabel?.(newTitle);
   };
 
   resetFilters = () => {
@@ -48,7 +48,7 @@ export default class SnippetManagementFiltersComponent extends Component<Args> {
             {{on 'input' this.changeTitle}}
             class='au-u-1-1'
             id='filter-template-title'
-            value={{@templateTitle}}
+            value={{@label}}
           />
         </AuFormRow>
         <AuFormRow>
@@ -57,7 +57,7 @@ export default class SnippetManagementFiltersComponent extends Component<Args> {
           </AuLabel>
           <div class='tag-selector-container'>
             <TemplateTagSelector
-              @onChange={{@onChangeTemplateTags}}
+              @onChange={{@onChangeTags}}
               @selectedTags={{@selectedTags}}
               id='filter-tags'
             />

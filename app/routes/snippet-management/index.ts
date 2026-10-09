@@ -1,6 +1,7 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 import type SnippetList from 'frontend-reglementaire-bijlage/models/snippet-list';
+import type Tag from 'frontend-reglementaire-bijlage/models/tag';
 import type CurrentSessionService from 'frontend-reglementaire-bijlage/services/current-session';
 import type Store from 'frontend-reglementaire-bijlage/services/store';
 
@@ -9,6 +10,7 @@ type Parameters = {
   size: number;
   sort: string;
   label: string;
+  tags: string[];
 };
 
 export default class SnippetManagementIndexRoute extends Route {
@@ -20,10 +22,11 @@ export default class SnippetManagementIndexRoute extends Route {
     page: { refreshModel: true },
     size: { refreshModel: true },
     sort: { refreshModel: true },
+    tags: { refreshModel: true },
   };
 
   async model(params: Parameters) {
-    const query = {
+    const options = {
       sort: params.sort,
       page: {
         number: params.page,
@@ -33,14 +36,32 @@ export default class SnippetManagementIndexRoute extends Route {
         publisher: {
           id: this.currentSession.group?.id,
         },
-        label: undefined as undefined | string,
+        label: undefined as string | undefined,
+        tags: {
+          ':id:': undefined as string | undefined,
+        },
       },
     };
 
     if (params.label) {
-      query.filter.label = params.label;
+      options.filter.label = params.label;
     }
 
-    return this.store.query<SnippetList>('snippet-list', query);
+    if (params.tags?.length) {
+      options.filter.tags[':id:'] = params.tags.join(',');
+    }
+
+    const [snippetLists, allTags]: [SnippetList[], Tag[]] = await Promise.all([
+      this.store.query<SnippetList>('snippet-list', options),
+      this.store.countAndFetchAll('tag', {}),
+    ]);
+
+    const selectedTags = allTags.filter((tag) => params.tags.includes(tag.id));
+
+    return {
+      snippetLists,
+      selectedTags,
+      // allTags,
+    };
   }
 }

@@ -3,9 +3,9 @@
     <div class="au-c-sidebar">
       <div class="au-c-sidebar__content">
         <SnippetManagement::Filters
-          @onChangeTemplateTitle={{this.changeFilterTitle.perform}}
-          @templateTitle={{this.title}}
-          @onChangeTemplateTags={{this.changeFilterTemplateTags}}
+          @onChangeLabel={{this.changeFilterLabel.perform}}
+          @label={{this.label}}
+          @onChangeTags={{this.changeFilterTags}}
           @onResetFilters={{this.resetFilters}}
           @selectedTags={{this.model.selectedTags}}
         />
@@ -14,7 +14,7 @@
   </m.sidebar>
   <m.content @scroll={{true}}>
     <AuDataTable
-      @content={{this.model}}
+      @content={{this.model.snippetLists}}
       @fields="label importedResources"
       @noDataMessage={{t "snippets.manage-snippet-lists.table.no-data"}}
       @size={{this.size}}
