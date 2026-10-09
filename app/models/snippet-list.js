@@ -10,6 +10,7 @@ export default class SnippetList extends Model {
 
   /** @type {Promise<Collection<Snippet>>} */
   @hasMany('snippet', { async: true, inverse: 'snippetList' }) snippets;
+  @hasMany('tag', { async: true, inverse: 'snippetLists' }) tags;
 
   @belongsTo('administrative-unit', { async: true, inverse: null }) publisher;
 }
