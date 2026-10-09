@@ -33,6 +33,9 @@ import sortableItem from 'ember-sortable/modifiers/sortable-item';
 import sortableGroup from 'ember-sortable/modifiers/sortable-group';
 import sortableHandle from 'ember-sortable/modifiers/sortable-handle';
 import SnippetVersionModel from 'frontend-reglementaire-bijlage/models/snippet-version';
+import TagSelector from 'frontend-reglementaire-bijlage/components/tag-selector';
+import type Tag from 'frontend-reglementaire-bijlage/models/tag';
+import { setTags } from 'frontend-reglementaire-bijlage/api/document-container';
 
 const SHOW_SAVED_PILL = 'showSavedPill';
 
@@ -240,8 +243,12 @@ export default class SnippetListForm extends Component<Arguments> {
     history.back();
   }
 
+  changeTags = async (tags: Tag[]) => {
+    await setTags(this.args.snippetList, tags);
+  };
+
   <template>
-    <div class='au-u-margin-bottom'>
+    <div class='au-c-form au-u-margin-bottom'>
       <AuFormRow>
         <AuLabel for='label'>
           {{t 'snippets.edit-snippet-list.form.label.label'}}
@@ -264,6 +271,18 @@ export default class SnippetListForm extends Component<Arguments> {
               </AuPill>
             </div>
           {{/if}}
+        </div>
+      </AuFormRow>
+      <AuFormRow>
+        <AuLabel for='tags'>
+          {{t 'template-management.tags.label'}}
+        </AuLabel>
+        <div class='au-u-flex au-u-flex--vertical-center'>
+          <TagSelector
+            @onChange={{this.changeTags}}
+            @selectedTags={{@snippetList.tags}}
+            @allowCreate={{true}}
+          />
         </div>
       </AuFormRow>
       <AuFormRow>
