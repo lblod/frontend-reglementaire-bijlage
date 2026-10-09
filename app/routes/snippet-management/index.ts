@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
-import SnippetList from 'frontend-reglementaire-bijlage/models/snippet-list';
+import type SnippetList from 'frontend-reglementaire-bijlage/models/snippet-list';
 import type CurrentSessionService from 'frontend-reglementaire-bijlage/services/current-session';
 import type Store from 'frontend-reglementaire-bijlage/services/store';
 
@@ -33,7 +33,7 @@ export default class SnippetManagementIndexRoute extends Route {
         publisher: {
           id: this.currentSession.group?.id,
         },
-        label: null as null | string,
+        label: undefined as undefined | string,
       },
     };
 
