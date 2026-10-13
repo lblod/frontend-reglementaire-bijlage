@@ -5,6 +5,7 @@ import { modifier } from 'ember-modifier';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import t from 'ember-intl/helpers/t';
+import compare from '@ember/utils/lib/compare';
 
 type Args = {
   tags?: Tag[];
@@ -22,7 +23,9 @@ export default class CollapsibleTagListComponent extends Component<Args> {
   }
 
   get visibleTags() {
-    return this.isExpanded ? this.tags : this.tags.slice(0, this.visibleCount);
+    return this.isExpanded
+      ? this.sortedTags
+      : this.sortedTags.slice(0, this.visibleCount);
   }
 
   get hiddenCount() {
@@ -34,7 +37,9 @@ export default class CollapsibleTagListComponent extends Component<Args> {
   }
 
   get sortedTags() {
-    return this.tags.map((tag: Tag) => tag.value as string).toSorted();
+    return this.tags
+      .slice()
+      .toSorted((tag1, tag2) => compare(tag1.value, tag2.value));
   }
 
   containerModifier = modifier((element: HTMLElement) => {
