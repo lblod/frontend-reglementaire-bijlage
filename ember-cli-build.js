@@ -4,6 +4,13 @@ const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function (defaults) {
   let app = new EmberApp(defaults, {
+    autoImport: {
+      webpack: {
+        resolve: {
+          conditionNames: ['browser', 'import'],
+        },
+      },
+    },
     sassOptions: {
       extension: 'scss',
       includePaths: ['node_modules/@appuniversum/ember-appuniversum'],

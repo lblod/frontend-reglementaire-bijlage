@@ -30,10 +30,10 @@
   },
   "devDependencies": {
     "@appuniversum/ember-appuniversum": "~4.2.2",
-    "@babel/core": "^7.25.2",
-    "@babel/eslint-parser": "^7.28.6",
-    "@babel/plugin-proposal-decorators": "^7.29.0",
-    "@babel/preset-env": "^7.29.2",
+    "@babel/core": "^7.29.7",
+    "@babel/eslint-parser": "^7.29.9",
+    "@babel/plugin-proposal-decorators": "^7.29.7",
+    "@babel/preset-env": "^7.29.7",
     "@bagaar/ember-breadcrumbs": "^5.0.0",
     "@changesets/changelog-github": "^0.4.8",
     "@changesets/cli": "^2.26.2",
@@ -60,8 +60,8 @@
     "@lblod/ember-acmidm-login": "^2.1.0",
     "@lblod/ember-environment-banner": "^0.6.0",
     "@lblod/ember-mock-login": "0.14.0",
-    "@lblod/ember-rdfa-editor": "13.18.0",
-    "@lblod/ember-rdfa-editor-lblod-plugins": "38.2.0",
+    "@lblod/ember-rdfa-editor": "13.20.1",
+    "@lblod/ember-rdfa-editor-lblod-plugins": "39.1.1",
     "@release-it-plugins/lerna-changelog": "^6.0.0",
     "@tsconfig/ember": "^3.0.8",
     "@types/lodash.mergewith": "^4.6.9",
@@ -130,7 +130,7 @@
     "tracked-built-ins": "^4.1.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.57.1",
-    "webpack": "^5.95.0"
+    "webpack": "^5.111.1"
   },
   "engines": {
     "node": ">= 18"
@@ -146,7 +146,7 @@
     "ember-cli-string-helpers": "^6.1.0",
     "ember-data-table": "^2.1.0",
     "ember-math-helpers": "^4.0.0",
-    "ember-resources": "^7.0.2",
+    "ember-resources": "^7.1.0",
     "ember-simple-auth": "^6.0.0",
     "ember-truth-helpers": "^4.0.3",
     "reactiveweb": "^1.9.4",
