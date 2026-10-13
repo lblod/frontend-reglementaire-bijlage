@@ -11,13 +11,14 @@ export async function saveCollatedImportedResources(list: SnippetList) {
   const snippetModels = await Promise.all(
     (await list.snippets).map((snip) => snip.currentVersion),
   );
-  const snippets = snippetModels.map(
-    (model) =>
-      new Snippet({
-        title: model.title,
-        content: model.content,
-        createdOn: model.createdOn.toISOString(),
-      }),
+  const snippets = snippetModels.flatMap((model) =>
+    model
+      ? new Snippet({
+          title: model.title,
+          content: model.content ?? '',
+          createdOn: model.createdOn?.toISOString() ?? null,
+        })
+      : [],
   );
   const importedResources = collateImportedResources(snippets);
   list.importedResources = importedResources;

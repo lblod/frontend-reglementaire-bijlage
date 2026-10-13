@@ -10,6 +10,8 @@ import type CurrentSessionService from 'frontend-reglementaire-bijlage/services/
 import SnippetList from 'frontend-reglementaire-bijlage/models/snippet-list';
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
 import { setTags } from 'frontend-reglementaire-bijlage/api/document-container';
+import type { ModelFrom } from 'frontend-reglementaire-bijlage/utils/type-utils';
+import type SnippetManagementIndexRoute from 'frontend-reglementaire-bijlage/routes/snippet-management/index';
 
 const LABEL_SEARCH_DEBOUNCE_TIME = 300;
 
@@ -17,6 +19,8 @@ export default class SnippetManagementIndexController extends Controller {
   @service declare store: Store;
   @service declare router: Router;
   @service declare currentSession: CurrentSessionService;
+  
+  declare model: ModelFrom<SnippetManagementIndexRoute>;
 
   queryParams = ['page', 'size', 'label', 'sort', 'tags'];
   @tracked page = 0;
@@ -104,7 +108,7 @@ export default class SnippetManagementIndexController extends Controller {
     const value = element.value;
     if (element.checked) {
       if ((event as KeyboardEvent).shiftKey && this.lastCheckedSnippetList) {
-        const snippetLists: SnippetList[] = [...this.model.snippetLists];
+        const snippetLists = [...this.model.snippetLists];
         const index1 = snippetLists.findIndex(
           (list) => list.uri === this.lastCheckedSnippetList,
         );

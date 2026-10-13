@@ -7,14 +7,17 @@ import type { Type } from '@warp-drive/core-types/symbols';
 export default class EditorDocumentModel extends Model {
   declare [Type]: 'editor-document';
   @attr uri?: string;
-  @attr title?: string;
+  @attr('string', { defaultValue: 'Geen titel' }) declare title: string;
   @attr content?: string;
   @attr templateVersion?: string;
   @attr('string', { defaultValue: defaultContext }) context?: string;
   @attr('datetime') createdOn?: Date;
   @attr('datetime') updatedOn?: Date;
 
-  @belongsTo<DocumentContainerModel>('document-container', { inverse: 'revisions', async: true })
+  @belongsTo<DocumentContainerModel>('document-container', {
+    inverse: 'revisions',
+    async: true,
+  })
   declare documentContainer: AsyncBelongsTo<DocumentContainerModel>;
 
   get htmlSafeContent() {

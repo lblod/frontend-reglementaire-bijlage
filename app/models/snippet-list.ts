@@ -8,14 +8,15 @@ import Model, {
 import Snippet from 'frontend-reglementaire-bijlage/models/snippet';
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
 import type AdministrativeUnitModel from './administrative-unit';
-import { Type } from '@warp-drive/core-types/symbols';
+import type { Type } from '@warp-drive/core-types/symbols';
 
 export default class SnippetList extends Model {
   declare [Type]: 'snippet-list';
-  @attr declare uri?: string;
-  @attr declare label?: string;
-  @attr('datetime') declare createdOn?: Date;
-  @attr declare importedResources?: string;
+
+  @attr uri?: string;
+  @attr label?: string;
+  @attr('datetime') createdOn?: Date;
+  @attr('string-set') importedResources?: Array<string>;
 
   @hasMany<Snippet>('snippet', { async: true, inverse: 'snippetList' })
   declare snippets: AsyncHasMany<Snippet>;

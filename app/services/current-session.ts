@@ -5,7 +5,7 @@ import type Store from 'ember-data/store';
 import AdministrativeUnitModel from 'frontend-reglementaire-bijlage/models/administrative-unit';
 import type AccountModel from 'frontend-reglementaire-bijlage/models/account';
 import type UserModel from 'frontend-reglementaire-bijlage/models/user';
-import type BestuurseenheidClassificatieCodeModel from 'frontend-reglementaire-bijlage/models/administrative-unit-classification-code';
+import type AdministrativeUnitClassificationCode from 'frontend-reglementaire-bijlage/models/administrative-unit-classification-code';
 interface SessionService {
   isAuthenticated: boolean;
   data: {
@@ -27,7 +27,7 @@ export default class CurrentSessionService extends Service {
   @tracked user?: UserModel;
   @tracked group?: AdministrativeUnitModel;
   @tracked roles: string[] = [];
-  @tracked classification?: BestuurseenheidClassificatieCodeModel;
+  @tracked classification?: AdministrativeUnitClassificationCode;
 
   async load() {
     if (this.session.isAuthenticated) {
@@ -40,15 +40,14 @@ export default class CurrentSessionService extends Service {
 
       const groupId: string =
         this.session.data.authenticated.relationships.group.data.id;
-      this.group = (await this.store.findRecord(
+      this.group = await this.store.findRecord<AdministrativeUnitModel>(
         'administrative-unit',
         groupId,
         {
-          include: 'classification',
+          include: ['classification'],
         },
-      )) as AdministrativeUnitModel;
-      this.classification = (await this.group
-        .classification) as BestuurseenheidClassificatieCodeModel;
+      );
+      this.classification = await this.group.classification;
 
       this.roles = this.session.data.authenticated.data.attributes.roles;
     }

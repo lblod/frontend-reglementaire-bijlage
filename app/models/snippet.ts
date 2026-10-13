@@ -11,10 +11,10 @@ import type { Type } from '@warp-drive/core-types/symbols';
 
 export default class SnippetModel extends Model {
   declare [Type]: 'snippet';
-  @attr declare uri?: string;
-  @attr('number') declare position?: number;
-  @attr('datetime') declare createdOn?: Date;
-  @attr('datetime') declare updatedOn?: Date;
+  @attr uri?: string;
+  @attr('number') position?: number;
+  @attr('datetime') createdOn?: Date;
+  @attr('datetime') updatedOn?: Date;
 
   @belongsTo<SnippetVersionModel>('snippet-version', {
     inverse: null,
@@ -23,7 +23,7 @@ export default class SnippetModel extends Model {
   declare currentVersion: AsyncBelongsTo<SnippetVersionModel>;
 
   @belongsTo<SnippetList>('snippet-list', { inverse: 'snippets', async: true })
-  declare snippetList: AsyncBelongsTo<SnippetVersionModel>;
+  declare snippetList: AsyncBelongsTo<SnippetList>;
 
   @hasMany<SnippetVersionModel>('snippet-version', {
     inverse: 'snippet',

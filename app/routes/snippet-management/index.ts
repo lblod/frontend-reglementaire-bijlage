@@ -26,6 +26,16 @@ export default class SnippetManagementIndexRoute extends Route {
   };
 
   async model(params: Parameters) {
+    const publisherId = this.currentSession.group?.id;
+    const publisherFilter = publisherId
+      ? { publisher: { id: publisherId } }
+      : ({} as Record<string, never>);
+    const labelFilter = params.label
+      ? { label: params.label }
+      : ({} as Record<string, never>);
+    const tagsFilter = params.tags?.length
+      ? { tags: { ':id:': params.tags.join(',') } }
+      : ({} as Record<string, never>);
     const options = {
       sort: params.sort,
       page: {
@@ -33,35 +43,25 @@ export default class SnippetManagementIndexRoute extends Route {
         size: params.size,
       },
       filter: {
-        publisher: {
-          id: this.currentSession.group?.id,
-        },
-        label: undefined as string | undefined,
-        tags: {
-          ':id:': undefined as string | undefined,
-        },
+        ...publisherFilter,
+        ...labelFilter,
+        ...tagsFilter,
       },
     };
 
-    if (params.label) {
-      options.filter.label = params.label;
-    }
-
-    if (params.tags?.length) {
-      options.filter.tags[':id:'] = params.tags.join(',');
-    }
-
-    const [snippetLists, allTags]: [SnippetList[], Tag[]] = await Promise.all([
+    const [snippetLists, allTags] = await Promise.all([
       this.store.query<SnippetList>('snippet-list', options),
-      this.store.countAndFetchAll('tag', {}),
+      this.store.countAndFetchAll<Tag>('tag', {}),
     ]);
 
-    const selectedTags = allTags.filter((tag) => params.tags.includes(tag.id));
+    const selectedTags = allTags.filter((tag) =>
+      tag.id ? params.tags.includes(tag.id) : false,
+    );
 
     return {
       snippetLists,
       selectedTags,
-      // allTags,
+      allTags,
     };
   }
 }

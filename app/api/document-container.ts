@@ -8,6 +8,6 @@ export async function setTags(
 ) {
   const newTags = tags.filter((tag) => tag.isNew);
   await Promise.all(newTags.map((nt) => nt.save()));
-  taggedThing.tags = tags;
+  taggedThing.set('tags', tags);
   await taggedThing.save();
 }

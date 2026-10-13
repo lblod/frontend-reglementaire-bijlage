@@ -21,7 +21,7 @@ export default class GoverningBodyModel extends Model {
     inverse: 'governingBody',
     async: true,
   })
-  declare adminstrativeUnit: AsyncBelongsTo<AdministrativeUnitModel>;
+  declare administrativeUnit: AsyncBelongsTo<AdministrativeUnitModel>;
   @belongsTo<AdministrativeUnitClassificationCode>(
     'administrative-unit-classification-code',
     {

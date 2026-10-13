@@ -5,7 +5,7 @@ import type EditorDocumentModel from './editor-document';
 export default class TemplateVersion extends FileModel {
   declare [Type]: 'template-version';
 
-  @attr validThrough?: string;
+  @attr('date') validThrough?: Date;
   @attr title?: string;
 
   @belongsTo<EditorDocumentModel>('editor-document', { async: true, inverse: null })

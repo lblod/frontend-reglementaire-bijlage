@@ -3,9 +3,7 @@ import { service } from '@ember/service';
 import type Store from 'frontend-reglementaire-bijlage/services/store';
 import type TemplateManagementEditController from 'frontend-reglementaire-bijlage/controllers/template-management/edit';
 import type DocumentContainerModel from 'frontend-reglementaire-bijlage/models/document-container';
-import type EditorDocumentModel from 'frontend-reglementaire-bijlage/models/editor-document';
 import type Template from 'frontend-reglementaire-bijlage/models/template';
-import type TemplateVersion from 'frontend-reglementaire-bijlage/models/template-version';
 import type SessionService from 'frontend-reglementaire-bijlage/services/session';
 import type { ModelFrom } from 'frontend-reglementaire-bijlage/utils/type-utils';
 import { hash } from 'rsvp';
@@ -32,19 +30,13 @@ export default class TemplateManagementEditRoute extends Route {
     const templateContainer = (await documentContainer.template) as
       | Template
       | undefined;
-    const templateVersion = (await templateContainer?.currentVersion) as
-      | TemplateVersion
-      | undefined;
-    const templateTags = (await documentContainer?.tags) as
-      | Tag[]
-      | undefined;
-    const templateTypeId = (await documentContainer.templateTypeId) as
-      | string
-      | undefined;
+    const templateVersion = await templateContainer?.currentVersion;
+    const templateTags = (await documentContainer?.tags) as Tag[] | undefined;
+    const templateTypeId = await documentContainer.templateTypeId;
 
     return hash({
       documentContainer,
-      editorDocument: documentContainer.currentVersion as EditorDocumentModel,
+      editorDocument: await documentContainer.currentVersion,
       templateType: getTemplateType(templateTypeId, this.intl),
       templateVersion,
       templateTags,

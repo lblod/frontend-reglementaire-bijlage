@@ -62,7 +62,7 @@ export default class extends Store {
       meta: {
         count,
       },
-    });
+    }) as ArrayProxy<T>;
   }
 
   async findByUri<T extends TypedRecordInstance>(
