@@ -8,7 +8,7 @@ steps:
       - corepack enable
       - pnpm i --frozen-lockfile
   check-dev-packages:
-    image: danlynn/ember-cli:6.7.2-node_22.19
+    image: node:22-slim
     commands:
       - corepack enable
       - apt-get update
