@@ -1,5 +1,15 @@
 # frontend-reglementaire-bijlage
 
+## 9.35.1
+
+### Patch Changes
+
+- [#358](https://github.com/lblod/frontend-reglementaire-bijlage/pull/358) [`960439dfc03e289940cd17a42b64f44f7f1d21e2`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/960439dfc03e289940cd17a42b64f44f7f1d21e2) Thanks [@lagartoverde](https://github.com/lagartoverde)! - update plugins to [v39.1.1](https://github.com/lblod/ember-rdfa-editor-lblod-plugins/releases/tag/v39.1.1)
+
+- [#359](https://github.com/lblod/frontend-reglementaire-bijlage/pull/359) [`10e8a8a7015817b3b1f205ac96b8d3374f20ab80`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/10e8a8a7015817b3b1f205ac96b8d3374f20ab80) Thanks [@elpoelma](https://github.com/elpoelma)! - Tooling: update glint setup to v2
+
+- [#358](https://github.com/lblod/frontend-reglementaire-bijlage/pull/358) [`960439dfc03e289940cd17a42b64f44f7f1d21e2`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/960439dfc03e289940cd17a42b64f44f7f1d21e2) Thanks [@lagartoverde](https://github.com/lagartoverde)! - update editor to [@lblod](https://github.com/lblod/ember-rdfa-editor/releases/tag/@lblod/ember-rdfa-editor@13.20.1)
+
 ## 9.35.0
 
 ### Minor Changes
