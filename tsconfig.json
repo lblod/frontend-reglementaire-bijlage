@@ -3,6 +3,8 @@
   "compilerOptions": {
     "module": "esnext",
     "experimentalDecorators": true,
+    "declaration": false,
+    "declarationMap": false,
     "allowJs": true,
     "checkJs": false,
     "types": [
