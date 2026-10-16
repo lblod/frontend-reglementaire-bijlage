@@ -158,4 +158,10 @@ export default class SnippetManagementIndexController extends Controller {
       this.selectedSnippetLists = tracked(new Set());
     }
   }
+
+  reset() {
+    this.resetPagination();
+    this.resetFilters();
+    this.isReadMode = true;
+  }
 }
