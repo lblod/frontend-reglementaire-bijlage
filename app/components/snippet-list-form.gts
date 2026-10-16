@@ -279,9 +279,6 @@ export default class SnippetListForm extends Component<Arguments> {
             {{/if}}
           </div>
         </AuFormRow>
-        <div />
-        <div />
-        <div />
         <AuFormRow>
           <AuLabel for='tags'>
             {{t 'template-management.tags.label'}}
