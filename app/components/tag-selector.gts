@@ -6,6 +6,8 @@ import PowerSelect from 'ember-power-select/components/power-select';
 import Tag from 'frontend-reglementaire-bijlage/models/tag';
 import { tracked } from '@glimmer/tracking';
 import type IntlService from 'ember-intl/services/intl';
+import { localCopy } from 'tracked-toolbox';
+import { sortTags } from 'frontend-reglementaire-bijlage/utils/sort-tags';
 
 type Args = {
   onChange?: (tags: Tag[]) => void;
@@ -33,6 +35,14 @@ export default class TagSelector extends Component<Signature> {
 
   @tracked searchTerm: string | null = null;
   @tracked addedTags: Tag[] = [];
+  @localCopy('args.selectedTags') selectedTags: Tag[] = [];
+
+  constructor(owner: unknown, args: Args) {
+    super(owner, args);
+    if (this.args.selectedTags) {
+      this.selectedTags = sortTags(this.args.selectedTags.slice());
+    }
+  }
 
   tags = trackedFunction<Promise<Tag[]>>(this, async () => {
     const tags = (await this.store.countAndFetchAll('tag', {}))
