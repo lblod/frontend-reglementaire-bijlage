@@ -113,7 +113,7 @@ export default class CollapsibleTagListComponent extends Component<Args> {
         data-measure-row
         aria-hidden='true'
       >
-        {{#each this.tags as |tag|}}
+        {{#each this.sortedTags as |tag|}}
           <span data-measure-tag>
             <AuPill class='tag-pill'>
               {{tag.value}}
