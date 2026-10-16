@@ -6,7 +6,7 @@ import AuHeading from '@appuniversum/ember-appuniversum/components/au-heading';
 import AuButton from '@appuniversum/ember-appuniversum/components/au-button';
 import AuCheckboxGroup from '@appuniversum/ember-appuniversum/components/au-checkbox-group';
 import t from 'ember-intl/helpers/t';
-import TemplateTagSelector from 'frontend-reglementaire-bijlage/components/template-tag-selector';
+import TemplateTagSelector from 'frontend-reglementaire-bijlage/components/tag-selector';
 import {
   getTemplateType,
   type TemplateType,
@@ -18,17 +18,17 @@ import {
 } from 'frontend-reglementaire-bijlage/utils/constants';
 import type IntlService from 'ember-intl/services/intl';
 import { service } from '@ember/service';
-import TemplateTag from 'frontend-reglementaire-bijlage/models/template-tag';
-import type Store from '@ember-data/store';
+import Tag from 'frontend-reglementaire-bijlage/models/tag';
+import type Store from 'frontend-reglementaire-bijlage/services/store';
 
 type Args = {
   templateTitle?: string;
   onResetFilters?: () => void;
   onChangeTemplateTypes?: (templateType: TemplateType[]) => void;
   onChangeTemplateTitle?: (title: string) => void;
-  onChangeTemplateTags?: (tags: TemplateTag[]) => void;
+  onChangeTemplateTags?: (tags: Tag[]) => void;
   selectedTemplateTypes: TemplateType[];
-  selectedTags: TemplateTag[];
+  selectedTags: Tag[];
 };
 
 export default class TemplateManagementFilters extends Component<Args> {

@@ -53,10 +53,10 @@ export default class TemplateManagementIndexRoute extends Route {
       this.store.query('document-container', options),
       Promise.all(
         params.templateTags?.map((id) =>
-          this.store.findRecord('template-tag', id),
+          this.store.findRecord('tag', id),
         ) ?? [],
       ),
-      this.store.countAndFetchAll('template-tag', {}),
+      this.store.countAndFetchAll('tag', {}),
     ]);
 
     return {

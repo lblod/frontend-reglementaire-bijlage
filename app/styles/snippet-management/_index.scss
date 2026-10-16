@@ -1,0 +1,18 @@
+@import "./filters";
+
+@include mq($au-main-container-breakpoint) {
+  .snippet-management__sidebar {
+    max-width: 15%;
+  }
+}
+
+.snippet-management__tags-cell {
+  width: 25%;
+  min-width: 15rem;
+}
+
+.snippet-management-edit__properties-form {
+  display: flex;
+  direction: column;
+  gap: 18rem;
+}

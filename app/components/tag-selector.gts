@@ -3,15 +3,15 @@ import { trackedFunction } from 'reactiveweb/function';
 import type Store from 'frontend-reglementaire-bijlage/services/store';
 import { service } from '@ember/service';
 import PowerSelect from 'ember-power-select/components/power-select';
-import TemplateTag from 'frontend-reglementaire-bijlage/models/template-tag';
+import Tag from 'frontend-reglementaire-bijlage/models/tag';
 import { tracked } from '@glimmer/tracking';
 import type IntlService from 'ember-intl/services/intl';
 
 type Args = {
-  onChange?: (tags: TemplateTag[]) => void;
-  selectedTags?: TemplateTag[];
+  onChange?: (tags: Tag[]) => void;
+  selectedTags?: Tag[];
   allowCreate?: boolean;
-  tagList?: TemplateTag[];
+  tagList?: Tag[];
 };
 
 type Signature = {
@@ -25,20 +25,21 @@ type NewTag = {
   optionType: 'new';
   searchTerm?: string;
 };
-type SelectorOption = TemplateTag | NewTag;
+type SelectorOption = Tag | NewTag;
 
-export default class TemplateTagSelectorComponent extends Component<Signature> {
+export default class TagSelector extends Component<Signature> {
   @service declare store: Store;
   @service declare intl: IntlService;
 
   @tracked searchTerm: string | null = null;
-  @tracked addedTags: TemplateTag[] = [];
+  @tracked addedTags: Tag[] = [];
 
-  tags = trackedFunction<Promise<TemplateTag[]>>(this, async () => {
-    const tags = (await this.store.countAndFetchAll('template-tag', {}))
-      .content as TemplateTag[];
+  tags = trackedFunction<Promise<Tag[]>>(this, async () => {
+    const tags = (await this.store.countAndFetchAll('tag', {}))
+      .content as Tag[];
     return tags.slice();
   });
+
   get tagListIsExternal() {
     return Boolean(this.args.tagList);
   }
@@ -46,7 +47,7 @@ export default class TemplateTagSelectorComponent extends Component<Signature> {
   changeSelection = (selectedTags: SelectorOption[]) => {
     // split up the selected options into existing and new tags
     // this is a bit verbose but it's the most type-safe way to do this
-    const existingTags: TemplateTag[] = [];
+    const existingTags: Tag[] = [];
     const newTags: NewTag[] = [];
     for (const tagOrNew of selectedTags) {
       if ('optionType' in tagOrNew) {
@@ -66,7 +67,7 @@ export default class TemplateTagSelectorComponent extends Component<Signature> {
     const addOption = newTags[0];
     let newSelectedTags;
     if (addOption) {
-      const newOption = this.store.createRecord<TemplateTag>('template-tag', {
+      const newOption = this.store.createRecord<Tag>('tag', {
         value: addOption.searchTerm,
         createdOn: new Date(),
       });

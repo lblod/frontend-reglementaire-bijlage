@@ -6,18 +6,18 @@ import AuLabel from '@appuniversum/ember-appuniversum/components/au-label';
 import { tracked } from '@glimmer/tracking';
 import t from 'ember-intl/helpers/t';
 import { on } from '@ember/modifier';
-import TemplateTagSelector from 'frontend-reglementaire-bijlage/components/template-tag-selector';
-import type TemplateTag from 'frontend-reglementaire-bijlage/models/template-tag';
+import TemplateTagSelector from 'frontend-reglementaire-bijlage/components/tag-selector';
+import type Tag from 'frontend-reglementaire-bijlage/models/tag';
 import { localCopy } from 'tracked-toolbox';
 
 type Args = {
-  templateTags: TemplateTag[];
-  onSave: (templateTags?: TemplateTag[]) => Promise<void>;
+  templateTags: Tag[];
+  onSave: (templateTags?: Tag[]) => Promise<void>;
 };
 
 export default class PropertyEditModal extends Component<Args> {
   @tracked isModalOpen = false;
-  @localCopy('args.templateTags') newTemplateTags: TemplateTag[] = [];
+  @localCopy('args.templateTags') newTemplateTags: Tag[] = [];
 
   openModal = () => {
     this.isModalOpen = true;
@@ -27,7 +27,7 @@ export default class PropertyEditModal extends Component<Args> {
     this.isModalOpen = false;
   };
 
-  changeTemplateTags = (newTemplateTags: TemplateTag[]) => {
+  changeTemplateTags = (newTemplateTags: Tag[]) => {
     this.newTemplateTags = newTemplateTags;
   };
 

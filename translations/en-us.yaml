@@ -161,6 +161,8 @@ static-page:
   cookie-policy: Cookie Policy
   accesibility-statement: Accessibility Statement
 snippets:
+  filters:
+    label: Label
   manage-snippet-lists:
     title: Manage snippet lists
     make-new: Create new snippet list
@@ -169,6 +171,7 @@ snippets:
         label: Label
         id: Id
         imported: Imported resources
+        tags: Tags
       no-data: No snippet lists were found
     snippet-list-deletion:
       confirm: Confirm to delete snippet list <strong>{name}</strong>
