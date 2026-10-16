@@ -5,7 +5,7 @@ import { modifier } from 'ember-modifier';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import t from 'ember-intl/helpers/t';
-import compare from '@ember/utils/lib/compare';
+import { sortTags } from 'frontend-reglementaire-bijlage/utils/sort-tags';
 
 type Args = {
   tags?: Tag[];
@@ -37,9 +37,7 @@ export default class CollapsibleTagListComponent extends Component<Args> {
   }
 
   get sortedTags() {
-    return this.tags
-      .slice()
-      .toSorted((tag1, tag2) => compare(tag1.value, tag2.value));
+    return sortTags(this.tags.slice());
   }
 
   containerModifier = modifier((element: HTMLElement) => {
