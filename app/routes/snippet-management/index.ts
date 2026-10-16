@@ -1,5 +1,6 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
+import type SnippetManagementIndexController from 'frontend-reglementaire-bijlage/controllers/snippet-management';
 import type SnippetList from 'frontend-reglementaire-bijlage/models/snippet-list';
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
 import type CurrentSessionService from 'frontend-reglementaire-bijlage/services/current-session';
@@ -63,5 +64,9 @@ export default class SnippetManagementIndexRoute extends Route {
       selectedTags,
       allTags,
     };
+  }
+
+  resetController(controller: SnippetManagementIndexController) {
+    controller.reset();
   }
 }

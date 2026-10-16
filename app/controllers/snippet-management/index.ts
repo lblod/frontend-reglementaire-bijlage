@@ -22,6 +22,7 @@ export default class SnippetManagementIndexController extends Controller {
   
   declare model: ModelFrom<SnippetManagementIndexRoute>;
 
+  declare model: ModelFrom<SnippetManagementIndexRoute>;
   queryParams = ['page', 'size', 'label', 'sort', 'tags'];
   @tracked page = 0;
   @tracked size = 20;
@@ -152,10 +153,17 @@ export default class SnippetManagementIndexController extends Controller {
     if ((event.target as HTMLInputElement).checked) {
       const snippetLists = [...this.model.snippetLists];
       this.selectedSnippetLists = tracked(
-        new Set(snippetLists.map((list) => list.uri)),
+        // Can be removed if feature/store-to-typescript is merged
+        new Set(snippetLists.map((list) => list.uri as string)),
       );
     } else {
       this.selectedSnippetLists = tracked(new Set());
     }
+  }
+
+  reset() {
+    this.resetPagination();
+    this.resetFilters();
+    this.isReadMode = true;
   }
 }

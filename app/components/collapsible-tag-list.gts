@@ -5,6 +5,7 @@ import { modifier } from 'ember-modifier';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import t from 'ember-intl/helpers/t';
+import { sortTags } from 'frontend-reglementaire-bijlage/utils/sort-tags';
 
 type Args = {
   tags?: Tag[];
@@ -22,7 +23,9 @@ export default class CollapsibleTagListComponent extends Component<Args> {
   }
 
   get visibleTags() {
-    return this.isExpanded ? this.tags : this.tags.slice(0, this.visibleCount);
+    return this.isExpanded
+      ? this.sortedTags
+      : this.sortedTags.slice(0, this.visibleCount);
   }
 
   get hiddenCount() {
@@ -34,7 +37,7 @@ export default class CollapsibleTagListComponent extends Component<Args> {
   }
 
   get sortedTags() {
-    return this.tags.map((tag: Tag) => tag.value as string).toSorted();
+    return sortTags(this.tags.slice());
   }
 
   containerModifier = modifier((element: HTMLElement) => {
@@ -108,7 +111,7 @@ export default class CollapsibleTagListComponent extends Component<Args> {
         data-measure-row
         aria-hidden='true'
       >
-        {{#each this.tags as |tag|}}
+        {{#each this.sortedTags as |tag|}}
           <span data-measure-tag>
             <AuPill class='tag-pill'>
               {{tag.value}}
