@@ -254,42 +254,47 @@ export default class SnippetListForm extends Component<Arguments> {
 
   <template>
     <div class='au-c-form au-u-margin-bottom'>
-      <AuFormRow>
-        <AuLabel for='label'>
-          {{t 'snippets.edit-snippet-list.form.label.label'}}
-        </AuLabel>
-        <p class='under-label-text'>
-          {{t 'snippets.edit-snippet-list.form.label.description'}}
-        </p>
-        <div class='au-u-flex au-u-flex--vertical-center'>
-          <AuInput
-            @error={{this.invalidLabel}}
-            id='label'
-            required='required'
-            value={{@snippetList.label}}
-            {{on 'input' this.updateLabel.perform}}
-          />
-          {{#if this.showSavedTask.isRunning}}
-            <div class='snippets-pill-container'>
-              <AuPill @skin='success' @icon='check'>
-                {{t 'utility.saved'}}
-              </AuPill>
-            </div>
-          {{/if}}
-        </div>
-      </AuFormRow>
-      <AuFormRow>
-        <AuLabel for='tags'>
-          {{t 'template-management.tags.label'}}
-        </AuLabel>
-        <div class='au-u-flex au-u-flex--vertical-center'>
-          <TagSelector
-            @onChange={{this.changeTags}}
-            @selectedTags={{@snippetList.tags}}
-            @allowCreate={{true}}
-          />
-        </div>
-      </AuFormRow>
+      <div class="snippet-management-edit__properties-form">
+        <AuFormRow>
+          <AuLabel for='label'>
+            {{t 'snippets.edit-snippet-list.form.label.label'}}
+          </AuLabel>
+          <p class='under-label-text'>
+            {{t 'snippets.edit-snippet-list.form.label.description'}}
+          </p>
+          <div class='au-u-flex au-u-flex--vertical-center'>
+            <AuInput
+              @error={{this.invalidLabel}}
+              id='label'
+              required='required'
+              value={{@snippetList.label}}
+              {{on 'input' this.updateLabel.perform}}
+            />
+            {{#if this.showSavedTask.isRunning}}
+              <div class='snippets-pill-container'>
+                <AuPill @skin='success' @icon='check'>
+                  {{t 'utility.saved'}}
+                </AuPill>
+              </div>
+            {{/if}}
+          </div>
+        </AuFormRow>
+        <div />
+        <div />
+        <div />
+        <AuFormRow>
+          <AuLabel for='tags'>
+            {{t 'template-management.tags.label'}}
+          </AuLabel>
+          <div class='au-u-flex au-u-flex--vertical-center'>
+            <TagSelector
+              @onChange={{this.changeTags}}
+              @selectedTags={{@snippetList.tags}}
+              @allowCreate={{true}}
+            />
+          </div>
+        </AuFormRow>
+      </div>
       <AuFormRow>
         <AuLabel for='imported-resources'>
           {{t 'snippets.edit-snippet-list.imported-resources.heading'}}
