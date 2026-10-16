@@ -5,6 +5,9 @@ allowBuilds:
   core-js: true
   unrs-resolver: true
 
+minimumReleaseAgeExclude:
+  - '@lblod/*'
+
 overrides:
   "@codemirror/state": "6.7.1"
   "@embroider/util": "1.13.5"
