@@ -1,5 +1,15 @@
 # frontend-reglementaire-bijlage
 
+## 9.36.0
+
+### Minor Changes
+
+- [#360](https://github.com/lblod/frontend-reglementaire-bijlage/pull/360) [`953387d618b3f360c17f111bea0b9f08a6d959b8`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/953387d618b3f360c17f111bea0b9f08a6d959b8) Thanks [@kobemertens](https://github.com/kobemertens)! - Adds tags to snippet lists
+
+### Patch Changes
+
+- [#363](https://github.com/lblod/frontend-reglementaire-bijlage/pull/363) [`288b1a9b93ad5f5f1e84ce1618ec1b26c16559f3`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/288b1a9b93ad5f5f1e84ce1618ec1b26c16559f3) Thanks [@abeforgit](https://github.com/abeforgit)! - Bump plugins to [v39.1.2](https://github.com/lblod/ember-rdfa-editor-lblod-plugins/releases/tag/v39.1.2)
+
 ## 9.35.1
 
 ### Patch Changes
