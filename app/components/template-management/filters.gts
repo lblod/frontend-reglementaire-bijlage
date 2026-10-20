@@ -6,7 +6,7 @@ import AuHeading from '@appuniversum/ember-appuniversum/components/au-heading';
 import AuButton from '@appuniversum/ember-appuniversum/components/au-button';
 import AuCheckboxGroup from '@appuniversum/ember-appuniversum/components/au-checkbox-group';
 import t from 'ember-intl/helpers/t';
-import TemplateTagSelector from 'frontend-reglementaire-bijlage/components/tag-selector';
+import TagSelector from '@lblod/ember-rdfa-editor-lblod-plugins/components/common/tags/tag-selector';
 import {
   getTemplateType,
   type TemplateType,
@@ -20,13 +20,14 @@ import type IntlService from 'ember-intl/services/intl';
 import { service } from '@ember/service';
 import Tag from 'frontend-reglementaire-bijlage/models/tag';
 import type Store from 'frontend-reglementaire-bijlage/services/store';
+import { trackedFunction } from 'reactiveweb/function';
 
 type Args = {
   templateTitle?: string;
   onResetFilters?: () => void;
   onChangeTemplateTypes?: (templateType: TemplateType[]) => void;
   onChangeTemplateTitle?: (title: string) => void;
-  onChangeTemplateTags?: (tags: Tag[]) => void;
+  onChangeTemplateTags: (tags: Tag[]) => void;
   selectedTemplateTypes: TemplateType[];
   selectedTags: Tag[];
 };
@@ -34,6 +35,13 @@ type Args = {
 export default class TemplateManagementFilters extends Component<Args> {
   @service declare intl: IntlService;
   @service declare store: Store;
+
+  tags = trackedFunction<Promise<Tag[]>>(this, async () => {
+    const tags = (
+      await this.store.countAndFetchAll('tag', { sort: ':no-case:value' })
+    ).content as Tag[];
+    return tags.slice();
+  });
 
   changeTitle = (event: Event) => {
     const newTitle = (event.target as HTMLInputElement).value;
@@ -97,19 +105,22 @@ export default class TemplateManagementFilters extends Component<Args> {
               }}</Group.Checkbox>
           </AuCheckboxGroup>
         </AuFormRow>
-        <AuFormRow>
-          <AuLabel for='filter-tags'>
-            {{t 'template-management.filters.tags'}}
-          </AuLabel>
-          <div class='tag-selector-container'>
-            <TemplateTagSelector
-              @onChange={{@onChangeTemplateTags}}
-              @selectedTags={{@selectedTags}}
-              id='filter-tags'
-            />
-          </div>
-
-        </AuFormRow>
+        {{#if this.tags.value}}
+          <AuFormRow>
+            <AuLabel for='filter-tags'>
+              {{t 'template-management.filters.tags'}}
+            </AuLabel>
+            <div class='tag-selector-container'>
+              <TagSelector
+                id='filter-tags'
+                @tags={{this.tags.value}}
+                @onChange={{@onChangeTemplateTags}}
+                @selectedTags={{@selectedTags}}
+                @allowTagCreation={{false}}
+              />
+            </div>
+          </AuFormRow>
+        {{/if}}
         <AuButton
           {{on 'click' this.resetFilters}}
           @icon='cross'

@@ -78,6 +78,13 @@ export default class TemplateManagementIndexController extends Controller {
     return this.store.peekAll('tag');
   }
 
+  createTag = (newTag) => {
+    return this.store.createRecord('tag', {
+      value: newTag.searchTerm,
+      createdOn: new Date(),
+    });
+  };
+
   @action
   updateTemplateType(templateType) {
     this.templateTypeToCreate = templateType;

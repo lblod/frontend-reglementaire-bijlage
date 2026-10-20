@@ -12,6 +12,7 @@ import type Tag from 'frontend-reglementaire-bijlage/models/tag';
 import { setTags } from 'frontend-reglementaire-bijlage/api/document-container';
 import type { ModelFrom } from 'frontend-reglementaire-bijlage/utils/type-utils';
 import type SnippetManagementIndexRoute from 'frontend-reglementaire-bijlage/routes/snippet-management/index';
+import type { NewTag } from '@lblod/ember-rdfa-editor-lblod-plugins/components/common/tags/tag-selector';
 
 const LABEL_SEARCH_DEBOUNCE_TIME = 300;
 
@@ -144,6 +145,13 @@ export default class SnippetManagementIndexController extends Controller {
 
   changeTagsFor = async (snippetList: SnippetList, tags: Tag[]) => {
     await setTags(snippetList, tags);
+  };
+
+  createTag = (newTag: NewTag) => {
+    return this.store.createRecord<Tag>('tag', {
+      value: newTag.searchTerm,
+      createdOn: new Date(),
+    });
   };
 
   @action

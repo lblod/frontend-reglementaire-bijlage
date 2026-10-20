@@ -38,9 +38,11 @@ import sortableItem from 'ember-sortable/modifiers/sortable-item';
 import sortableGroup from 'ember-sortable/modifiers/sortable-group';
 import sortableHandle from 'ember-sortable/modifiers/sortable-handle';
 import SnippetVersionModel from 'frontend-reglementaire-bijlage/models/snippet-version';
-import TagSelector from 'frontend-reglementaire-bijlage/components/tag-selector';
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
 import { setTags } from 'frontend-reglementaire-bijlage/api/document-container';
+import TagSelector, {
+  type NewTag,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/components/common/tags/tag-selector';
 
 const SHOW_SAVED_PILL = 'showSavedPill';
 
@@ -248,13 +250,27 @@ export default class SnippetListForm extends Component<Arguments> {
     history.back();
   }
 
+  tags = trackedFunction<Promise<Tag[]>>(this, async () => {
+    const tags = (
+      await this.store.countAndFetchAll('tag', { sort: ':no-case:value' })
+    ).content as Tag[];
+    return tags.slice();
+  });
+
   changeTags = async (tags: Tag[]) => {
     await setTags(this.args.snippetList, tags);
   };
 
+  createTag = (newTag: NewTag) => {
+    return this.store.createRecord<Tag>('tag', {
+      value: newTag.searchTerm,
+      createdOn: new Date(),
+    });
+  };
+
   <template>
     <div class='au-c-form au-u-margin-bottom'>
-      <div class="snippet-management-edit__properties-form">
+      <div class='snippet-management-edit__properties-form'>
         <AuFormRow>
           <AuLabel for='label'>
             {{t 'snippets.edit-snippet-list.form.label.label'}}
@@ -279,18 +295,22 @@ export default class SnippetListForm extends Component<Arguments> {
             {{/if}}
           </div>
         </AuFormRow>
-        <AuFormRow>
-          <AuLabel for='tags'>
-            {{t 'template-management.tags.label'}}
-          </AuLabel>
-          <div class='au-u-flex au-u-flex--vertical-center'>
-            <TagSelector
-              @onChange={{this.changeTags}}
-              @selectedTags={{@snippetList.tags}}
-              @allowCreate={{true}}
-            />
-          </div>
-        </AuFormRow>
+        {{#if this.tags.value}}
+          <AuFormRow>
+            <AuLabel for='tags'>
+              {{t 'template-management.tags.label'}}
+            </AuLabel>
+            <div class='au-u-flex au-u-flex--vertical-center'>
+              <TagSelector
+                @tags={{this.tags.value}}
+                @selectedTags={{@snippetList.tags}}
+                @onChange={{this.changeTags}}
+                @allowTagCreation={{true}}
+                @tagConstructor={{this.createTag}}
+              />
+            </div>
+          </AuFormRow>
+        {{/if}}
       </div>
       <AuFormRow>
         <AuLabel for='imported-resources'>

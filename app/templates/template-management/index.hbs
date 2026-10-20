@@ -143,16 +143,21 @@
               documentContainer.currentVersion.updatedOn
             }}</td>
           <td>
+            {{#let (await documentContainer.tags) as |tags|}}
             {{#if this.isReadMode}}
-              <CollapsibleTagList @tags={{documentContainer.tags}} />
+              {{#if tags}}
+                <Common::Tags::CollapsibleTagList @tags={{sort-tags tags}} />
+              {{/if}}
             {{else}}
-              <TagSelector
+              <Common::Tags::TagSelector
+                @tags={{this.tagList}}
+                @selectedTags={{tags}}
                 @onChange={{fn this.changeTagsFor documentContainer}}
-                @selectedTags={{documentContainer.tags}}
-                @allowCreate={{true}}
-                @tagList={{this.tagList}}
+                @allowTagCreation={{true}}
+                @tagConstructor={{this.createTag}}
               />
             {{/if}}
+            {{/let}}
           </td>
           <td class="au-u-padding-none">
             <AuButton
@@ -213,10 +218,12 @@
         <AuLabel for="template-type">
           {{t "template-management.tags.label"}}
         </AuLabel>
-        <TagSelector
-          @allowCreate={{true}}
-          @onChange={{this.updateTemplateTags}}
+        <Common::Tags::TagSelector
+          @tags={{this.tagList}}
           @selectedTags={{this.tagsToCreate}}
+          @onChange={{this.updateTemplateTags}}
+          @allowTagCreation={{true}}
+          @tagConstructor={{this.createTag}}
         />
       </AuFormRow>
     </form>

@@ -107,16 +107,21 @@
             {{snippetList.importedResources}}
           </td>
           <td class="snippet-management__tags-cell">
-            {{#if this.isReadMode}}
-              <CollapsibleTagList @tags={{snippetList.tags}} />
-            {{else}}
-              <TagSelector
-                @onChange={{fn this.changeTagsFor snippetList}}
-                @selectedTags={{snippetList.tags}}
-                @allowCreate={{true}}
-                @tagList={{this.tagList}}
-              />
-            {{/if}}
+            {{#let (await snippetList.tags) as |tags|}}
+              {{#if this.isReadMode}}
+                {{#if tags}}
+                  <Common::Tags::CollapsibleTagList @tags={{sort-tags tags}} />
+                {{/if}}
+              {{else}}
+                <Common::Tags::TagSelector
+                  @tags={{this.tagList}}
+                  @selectedTags={{tags}}
+                  @onChange={{fn this.changeTagsFor snippetList}}
+                  @allowTagCreation={{true}}
+                  @tagConstructor={{this.createTag}}
+                />
+              {{/if}}
+            {{/let}}
           </td>
           <td class="au-u-padding-right-none">
             <AuButton
