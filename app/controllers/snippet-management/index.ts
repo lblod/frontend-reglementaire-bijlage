@@ -12,7 +12,7 @@ import type Tag from 'frontend-reglementaire-bijlage/models/tag';
 import { setTags } from 'frontend-reglementaire-bijlage/api/document-container';
 import type { ModelFrom } from 'frontend-reglementaire-bijlage/utils/type-utils';
 import type SnippetManagementIndexRoute from 'frontend-reglementaire-bijlage/routes/snippet-management/index';
-import type { NewTag } from '@lblod/ember-rdfa-editor-lblod-plugins/components/common/tags/tag-selector';
+import type TagManager from 'frontend-reglementaire-bijlage/services/tag-manager';
 
 const LABEL_SEARCH_DEBOUNCE_TIME = 300;
 
@@ -20,6 +20,7 @@ export default class SnippetManagementIndexController extends Controller {
   @service declare store: Store;
   @service declare router: Router;
   @service declare currentSession: CurrentSessionService;
+  @service declare tagManager: TagManager;
 
   declare model: ModelFrom<SnippetManagementIndexRoute>;
   queryParams = ['page', 'size', 'label', 'sort', 'tags'];
@@ -130,28 +131,12 @@ export default class SnippetManagementIndexController extends Controller {
     }
   }
 
-  get tagList() {
-    // we get a reactive, sync array of which template tags are in the store
-    // this means any new tags we make are immediately available and rerender the ui
-    // without making extra requests.
-    // On initial load this is filled with all tags from the backend, because the route
-    // fetches them
-    return this.store.peekAll('tag');
-  }
-
   get selectAllChecked() {
     return this.selectedSnippetLists.size > 0;
   }
 
   changeTagsFor = async (snippetList: SnippetList, tags: Tag[]) => {
     await setTags(snippetList, tags);
-  };
-
-  createTag = (newTag: NewTag) => {
-    return this.store.createRecord<Tag>('tag', {
-      value: newTag.searchTerm,
-      createdOn: new Date(),
-    });
   };
 
   @action

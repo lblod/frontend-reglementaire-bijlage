@@ -8,9 +8,9 @@ import t from 'ember-intl/helpers/t';
 import { on } from '@ember/modifier';
 import Tag from 'frontend-reglementaire-bijlage/models/tag';
 import TagSelector from '@lblod/ember-rdfa-editor-lblod-plugins/components/common/tags/tag-selector';
-import { trackedFunction } from 'reactiveweb/function';
 import { service } from '@ember/service';
 import type Store from 'frontend-reglementaire-bijlage/services/store';
+import type TagManager from 'frontend-reglementaire-bijlage/services/tag-manager';
 
 type Args = {
   label?: string;
@@ -22,13 +22,7 @@ type Args = {
 
 export default class SnippetManagementFiltersComponent extends Component<Args> {
   @service declare store: Store;
-
-  tags = trackedFunction<Promise<Tag[]>>(this, async () => {
-    const tags = (
-      await this.store.countAndFetchAll('tag', { sort: ':no-case:value' })
-    ).content as Tag[];
-    return tags.slice();
-  });
+  @service declare tagManager: TagManager;
 
   changeTitle = (event: Event) => {
     const newTitle = (event.target as HTMLInputElement).value;
@@ -63,7 +57,7 @@ export default class SnippetManagementFiltersComponent extends Component<Args> {
             value={{@label}}
           />
         </AuFormRow>
-        {{#if this.tags.value}}
+        {{#if this.tagManager.tags.value}}
           <AuFormRow>
             <AuLabel for='filter-tags'>
               {{t 'template-management.filters.tags'}}
@@ -71,7 +65,7 @@ export default class SnippetManagementFiltersComponent extends Component<Args> {
             <div class='tag-selector-container'>
               <TagSelector
                 id='filter-tags'
-                @tags={{this.tags.value}}
+                @tags={{this.tagManager.tags.value}}
                 @onChange={{@onChangeTags}}
                 @selectedTags={{@selectedTags}}
                 @allowTagCreation={{false}}

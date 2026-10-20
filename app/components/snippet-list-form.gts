@@ -43,6 +43,7 @@ import { setTags } from 'frontend-reglementaire-bijlage/api/document-container';
 import TagSelector, {
   type NewTag,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/components/common/tags/tag-selector';
+import type TagManager from 'frontend-reglementaire-bijlage/services/tag-manager';
 
 const SHOW_SAVED_PILL = 'showSavedPill';
 
@@ -54,6 +55,7 @@ export default class SnippetListForm extends Component<Arguments> {
   @service declare store: Store;
   @service declare router: Router;
   @service declare currentSession: CurrentSessionService;
+  @service declare tagManager: TagManager;
 
   @tracked label = '';
   @tracked isRemoveModalOpen = false;
@@ -250,22 +252,8 @@ export default class SnippetListForm extends Component<Arguments> {
     history.back();
   }
 
-  tags = trackedFunction<Promise<Tag[]>>(this, async () => {
-    const tags = (
-      await this.store.countAndFetchAll('tag', { sort: ':no-case:value' })
-    ).content as Tag[];
-    return tags.slice();
-  });
-
   changeTags = async (tags: Tag[]) => {
     await setTags(this.args.snippetList, tags);
-  };
-
-  createTag = (newTag: NewTag) => {
-    return this.store.createRecord<Tag>('tag', {
-      value: newTag.searchTerm,
-      createdOn: new Date(),
-    });
   };
 
   <template>
@@ -295,18 +283,18 @@ export default class SnippetListForm extends Component<Arguments> {
             {{/if}}
           </div>
         </AuFormRow>
-        {{#if this.tags.value}}
+        {{#if this.tagManager.tags.value}}
           <AuFormRow>
             <AuLabel for='tags'>
               {{t 'template-management.tags.label'}}
             </AuLabel>
             <div class='au-u-flex au-u-flex--vertical-center'>
               <TagSelector
-                @tags={{this.tags.value}}
+                @tags={{this.tagManager.tags.value}}
                 @selectedTags={{@snippetList.tags}}
                 @onChange={{this.changeTags}}
                 @allowTagCreation={{true}}
-                @tagConstructor={{this.createTag}}
+                @tagConstructor={{this.tagManager.createTag}}
               />
             </div>
           </AuFormRow>

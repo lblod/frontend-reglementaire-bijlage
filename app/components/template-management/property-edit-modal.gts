@@ -8,12 +8,10 @@ import t from 'ember-intl/helpers/t';
 import { on } from '@ember/modifier';
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
 import { localCopy } from 'tracked-toolbox';
-import TagSelector, {
-  type NewTag,
-} from '@lblod/ember-rdfa-editor-lblod-plugins/components/common/tags/tag-selector';
-import { trackedFunction } from 'reactiveweb/function';
+import TagSelector from '@lblod/ember-rdfa-editor-lblod-plugins/components/common/tags/tag-selector';
 import type Store from 'frontend-reglementaire-bijlage/services/store';
 import { service } from '@ember/service';
+import type TagManager from 'frontend-reglementaire-bijlage/services/tag-manager';
 
 type Args = {
   templateTags: Tag[];
@@ -22,22 +20,10 @@ type Args = {
 
 export default class PropertyEditModal extends Component<Args> {
   @service declare store: Store;
+  @service declare tagManager: TagManager;
+
   @tracked isModalOpen = false;
   @localCopy('args.templateTags') newTemplateTags: Tag[] = [];
-
-  tags = trackedFunction<Promise<Tag[]>>(this, async () => {
-    const tags = (
-      await this.store.countAndFetchAll('tag', { sort: ':no-case:value' })
-    ).content as Tag[];
-    return tags.slice();
-  });
-
-  createTag = (newTag: NewTag) => {
-    return this.store.createRecord<Tag>('tag', {
-      value: newTag.searchTerm,
-      createdOn: new Date(),
-    });
-  };
 
   openModal = () => {
     this.isModalOpen = true;
@@ -59,7 +45,7 @@ export default class PropertyEditModal extends Component<Args> {
   onCancel = () => {
     this.newTemplateTags = this.args.templateTags;
     this.closeModal();
-  }
+  };
 
   <template>
     <AuButton @icon='tag' @skin='secondary' {{on 'click' this.openModal}}>
@@ -71,17 +57,17 @@ export default class PropertyEditModal extends Component<Args> {
       </:title>
       <:body>
         <form class='au-c-form'>
-          {{#if this.tags.value}}
+          {{#if this.tagManager.tags.value}}
             <AuFormRow>
               <AuLabel for='decision-type'>{{t
                   'template-management.tags.label'
                 }}</AuLabel>
               <TagSelector
-                @tags={{this.tags.value}}
+                @tags={{this.tagManager.tags.value}}
                 @selectedTags={{this.newTemplateTags}}
                 @onChange={{this.changeTemplateTags}}
                 @allowTagCreation={{true}}
-                @tagConstructor={{this.createTag}}
+                @tagConstructor={{this.tagManager.createTag}}
               />
             </AuFormRow>
           {{/if}}

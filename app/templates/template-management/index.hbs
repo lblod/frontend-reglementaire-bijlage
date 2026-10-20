@@ -150,11 +150,11 @@
               {{/if}}
             {{else}}
               <Common::Tags::TagSelector
-                @tags={{this.tagList}}
+                @tags={{this.tagManager.tags.value}}
                 @selectedTags={{tags}}
                 @onChange={{fn this.changeTagsFor documentContainer}}
                 @allowTagCreation={{true}}
-                @tagConstructor={{this.createTag}}
+                @tagConstructor={{this.tagManager.createTag}}
               />
             {{/if}}
             {{/let}}
@@ -219,11 +219,11 @@
           {{t "template-management.tags.label"}}
         </AuLabel>
         <Common::Tags::TagSelector
-          @tags={{this.tagList}}
+          @tags={{this.tagManager.tags.value}}
           @selectedTags={{this.tagsToCreate}}
           @onChange={{this.updateTemplateTags}}
           @allowTagCreation={{true}}
-          @tagConstructor={{this.createTag}}
+          @tagConstructor={{this.tagManager.createTag}}
         />
       </AuFormRow>
     </form>

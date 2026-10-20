@@ -114,11 +114,11 @@
                 {{/if}}
               {{else}}
                 <Common::Tags::TagSelector
-                  @tags={{this.tagList}}
+                  @tags={{this.tagManager.tags.value}}
                   @selectedTags={{tags}}
                   @onChange={{fn this.changeTagsFor snippetList}}
                   @allowTagCreation={{true}}
-                  @tagConstructor={{this.createTag}}
+                  @tagConstructor={{this.tagManager.createTag}}
                 />
               {{/if}}
             {{/let}}

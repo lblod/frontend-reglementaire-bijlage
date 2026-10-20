@@ -20,7 +20,7 @@ import type IntlService from 'ember-intl/services/intl';
 import { service } from '@ember/service';
 import Tag from 'frontend-reglementaire-bijlage/models/tag';
 import type Store from 'frontend-reglementaire-bijlage/services/store';
-import { trackedFunction } from 'reactiveweb/function';
+import type TagManager from 'frontend-reglementaire-bijlage/services/tag-manager';
 
 type Args = {
   templateTitle?: string;
@@ -35,13 +35,7 @@ type Args = {
 export default class TemplateManagementFilters extends Component<Args> {
   @service declare intl: IntlService;
   @service declare store: Store;
-
-  tags = trackedFunction<Promise<Tag[]>>(this, async () => {
-    const tags = (
-      await this.store.countAndFetchAll('tag', { sort: ':no-case:value' })
-    ).content as Tag[];
-    return tags.slice();
-  });
+  @service declare tagManager: TagManager;
 
   changeTitle = (event: Event) => {
     const newTitle = (event.target as HTMLInputElement).value;
@@ -105,7 +99,7 @@ export default class TemplateManagementFilters extends Component<Args> {
               }}</Group.Checkbox>
           </AuCheckboxGroup>
         </AuFormRow>
-        {{#if this.tags.value}}
+        {{#if this.tagManager.tags.value}}
           <AuFormRow>
             <AuLabel for='filter-tags'>
               {{t 'template-management.filters.tags'}}
@@ -113,7 +107,7 @@ export default class TemplateManagementFilters extends Component<Args> {
             <div class='tag-selector-container'>
               <TagSelector
                 id='filter-tags'
-                @tags={{this.tags.value}}
+                @tags={{this.tagManager.tags.value}}
                 @onChange={{@onChangeTemplateTags}}
                 @selectedTags={{@selectedTags}}
                 @allowTagCreation={{false}}
