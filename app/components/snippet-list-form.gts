@@ -164,7 +164,7 @@ export default class SnippetListForm extends Component<Arguments> {
   }
 
   get importedResources() {
-    return this.snippetList.importedResources?.join(',');
+    return this.snippetList.importedResources?.join(', ');
   }
 
   showSavedTask = restartableTask(async () => {
