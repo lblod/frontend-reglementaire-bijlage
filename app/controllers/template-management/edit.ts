@@ -608,7 +608,7 @@ export default class TemplateManagementEditController extends Controller {
   @action
   async handleRdfaEditorInit(editor: SayController) {
     this.editor = editor;
-    if (this.editorDocument.content) {
+    if (this.editorDocument?.content) {
       editor.initialize(this.editorDocument.content, {
         doNotClean: true,
         startsDirty: false,
@@ -688,10 +688,10 @@ export default class TemplateManagementEditController extends Controller {
       const editorDocument = this.store.createRecord<EditorDocumentModel>(
         'editor-document',
         {
-          title: this.model.editorDocument.title,
+          title: this.model.editorDocument?.title,
           content: html,
           templateVersion: templateVersion,
-          createdOn: this.model.editorDocument.createdOn,
+          createdOn: this.model.editorDocument?.createdOn,
           updatedOn: new Date(),
           documentContainer: this.model.documentContainer,
         },

@@ -27,7 +27,7 @@ export default class CurrentSessionService extends Service {
   @tracked user?: UserModel;
   @tracked group?: AdministrativeUnitModel;
   @tracked roles: string[] = [];
-  @tracked classification?: AdministrativeUnitClassificationCode;
+  @tracked classification?: AdministrativeUnitClassificationCode[];
 
   async load() {
     if (this.session.isAuthenticated) {

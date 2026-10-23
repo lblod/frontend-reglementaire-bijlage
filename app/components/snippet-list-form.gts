@@ -1,8 +1,3 @@
-// We will fix the type errors in this file in feature/store-to-typescript
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-/* eslint-disable */
-
 import Component from '@glimmer/component';
 import { service } from '@ember/service';
 import { action } from '@ember/object';
@@ -42,6 +37,7 @@ import TagSelector from 'frontend-reglementaire-bijlage/components/tag-selector'
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
 import { setTags } from 'frontend-reglementaire-bijlage/api/document-container';
 import DocumentContainerModel from 'frontend-reglementaire-bijlage/models/document-container';
+import { getPromiseState } from 'reactiveweb/get-promise-state';
 
 const SHOW_SAVED_PILL = 'showSavedPill';
 
@@ -168,7 +164,7 @@ export default class SnippetListForm extends Component<Arguments> {
   }
 
   get importedResources() {
-    return this.snippetList.importedResources;
+    return this.snippetList.importedResources?.join(',');
   }
 
   showSavedTask = restartableTask(async () => {
@@ -257,9 +253,20 @@ export default class SnippetListForm extends Component<Arguments> {
     await setTags(this.args.snippetList, tags);
   };
 
+  get tags() {
+    const state = getPromiseState(this.snippetList.tags.promise);
+    return state.resolved ? state.resolved.slice() : [];
+  }
+
+  getSnippetTitle = (snippet?: Snippet | null) => {
+    if (!snippet) return;
+    const state = getPromiseState(snippet.currentVersion.promise);
+    return state.resolved?.title;
+  };
+
   <template>
     <div class='au-c-form au-u-margin-bottom'>
-      <div class="snippet-management-edit__properties-form">
+      <div class='snippet-management-edit__properties-form'>
         <AuFormRow>
           <AuLabel for='label'>
             {{t 'snippets.edit-snippet-list.form.label.label'}}
@@ -291,7 +298,7 @@ export default class SnippetListForm extends Component<Arguments> {
           <div class='au-u-flex au-u-flex--vertical-center'>
             <TagSelector
               @onChange={{this.changeTags}}
-              @selectedTags={{@snippetList.tags}}
+              @selectedTags={{this.tags}}
               @allowCreate={{true}}
             />
           </div>
@@ -356,7 +363,7 @@ export default class SnippetListForm extends Component<Arguments> {
                     @route='snippet-management.edit.edit-snippet'
                     @models={{array @snippetList.id snippet.id}}
                   >
-                    {{snippet.currentVersion.title}}
+                    {{this.getSnippetTitle snippet}}
                   </AuLink>
                 </td>
                 <td>
@@ -476,7 +483,7 @@ export default class SnippetListForm extends Component<Arguments> {
         <p>
           {{t
             'snippets.edit-snippet-list.snippet-deletion.confirm'
-            name=this.deletingSnippet.currentVersion.title
+            name=(this.getSnippetTitle this.deletingSnippet)
             htmlSafe=true
           }}
         </p>
