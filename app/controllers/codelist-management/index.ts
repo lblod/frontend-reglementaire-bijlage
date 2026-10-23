@@ -4,9 +4,11 @@ import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
 import { localCopy } from 'tracked-toolbox';
+import type CodeListModel from 'frontend-reglementaire-bijlage/models/code-list';
+import type RouterService from '@ember/routing/router-service';
 
 export default class CodelistManagementIndexController extends Controller {
-  @service router;
+  @service declare router: RouterService;
 
   queryParams = ['page', 'size', 'label', 'sort'];
   @tracked page = 0;
@@ -14,19 +16,19 @@ export default class CodelistManagementIndexController extends Controller {
   @tracked label = '';
   @tracked sort = '-created-on';
 
-  @localCopy('label', '') searchQuery;
+  @localCopy('label', '') searchQuery = '';
 
   @tracked isRemoveModalOpen = false;
-  @tracked modalCodelist;
+  @tracked modalCodelist: CodeListModel | null = null;
 
   @action
-  updateSearchQuery(event) {
+  updateSearchQuery(event: Event) {
     event.preventDefault();
-    this.searchQuery = event.target.value;
+    this.searchQuery = (event.target as HTMLInputElement).value;
   }
 
   @action
-  search(event) {
+  search(event: Event) {
     event.preventDefault();
     this.label = this.searchQuery;
     this.resetPagination();
@@ -36,7 +38,7 @@ export default class CodelistManagementIndexController extends Controller {
     this.page = 0;
   }
 
-  @action openRemoveModal(codelist) {
+  @action openRemoveModal(codelist: CodeListModel) {
     this.modalCodelist = codelist;
     this.isRemoveModalOpen = true;
   }
@@ -47,10 +49,11 @@ export default class CodelistManagementIndexController extends Controller {
   }
 
   removeCodelist = task(async () => {
-    const concepts = await this.modalCodelist.concepts;
+    const concepts = await this.modalCodelist?.concepts;
+    if (!concepts) return;
     await Promise.all(concepts.map((option) => option.destroyRecord()));
 
-    await this.modalCodelist.destroyRecord();
+    await this.modalCodelist?.destroyRecord();
     this.reset();
     this.router.refresh();
   });
