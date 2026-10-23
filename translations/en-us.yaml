@@ -126,7 +126,11 @@ template-management:
 template-edit:
   edit: Edit template
   return: Go Back
-  saving: Saving
+  save: 
+    pending: Saving
+    error:
+      title: Saving failed
+      message: An error occurred while saving this template.
   document-title-placeholder: Enter document title
   insert-title: Insert document title
   unpublish: Unpublish
@@ -226,6 +230,10 @@ snippet-edit:
     general-nodes: General nodes
     decision-nodes: Decision nodes
     regulatory-statement-nodes: Regulatory statement nodes
+  save:
+    error:
+      title: Saving failed
+      message: An error occurred while saving this snippet.
 
 tag-management:
   title: Tag Management

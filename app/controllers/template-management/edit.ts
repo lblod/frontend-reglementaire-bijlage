@@ -195,12 +195,13 @@ import { locationModalsPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plu
 import { getContextualActionGroups as locationActionsGroups } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin/contextual-actions';
 import { setTags } from 'frontend-reglementaire-bijlage/api/document-container';
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
-
+import type ToasterService from '@appuniversum/ember-appuniversum/services/toaster';
 export default class TemplateManagementEditController extends Controller {
   @service declare store: Store;
   @service declare router: RouterService;
   @service declare intl: IntlService;
   @service declare currentSession: CurrentSessionService;
+  @service declare toaster: ToasterService;
 
   declare model: ModelFrom<TemplateManagementEditRoute>;
   @service('editor-settings')
@@ -683,34 +684,45 @@ export default class TemplateManagementEditController extends Controller {
 
   save = task(async () => {
     if (this.editor) {
-      const html = this.editor.htmlContent;
-      const templateVersion = generateTemplate(this.editor);
-      const editorDocument = this.store.createRecord('editor-document', {
-        title: this.model.editorDocument.title,
-        content: html,
-        templateVersion: templateVersion,
-        createdOn: this.model.editorDocument.createdOn,
-        updatedOn: new Date(),
-        documentContainer: this.model.documentContainer,
-      }) as EditorDocumentModel;
-      await editorDocument.save();
+      try {
+        const html = this.editor.htmlContent;
+        const templateVersion = generateTemplate(this.editor);
+        const editorDocument = this.store.createRecord('editor-document', {
+          title: this.model.editorDocument.title,
+          content: html,
+          templateVersion: templateVersion,
+          createdOn: this.model.editorDocument.createdOn,
+          updatedOn: new Date(),
+          documentContainer: this.model.documentContainer,
+        }) as EditorDocumentModel;
+        await editorDocument.save();
 
-      const documentContainer = this.model.documentContainer;
-      documentContainer.currentVersion = editorDocument;
+        const documentContainer = this.model.documentContainer;
+        documentContainer.currentVersion = editorDocument;
 
-      const snippetListUris = extractSnippetListUris(html);
-      const snippetListObjects = await Promise.all(
-        snippetListUris.map(
-          (uri: string) =>
-            this.store.findByUri('snippet-list', uri) as Promise<SnippetList>,
-        ),
-      );
-      documentContainer.linkedSnippetLists = snippetListObjects;
-      await documentContainer.save();
+        const snippetListUris = extractSnippetListUris(html);
+        const snippetListObjects = await Promise.all(
+          snippetListUris.map(
+            (uri: string) =>
+              this.store.findByUri('snippet-list', uri) as Promise<SnippetList>,
+          ),
+        );
+        documentContainer.linkedSnippetLists = snippetListObjects;
+        await documentContainer.save();
 
-      this._editorDocument = editorDocument;
-      this.editor?.setHtmlContent(html);
-      this.editor?.markClean();
+        this._editorDocument = editorDocument;
+        this.editor?.setHtmlContent(html);
+        this.editor?.markClean();
+      } catch (e) {
+        console.error(e);
+        this.toaster.error(
+          this.intl.t('template-edit.save.error.message'),
+          this.intl.t('template-edit.save.error.title'),
+          {
+            closable: true,
+          },
+        );
+      }
     }
   });
 

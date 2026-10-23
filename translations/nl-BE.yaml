@@ -132,7 +132,11 @@ template-management:
 template-edit:
   edit: Wijzig sjabloon
   return: Terug naar sjablonenoverzicht
-  saving: Bezig met opslaan
+  save: 
+    pending: Bezig met opslaan
+    error:
+      title: Opslaan mislukt
+      message: Er is een probleem opgetreden bij het opslaan van dit sjabloon.
   document-title-placeholder: Geef document-titel op
   insert-title: Document-titel invoegen
   unpublish: Uitgave ongedaan maken
@@ -226,6 +230,10 @@ snippet-edit:
     general-nodes: Algemene nodes
     decision-nodes: Besluit nodes
     regulatory-statement-nodes: Reglementaire Bijlage nodes
+  save:
+    error:
+      title: Opslaan mislukt
+      message: Er is een probleem opgetreden bij het opslaan van dit fragment.
 
 tag-management:
   title: Tagbeheer
