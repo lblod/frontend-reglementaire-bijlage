@@ -9,12 +9,16 @@ export default class SnippetManagementEditRoute extends Route {
   @service declare store: Store;
 
   async model(params: { id: string }) {
-    return await this.store.findRecord('snippet-list', params.id, {
-      include: 'snippets',
-    }) as SnippetList;
+    return await this.store.findRecord<SnippetList>('snippet-list', params.id, {
+      include: ['snippets'],
+    });
   }
 
-  resetController(controller: Controller, isExiting: boolean, transition: Transition) {
+  resetController(
+    controller: Controller,
+    isExiting: boolean,
+    transition: Transition,
+  ) {
     if (isExiting && transition.targetName !== 'error') {
       (controller.model as SnippetList).rollbackAttributes();
     }

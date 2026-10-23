@@ -3,7 +3,7 @@ import Service from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import type Store from 'ember-data/store';
 import AdministrativeUnitModel from 'frontend-reglementaire-bijlage/models/administrative-unit';
-import type AccountModel from 'frontend-reglementaire-bijlage/models/account';
+import AccountModel from 'frontend-reglementaire-bijlage/models/account';
 import type UserModel from 'frontend-reglementaire-bijlage/models/user';
 import type AdministrativeUnitClassificationCode from 'frontend-reglementaire-bijlage/models/administrative-unit-classification-code';
 interface SessionService {
@@ -24,7 +24,7 @@ export default class CurrentSessionService extends Service {
   @service declare store: Store;
 
   @tracked account?: AccountModel;
-  @tracked user?: UserModel;
+  @tracked user?: UserModel | null;
   @tracked group?: AdministrativeUnitModel;
   @tracked roles: string[] = [];
   @tracked classification?: AdministrativeUnitClassificationCode[];
@@ -33,10 +33,14 @@ export default class CurrentSessionService extends Service {
     if (this.session.isAuthenticated) {
       const accountId =
         this.session.data.authenticated.relationships.account.data.id;
-      this.account = (await this.store.findRecord('account', accountId, {
-        include: 'user',
-      })) as AccountModel;
-      this.user = (await this.account.user) as UserModel;
+      this.account = await this.store.findRecord<AccountModel>(
+        'account',
+        accountId,
+        {
+          include: ['user'],
+        },
+      );
+      this.user = await this.account.user;
 
       const groupId: string =
         this.session.data.authenticated.relationships.group.data.id;

@@ -468,7 +468,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
   }
 
   currentVersion = trackedFunction(this, async () => {
-    return await this.model.snippet.currentVersion;
+    return await this.model.snippet?.currentVersion;
   });
 
   get editorDocument() {
@@ -481,6 +481,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
     const currentVersion = await this.currentVersion.promise;
     if (!currentVersion) return;
     const snippet = this.model.snippet;
+    if (!snippet) return;
     const now = new Date();
     const newVersion = this.store.createRecord<SnippetVersion>(
       'snippet-version',
@@ -510,10 +511,14 @@ export default class SnippetManagementEditSnippetController extends Controller {
   updateImportedResourcesOnList = task(async () => {
     const snippetListId = this.model.snippetList.id;
     if (snippetListId) {
-      const list = (await this.store.findRecord('snippet-list', snippetListId, {
-        reload: true,
-        include: 'snippets,snippets.current-version',
-      })) as SnippetList;
+      const list = await this.store.findRecord<SnippetList>(
+        'snippet-list',
+        snippetListId,
+        {
+          reload: true,
+          include: ['snippets', 'snippets.currentVersion'],
+        },
+      );
       return saveCollatedImportedResources(list);
     }
   });
