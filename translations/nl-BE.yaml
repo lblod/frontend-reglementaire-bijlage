@@ -15,7 +15,8 @@ codelist:
     edit-option: Item wijzigen
     confirm-deletion: Bevestig om codelijst <strong>{name}</strong> te verwijderen
   attr:
-    label: Naam van de codelijst
+    tags: Tags
+    label: Naam
     value: Waarde
     created-on: Aangemaakt op
     not-found: n.v.t.
