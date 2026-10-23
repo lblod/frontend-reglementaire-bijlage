@@ -17,6 +17,7 @@ export default class TemplateManagementIndexController extends Controller {
   @service currentSession;
   @service muTask;
   @service intl;
+  @service tagManager;
 
   // queryParams
   queryParams = ['title', 'page', 'size', 'sort', 'templateTags'];
@@ -68,15 +69,6 @@ export default class TemplateManagementIndexController extends Controller {
     this.title = '';
     this.resetPagination();
   };
-
-  get tagList() {
-    // we get a reactive, sync array of which template tags are in the store
-    // this means any new tags we make are immediately available and rerender the ui
-    // without making extra requests.
-    // On initial load this is filled with all tags from the backend, because the route
-    // fetches them
-    return this.store.peekAll('tag');
-  }
 
   @action
   updateTemplateType(templateType) {
