@@ -1,5 +1,13 @@
 # frontend-reglementaire-bijlage
 
+## 9.37.0
+
+### Minor Changes
+
+- [#364](https://github.com/lblod/frontend-reglementaire-bijlage/pull/364) [`1fe3b25d55f46c4f16570e9d3f5bc643b99382a7`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/1fe3b25d55f46c4f16570e9d3f5bc643b99382a7) Thanks [@elpoelma](https://github.com/elpoelma)! - Add a css animation to toast to make them stand out more
+
+- [#364](https://github.com/lblod/frontend-reglementaire-bijlage/pull/364) [`1fe3b25d55f46c4f16570e9d3f5bc643b99382a7`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/1fe3b25d55f46c4f16570e9d3f5bc643b99382a7) Thanks [@elpoelma](https://github.com/elpoelma)! - Show error toast when saving of templates/snippets fails
+
 ## 9.36.1
 
 ### Patch Changes
