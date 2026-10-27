@@ -160,6 +160,7 @@ import type { ModelFrom } from 'frontend-reglementaire-bijlage/utils/type-utils'
 import type SnippetManagementEditSnippetRoute from 'frontend-reglementaire-bijlage/routes/snippet-management/edit/edit-snippet';
 import type SnippetVersion from 'frontend-reglementaire-bijlage/models/snippet-version';
 import type SnippetList from 'frontend-reglementaire-bijlage/models/snippet-list';
+import type ToasterService from '@appuniversum/ember-appuniversum/services/toaster';
 
 export default class SnippetManagementEditSnippetController extends Controller {
   AttributeEditor = AttributeEditor;
@@ -184,6 +185,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
   @service declare currentSession: CurrentSessionService;
   @service declare muTask: MuTaskService;
   @service('editor-settings') declare editorSettingsService: EditorSettings;
+  @service declare toaster: ToasterService;
 
   declare model: ModelFrom<SnippetManagementEditSnippetRoute>;
 
@@ -464,30 +466,41 @@ export default class SnippetManagementEditSnippetController extends Controller {
 
   save = task(async () => {
     if (!this.editor) throw new Error('Controller not initialized');
-    const html = this.editor.htmlContent;
-    const currentVersion = await this.currentVersion.promise;
-    const snippet = this.model.snippet;
-    const now = new Date();
-    const newVersion = this.store.createRecord('snippet-version', {
-      content: html,
-      createdOn: now,
-      title: currentVersion.title,
-      snippet,
-    }) as SnippetVersion;
-    currentVersion.validThrough = new Date();
-    await Promise.all([currentVersion.save(), newVersion.save()]);
-    // @ts-expect-error Need to move to proper ED types
-    snippet.currentVersion = newVersion;
-    snippet.updatedOn = now;
-    const snippetListUris = extractSnippetListUris(html);
-    const snippetListObjects = await Promise.all(
-      snippetListUris.map((uri) => this.store.findByUri('snippet-list', uri)),
-    );
-    snippet.linkedSnippetLists = snippetListObjects;
-    await snippet.save();
-    this.editor?.setHtmlContent(html);
-    this.editor?.markClean();
-    await this.updateImportedResourcesOnList.perform();
+    try {
+      const html = this.editor.htmlContent;
+      const currentVersion = await this.currentVersion.promise;
+      const snippet = this.model.snippet;
+      const now = new Date();
+      const newVersion = this.store.createRecord('snippet-version', {
+        content: html,
+        createdOn: now,
+        title: currentVersion.title,
+        snippet,
+      }) as SnippetVersion;
+      currentVersion.validThrough = new Date();
+      await Promise.all([currentVersion.save(), newVersion.save()]);
+      // @ts-expect-error Need to move to proper ED types
+      snippet.currentVersion = newVersion;
+      snippet.updatedOn = now;
+      const snippetListUris = extractSnippetListUris(html);
+      const snippetListObjects = await Promise.all(
+        snippetListUris.map((uri) => this.store.findByUri('snippet-list', uri)),
+      );
+      snippet.linkedSnippetLists = snippetListObjects;
+      await snippet.save();
+      this.editor?.setHtmlContent(html);
+      this.editor?.markClean();
+      await this.updateImportedResourcesOnList.perform();
+    } catch (e) {
+      console.error(e);
+      this.toaster.error(
+        this.intl.t('snippet-edit.save.error.message'),
+        this.intl.t('snippet-edit.save.error.title'),
+        {
+          closable: true,
+        },
+      );
+    }
   });
 
   updateImportedResourcesOnList = task(async () => {
@@ -497,8 +510,8 @@ export default class SnippetManagementEditSnippetController extends Controller {
         'snippet-list',
         snippetListId,
         {
-          reload: true,
-          include: 'snippets,snippets.current-version',
+        reload: true,
+        include: 'snippets,snippets.current-version',
         },
       ) as SnippetList;
       return saveCollatedImportedResources(list);
@@ -518,19 +531,19 @@ export default class SnippetManagementEditSnippetController extends Controller {
   }
 
   subjectOptionGeneratorTask = restartableTask(async (args: TargetOptionGeneratorArgs): Promise<TermOption<SayTerm>[]> => {
-    await timeout(200);
-    const result = (await this.optionGeneratorConfig?.subjects?.(args)) ?? [];
-    return result;
+      await timeout(200);
+      const result = (await this.optionGeneratorConfig?.subjects?.(args)) ?? [];
+      return result;
   });
   predicateOptionGeneratorTask = restartableTask(async (args: TargetOptionGeneratorArgs) => {
-    await timeout(200);
+      await timeout(200);
     const result = (await this.optionGeneratorConfig?.predicates?.(args)) ?? [];
-    return result;
+      return result;
   });
   objectOptionGeneratorTask = restartableTask(async (args: TargetOptionGeneratorArgs): Promise<TermOption<SayTerm>[]> => {
-    await timeout(200);
-    const result = (await this.optionGeneratorConfig?.objects?.(args)) ?? [];
-    return result;
+      await timeout(200);
+      const result = (await this.optionGeneratorConfig?.objects?.(args)) ?? [];
+      return result;
   });
 
   optionGeneratorConfigTaskified = {
