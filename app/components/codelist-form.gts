@@ -177,7 +177,7 @@ export default class CodelistFormComponent extends Component<Arguments> {
     });
   };
 
-  private _saveChangesetTask = dropTask(async (event: Event) => {
+  saveChangesetTask = dropTask(async (event: Event) => {
     event.preventDefault();
 
     await this.changeset.validate();
