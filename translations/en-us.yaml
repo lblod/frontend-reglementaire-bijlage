@@ -101,7 +101,6 @@ template-management:
   publish-date: Published on
   not-published: Not published
   available: Available
-  not-available: Not available
   retracted: Retracted
   available-until: Available until {date}
   published-on: Available since

@@ -101,7 +101,6 @@ template-management:
   publish-date: Beschikbaar gemaakt op
   not-published: Niet uitgegeven
   available: Beschikbaar
-  not-available: Niet Beschikbaar
   retracted: Teruggetrokken
   available-until: Beschikbaar tot {date}
   published-on: Beschikbaar sinds

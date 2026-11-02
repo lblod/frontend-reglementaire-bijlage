@@ -43,7 +43,7 @@ export class PublicationStatus extends Component<Sig> {
         </AuTooltip>
       {{else}}
         <AuPill>
-          {{t 'template-management.not-available'}}
+          {{t 'template-management.not-published'}}
         </AuPill>
       {{/if}}
     {{/let}}
