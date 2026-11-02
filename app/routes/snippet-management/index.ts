@@ -52,20 +52,17 @@ export default class SnippetManagementIndexRoute extends Route {
       options.filter.tags[':id:'] = params.tags.join(',');
     }
 
-    // @ts-expect-error We will fix in feature/store-to-typescript
-    const [snippetLists, allTags]: [SnippetList[], Tag[]] = await Promise.all([
+    const [snippetLists, selectedTags] = (await Promise.all([
       // @ts-expect-error We will fix in feature/store-to-typescript
       this.store.query<SnippetList>('snippet-list', options),
-      this.store.countAndFetchAll('tag', {}),
-    ]);
-
-    // @ts-expect-error We will fix in feature/store-to-typescript
-    const selectedTags = allTags.filter((tag) => params.tags.includes(tag.id));
+      Promise.all(
+        params.tags?.map((id) => this.store.findRecord('tag', id)) ?? [],
+      ),
+    ])) as [SnippetList[], Tag[]];
 
     return {
       snippetLists,
       selectedTags,
-      // allTags,
     };
   }
 

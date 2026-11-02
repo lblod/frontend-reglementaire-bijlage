@@ -288,7 +288,7 @@ export default class SnippetListForm extends Component<Arguments> {
           </AuLabel>
           <div class='au-u-flex au-u-flex--vertical-center'>
             <TagSelector
-              @tags={{this.tagManager.tagOptions}}
+              @tags={{this.tagManager.tags}}
               @selectedTags={{@snippetList.tags}}
               @onChange={{this.changeTags}}
               @allowTagCreation={{true}}

@@ -62,7 +62,7 @@ export default class PropertyEditModal extends Component<Args> {
                 'template-management.tags.label'
               }}</AuLabel>
             <TagSelector
-              @tags={{this.tagManager.tagOptions}}
+              @tags={{this.tagManager.tags}}
               @selectedTags={{this.newTemplateTags}}
               @onChange={{this.changeTemplateTags}}
               @allowTagCreation={{true}}

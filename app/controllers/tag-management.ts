@@ -6,11 +6,9 @@ import { task } from 'ember-concurrency';
 import { localCopy } from 'tracked-toolbox';
 import type RouterService from '@ember/routing/router-service';
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
-import type TagManager from 'frontend-reglementaire-bijlage/services/tag-manager';
 
 export default class TagManagementController extends Controller {
   @service declare router: RouterService;
-  @service declare tagManager: TagManager;
 
   queryParams = ['page', 'size', 'value', 'sort'];
   @tracked page = 0;
@@ -52,7 +50,6 @@ export default class TagManagementController extends Controller {
 
   removeTag = task(async () => {
     await this.modalTag?.destroyRecord();
-    await this.tagManager.refreshTags();
     this.reset();
     this.router.refresh();
   });

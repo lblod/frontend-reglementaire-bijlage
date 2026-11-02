@@ -106,7 +106,7 @@ export default class TemplateManagementFilters extends Component<Args> {
           <div class='tag-selector-container'>
             <TagSelector
               id='filter-tags'
-              @tags={{this.tagManager.tagOptions}}
+              @tags={{this.tagManager.tags}}
               @onChange={{@onChangeTemplateTags}}
               @selectedTags={{@selectedTags}}
               @allowTagCreation={{false}}

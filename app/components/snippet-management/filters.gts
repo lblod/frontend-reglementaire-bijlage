@@ -64,7 +64,7 @@ export default class SnippetManagementFiltersComponent extends Component<Args> {
           <div class='tag-selector-container'>
             <TagSelector
               id='filter-tags'
-              @tags={{this.tagManager.tagOptions}}
+              @tags={{this.tagManager.tags}}
               @onChange={{@onChangeTags}}
               @selectedTags={{@selectedTags}}
               @allowTagCreation={{false}}
