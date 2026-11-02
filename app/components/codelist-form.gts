@@ -41,7 +41,6 @@ import didInsert from '@ember/render-modifiers/modifiers/did-insert';
 import ConfirmRouteLeave from './confirm-route-leave';
 import type CodeListModel from 'frontend-reglementaire-bijlage/models/code-list';
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
-import { setTags } from 'frontend-reglementaire-bijlage/api/document-container';
 import { getPromiseState } from 'reactiveweb/get-promise-state';
 import AdministrativeUnitModel from 'frontend-reglementaire-bijlage/models/administrative-unit';
 import type SkosConcept from 'frontend-reglementaire-bijlage/models/skos-concept';
