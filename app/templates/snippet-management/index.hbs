@@ -114,7 +114,7 @@
                 {{/if}}
               {{else}}
                 <Common::Tags::TagSelector
-                  @tags={{this.tagManager.tags.value}}
+                  @tags={{this.tagManager.tagOptions}}
                   @selectedTags={{tags}}
                   @onChange={{fn this.changeTagsFor snippetList}}
                   @allowTagCreation={{true}}
