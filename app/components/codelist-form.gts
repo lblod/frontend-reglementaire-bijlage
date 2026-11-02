@@ -5,7 +5,7 @@ import { dropTask } from 'ember-concurrency';
 import CodelistValidations from '../validations/codelist';
 import OptionValidations from '../validations/codelist-option';
 import { tracked } from '@glimmer/tracking';
-import changesetList from '../utils/changeset';
+import changesetList, { type ChangesetList } from '../utils/changeset';
 import { Changeset } from 'ember-changeset';
 import lookupValidator from 'ember-changeset-validations';
 import { isBlank } from '../utils/strings';
@@ -43,7 +43,7 @@ import type CodeListModel from 'frontend-reglementaire-bijlage/models/code-list'
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
 import { getPromiseState } from 'reactiveweb/get-promise-state';
 import AdministrativeUnitModel from 'frontend-reglementaire-bijlage/models/administrative-unit';
-import type SkosConcept from 'frontend-reglementaire-bijlage/models/skos-concept';
+import SkosConcept from 'frontend-reglementaire-bijlage/models/skos-concept';
 
 const MAX_CODELIST_OPTIONS = 20;
 
@@ -63,7 +63,8 @@ export default class CodelistFormComponent extends Component<Arguments> {
     CodelistValidations,
   );
 
-  @tracked optionsChangesetList;
+  @tracked optionsChangesetList: ChangesetList<SkosConcept, 'inScheme'> | null =
+    null;
 
   @tracked isEditingOptions = false;
 
@@ -84,9 +85,10 @@ export default class CodelistFormComponent extends Component<Arguments> {
       return a.position > b.position ? 1 : -1;
     });
 
-    this.optionsChangesetList = new changesetList(
+    this.optionsChangesetList = changesetList(
       conceptsSorted,
       OptionValidations,
+      // @ts-expect-error This error is due to the fact that codelist redefined the Type of concept-scheme
       ['inScheme', this.args.codelist],
     );
 
@@ -114,6 +116,7 @@ export default class CodelistFormComponent extends Component<Arguments> {
   }
 
   get canAddOption() {
+    if (!this.optionsChangesetList?.changesets) return false;
     return this.optionsChangesetList?.changesets.length < MAX_CODELIST_OPTIONS;
   }
 
@@ -123,10 +126,10 @@ export default class CodelistFormComponent extends Component<Arguments> {
   }
   @action
   addOption() {
-    if (!this.canAddOption) return;
+    if (!this.canAddOption || !this.optionsChangesetList) return;
 
     this.optionsChangesetList.new(
-      this.store.createRecord('skosConcept', {
+      this.store.createRecord<SkosConcept>('skos-concept', {
         createdOn: new Date(),
         position: this.optionsChangesetList.length,
       }),
@@ -134,8 +137,10 @@ export default class CodelistFormComponent extends Component<Arguments> {
   }
 
   @action
-  removeOption(option: SkosConcept) {
-    this.optionsChangesetList.remove(option);
+  removeOption(option: BufferedChangeset) {
+    if (this.optionsChangesetList) {
+      this.optionsChangesetList.remove(option);
+    }
   }
 
   @action
@@ -158,10 +163,11 @@ export default class CodelistFormComponent extends Component<Arguments> {
 
   validateUniqueLabels = () => {
     const uniqueValues = new Set();
+    if (!this.optionsChangesetList) return;
     this.optionsChangesetList.changesets.forEach((option) => {
-      let label = option.label;
+      let label = option['label'];
       //workaround to clear a custom error
-      option.label = label;
+      option['label'] = label;
 
       if (uniqueValues.has(label)) {
         option.addError(
@@ -178,14 +184,15 @@ export default class CodelistFormComponent extends Component<Arguments> {
 
   saveChangesetTask = dropTask(async (event: Event) => {
     event.preventDefault();
+    if (!this.optionsChangesetList) return;
 
     await this.changeset.validate();
     await this.optionsChangesetList.validate();
 
     // remove empty labels to avoid confusing empty or space-only labels in database
     this.optionsChangesetList.changesets.forEach((changeset) => {
-      if (isBlank(changeset.label)) {
-        changeset.label = null;
+      if (isBlank(changeset['label'])) {
+        changeset['label'] = null;
       }
     });
 
@@ -199,15 +206,21 @@ export default class CodelistFormComponent extends Component<Arguments> {
       const administrativeUnit =
         await this.store.findRecord<AdministrativeUnitModel>(
           'administrative-unit',
-          this.currentSession.group?.id,
+          this.currentSession.group?.id ?? '',
         );
       this.changeset['publisher'] = administrativeUnit;
-      await Promise.all(this.changeset.tags.map((tag: Tag) => tag.save()));
+      // `ember-changeset` is not typed correctly. It does not know which type of model it is "tracking" therefore it cannot know which type tags is
+      await Promise.all(
+        (this.changeset['tags'] as Tag[]).map((tag: Tag) => tag.save()),
+      );
       await this.changeset.save();
       await this.optionsChangesetList.save();
       this.isEditingOptions = false;
       if (wasNew) {
-        this.router.transitionTo('codelist-management.edit', this.changeset.id);
+        this.router.transitionTo(
+          'codelist-management.edit',
+          this.changeset['id'],
+        );
       }
     }
   });
@@ -219,6 +232,7 @@ export default class CodelistFormComponent extends Component<Arguments> {
   }
 
   reset() {
+    if (!this.optionsChangesetList) return;
     this.changeset?.rollback();
     this.args.codelist.rollbackAttributes();
     this.optionsChangesetList.rollback();
@@ -226,9 +240,11 @@ export default class CodelistFormComponent extends Component<Arguments> {
 
   @action
   sortEndAction(items: SkosConcept[]) {
+    if (!this.optionsChangesetList) return;
     const options = items;
     for (let i = 0; i < options.length; i++) {
       const option = options[i];
+      if (!option) continue;
       option.position = i;
     }
     // TODO: some shenanigans going on here cause changesetList
@@ -246,8 +262,9 @@ export default class CodelistFormComponent extends Component<Arguments> {
   };
 
   get tags() {
+    // @ts-expect-error current ember-changeset typing does not know which type of thing it is tracking 
     const changesetTags = getPromiseState(this.changeset?.['tags'].promise);
-    return changesetTags.resolved ?? this.changeset.tags;
+    return (changesetTags.resolved ?? this.changeset['tags']) as Tag[];
   }
 
   willDestroy() {
