@@ -24,12 +24,15 @@ import AuPill from '@appuniversum/ember-appuniversum/components/au-pill';
 import AuHelpText from '@appuniversum/ember-appuniversum/components/au-help-text';
 import AuInput from '@appuniversum/ember-appuniversum/components/au-input';
 import AuIcon from '@appuniversum/ember-appuniversum/components/au-icon';
+import AuFormRow from '@appuniversum/ember-appuniversum/components/au-form-row';
+import TagSelector from 'frontend-reglementaire-bijlage/components/tag-selector';
 
 import sortableGroup from 'ember-sortable/modifiers/sortable-group';
 import sortableItem from 'ember-sortable/modifiers/sortable-item';
 import sortableHandle from 'ember-sortable/modifiers/sortable-handle';
 
 import { on } from '@ember/modifier';
+import { fn } from '@ember/helper';
 import t from 'ember-intl/helpers/t';
 import { not, or } from 'ember-truth-helpers';
 
@@ -37,6 +40,11 @@ import { not, or } from 'ember-truth-helpers';
 import didInsert from '@ember/render-modifiers/modifiers/did-insert';
 import ConfirmRouteLeave from './confirm-route-leave';
 import type CodeListModel from 'frontend-reglementaire-bijlage/models/code-list';
+import type Tag from 'frontend-reglementaire-bijlage/models/tag';
+import { setTags } from 'frontend-reglementaire-bijlage/api/document-container';
+import { getPromiseState } from 'reactiveweb/get-promise-state';
+import AdministrativeUnitModel from 'frontend-reglementaire-bijlage/models/administrative-unit';
+import type SkosConcept from 'frontend-reglementaire-bijlage/models/skos-concept';
 
 const MAX_CODELIST_OPTIONS = 20;
 
@@ -50,7 +58,12 @@ export default class CodelistFormComponent extends Component<Arguments> {
   @service declare currentSession: CurrentSessionService;
   @service declare intl: IntlService;
 
-  @tracked changeset: BufferedChangeset | null = null;
+  @tracked changeset: BufferedChangeset = Changeset(
+    this.args.codelist,
+    lookupValidator(CodelistValidations),
+    CodelistValidations,
+  );
+
   @tracked optionsChangesetList;
 
   @tracked isEditingOptions = false;
@@ -122,7 +135,7 @@ export default class CodelistFormComponent extends Component<Arguments> {
   }
 
   @action
-  removeOption(option) {
+  removeOption(option: SkosConcept) {
     this.optionsChangesetList.remove(option);
   }
 
@@ -132,19 +145,19 @@ export default class CodelistFormComponent extends Component<Arguments> {
   }
 
   @action
-  setOptionValue(option, event: Event) {
-    option.value = event.target.value;
+  setOptionValue(option: SkosConcept, event: Event) {
+    option.value = (event.target as HTMLInputElement).value;
   }
 
   @action
-  setOptionLabel(option, event: Event) {
-    option.label = event.target.value;
+  setOptionLabel(option: SkosConcept, event: Event) {
+    option.label = (event.target as HTMLInputElement).value;
     // auto-validate the uniqueness of labels,
     // just like ember-changeset does for other validation
-    this.validateUniqueLabels.perform();
+    this.validateUniqueLabels();
   }
 
-  validateUniqueLabels = dropTask(async () => {
+  validateUniqueLabels = () => {
     const uniqueValues = new Set();
     this.optionsChangesetList.changesets.forEach((option) => {
       let label = option.label;
@@ -162,9 +175,9 @@ export default class CodelistFormComponent extends Component<Arguments> {
         }
       }
     });
-  });
+  };
 
-  saveChangesetTask = dropTask(async (event: Event) => {
+  private _saveChangesetTask = dropTask(async (event: Event) => {
     event.preventDefault();
 
     await this.changeset.validate();
@@ -177,18 +190,20 @@ export default class CodelistFormComponent extends Component<Arguments> {
       }
     });
 
-    await this.validateUniqueLabels.perform();
+    this.validateUniqueLabels();
 
     if (
       this.allValid &&
       this.optionsChangesetList.length <= MAX_CODELIST_OPTIONS
     ) {
       let wasNew = this.args.codelist.isNew;
-      const administrativeUnit = await this.store.findRecord(
-        'administrative-unit',
-        this.currentSession.group.id,
-      );
-      this.changeset.publisher = administrativeUnit;
+      const administrativeUnit =
+        await this.store.findRecord<AdministrativeUnitModel>(
+          'administrative-unit',
+          this.currentSession.group?.id,
+        );
+      this.changeset['publisher'] = administrativeUnit;
+      await Promise.all(this.changeset.tags.map((tag: Tag) => tag.save()));
       await this.changeset.save();
       await this.optionsChangesetList.save();
       this.isEditingOptions = false;
@@ -211,7 +226,7 @@ export default class CodelistFormComponent extends Component<Arguments> {
   }
 
   @action
-  sortEndAction(items) {
+  sortEndAction(items: SkosConcept[]) {
     const options = items;
     for (let i = 0; i < options.length; i++) {
       const option = options[i];
@@ -223,6 +238,17 @@ export default class CodelistFormComponent extends Component<Arguments> {
     this.optionsChangesetList._changesets = items;
     // eslint-disable-next-line no-self-assign
     this.optionsChangesetList = this.optionsChangesetList;
+  }
+
+  changeTags = (tags: Tag[]) => {
+    if (this.changeset) {
+      this.changeset['tags'] = tags;
+    }
+  };
+
+  get tags() {
+    const changesetTags = getPromiseState(this.changeset?.['tags'].promise);
+    return changesetTags.resolved ?? this.changeset.tags;
   }
 
   willDestroy() {
@@ -262,28 +288,45 @@ export default class CodelistFormComponent extends Component<Arguments> {
     >
       <div class='au-u-1-2@small au-u-1-1'>
         {{#let this.changeset.error.label as |isInvalid|}}
-          <p class='au-o-box au-u-padding-bottom-none'>
-            <AuLabel @error={{isInvalid}} for='codelist-name-input'>
-              {{t 'codelist.attr.label'}}&nbsp;
-              <AuPill>
-                {{t 'utility.required'}}
-              </AuPill>
-            </AuLabel>
-            <AuInput
-              @error={{isInvalid}}
-              @width='block'
-              id='codelist-name-input'
-              required='required'
-              placeholder={{t 'utility.type-something-placeholder'}}
-              value={{this.changeset.label}}
-              {{on 'input' this.setCodelistLabel}}
-            />
-            {{#if isInvalid}}
-              <AuHelpText>
-                {{t 'utility.field-required'}}
-              </AuHelpText>
-            {{/if}}
-          </p>
+          <div
+            class='snippet-management-edit__properties-form au-o-box au-u-padding-bottom-none'
+          >
+            <AuFormRow class='au-u-flex-shrink-0'>
+              <AuLabel
+                @required={{true}}
+                @error={{isInvalid}}
+                for='codelist-name-input'
+              >
+                {{t 'codelist.attr.label'}}&nbsp;
+              </AuLabel>
+              <AuInput
+                @error={{isInvalid}}
+                @width='block'
+                id='codelist-name-input'
+                required='required'
+                placeholder={{t 'utility.type-something-placeholder'}}
+                value={{this.changeset.label}}
+                {{on 'input' this.setCodelistLabel}}
+              />
+              {{#if isInvalid}}
+                <AuHelpText>
+                  {{t 'utility.field-required'}}
+                </AuHelpText>
+              {{/if}}
+            </AuFormRow>
+            <AuFormRow>
+              <AuLabel for='tags'>
+                {{t 'template-management.tags.label'}}
+              </AuLabel>
+              <div class='au-u-flex au-u-flex--vertical-center'>
+                <TagSelector
+                  @onChange={{this.changeTags}}
+                  @selectedTags={{this.tags}}
+                  @allowCreate={{true}}
+                />
+              </div>
+            </AuFormRow>
+          </div>
         {{/let}}
       </div>
       <div>
