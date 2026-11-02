@@ -1,7 +1,9 @@
 import { Changeset } from 'ember-changeset';
 import { type BufferedChangeset } from 'ember-changeset/types';
 import { tracked } from '@glimmer/tracking';
-import lookupValidator, { type ValidatorMap } from 'ember-changeset-validations';
+import lookupValidator, {
+  type ValidatorMap,
+} from 'ember-changeset-validations';
 import type Model from '@ember-data/model';
 
 /**
@@ -11,8 +13,12 @@ import type Model from '@ember-data/model';
  * NOTE: - the passed list of records should not contain new records (record.isNew == true).
  *         Use `new` instead, which also sets the parent for you.
  */
-export default function changesetList<T extends Model>(records: T[], validation: ValidatorMap, [key, parent]: [keyof T, unknown]) {
-  return new ChangesetList(records, validation, [key, parent]);
+export default function changesetList<T extends Model, K extends keyof T>(
+  records: T[],
+  validation: ValidatorMap,
+  [key, parent]: [K, T[K]],
+) {
+  return new ChangesetList<T, K>(records, validation, [key, parent]);
 }
 
 /**
@@ -27,16 +33,20 @@ export default function changesetList<T extends Model>(records: T[], validation:
  *   Afterwards only adding new records (via `new`) and `remove`ing records is allowed. No exisiting records can be added.
  * - Changing a passed record (instead of the changeset) might create unspecified behaviour.
  */
-export class ChangesetList<T extends Model> {
+export class ChangesetList<T extends Model, K extends keyof T> {
   @tracked _originalRecords: T[] = [];
   @tracked _records: T[] = [];
   @tracked _changesets: BufferedChangeset[] = [];
   @tracked _toDelete: T[] = [];
   validation: ValidatorMap;
   parentKey: keyof T;
-  parentRecord: unknown;
+  parentRecord: T[K];
 
-  constructor(records: T[], validation: ValidatorMap, [parentKey, parentRecord]: [keyof T, unknown]) {
+  constructor(
+    records: T[],
+    validation: ValidatorMap,
+    [parentKey, parentRecord]: [K, T[K]],
+  ) {
     this._originalRecords = records;
     this.validation = validation;
     this._initialize();
