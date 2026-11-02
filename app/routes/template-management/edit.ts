@@ -5,7 +5,7 @@ import type TemplateManagementEditController from 'frontend-reglementaire-bijlag
 import type DocumentContainerModel from 'frontend-reglementaire-bijlage/models/document-container';
 import type EditorDocumentModel from 'frontend-reglementaire-bijlage/models/editor-document';
 import type Template from 'frontend-reglementaire-bijlage/models/template';
-import type TemplateVersion from 'frontend-reglementaire-bijlage/models/template-version';
+import type TemplateVersion from 'frontend-reglementaire-bijlage/models/template-version.js';
 import type SessionService from 'frontend-reglementaire-bijlage/services/session';
 import type { ModelFrom } from 'frontend-reglementaire-bijlage/utils/type-utils';
 import { hash } from 'rsvp';
@@ -35,9 +35,7 @@ export default class TemplateManagementEditRoute extends Route {
     const templateVersion = (await templateContainer?.currentVersion) as
       | TemplateVersion
       | undefined;
-    const templateTags = (await documentContainer?.tags) as
-      | Tag[]
-      | undefined;
+    const templateTags = (await documentContainer?.tags) as Tag[] | undefined;
     const templateTypeId = (await documentContainer.templateTypeId) as
       | string
       | undefined;

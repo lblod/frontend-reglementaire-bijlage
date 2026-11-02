@@ -96,13 +96,17 @@ template-management:
   title: Title
   created-on: Created On
   updated-on: Updated On
+  retracted-on: Retracted op
   not-found: N/A
   publish-date: Published on
   not-published: Not published
   available: Available
+  not-available: Not available
+  retracted: Retracted
   available-until: Available until {date}
   published-on: Available since
   edit-mode: Edit mode
+  template-status: Status
   read-mode: Read mode
   template-type:
     label: Template type
@@ -126,7 +130,7 @@ template-management:
 template-edit:
   edit: Edit template
   return: Go Back
-  save: 
+  save:
     pending: Saving
     error:
       title: Saving failed

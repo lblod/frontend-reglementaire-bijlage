@@ -3,14 +3,15 @@ import { restartableTask, task, timeout } from 'ember-concurrency';
 import { service } from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from 'tracked-built-ins';
-import isAfter from 'date-fns/isAfter';
 import { isBlank } from '../../utils/strings';
 import { getTemplateType, getTemplateTypes } from '../../utils/template-type';
 import { setTags } from 'frontend-reglementaire-bijlage/api/document-container';
+import { PublicationStatus } from 'frontend-reglementaire-bijlage/components/publication-status';
 
 const TITLE_SEARCH_DEBOUNCE_TIME = 300;
 
 export default class TemplateManagementIndexController extends Controller {
+  PublicationStatus = PublicationStatus;
   @service store;
   @service session;
   @service router;
@@ -85,7 +86,7 @@ export default class TemplateManagementIndexController extends Controller {
     return getTemplateType(type, this.intl)?.label;
   };
 
-  lastPublicationDate = async (documentContainer) => {
+  publishedTemplate = async (documentContainer) => {
     // start of shenanigans
     /*
     The following query and subsequent relationship access are a horrible house of cards.
@@ -124,21 +125,7 @@ export default class TemplateManagementIndexController extends Controller {
         include: 'current-version',
       })
     )[0];
-    if (publishedTemplate) {
-      // normally you'd force a reload here, but the reload's option passing mechanism ignores any query
-      // params you add
-      const templateVersion = await publishedTemplate.currentVersion;
-      // end of shenanigans
-      let validThrough =
-        templateVersion.validThrough && new Date(templateVersion.validThrough);
-      if (validThrough && isAfter(validThrough, Date.now())) {
-        // Only display as unpublished when it actually is
-        validThrough = undefined;
-      }
-      return { created: templateVersion.created, validThrough };
-    } else {
-      return;
-    }
+    return publishedTemplate;
   };
 
   @action
