@@ -7,6 +7,7 @@ import { isBlank } from '../../utils/strings';
 import { getTemplateType, getTemplateTypes } from '../../utils/template-type';
 import { setTags } from 'frontend-reglementaire-bijlage/api/document-container';
 import { PublicationStatus } from 'frontend-reglementaire-bijlage/components/publication-status';
+import { getValidity } from 'frontend-reglementaire-bijlage/api/template';
 
 const TITLE_SEARCH_DEBOUNCE_TIME = 300;
 
@@ -125,7 +126,11 @@ export default class TemplateManagementIndexController extends Controller {
         include: 'current-version',
       })
     )[0];
-    return publishedTemplate;
+    if (publishedTemplate) {
+      return getValidity(publishedTemplate);
+    } else {
+      return;
+    }
   };
 
   @action
