@@ -250,6 +250,9 @@ tag-management:
   edit:
     title: Tag bewerken
   create-new-tag: Maak nieuwe tag "{tagName}" aan
+  error-loading-tags:
+    title: Laden van tags mislukt
+    body: Er is een probleem opgetreden bij het laden van tags
 
 editor-document-title:
   placeholder: Naamloos document

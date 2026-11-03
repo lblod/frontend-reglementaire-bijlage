@@ -57,20 +57,18 @@ export default class PropertyEditModal extends Component<Args> {
       </:title>
       <:body>
         <form class='au-c-form'>
-          {{#if this.tagManager.tags.value}}
-            <AuFormRow>
-              <AuLabel for='decision-type'>{{t
-                  'template-management.tags.label'
-                }}</AuLabel>
-              <TagSelector
-                @tags={{this.tagManager.tags.value}}
-                @selectedTags={{this.newTemplateTags}}
-                @onChange={{this.changeTemplateTags}}
-                @allowTagCreation={{true}}
-                @tagConstructor={{this.tagManager.createTag}}
-              />
-            </AuFormRow>
-          {{/if}}
+          <AuFormRow>
+            <AuLabel for='decision-type'>{{t
+                'template-management.tags.label'
+              }}</AuLabel>
+            <TagSelector
+              @tags={{this.tagManager.tags}}
+              @selectedTags={{this.newTemplateTags}}
+              @onChange={{this.changeTemplateTags}}
+              @allowTagCreation={{true}}
+              @tagConstructor={{this.tagManager.createTag}}
+            />
+          </AuFormRow>
         </form>
       </:body>
       <:footer>

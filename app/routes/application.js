@@ -4,9 +4,12 @@ import { service } from '@ember/service';
 export default class ApplicationRoute extends Route {
   @service session;
   @service currentSession;
+  @service tagManager
+  
   async beforeModel() {
     await this.session.setup();
-    return this.loadCurrentSession();
+    await this.loadCurrentSession();
+    await this.tagManager.loadTags();
   }
 
   loadCurrentSession() {

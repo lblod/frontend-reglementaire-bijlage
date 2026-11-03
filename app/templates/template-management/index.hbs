@@ -144,19 +144,19 @@
             }}</td>
           <td>
             {{#let (await documentContainer.tags) as |tags|}}
-            {{#if this.isReadMode}}
-              {{#if tags}}
-                <Common::Tags::CollapsibleTagList @tags={{sort-tags tags}} />
+              {{#if this.isReadMode}}
+                {{#if tags}}
+                  <Common::Tags::CollapsibleTagList @tags={{sort-tags tags}} />
+                {{/if}}
+              {{else}}
+                <Common::Tags::TagSelector
+                  @tags={{this.tagManager.tags}}
+                  @selectedTags={{tags}}
+                  @onChange={{fn this.changeTagsFor documentContainer}}
+                  @allowTagCreation={{true}}
+                  @tagConstructor={{this.tagManager.createTag}}
+                />
               {{/if}}
-            {{else}}
-              <Common::Tags::TagSelector
-                @tags={{this.tagManager.tags.value}}
-                @selectedTags={{tags}}
-                @onChange={{fn this.changeTagsFor documentContainer}}
-                @allowTagCreation={{true}}
-                @tagConstructor={{this.tagManager.createTag}}
-              />
-            {{/if}}
             {{/let}}
           </td>
           <td class="au-u-padding-none">
@@ -219,7 +219,7 @@
           {{t "template-management.tags.label"}}
         </AuLabel>
         <Common::Tags::TagSelector
-          @tags={{this.tagManager.tags.value}}
+          @tags={{this.tagManager.tags}}
           @selectedTags={{this.tagsToCreate}}
           @onChange={{this.updateTemplateTags}}
           @allowTagCreation={{true}}

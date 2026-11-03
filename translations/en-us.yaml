@@ -250,6 +250,9 @@ tag-management:
   edit:
     title: Edit tag
   create-new-tag: Create new tag "{tagName}"
+  error-loading-tags:
+    title: Loading tags failed
+    body: An error occurred while loading tags
 
 editor-document-title:
   placeholder: Untitled document
