@@ -161,6 +161,7 @@ export default class RdfaEditorContainerComponent extends Component<Signature> {
               @schema={{@schema}}
               @nodeViews={{@nodeViews}}
               @rdfaEditorInit={{this.rdfaEditorInit}}
+              @notificationToaster={{false}}
             />
             {{#if this.editor}}
               <ContextualActionsContainer

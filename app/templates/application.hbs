@@ -13,7 +13,7 @@
       @applicationName={{t 'utility.app-name'}}
     />
   {{/if}}
-  <AuToaster @position='top' />
+  <AuToaster @position='top' class='toaster' />
   <AuMainHeader @homeRoute='index' @appTitle={{t 'utility.app-name'}}>
     {{#if this.session.isAuthenticated}}
       <AuDropdown

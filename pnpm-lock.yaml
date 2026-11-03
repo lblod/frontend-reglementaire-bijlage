@@ -160,8 +160,8 @@ importers:
         specifier: 13.20.1
         version: 13.20.1(105fc8a2232c26879e20ae285e4676aa)
       '@lblod/ember-rdfa-editor-lblod-plugins':
-        specifier: 39.1.2
-        version: 39.1.2(92efa8ad95d3dc4967e4e1b68f6e09c4)
+        specifier: 39.2.0
+        version: 39.2.0(92efa8ad95d3dc4967e4e1b68f6e09c4)
       '@release-it-plugins/lerna-changelog':
         specifier: ^6.0.0
         version: 6.1.0(bluebird@3.7.2)(release-it@16.3.0(encoding@0.1.13)(supports-color@8.1.1)(typescript@5.9.3))(supports-color@8.1.1)
@@ -1771,8 +1771,8 @@ packages:
       ember-simple-auth: '>= 6.0.0'
       ember-source: '>= 4.0.0'
 
-  '@lblod/ember-rdfa-editor-lblod-plugins@39.1.2':
-    resolution: {integrity: sha512-junrkGjJm61nRIQ1MnpdYIHmOmTx/dXqRGxE1YzmUWN481Bfg7a381lHCI3jNrXcG9erdqpBaPQfR3MqREFn0Q==}
+  '@lblod/ember-rdfa-editor-lblod-plugins@39.2.0':
+    resolution: {integrity: sha512-hfvh9a+WdVu7s4uSQhIDcnqc5JcproY5kAgaAbaDC/NOm2CSGH6gDzOy/e0ajVPkxIfIdUhDYH+vF32ga0Y0Dg==}
     engines: {node: '>= 18'}
     peerDependencies:
       '@appuniversum/ember-appuniversum': ^3.12.0 || ^4.0.0
@@ -12068,7 +12068,7 @@ snapshots:
       - '@babel/core'
       - supports-color
 
-  '@lblod/ember-rdfa-editor-lblod-plugins@39.1.2(92efa8ad95d3dc4967e4e1b68f6e09c4)':
+  '@lblod/ember-rdfa-editor-lblod-plugins@39.2.0(92efa8ad95d3dc4967e4e1b68f6e09c4)':
     dependencies:
       '@appuniversum/ember-appuniversum': 4.2.2(@babel/core@7.29.7(supports-color@8.1.1))(@ember/test-helpers@3.3.1(@babel/core@7.29.7(supports-color@8.1.1))(@glint/template@1.9.0)(ember-source@5.12.0(patch_hash=a4e20cda60b0a90f13d20309583b6b6b01b32cd3d711b9d1461a7ffa70316644)(@glimmer/component@1.1.2(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@glint/template@1.9.0)(rsvp@4.8.5)(supports-color@8.1.1)(webpack@5.111.1(clean-css@5.3.3)(postcss@8.5.1)(uglify-js@3.19.3)))(supports-color@8.1.1)(webpack@5.111.1(clean-css@5.3.3)(postcss@8.5.1)(uglify-js@3.19.3)))(@glimmer/component@1.1.2(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@glint/template@1.9.0)(supports-color@8.1.1)(tracked-built-ins@4.1.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))
       '@babel/core': 7.29.7(supports-color@8.1.1)
