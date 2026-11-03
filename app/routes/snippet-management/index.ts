@@ -56,9 +56,9 @@ export default class SnippetManagementIndexRoute extends Route {
       // @ts-expect-error We will fix in feature/store-to-typescript
       this.store.query<SnippetList>('snippet-list', options),
       Promise.all(
-        params.tags?.map((id) => this.store.findRecord('tag', id)) ?? [],
+        params.tags?.map((id) => this.store.findRecord<Tag>('tag', id)) ?? [],
       ),
-    ])) as [SnippetList[], Tag[]];
+    ]));
 
     return {
       snippetLists,
