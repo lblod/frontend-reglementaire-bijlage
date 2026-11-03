@@ -1,6 +1,8 @@
+import type ToasterService from '@appuniversum/ember-appuniversum/services/toaster';
 import { service } from '@ember/service';
 import Service from '@ember/service';
 import type { NewTag } from '@lblod/ember-rdfa-editor-lblod-plugins/components/common/tags/tag-selector';
+import type IntlService from 'ember-intl/services/intl';
 import type DocumentContainer from 'frontend-reglementaire-bijlage/models/document-container';
 import type SnippetList from 'frontend-reglementaire-bijlage/models/snippet-list';
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
@@ -9,17 +11,18 @@ import { sortTags } from 'frontend-reglementaire-bijlage/utils/sort-tags';
 
 export default class TagManager extends Service {
   @service declare store: Store;
+  @service declare toaster: ToasterService;
+  @service declare intl: IntlService;
 
-  constructor(...args: ConstructorParameters<typeof Service>) {
-    super(...args);
-    void this.loadTags();
-  }
-
-  private async loadTags() {
+  async loadTags() {
     try {
       await this.store.countAndFetchAll('tag', { sort: ':no-case:value' });
     } catch (error) {
       console.error('Failed to load tags', error);
+      this.toaster.error(
+        this.intl.t('tag-management.error-loading-tags.body'),
+        this.intl.t('tag-management.error-loading-tags.title'),
+      );
     }
   }
 
