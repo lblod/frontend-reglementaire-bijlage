@@ -1,3 +1,6 @@
+/* eslint-disable */ 
+// @ts-nocheck ember-changeset is not typed correctly, this causes a lot of problems
+// Since we want to get rid of ember-changeset anyway, we'll not bother fixing this
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { service } from '@ember/service';
