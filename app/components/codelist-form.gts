@@ -39,7 +39,6 @@ import { fn } from '@ember/helper';
 import t from 'ember-intl/helpers/t';
 import { not, or } from 'ember-truth-helpers';
 
-// eslint-disable-next-line ember/no-at-ember-render-modifiers
 import didInsert from '@ember/render-modifiers/modifiers/did-insert';
 import ConfirmRouteLeave from './confirm-route-leave';
 import type CodeListModel from 'frontend-reglementaire-bijlage/models/code-list';
@@ -254,7 +253,6 @@ export default class CodelistFormComponent extends Component<Arguments> {
     // is a weird class, this is the best way I found but we might
     // want to refactor that out
     this.optionsChangesetList._changesets = items;
-    // eslint-disable-next-line no-self-assign
     this.optionsChangesetList = this.optionsChangesetList;
   }
 

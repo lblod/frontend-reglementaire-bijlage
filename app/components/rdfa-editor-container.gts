@@ -62,7 +62,7 @@ export default class RdfaEditorContainerComponent extends Component<Signature> {
     if (this.args.editorDocument && this.args.editorDocument.context) {
       try {
         return JSON.parse(
-          this.args.editorDocument.context as string,
+          this.args.editorDocument.context,
         ) as DocumentContext;
       } catch (e) {
         console.warn(
