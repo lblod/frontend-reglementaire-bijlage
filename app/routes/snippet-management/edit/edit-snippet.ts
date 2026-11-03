@@ -14,11 +14,11 @@ export default class SnippetManagementEditSnippetRoute extends Route {
   async model(params: { snippet_id: string }) {
     return hash({
       snippet: (
-        await this.store.query('snippet', {
+        await this.store.query<Snippet>('snippet', {
           'filter[:id:]': params.snippet_id,
-          include: 'current-version',
+          include: ['currentVersion'],
         })
-      )[0] as Snippet,
+      )[0],
       snippetList: this.modelFor('snippet-management.edit') as ModelFrom<SnippetManagementEditRoute>,
     });
   }

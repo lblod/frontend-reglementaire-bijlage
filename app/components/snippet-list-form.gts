@@ -1,8 +1,3 @@
-// We will fix the type errors in this file in feature/store-to-typescript
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-/* eslint-disable */
-
 import Component from '@glimmer/component';
 import { service } from '@ember/service';
 import { action } from '@ember/object';
@@ -40,9 +35,9 @@ import sortableHandle from 'ember-sortable/modifiers/sortable-handle';
 import SnippetVersionModel from 'frontend-reglementaire-bijlage/models/snippet-version';
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
 import { setTags } from 'frontend-reglementaire-bijlage/api/document-container';
-import TagSelector, {
-  type NewTag,
-} from '@lblod/ember-rdfa-editor-lblod-plugins/components/common/tags/tag-selector';
+import DocumentContainerModel from 'frontend-reglementaire-bijlage/models/document-container';
+import { getPromiseState } from 'reactiveweb/get-promise-state';
+import TagSelector from '@lblod/ember-rdfa-editor-lblod-plugins/components/common/tags/tag-selector';
 import type TagManager from 'frontend-reglementaire-bijlage/services/tag-manager';
 
 const SHOW_SAVED_PILL = 'showSavedPill';
@@ -67,9 +62,9 @@ export default class SnippetListForm extends Component<Arguments> {
     return this.args.snippetList;
   }
 
-  snippetsRequest = trackedFunction(this, async () => {
-    const snippets = await this.store.countAndFetchAll('snippet', {
-      include: ['current-version'].join(','),
+  private snippetsRequest = trackedFunction(this, async () => {
+    const snippets = await this.store.countAndFetchAll<Snippet>('snippet', {
+      include: ['currentVersion'],
       filter: {
         'snippet-list': {
           ':id:': this.snippetList.id,
@@ -83,24 +78,27 @@ export default class SnippetListForm extends Component<Arguments> {
     return snippets.slice();
   });
 
-  linkedTemplates = trackedFunction(this, async () => {
-    return this.store.countAndFetchAll('document-container', {
-      include: ['current-version'].join(','),
-      filter: {
-        'linked-snippet-lists': {
-          ':id:': this.snippetList.id,
+  private linkedTemplates = trackedFunction(this, async () => {
+    return this.store.countAndFetchAll<DocumentContainerModel>(
+      'document-container',
+      {
+        include: ['currentVersion'],
+        filter: {
+          'linked-snippet-lists': {
+            ':id:': this.snippetList.id,
+          },
         },
+        fields: {
+          'editor-documents': ['title'].join(','),
+        },
+        sort: ':no-case:current-version.title',
       },
-      fields: {
-        'editor-documents': ['title'].join(','),
-      },
-      sort: ':no-case:current-version.title',
-    });
+    );
   });
 
-  linkedSnippets = trackedFunction(this, async () => {
-    return this.store.countAndFetchAll('snippet', {
-      include: ['current-version'].join(','),
+  private linkedSnippets = trackedFunction(this, async () => {
+    return this.store.countAndFetchAll<Snippet>('snippet', {
+      include: ['currentVersion'],
       filter: {
         'linked-snippet-lists': {
           ':id:': this.snippetList.id,
@@ -146,8 +144,8 @@ export default class SnippetListForm extends Component<Arguments> {
     }
   });
 
-  constructor() {
-    super(...arguments);
+  constructor(owner: unknown, args: Arguments) {
+    super(owner, args);
     const queryParams = this.router.currentRoute?.queryParams;
 
     if (queryParams?.[SHOW_SAVED_PILL]) {
@@ -199,7 +197,7 @@ export default class SnippetListForm extends Component<Arguments> {
     });
     await snippet.save();
 
-    snippetVersion.snippet = snippet;
+    snippetVersion.set('snippet', snippet);
     await snippetVersion.save();
 
     this.snippets = [...snippets, snippet];
@@ -210,12 +208,13 @@ export default class SnippetListForm extends Component<Arguments> {
   });
 
   updateImportedResourcesOnList = task(async () => {
-    const list = await this.store.findRecord(
+    if (!this.snippetList.id) return;
+    const list = await this.store.findRecord<SnippetList>(
       'snippet-list',
       this.snippetList.id,
       {
         reload: true,
-        include: 'snippets,snippets.current-version',
+        include: ['snippets', 'snippets.currentVersion'],
       },
     );
     return saveCollatedImportedResources(list);
@@ -225,13 +224,13 @@ export default class SnippetListForm extends Component<Arguments> {
     this.snippets = this.snippets.filter(
       (snippet) => snippet !== this.deletingSnippet,
     );
-    const snippetVersion = await this.deletingSnippet.currentVersion;
+    const snippetVersion = await this.deletingSnippet?.currentVersion;
     if (snippetVersion) {
       snippetVersion.validThrough = new Date();
       await snippetVersion.save();
     }
-    this.deletingSnippet.snippetList = null;
-    await this.deletingSnippet.save();
+    this.deletingSnippet?.set('snippetList', null);
+    await this.deletingSnippet?.save();
     await this.updateImportedResourcesOnList.perform();
     this.closeRemoveModal();
   });
@@ -254,6 +253,17 @@ export default class SnippetListForm extends Component<Arguments> {
 
   changeTags = async (tags: Tag[]) => {
     await setTags(this.args.snippetList, tags);
+  };
+
+  get tags() {
+    const state = getPromiseState(this.snippetList.tags.promise);
+    return state.resolved ? state.resolved.slice() : [];
+  }
+
+  getSnippetTitle = (snippet?: Snippet | null) => {
+    if (!snippet) return;
+    const state = getPromiseState(snippet.currentVersion.promise);
+    return state.resolved?.title;
   };
 
   <template>
@@ -291,7 +301,7 @@ export default class SnippetListForm extends Component<Arguments> {
             <div class='au-u-flex au-u-flex--vertical-center'>
               <TagSelector
                 @tags={{this.tagManager.tags.value}}
-                @selectedTags={{@snippetList.tags}}
+                @selectedTags={{this.tags}}
                 @onChange={{this.changeTags}}
                 @allowTagCreation={{true}}
                 @tagConstructor={{this.tagManager.createTag}}
@@ -359,7 +369,7 @@ export default class SnippetListForm extends Component<Arguments> {
                     @route='snippet-management.edit.edit-snippet'
                     @models={{array @snippetList.id snippet.id}}
                   >
-                    {{snippet.currentVersion.title}}
+                    {{this.getSnippetTitle snippet}}
                   </AuLink>
                 </td>
                 <td>
@@ -407,6 +417,7 @@ export default class SnippetListForm extends Component<Arguments> {
         {{t 'snippets.edit-snippet-list.connected-documents.heading'}}
       </AuHeading>
       <div class='au-u-margin-bottom'>
+        {{! @glint-expect-error }}
         <AuDataTable
           @content={{this.linkedTemplates.value}}
           @isLoading={{this.linkedTemplates.isLoading}}
@@ -436,6 +447,7 @@ export default class SnippetListForm extends Component<Arguments> {
         </AuDataTable>
       </div>
       <div class='au-u-margin-bottom'>
+        {{! @glint-expect-error }}
         <AuDataTable
           @content={{this.linkedSnippets.value}}
           @isLoading={{this.linkedSnippets.isLoading}}
@@ -477,7 +489,7 @@ export default class SnippetListForm extends Component<Arguments> {
         <p>
           {{t
             'snippets.edit-snippet-list.snippet-deletion.confirm'
-            name=this.deletingSnippet.label
+            name=(this.getSnippetTitle this.deletingSnippet)
             htmlSafe=true
           }}
         </p>

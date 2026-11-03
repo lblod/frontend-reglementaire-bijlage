@@ -41,7 +41,7 @@ export default class TemplateTagEditModal extends Component<Args> {
       return;
     }
     await timeout(300);
-    const tags = await this.store.query('tag', {
+    const tags = await this.store.query<Tag>('tag', {
       'filter[:exact:value]': newLabel,
     });
 
