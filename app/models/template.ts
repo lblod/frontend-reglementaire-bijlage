@@ -4,7 +4,7 @@ import Model, {
   type AsyncBelongsTo,
   type AsyncHasMany,
 } from '@ember-data/model';
-import type TemplateVersion from './template-version.js';
+import type TemplateVersion from './template-version';
 import type DocumentContainerModel from './document-container';
 import type AdministrativeUnitModel from './administrative-unit';
 
