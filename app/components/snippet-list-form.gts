@@ -39,7 +39,6 @@ import sortableGroup from 'ember-sortable/modifiers/sortable-group';
 import sortableHandle from 'ember-sortable/modifiers/sortable-handle';
 import SnippetVersionModel from 'frontend-reglementaire-bijlage/models/snippet-version';
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
-import { setTags } from 'frontend-reglementaire-bijlage/api/document-container';
 import TagSelector, {
   type NewTag,
 } from '@lblod/ember-rdfa-editor-lblod-plugins/components/common/tags/tag-selector';
@@ -253,7 +252,7 @@ export default class SnippetListForm extends Component<Arguments> {
   }
 
   changeTags = async (tags: Tag[]) => {
-    await setTags(this.args.snippetList, tags);
+    await this.tagManager.setTags(this.args.snippetList, tags);
   };
 
   <template>
@@ -283,22 +282,20 @@ export default class SnippetListForm extends Component<Arguments> {
             {{/if}}
           </div>
         </AuFormRow>
-        {{#if this.tagManager.tags.value}}
-          <AuFormRow>
-            <AuLabel for='tags'>
-              {{t 'template-management.tags.label'}}
-            </AuLabel>
-            <div class='au-u-flex au-u-flex--vertical-center'>
-              <TagSelector
-                @tags={{this.tagManager.tags.value}}
-                @selectedTags={{@snippetList.tags}}
-                @onChange={{this.changeTags}}
-                @allowTagCreation={{true}}
-                @tagConstructor={{this.tagManager.createTag}}
-              />
-            </div>
-          </AuFormRow>
-        {{/if}}
+        <AuFormRow>
+          <AuLabel for='tags'>
+            {{t 'template-management.tags.label'}}
+          </AuLabel>
+          <div class='au-u-flex au-u-flex--vertical-center'>
+            <TagSelector
+              @tags={{this.tagManager.tags}}
+              @selectedTags={{@snippetList.tags}}
+              @onChange={{this.changeTags}}
+              @allowTagCreation={{true}}
+              @tagConstructor={{this.tagManager.createTag}}
+            />
+          </div>
+        </AuFormRow>
       </div>
       <AuFormRow>
         <AuLabel for='imported-resources'>

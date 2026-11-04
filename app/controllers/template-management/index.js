@@ -5,7 +5,6 @@ import { action } from '@ember/object';
 import { tracked } from 'tracked-built-ins';
 import { isBlank } from '../../utils/strings';
 import { getTemplateType, getTemplateTypes } from '../../utils/template-type';
-import { setTags } from 'frontend-reglementaire-bijlage/api/document-container';
 import { PublicationStatus } from 'frontend-reglementaire-bijlage/components/publication-status';
 import { getValidity } from 'frontend-reglementaire-bijlage/api/template';
 
@@ -62,7 +61,7 @@ export default class TemplateManagementIndexController extends Controller {
   };
 
   changeTagsFor = async (documentContainer, tags) => {
-    await setTags(documentContainer, tags);
+    await this.tagManager.setTags(documentContainer, tags);
   };
 
   resetFilters = () => {
@@ -165,9 +164,7 @@ export default class TemplateManagementIndexController extends Controller {
     event.preventDefault();
 
     // Store all new tags
-    await Promise.all(
-      this.tagsToCreate.filter((tag) => !tag.id).map((tag) => tag.save()),
-    );
+    await this.tagManager.saveTags(this.tagsToCreate);
 
     await this.editorDocument.save();
 

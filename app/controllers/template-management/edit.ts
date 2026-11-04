@@ -192,8 +192,8 @@ const GEMEENTE_CLASSIFICATION_URI =
 
 import { locationModalsPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin';
 import { getContextualActionGroups as locationActionsGroups } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin/contextual-actions';
-import { setTags } from 'frontend-reglementaire-bijlage/api/document-container';
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
+import type TagManager from 'frontend-reglementaire-bijlage/services/tag-manager';
 import type ToasterService from '@appuniversum/ember-appuniversum/services/toaster';
 import { PublicationStatus } from 'frontend-reglementaire-bijlage/components/publication-status';
 import { getValidityOfTemplateVersion } from 'frontend-reglementaire-bijlage/api/template-version';
@@ -203,6 +203,7 @@ export default class TemplateManagementEditController extends Controller {
   @service declare intl: IntlService;
   @service declare currentSession: CurrentSessionService;
   @service declare toaster: ToasterService;
+  @service declare tagManager: TagManager;
 
   declare model: ModelFrom<TemplateManagementEditRoute>;
   @service('editor-settings')
@@ -868,7 +869,7 @@ export default class TemplateManagementEditController extends Controller {
 
   saveTags = async (templateTags?: Tag[]) => {
     if (templateTags && this.documentContainer) {
-      await setTags(this.documentContainer, templateTags);
+      await this.tagManager.setTags(this.documentContainer, templateTags);
     }
   };
 }

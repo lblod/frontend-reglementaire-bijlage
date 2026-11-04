@@ -99,22 +99,20 @@ export default class TemplateManagementFilters extends Component<Args> {
               }}</Group.Checkbox>
           </AuCheckboxGroup>
         </AuFormRow>
-        {{#if this.tagManager.tags.value}}
-          <AuFormRow>
-            <AuLabel for='filter-tags'>
-              {{t 'template-management.filters.tags'}}
-            </AuLabel>
-            <div class='tag-selector-container'>
-              <TagSelector
-                id='filter-tags'
-                @tags={{this.tagManager.tags.value}}
-                @onChange={{@onChangeTemplateTags}}
-                @selectedTags={{@selectedTags}}
-                @allowTagCreation={{false}}
-              />
-            </div>
-          </AuFormRow>
-        {{/if}}
+        <AuFormRow>
+          <AuLabel for='filter-tags'>
+            {{t 'template-management.filters.tags'}}
+          </AuLabel>
+          <div class='tag-selector-container'>
+            <TagSelector
+              id='filter-tags'
+              @tags={{this.tagManager.tags}}
+              @onChange={{@onChangeTemplateTags}}
+              @selectedTags={{@selectedTags}}
+              @allowTagCreation={{false}}
+            />
+          </div>
+        </AuFormRow>
         <AuButton
           {{on 'click' this.resetFilters}}
           @icon='cross'
