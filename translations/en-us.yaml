@@ -96,7 +96,7 @@ template-management:
   title: Title
   created-on: Created On
   updated-on: Updated On
-  retracted-on: Retracted op
+  retracted-on: Retracted on
   not-found: N/A
   publish-date: Published on
   not-published: Not published
