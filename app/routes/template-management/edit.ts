@@ -35,9 +35,7 @@ export default class TemplateManagementEditRoute extends Route {
     const templateVersion = (await templateContainer?.currentVersion) as
       | TemplateVersion
       | undefined;
-    const templateTags = (await documentContainer?.tags) as
-      | Tag[]
-      | undefined;
+    const templateTags = (await documentContainer?.tags) as Tag[] | undefined;
     const templateTypeId = (await documentContainer.templateTypeId) as
       | string
       | undefined;

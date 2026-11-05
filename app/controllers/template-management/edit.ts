@@ -4,7 +4,6 @@ import { restartableTask, task, timeout } from 'ember-concurrency';
 import { service } from '@ember/service';
 import { tracked } from 'tracked-built-ins';
 import { v4 as uuid } from 'uuid';
-import isAfter from 'date-fns/isAfter';
 import { PNode, SayController, Schema } from '@lblod/ember-rdfa-editor';
 import { insertHtml } from '@lblod/ember-rdfa-editor/commands/insert-html-command';
 import {
@@ -196,6 +195,8 @@ import { getContextualActionGroups as locationActionsGroups } from '@lblod/ember
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
 import type TagManager from 'frontend-reglementaire-bijlage/services/tag-manager';
 import type ToasterService from '@appuniversum/ember-appuniversum/services/toaster';
+import { PublicationStatus } from 'frontend-reglementaire-bijlage/components/publication-status';
+import { getValidityOfTemplateVersion } from 'frontend-reglementaire-bijlage/api/template-version';
 export default class TemplateManagementEditController extends Controller {
   @service declare store: Store;
   @service declare router: RouterService;
@@ -231,6 +232,7 @@ export default class TemplateManagementEditController extends Controller {
   FormatTextIcon = FormatTextIcon;
   PlusIcon = PlusIcon;
   ThreeDotsIcon = ThreeDotsIcon;
+  PublicationStatus = PublicationStatus;
 
   contextualActionGroupGetters = [locationActionsGroups()];
 
@@ -746,12 +748,10 @@ export default class TemplateManagementEditController extends Controller {
     }
   }
 
-  get isPublished(): boolean {
+  get publicationValidity() {
     const version = this.model.templateVersion;
-    return (
-      Boolean(version) &&
-      (!this.unpublishDate || isAfter(this.unpublishDate, Date.now()))
-    );
+    if (!version) return undefined;
+    return getValidityOfTemplateVersion(version);
   }
   get unpublishDate() {
     const validThrough = this.model.templateVersion?.validThrough as
