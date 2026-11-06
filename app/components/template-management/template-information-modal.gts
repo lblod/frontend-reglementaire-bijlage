@@ -75,24 +75,22 @@ export default class TemplateInformationModal extends Component<Args> {
         @requireBesluitType={{false}}
         as |DIM|
       >
-        <form class='au-c-form'>
-          <div>
-            <AuLabel for='decision-type'>{{t
-                'template-management.tags.label'
-              }}</AuLabel>
-            <TagSelector
-              @tags={{this.tagManager.tags}}
-              @selectedTags={{this.newTemplateTags}}
-              @onChange={{this.changeTemplateTags}}
-              @allowTagCreation={{true}}
-              @tagConstructor={{this.tagManager.createTag}}
-            />
-          </div>
-          {{#if this.isDecisionTemplate}}
-            <DIM.BesluitType />
-            <DIM.BesluitTargetGroup />
-          {{/if}}
-        </form>
+        <div>
+          <AuLabel for='decision-type'>{{t
+              'template-management.tags.label'
+            }}</AuLabel>
+          <TagSelector
+            @tags={{this.tagManager.tags}}
+            @selectedTags={{this.newTemplateTags}}
+            @onChange={{this.changeTemplateTags}}
+            @allowTagCreation={{true}}
+            @tagConstructor={{this.tagManager.createTag}}
+          />
+        </div>
+        {{#if this.isDecisionTemplate}}
+          <DIM.BesluitType />
+          <DIM.BesluitTargetGroup />
+        {{/if}}
       </DocumentInformationModal>
     {{/if}}
   </template>
