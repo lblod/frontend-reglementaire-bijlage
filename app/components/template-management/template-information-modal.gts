@@ -1,7 +1,5 @@
 import Component from '@glimmer/component';
-import AuModal from '@appuniversum/ember-appuniversum/components/au-modal';
 import AuButton from '@appuniversum/ember-appuniversum/components/au-button';
-import AuFormRow from '@appuniversum/ember-appuniversum/components/au-form-row';
 import AuLabel from '@appuniversum/ember-appuniversum/components/au-label';
 import { tracked } from '@glimmer/tracking';
 import t from 'ember-intl/helpers/t';
@@ -9,21 +7,35 @@ import { on } from '@ember/modifier';
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
 import { localCopy } from 'tracked-toolbox';
 import TagSelector from '@lblod/ember-rdfa-editor-lblod-plugins/components/common/tags/tag-selector';
+import DocumentInformationModal from '@lblod/ember-rdfa-editor-lblod-plugins/components/document-information-plugin/document-information-modal';
 import type Store from 'frontend-reglementaire-bijlage/services/store';
 import { service } from '@ember/service';
 import type TagManager from 'frontend-reglementaire-bijlage/services/tag-manager';
+import { SayController } from '@lblod/ember-rdfa-editor';
+import type { BesluitTypePluginOptions } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/besluit-type-plugin';
+import type { BesluitTargetGroupPluginOptions } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/besluit-target-group-plugin/types';
+
+type TemplateType = 'decision' | 'regulatory-attachment';
 
 type Args = {
+  controller: SayController;
+  templateType: TemplateType;
   templateTags: Tag[];
-  onSave: (templateTags?: Tag[]) => Promise<void>;
+  besluitTypeOptions: BesluitTypePluginOptions;
+  besluitTargetGroupOptions: BesluitTargetGroupPluginOptions;
+  onSave: (templateTags: Tag[]) => Promise<void>;
 };
 
-export default class PropertyEditModal extends Component<Args> {
+export default class TemplateInformationModal extends Component<Args> {
   @service declare store: Store;
   @service declare tagManager: TagManager;
 
   @tracked isModalOpen = false;
   @localCopy('args.templateTags') newTemplateTags: Tag[] = [];
+
+  get isDecisionTemplate() {
+    return this.args.templateType === 'decision';
+  }
 
   openModal = () => {
     this.isModalOpen = true;
@@ -38,7 +50,7 @@ export default class PropertyEditModal extends Component<Args> {
   };
 
   onSave = async () => {
-    await this.args.onSave?.(this.newTemplateTags ?? undefined);
+    await this.args.onSave(this.newTemplateTags);
     this.closeModal();
   };
 
@@ -51,13 +63,20 @@ export default class PropertyEditModal extends Component<Args> {
     <AuButton @icon='tag' @skin='secondary' {{on 'click' this.openModal}}>
       {{t 'template-management.template-information'}}
     </AuButton>
-    <AuModal @modalOpen={{this.isModalOpen}} @closeModal={{this.onCancel}}>
-      <:title>
-        {{t 'template-management.template-information'}}
-      </:title>
-      <:body>
+    {{#if this.isModalOpen}}
+      <DocumentInformationModal
+        @title={{t 'template-management.template-information'}}
+        @controller={{@controller}}
+        @besluitTypeOptions={{@besluitTypeOptions}}
+        @besluitTargetGroupOptions={{@besluitTargetGroupOptions}}
+        @onSave={{this.onSave}}
+        @onCancel={{this.onCancel}}
+        {{! we never require a decision type for a template }}
+        @requireBesluitType={{false}}
+        as |DIM|
+      >
         <form class='au-c-form'>
-          <AuFormRow>
+          <div>
             <AuLabel for='decision-type'>{{t
                 'template-management.tags.label'
               }}</AuLabel>
@@ -68,15 +87,13 @@ export default class PropertyEditModal extends Component<Args> {
               @allowTagCreation={{true}}
               @tagConstructor={{this.tagManager.createTag}}
             />
-          </AuFormRow>
+          </div>
+          {{#if this.isDecisionTemplate}}
+            <DIM.BesluitType />
+            <DIM.BesluitTargetGroup />
+          {{/if}}
         </form>
-      </:body>
-      <:footer>
-        <AuButton @skin='secondary' {{on 'click' this.onCancel}}>{{t
-            'utility.cancel'
-          }}</AuButton>
-        <AuButton {{on 'click' this.onSave}}>{{t 'utility.save'}}</AuButton>
-      </:footer>
-    </AuModal>
+      </DocumentInformationModal>
+    {{/if}}
   </template>
 }
