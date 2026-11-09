@@ -1,4 +1,4 @@
-/* eslint-disable */ 
+/* eslint-disable */
 // @ts-nocheck ember-changeset is not typed correctly, this causes a lot of problems
 // Since we want to get rid of ember-changeset anyway, we'll not bother fixing this
 import Component from '@glimmer/component';
@@ -28,7 +28,7 @@ import AuHelpText from '@appuniversum/ember-appuniversum/components/au-help-text
 import AuInput from '@appuniversum/ember-appuniversum/components/au-input';
 import AuIcon from '@appuniversum/ember-appuniversum/components/au-icon';
 import AuFormRow from '@appuniversum/ember-appuniversum/components/au-form-row';
-import TagSelector from 'frontend-reglementaire-bijlage/components/tag-selector';
+import TagSelector from '@lblod/ember-rdfa-editor-lblod-plugins/components/common/tags/tag-selector';
 
 import sortableGroup from 'ember-sortable/modifiers/sortable-group';
 import sortableItem from 'ember-sortable/modifiers/sortable-item';
@@ -46,6 +46,7 @@ import type Tag from 'frontend-reglementaire-bijlage/models/tag';
 import { getPromiseState } from 'reactiveweb/get-promise-state';
 import AdministrativeUnitModel from 'frontend-reglementaire-bijlage/models/administrative-unit';
 import SkosConcept from 'frontend-reglementaire-bijlage/models/skos-concept';
+import type TagManager from 'frontend-reglementaire-bijlage/services/tag-manager';
 
 const MAX_CODELIST_OPTIONS = 20;
 
@@ -58,6 +59,7 @@ export default class CodelistFormComponent extends Component<Arguments> {
   @service declare store: Store;
   @service declare currentSession: CurrentSessionService;
   @service declare intl: IntlService;
+  @service declare tagManager: TagManager;
 
   @tracked changeset: BufferedChangeset = Changeset(
     this.args.codelist,
@@ -263,7 +265,7 @@ export default class CodelistFormComponent extends Component<Arguments> {
   };
 
   get tags() {
-    // @ts-expect-error current ember-changeset typing does not know which type of thing it is tracking 
+    // @ts-expect-error current ember-changeset typing does not know which type of thing it is tracking
     const changesetTags = getPromiseState(this.changeset?.['tags'].promise);
     return (changesetTags.resolved ?? this.changeset['tags']) as Tag[];
   }
@@ -331,18 +333,21 @@ export default class CodelistFormComponent extends Component<Arguments> {
                 </AuHelpText>
               {{/if}}
             </AuFormRow>
-            <AuFormRow>
-              <AuLabel for='tags'>
-                {{t 'template-management.tags.label'}}
-              </AuLabel>
-              <div class='au-u-flex au-u-flex--vertical-center'>
-                <TagSelector
-                  @onChange={{this.changeTags}}
-                  @selectedTags={{this.tags}}
-                  @allowCreate={{true}}
-                />
-              </div>
-            </AuFormRow>
+            {{#if this.tagManager.tags.value}}
+              <AuFormRow>
+                <AuLabel for='tags'>
+                  {{t 'template-management.tags.label'}}
+                </AuLabel>
+                <div class='au-u-flex au-u-flex--vertical-center'>
+                  <TagSelector
+                    @tags={{this.tagManager.tags.value}}
+                    @onChange={{this.changeTags}}
+                    @selectedTags={{this.tags}}
+                    @allowCreate={{true}}
+                  />
+                </div>
+              </AuFormRow>
+            {{/if}}
           </div>
         {{/let}}
       </div>

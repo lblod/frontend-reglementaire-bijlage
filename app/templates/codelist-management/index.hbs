@@ -93,9 +93,9 @@
           </td>
           <td>
             {{#if this.isReadMode}}
-              <CollapsibleTagList @tags={{codelist.tags}} />
+              <Common::Tags::CollapsibleTagList @tags={{codelist.tags}} />
             {{else}}
-              <TagSelector
+              <Common::Tags::TagSelector
                 @onChange={{fn this.changeTagsFor codelist}}
                 @selectedTags={{codelist.tags}}
                 @allowCreate={{true}}
