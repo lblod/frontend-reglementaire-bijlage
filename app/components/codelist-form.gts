@@ -342,7 +342,8 @@ export default class CodelistFormComponent extends Component<Arguments> {
                   @tags={{this.tagManager.tags}}
                   @onChange={{this.changeTags}}
                   @selectedTags={{this.tags}}
-                  @allowCreate={{true}}
+                  @allowTagCreation={{true}}
+                  @tagConstructor={{this.tagManager.createTag}}
                 />
               </div>
             </AuFormRow>

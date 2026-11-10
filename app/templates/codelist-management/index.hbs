@@ -101,7 +101,8 @@
                 @tags={{this.tagManager.tags}}
                 @onChange={{fn this.changeTagsFor codelist}}
                 @selectedTags={{codelist.tags}}
-                @allowCreate={{true}}
+                @allowTagCreation={{true}}
+                @tagConstructor={{this.tagManager.createTag}}
                 @tagList={{this.tagList}}
               />
             {{/if}}
