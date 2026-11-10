@@ -8,7 +8,6 @@ import type CodeListModel from 'frontend-reglementaire-bijlage/models/code-list'
 import type RouterService from '@ember/routing/router-service';
 import type Store from '@ember-data/store';
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
-import { setTags } from 'frontend-reglementaire-bijlage/api/document-container';
 import type TagManager from 'frontend-reglementaire-bijlage/services/tag-manager';
 
 const LABEL_SEARCH_DEBOUNCE_TIME = 300;
@@ -80,7 +79,7 @@ export default class CodelistManagementIndexController extends Controller {
   });
 
   changeTagsFor = async (codeList: CodeListModel, tags: Tag[]) => {
-    await setTags(codeList, tags);
+    await this.tagManager.setTags(codeList, tags);
   };
 
   get tagList() {
