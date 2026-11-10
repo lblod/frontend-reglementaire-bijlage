@@ -9,7 +9,6 @@ import type Router from 'frontend-reglementaire-bijlage/router';
 import type CurrentSessionService from 'frontend-reglementaire-bijlage/services/current-session';
 import SnippetList from 'frontend-reglementaire-bijlage/models/snippet-list';
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
-import { setTags } from 'frontend-reglementaire-bijlage/api/document-container';
 import type { ModelFrom } from 'frontend-reglementaire-bijlage/utils/type-utils';
 import type SnippetManagementIndexRoute from 'frontend-reglementaire-bijlage/routes/snippet-management/index';
 import type TagManager from 'frontend-reglementaire-bijlage/services/tag-manager';
@@ -137,7 +136,7 @@ export default class SnippetManagementIndexController extends Controller {
   }
 
   changeTagsFor = async (snippetList: SnippetList, tags: Tag[]) => {
-    await setTags(snippetList, tags);
+    await this.tagManager.setTags(snippetList, tags);
   };
 
   @action

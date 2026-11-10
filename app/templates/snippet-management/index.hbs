@@ -113,15 +113,13 @@
                   <Common::Tags::CollapsibleTagList @tags={{sort-tags tags}} />
                 {{/if}}
               {{else}}
-                {{#if this.tagManager.tags.value}}
-                  <Common::Tags::TagSelector
-                    @tags={{this.tagManager.tags.value}}
-                    @selectedTags={{tags}}
-                    @onChange={{fn this.changeTagsFor snippetList}}
-                    @allowTagCreation={{true}}
-                    @tagConstructor={{this.tagManager.createTag}}
-                  />
-                {{/if}}
+                <Common::Tags::TagSelector
+                  @tags={{this.tagManager.tags}}
+                  @selectedTags={{tags}}
+                  @onChange={{fn this.changeTagsFor snippetList}}
+                  @allowTagCreation={{true}}
+                  @tagConstructor={{this.tagManager.createTag}}
+                />
               {{/if}}
             {{/let}}
           </td>

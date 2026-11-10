@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
 import { task } from 'ember-concurrency';
-import TemplateTagEditModal from 'frontend-reglementaire-bijlage/components/template-tag-edit-modal'
+import TemplateTagEditModal from 'frontend-reglementaire-bijlage/components/template-tag-edit-modal';
 import type Router from 'frontend-reglementaire-bijlage/router';
 import { service } from '@ember/service';
 

@@ -76,6 +76,7 @@
             @currentSorting={{this.sort}}
             @label={{t "template-management.title"}}
           />
+          <th>{{t "template-management.template-status"}}</th>
           <th>{{t "template-management.template-type.label"}}</th>
           <AuDataTableThSortable
             @field="currentVersion.createdOn"
@@ -110,28 +111,11 @@
             >
               {{documentContainer.currentVersion.title}}
             </LinkTo>
-            {{#let
-              (await (this.lastPublicationDate documentContainer))
-              as |lastPublicationDate|
-            }}
-              {{#if lastPublicationDate}}
-                <AuTooltip as |tooltip|>
-                  <AuPill @skin="success" {{tooltip.target}}>
-                    {{t "template-management.available"}}
-                  </AuPill>
-                  <tooltip.Content>
-                    {{t "template-management.published-on"}}
-                    {{#if lastPublicationDate.validThrough}}
-                      <del
-                        datetime={{lastPublicationDate.validThrough}}
-                      >{{detailed-date lastPublicationDate.created}}</del>
-                    {{else}}
-                      {{detailed-date lastPublicationDate.created}}
-                    {{/if}}
-                  </tooltip.Content>
-                </AuTooltip>
-              {{/if}}
-            {{/let}}
+          </td>
+          <td>
+            <this.PublicationStatus
+              @validity={{await (this.publishedTemplate documentContainer)}}
+            />
           </td>
           <td class="au-u-word-nowrap">
             {{await (this.getTemplateTypeLabel documentContainer)}}
@@ -149,15 +133,13 @@
                   <Common::Tags::CollapsibleTagList @tags={{sort-tags tags}} />
                 {{/if}}
               {{else}}
-                {{#if this.tagManager.tags.value}}
-                  <Common::Tags::TagSelector
-                    @tags={{this.tagManager.tags.value}}
-                    @selectedTags={{tags}}
-                    @onChange={{fn this.changeTagsFor documentContainer}}
-                    @allowTagCreation={{true}}
-                    @tagConstructor={{this.tagManager.createTag}}
-                  />
-                {{/if}}
+                <Common::Tags::TagSelector
+                  @tags={{this.tagManager.tags}}
+                  @selectedTags={{tags}}
+                  @onChange={{fn this.changeTagsFor documentContainer}}
+                  @allowTagCreation={{true}}
+                  @tagConstructor={{this.tagManager.createTag}}
+                />
               {{/if}}
             {{/let}}
           </td>
@@ -216,20 +198,18 @@
           {{templateType.label}}
         </PowerSelect>
       </AuFormRow>
-      {{#if this.tagManager.tags.value}}
-        <AuFormRow>
-          <AuLabel for="template-type">
-            {{t "template-management.tags.label"}}
-          </AuLabel>
-          <Common::Tags::TagSelector
-            @tags={{this.tagManager.tags.value}}
-            @selectedTags={{this.tagsToCreate}}
-            @onChange={{this.updateTemplateTags}}
-            @allowTagCreation={{true}}
-            @tagConstructor={{this.tagManager.createTag}}
-          />
-        </AuFormRow>
-      {{/if}}
+      <AuFormRow>
+        <AuLabel for="template-type">
+          {{t "template-management.tags.label"}}
+        </AuLabel>
+        <Common::Tags::TagSelector
+          @tags={{this.tagManager.tags}}
+          @selectedTags={{this.tagsToCreate}}
+          @onChange={{this.updateTemplateTags}}
+          @allowTagCreation={{true}}
+          @tagConstructor={{this.tagManager.createTag}}
+        />
+      </AuFormRow>
     </form>
   </Modal.Body>
   <Modal.Footer>

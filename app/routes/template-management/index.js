@@ -49,21 +49,17 @@ export default class TemplateManagementIndexRoute extends Route {
       options['filter[tags][:id:]'] = params.templateTags.join(',');
     }
 
-    const [documentContainer, selectedTags, allTags] = await Promise.all([
+    const [documentContainer, selectedTags] = await Promise.all([
       this.store.query('document-container', options),
       Promise.all(
-        params.templateTags?.map((id) =>
-          this.store.findRecord('tag', id),
-        ) ?? [],
+        params.templateTags?.map((id) => this.store.findRecord('tag', id)) ??
+          [],
       ),
-      this.store.countAndFetchAll('tag', {}),
     ]);
 
     return {
       documentContainer,
       selectedTags,
-      // make sure to preload all tags into the ED store
-      allTags,
     };
   }
 
