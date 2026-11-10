@@ -146,3 +146,8 @@
     display: block;
   }
 }
+
+// Ensure that the 'input' child is constrainted to a width of 100% of its parent, otherwise it causes horizontal overflow
+.ember-power-select-trigger-multiple-input {
+  width: 100%;
+}

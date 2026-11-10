@@ -96,13 +96,16 @@ template-management:
   title: Titel
   created-on: Aangemaakt op
   updated-on: Bijgewerkt op
+  retracted-on: Ingetrokken op
   not-found: n.v.t.
   publish-date: Beschikbaar gemaakt op
   not-published: Niet uitgegeven
   available: Beschikbaar
+  retracted: Ingetrokken
   available-until: Beschikbaar tot {date}
   published-on: Beschikbaar sinds
   edit-mode: Bewerkmodus
+  template-status: Status
   read-mode: Leesmodus
   template-information: Sjablooninformatie
   template-type:
@@ -132,7 +135,7 @@ template-management:
 template-edit:
   edit: Wijzig sjabloon
   return: Terug naar sjablonenoverzicht
-  save: 
+  save:
     pending: Bezig met opslaan
     error:
       title: Opslaan mislukt
@@ -171,7 +174,7 @@ static-page:
   cookie-policy: Cookieverklaring
   accesibility-statement: Toegankelijkheidsverklaring
 snippets:
-  filters: 
+  filters:
     label: Label
   manage-snippet-lists:
     title: Beheer fragmentlijsten
@@ -250,6 +253,9 @@ tag-management:
   edit:
     title: Tag bewerken
   create-new-tag: Maak nieuwe tag "{tagName}" aan
+  error-loading-tags:
+    title: Laden van tags mislukt
+    body: Er is een probleem opgetreden bij het laden van tags
 
 editor-document-title:
   placeholder: Naamloos document

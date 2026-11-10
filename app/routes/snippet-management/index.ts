@@ -62,7 +62,6 @@ export default class SnippetManagementIndexRoute extends Route {
     return {
       snippetLists,
       selectedTags,
-      allTags,
     };
   }
 
