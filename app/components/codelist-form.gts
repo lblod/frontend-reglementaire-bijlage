@@ -333,21 +333,19 @@ export default class CodelistFormComponent extends Component<Arguments> {
                 </AuHelpText>
               {{/if}}
             </AuFormRow>
-            {{#if this.tagManager.tags.value}}
-              <AuFormRow>
-                <AuLabel for='tags'>
-                  {{t 'template-management.tags.label'}}
-                </AuLabel>
-                <div class='au-u-flex au-u-flex--vertical-center'>
-                  <TagSelector
-                    @tags={{this.tagManager.tags.value}}
-                    @onChange={{this.changeTags}}
-                    @selectedTags={{this.tags}}
-                    @allowCreate={{true}}
-                  />
-                </div>
-              </AuFormRow>
-            {{/if}}
+            <AuFormRow>
+              <AuLabel for='tags'>
+                {{t 'template-management.tags.label'}}
+              </AuLabel>
+              <div class='au-u-flex au-u-flex--vertical-center'>
+                <TagSelector
+                  @tags={{this.tagManager.tags}}
+                  @onChange={{this.changeTags}}
+                  @selectedTags={{this.tags}}
+                  @allowCreate={{true}}
+                />
+              </div>
+            </AuFormRow>
           </div>
         {{/let}}
       </div>

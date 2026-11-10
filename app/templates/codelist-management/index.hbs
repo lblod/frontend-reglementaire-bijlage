@@ -97,15 +97,13 @@
             {{#if this.isReadMode}}
               <Common::Tags::CollapsibleTagList @tags={{codelist.tags}} />
             {{else}}
-              {{#if this.tagManager.tags.value}}
-                <Common::Tags::TagSelector
-                  @tags={{this.tagManager.tags.value}}
-                  @onChange={{fn this.changeTagsFor codelist}}
-                  @selectedTags={{codelist.tags}}
-                  @allowCreate={{true}}
-                  @tagList={{this.tagList}}
-                />
-              {{/if}}
+              <Common::Tags::TagSelector
+                @tags={{this.tagManager.tags}}
+                @onChange={{fn this.changeTagsFor codelist}}
+                @selectedTags={{codelist.tags}}
+                @allowCreate={{true}}
+                @tagList={{this.tagList}}
+              />
             {{/if}}
           </td>
           <td>
