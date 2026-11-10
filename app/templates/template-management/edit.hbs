@@ -32,12 +32,16 @@
           @config={{this.config.snippet}}
         />
       {{/if}}
-      <TemplateManagement::PropertyEditModal
-        @templateType={{@model.templateType}}
-        @templateTags={{@model.templateTags}}
-        @onChange={{this.changeSelectedTags}}
-        @onSave={{this.saveTags}}
-      />
+      {{#if this.editor}}
+        <TemplateManagement::TemplateInformationModal
+          @controller={{this.editor}}
+          @templateType={{this.internalTypeName}}
+          @templateTags={{@model.templateTags}}
+          @besluitTypeOptions={{this.config.decisionType}} 
+          @besluitTargetGroupOptions={{this.config.decisionTargetGroup}}
+          @onSave={{this.onTemplateInformationModalSave}}
+        />
+      {{/if}}
     </:leadingButtons>
   </AppChrome>
   <RdfaEditorContainer
@@ -192,16 +196,6 @@
               @controller={{container.controller}}
             />
           </div>
-          {{#if (eq this.internalTypeName "decision")}}
-            <div class="au-u-margin-right-small">
-              <BesluitTypePlugin::ToolbarDropdown
-                @controller={{container.controller}}
-                @classificatieUri={{this.config.classificatieUri}}
-                @options={{this.config.decisionType}}
-                @allowForDraftTypes={{true}}
-              />
-            </div>
-          {{/if}}
           <Tb.Group>
             <Toolbar::Dropdown
               @icon={{this.ThreeDotsIcon}}
