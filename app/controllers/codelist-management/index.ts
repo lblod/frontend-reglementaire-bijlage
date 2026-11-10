@@ -9,12 +9,14 @@ import type RouterService from '@ember/routing/router-service';
 import type Store from '@ember-data/store';
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
 import { setTags } from 'frontend-reglementaire-bijlage/api/document-container';
+import type TagManager from 'frontend-reglementaire-bijlage/services/tag-manager';
 
 const LABEL_SEARCH_DEBOUNCE_TIME = 300;
 
 export default class CodelistManagementIndexController extends Controller {
   @service declare router: RouterService;
   @service declare store: Store;
+  @service declare tagManager: TagManager;
 
   queryParams = ['page', 'size', 'label', 'sort', 'tags'];
   @tracked page = 0;

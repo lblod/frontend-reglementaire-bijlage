@@ -68,7 +68,9 @@
             @currentSorting={{this.sort}}
             @label={{t "codelist.attr.created-on"}}
           />
-          <th class="snippet-management__tags-cell">{{t "codelist.attr.tags"}}</th>
+          <th class="snippet-management__tags-cell">{{t
+              "codelist.attr.tags"
+            }}</th>
           <th></th>
         </c.header>
         <c.body as |codelist|>
@@ -95,12 +97,15 @@
             {{#if this.isReadMode}}
               <Common::Tags::CollapsibleTagList @tags={{codelist.tags}} />
             {{else}}
-              <Common::Tags::TagSelector
-                @onChange={{fn this.changeTagsFor codelist}}
-                @selectedTags={{codelist.tags}}
-                @allowCreate={{true}}
-                @tagList={{this.tagList}}
-              />
+              {{#if this.tagManager.tags.value}}
+                <Common::Tags::TagSelector
+                  @tags={{this.tagManager.tags.value}}
+                  @onChange={{fn this.changeTagsFor codelist}}
+                  @selectedTags={{codelist.tags}}
+                  @allowCreate={{true}}
+                  @tagList={{this.tagList}}
+                />
+              {{/if}}
             {{/if}}
           </td>
           <td>

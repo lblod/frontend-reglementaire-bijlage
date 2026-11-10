@@ -144,19 +144,21 @@
             }}</td>
           <td>
             {{#let (await documentContainer.tags) as |tags|}}
-            {{#if this.isReadMode}}
-              {{#if tags}}
-                <Common::Tags::CollapsibleTagList @tags={{sort-tags tags}} />
+              {{#if this.isReadMode}}
+                {{#if tags}}
+                  <Common::Tags::CollapsibleTagList @tags={{sort-tags tags}} />
+                {{/if}}
+              {{else}}
+                {{#if this.tagManager.tags.value}}
+                  <Common::Tags::TagSelector
+                    @tags={{this.tagManager.tags.value}}
+                    @selectedTags={{tags}}
+                    @onChange={{fn this.changeTagsFor documentContainer}}
+                    @allowTagCreation={{true}}
+                    @tagConstructor={{this.tagManager.createTag}}
+                  />
+                {{/if}}
               {{/if}}
-            {{else}}
-              <Common::Tags::TagSelector
-                @tags={{this.tagManager.tags.value}}
-                @selectedTags={{tags}}
-                @onChange={{fn this.changeTagsFor documentContainer}}
-                @allowTagCreation={{true}}
-                @tagConstructor={{this.tagManager.createTag}}
-              />
-            {{/if}}
             {{/let}}
           </td>
           <td class="au-u-padding-none">
@@ -214,18 +216,20 @@
           {{templateType.label}}
         </PowerSelect>
       </AuFormRow>
-      <AuFormRow>
-        <AuLabel for="template-type">
-          {{t "template-management.tags.label"}}
-        </AuLabel>
-        <Common::Tags::TagSelector
-          @tags={{this.tagManager.tags.value}}
-          @selectedTags={{this.tagsToCreate}}
-          @onChange={{this.updateTemplateTags}}
-          @allowTagCreation={{true}}
-          @tagConstructor={{this.tagManager.createTag}}
-        />
-      </AuFormRow>
+      {{#if this.tagManager.tags.value}}
+        <AuFormRow>
+          <AuLabel for="template-type">
+            {{t "template-management.tags.label"}}
+          </AuLabel>
+          <Common::Tags::TagSelector
+            @tags={{this.tagManager.tags.value}}
+            @selectedTags={{this.tagsToCreate}}
+            @onChange={{this.updateTemplateTags}}
+            @allowTagCreation={{true}}
+            @tagConstructor={{this.tagManager.createTag}}
+          />
+        </AuFormRow>
+      {{/if}}
     </form>
   </Modal.Body>
   <Modal.Footer>
