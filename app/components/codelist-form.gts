@@ -305,7 +305,7 @@ export default class CodelistFormComponent extends Component<Arguments> {
       class='au-c-body-container au-c-body-container--scroll au-o-flow--large'
       {{didInsert this.didInsert}}
     >
-      <div class='au-u-1-2@small au-u-1-1'>
+      <div class='au-u-1-1'>
         {{#let this.changeset.error.label as |isInvalid|}}
           <div
             class='snippet-management-edit__properties-form au-o-box au-u-padding-bottom-none'
