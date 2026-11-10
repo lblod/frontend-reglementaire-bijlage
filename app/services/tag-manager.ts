@@ -52,7 +52,7 @@ export default class TagManager extends Service {
 
   async setTags(taggedThing: DocumentContainer | SnippetList, tags: Tag[]) {
     await this.saveTags(tags);
-    taggedThing.tags = tags;
+    taggedThing.set('tags', tags);
     await taggedThing.save();
   }
 }
