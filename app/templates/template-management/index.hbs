@@ -34,6 +34,16 @@
               </AuHeading>
             </Group>
             <Group>
+              {{#unless this.isReadOnly}}
+                {{#if (gt this.selectedTemplates.size 0)}}
+                  <AuButton
+                    {{on "click" this.showBulkEditModal}}
+                    @skin="secondary"
+                    @icon="pencil"
+                    @disabled={{this.saveBulkEdit.isRunning}}
+                  >{{t "template-management.bulk-edit"}}</AuButton>
+                {{/if}}
+              {{/unless}}
               <TemplateExporter @templateUris={{this.selectedTemplates}} />
               <TemplateImporter @onSuccess={{this.refresh}} />
               {{#unless this.readOnly}}
@@ -54,13 +64,6 @@
                     @skin="secondary"
                     @icon="pencil"
                   >{{t "template-management.read-mode"}}</AuButton>
-                {{/if}}
-                {{#if (gt this.selectedTemplates.size 0)}}
-                  <AuButton
-                    {{on "click" this.showBulkEditModal}}
-                    @skin="secondary"
-                    @icon="pencil"
-                  >{{t "template-management.bulk-edit"}}</AuButton>
                 {{/if}}
               {{/unless}}
             </Group>
@@ -244,5 +247,8 @@
   @onCancel={{this.cancelRemoveTemplate}}
 />
 {{#if this.bulkEditModalIsOpen}}
-  <BulkEditTagsModal />
+  <BulkEditTagsModal
+    @onClose={{this.closeBulkEditModal}}
+    @onSave={{this.saveBulkEdit.perform}}
+  />
 {{/if}}

@@ -258,6 +258,8 @@ tag-management:
   error-loading-tags:
     title: Laden van tags mislukt
     body: Er is een probleem opgetreden bij het laden van tags
+  add-tags: Tags toevoegen
+  remove-tags: Tags verwijderen
 
 editor-document-title:
   placeholder: Naamloos document

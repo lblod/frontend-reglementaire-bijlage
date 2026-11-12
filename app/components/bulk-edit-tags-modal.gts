@@ -1,23 +1,52 @@
-import AuModal from "@appuniversum/ember-appuniversum/components/au-modal"
-import AuFormRow from "@appuniversum/ember-appuniversum/components/au-form-row"
-import AuLabel from "@appuniversum/ember-appuniversum/components/au-label"
-import AuButtonGroup from "@appuniversum/ember-appuniversum/components/au-button-group"
-import AuButton from "@appuniversum/ember-appuniversum/components/au-button"
+import AuModal from '@appuniversum/ember-appuniversum/components/au-modal';
+import AuFormRow from '@appuniversum/ember-appuniversum/components/au-form-row';
+import AuLabel from '@appuniversum/ember-appuniversum/components/au-label';
+import AuButtonGroup from '@appuniversum/ember-appuniversum/components/au-button-group';
+import AuButton from '@appuniversum/ember-appuniversum/components/au-button';
 import t from 'ember-intl/helpers/t';
 import { on } from '@ember/modifier';
-import TagSelector from "@lblod/ember-rdfa-editor-lblod-plugins/components/common/tags/tag-selector"
-import { service } from "@ember/service"
-import type TagManager from "frontend-reglementaire-bijlage/services/tag-manager"
-import Component from "@glimmer/component"
+import TagSelector from '@lblod/ember-rdfa-editor-lblod-plugins/components/common/tags/tag-selector';
+import { service } from '@ember/service';
+import type TagManager from 'frontend-reglementaire-bijlage/services/tag-manager';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import type Tag from 'frontend-reglementaire-bijlage/models/tag';
 
-export default class BulkEditTagsModal extends Component {
+type Args = {
+  onSave: (changes: { add: Tag[]; remove: Tag[] }) => void;
+  onClose: () => void;
+};
+
+export default class BulkEditTagsModal extends Component<Args> {
   @service declare tagManager: TagManager;
+
+  @tracked tagsToRemove: Tag[] = [];
+  @tracked tagsToAdd: Tag[] = [];
+
+  saveChanges = () => {
+    return this.args?.onSave({
+      add: this.tagsToAdd,
+      remove: this.tagsToRemove,
+    });
+  };
+
+  setTagsToAdd = (tags: Tag[]) => {
+    this.tagsToAdd = tags;
+  };
+
+  setTagsToRemove = (tags: Tag[]) => {
+    this.tagsToRemove = tags;
+  };
+
+  get saveButtonDisabled() {
+    return this.tagsToAdd.length + this.tagsToRemove.length === 0;
+  }
 
   <template>
     <AuModal
       @title={{t 'template-management.create-modal.title'}}
       @modalOpen={{true}}
-      @closeModal={{this.cancelCreateTemplate}}
+      @closeModal={{@onClose}}
       as |Modal|
     >
       <Modal.Body>
@@ -26,27 +55,29 @@ export default class BulkEditTagsModal extends Component {
           id='bulk-tag-edit-form'
         >
           <AuFormRow>
-            <AuLabel for='template-type'>
-              {{t 'template-management.tags.label'}}
+            <AuLabel for='bulk-tags-to-add'>
+              {{t 'tag-management.add-tags'}}
             </AuLabel>
             <TagSelector
+              id='bulk-tags-to-add'
+              class='au-u-1-1'
               @tags={{this.tagManager.tags}}
-              @selectedTags={{this.tagsToCreate}}
-              @onChange={{this.updateTemplateTags}}
+              @selectedTags={{this.tagsToAdd}}
+              @onChange={{this.setTagsToAdd}}
               @allowTagCreation={{true}}
               @tagConstructor={{this.tagManager.createTag}}
             />
           </AuFormRow>
           <AuFormRow>
-            <AuLabel for='template-type'>
-              {{t 'template-management.tags.label'}}
+            <AuLabel for='bulk-tags-to-remove'>
+              {{t 'tag-management.remove-tags'}}
             </AuLabel>
             <TagSelector
+              id='bulk-tags-to-remove'
+              class='au-u-1-1'
               @tags={{this.tagManager.tags}}
-              @selectedTags={{this.tagsToCreate}}
-              @onChange={{this.updateTemplateTags}}
-              @allowTagCreation={{true}}
-              @tagConstructor={{this.tagManager.createTag}}
+              @selectedTags={{this.tagsToRemove}}
+              @onChange={{this.setTagsToRemove}}
             />
           </AuFormRow>
         </form>
@@ -55,13 +86,12 @@ export default class BulkEditTagsModal extends Component {
         <AuButtonGroup>
           <AuButton
             class='au-c-button'
-            form='create-meeting-form'
-            type='submit'
-            @disabled={{this.isInvalidTemplateTitle}}
+            @disabled={{this.saveButtonDisabled}}
+            {{on 'click' this.saveChanges}}
           >
             {{t 'template-management.create-modal.save'}}
           </AuButton>
-          <AuButton {{on 'click' this.cancelCreateTemplate}} @skin='secondary'>
+          <AuButton {{on 'click' @onClose}} @skin='secondary'>
             {{t 'template-management.create-modal.cancel'}}
           </AuButton>
         </AuButtonGroup>

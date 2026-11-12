@@ -84,6 +84,8 @@ landing-page:
     title: Tag Management
     content: Manage tags that are used in for a template
     button: Go to tag management
+    add-tags: Tags toevoegen
+    remove-tags: Tags verwijderen
 legal:
   accessibility-statement: Accessibility statement
   cookie-statement: Cookie statement
