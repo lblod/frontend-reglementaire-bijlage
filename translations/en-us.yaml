@@ -259,6 +259,10 @@ tag-management:
   error-loading-tags:
     title: Loading tags failed
     body: An error occurred while loading tags
+  add-tags: Add tags
+  remove-tags: Remove tags
+  bulk-edit-title: Bulk edit tags
+  bulk-edit-description: This bulk edit allows to add or remove tags to or from the selected templates.
 
 editor-document-title:
   placeholder: Untitled document

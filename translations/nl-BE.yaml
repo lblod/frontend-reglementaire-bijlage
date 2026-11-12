@@ -260,6 +260,8 @@ tag-management:
     body: Er is een probleem opgetreden bij het laden van tags
   add-tags: Tags toevoegen
   remove-tags: Tags verwijderen
+  bulk-edit-title: Bulkbewerking tags
+  bulk-edit-description: Deze bulkbewerking laat toe om aan de geselecteerde sjablonen dezelfde tags toe te voegen of verwijderen.
 
 editor-document-title:
   placeholder: Naamloos document

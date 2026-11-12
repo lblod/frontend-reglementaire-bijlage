@@ -44,16 +44,16 @@ export default class BulkEditTagsModal extends Component<Args> {
 
   <template>
     <AuModal
-      @title={{t 'template-management.create-modal.title'}}
+      @title={{t 'tag-management.bulk-edit-title'}}
       @modalOpen={{true}}
       @closeModal={{@onClose}}
       as |Modal|
     >
       <Modal.Body>
-        <form
-          class='au-c-form'
-          id='bulk-tag-edit-form'
-        >
+        <form class='au-c-form' id='bulk-tag-edit-form'>
+          <AuFormRow>
+            {{t 'tag-management.bulk-edit-description'}}
+          </AuFormRow>
           <AuFormRow>
             <AuLabel for='bulk-tags-to-add'>
               {{t 'tag-management.add-tags'}}
