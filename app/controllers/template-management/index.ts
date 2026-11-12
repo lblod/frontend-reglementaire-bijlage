@@ -54,14 +54,16 @@ export default class TemplateManagementIndexController extends Controller {
   @tracked documentContainer: DocumentContainerModel | null = null;
   @tracked templateTypeToCreate = this.allTemplateTypes[0] ?? null;
   @tracked tagsToCreate: Tag[] = [];
-  @tracked createTemplateModalIsOpen: boolean = false;
-  @tracked removeTemplateModalIsOpen: boolean = false;
   @tracked selectedTemplates = tracked(Set);
   @tracked lastCheckedTemplateUri: string | null = null;
 
   @tracked templateTypes: TemplateType[] = [];
   @tracked templateTags: string[] = [];
   @tracked isReadMode = true;
+
+  @tracked createTemplateModalIsOpen = false;
+  @tracked removeTemplateModalIsOpen = false;
+  @tracked bulkEditModalIsOpen = false;
 
   changeFilterTemplateTypes = (newTemplateTypes: TemplateType[]) => {
     this.templateTypes = newTemplateTypes;
@@ -98,14 +100,16 @@ export default class TemplateManagementIndexController extends Controller {
     this.resetPagination();
   };
 
-  @action
-  updateTemplateType(templateType: TemplateType) {
+  updateTemplateType = (templateType: TemplateType) => {
     this.templateTypeToCreate = templateType;
-  }
+  };
 
-  @action
-  updateTemplateTags(newTags: Tag[]) {
+  updateTemplateTags = (newTags: Tag[]) => {
     this.tagsToCreate = newTags;
+  };
+
+  showBulkEditModal = () => {
+    this.bulkEditModalIsOpen = true;
   }
 
   getTemplateTypeLabel = async (documentContainer: DocumentContainerModel) => {
@@ -159,8 +163,7 @@ export default class TemplateManagementIndexController extends Controller {
     }
   };
 
-  @action
-  startCreateTemplateFlow() {
+  startCreateTemplateFlow = () => {
     const documentContainer = this.store.createRecord<DocumentContainerModel>(
       'document-container',
       {},
@@ -178,16 +181,15 @@ export default class TemplateManagementIndexController extends Controller {
     this.documentContainer = documentContainer;
 
     this.createTemplateModalIsOpen = true;
-  }
+  };
 
-  @action
-  cancelCreateTemplate() {
+  cancelCreateTemplate = () => {
     this.editorDocument = null;
     this.documentContainer = null;
     this.folder = this.allTemplateTypes[0] ?? null;
     this.createTemplateModalIsOpen = false;
     this.tagsToCreate = [];
-  }
+  };
 
   get isInvalidTemplateTitle() {
     return isBlank(this.editorDocument?.title);
@@ -231,19 +233,16 @@ export default class TemplateManagementIndexController extends Controller {
     );
   });
 
-  @action
-  startRemoveTemplateFlow(documentContainer: DocumentContainerModel) {
+  startRemoveTemplateFlow = (documentContainer: DocumentContainerModel) => {
     this.removeTemplateModalIsOpen = true;
     this.documentContainer = documentContainer;
-  }
+  };
 
-  @action
-  closeRemoveTemplateModal() {
+  closeRemoveTemplateModal = () => {
     this.removeTemplateModalIsOpen = false;
   }
 
-  @action
-  cancelRemoveTemplate() {
+  cancelRemoveTemplate = () => {
     this.editorDocument = null;
   }
 
@@ -275,8 +274,7 @@ export default class TemplateManagementIndexController extends Controller {
     this.refresh?.();
   });
 
-  @action
-  logout() {
+  logout = () => {
     this.session.invalidate();
   }
 
@@ -297,8 +295,7 @@ export default class TemplateManagementIndexController extends Controller {
     this.isReadMode = true;
   }
 
-  @action
-  handleTitleUpdate(event: InputEvent) {
+  handleTitleUpdate = (event: InputEvent) => {
     if (!this.editorDocument) return;
     this.editorDocument.title = (event.target as HTMLInputElement).value;
   }
@@ -307,8 +304,7 @@ export default class TemplateManagementIndexController extends Controller {
     return this.selectedTemplates.has(uri);
   };
 
-  @action
-  onTemplateSelectionChange(event: KeyboardEvent) {
+  onTemplateSelectionChange = (event: MouseEvent) => {
     const target = event.target as HTMLInputElement;
     const value = target.value;
     if (target.checked) {
@@ -339,8 +335,7 @@ export default class TemplateManagementIndexController extends Controller {
     return this.selectedTemplates.size > 0;
   }
 
-  @action
-  onSelectAllChange(event: Event) {
+  onSelectAllChange = (event: Event) => {
     if ((event.target as HTMLInputElement).checked) {
       const documentContainers = [...this.model.documentContainer];
       this.selectedTemplates = tracked(

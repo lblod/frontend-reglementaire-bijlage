@@ -108,6 +108,7 @@ template-management:
   edit-mode: Bewerkmodus
   template-status: Status
   read-mode: Leesmodus
+  bulk-edit: Bulk Bewerken
   template-information: Sjablooninformatie
   template-type:
     label: Sjabloontype

@@ -107,6 +107,7 @@ template-management:
   edit-mode: Edit mode
   template-status: Status
   read-mode: Read mode
+  bulk-edit: Bulk Edit
   template-type:
     label: Template type
     decision: Decision

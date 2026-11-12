@@ -55,6 +55,13 @@
                     @icon="pencil"
                   >{{t "template-management.read-mode"}}</AuButton>
                 {{/if}}
+                {{#if (gt this.selectedTemplates.size 0)}}
+                  <AuButton
+                    {{on "click" this.showBulkEditModal}}
+                    @skin="secondary"
+                    @icon="pencil"
+                  >{{t "template-management.bulk-edit"}}</AuButton>
+                {{/if}}
               {{/unless}}
             </Group>
           </AuToolbar>
@@ -236,3 +243,6 @@
   @onConfirm={{perform this.submitRemoveTemplate}}
   @onCancel={{this.cancelRemoveTemplate}}
 />
+{{#if this.bulkEditModalIsOpen}}
+  <BulkEditTagsModal />
+{{/if}}
