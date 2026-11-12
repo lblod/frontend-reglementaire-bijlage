@@ -436,6 +436,9 @@ export default class TemplateManagementEditController extends Controller {
         endpoint: 'https://centrale-vindplaats.lblod.info/sparql',
         classificatieUri: GEMEENTE_CLASSIFICATION_URI,
       },
+      decisionTargetGroup: {
+        endpoint: 'https://centrale-vindplaats.lblod.info/sparql',
+      },
       lmb: {
         endpoint: '/vendor-proxy/query',
       },
@@ -870,9 +873,10 @@ export default class TemplateManagementEditController extends Controller {
     }
   }
 
-  saveTags = async (templateTags?: Tag[]) => {
+  onTemplateInformationModalSave = async (templateTags?: Tag[]) => {
     if (templateTags && this.documentContainer) {
       await this.tagManager.setTags(this.documentContainer, templateTags);
     }
+    await this.save.perform();
   };
 }
