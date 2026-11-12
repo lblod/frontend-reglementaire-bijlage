@@ -1,6 +1,10 @@
 import { Changeset } from 'ember-changeset';
+import { type BufferedChangeset } from 'ember-changeset/types';
 import { tracked } from '@glimmer/tracking';
-import lookupValidator from 'ember-changeset-validations';
+import lookupValidator, {
+  type ValidatorMap,
+} from 'ember-changeset-validations';
+import type Model from '@ember-data/model';
 
 /**
  * ### Usage
@@ -9,8 +13,12 @@ import lookupValidator from 'ember-changeset-validations';
  * NOTE: - the passed list of records should not contain new records (record.isNew == true).
  *         Use `new` instead, which also sets the parent for you.
  */
-export default function changesetList(records, validation, [key, parent]) {
-  return new ChangesetList(records, validation, [key, parent]);
+export default function changesetList<T extends Model, K extends keyof T>(
+  records: T[],
+  validation: ValidatorMap,
+  [key, parent]: [K, T[K]],
+) {
+  return new ChangesetList<T, K>(records, validation, [key, parent]);
 }
 
 /**
@@ -25,16 +33,20 @@ export default function changesetList(records, validation, [key, parent]) {
  *   Afterwards only adding new records (via `new`) and `remove`ing records is allowed. No exisiting records can be added.
  * - Changing a passed record (instead of the changeset) might create unspecified behaviour.
  */
-class ChangesetList {
-  @tracked _originalRecords = [];
-  @tracked _records = [];
-  @tracked _changesets = [];
-  @tracked _toDelete = [];
-  validation;
-  parentKey;
-  parentRecord;
+export class ChangesetList<T extends Model, K extends keyof T> {
+  @tracked _originalRecords: T[] = [];
+  @tracked _records: T[] = [];
+  @tracked _changesets: BufferedChangeset[] = [];
+  @tracked _toDelete: T[] = [];
+  validation: ValidatorMap;
+  parentKey: keyof T;
+  parentRecord: T[K];
 
-  constructor(records, validation, [parentKey, parentRecord]) {
+  constructor(
+    records: T[],
+    validation: ValidatorMap,
+    [parentKey, parentRecord]: [K, T[K]],
+  ) {
     this._originalRecords = records;
     this.validation = validation;
     this._initialize();
@@ -50,7 +62,7 @@ class ChangesetList {
     return this._changesets.length;
   }
 
-  createChangeset(record) {
+  createChangeset(record: T) {
     return Changeset(record, lookupValidator(this.validation), this.validation);
   }
 
@@ -86,16 +98,18 @@ class ChangesetList {
    * add a new record to the changeset list. ChangesetList will handle cleanup of this record.
    * @param {Record} newRecord
    */
-  new(newRecord) {
+  new(newRecord: T) {
     newRecord[this.parentKey] = this.parentRecord;
     this._records = [...this._records, newRecord];
-    let changeset = this.createChangeset(newRecord);
+    const changeset = this.createChangeset(newRecord);
     this._changesets = [...this._changesets, changeset];
   }
 
-  remove(changeset) {
+  remove(changeset: BufferedChangeset) {
     const index = this._changesets.findIndex((ch) => ch === changeset);
     const record = this._records[index];
+    if (!record) return;
+
     if (record.isNew) {
       record.rollbackAttributes();
     } else {

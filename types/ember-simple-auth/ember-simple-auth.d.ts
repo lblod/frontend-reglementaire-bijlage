@@ -4,5 +4,6 @@ declare module 'ember-simple-auth/services/session' {
     handleAuthentication(routeAfterAuthentication: string);
     handleInvalidation(routeAfterInvalidation: string);
     requireAuthentication(transition: Transition, routeName: string);
+    invalidate(...args: unknown[])
   }
 }

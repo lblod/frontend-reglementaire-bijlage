@@ -3,6 +3,7 @@ import { service } from '@ember/service';
 import Service from '@ember/service';
 import type { NewTag } from '@lblod/ember-rdfa-editor-lblod-plugins/components/common/tags/tag-selector';
 import type IntlService from 'ember-intl/services/intl';
+import type CodeListModel from 'frontend-reglementaire-bijlage/models/code-list';
 import type DocumentContainer from 'frontend-reglementaire-bijlage/models/document-container';
 import type SnippetList from 'frontend-reglementaire-bijlage/models/snippet-list';
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
@@ -50,9 +51,12 @@ export default class TagManager extends Service {
     await Promise.all(newTags.map((tag) => tag.save()));
   }
 
-  async setTags(taggedThing: DocumentContainer | SnippetList, tags: Tag[]) {
+  async setTags(
+    taggedThing: DocumentContainer | SnippetList | CodeListModel,
+    tags: Tag[],
+  ) {
     await this.saveTags(tags);
-    taggedThing.tags = tags;
+    taggedThing.set('tags', tags);
     await taggedThing.save();
   }
 }

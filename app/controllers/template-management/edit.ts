@@ -175,7 +175,7 @@ import { citerraMap } from './citerra-insert-map';
 import environment from 'frontend-reglementaire-bijlage/config/environment';
 import type { ModelFrom } from 'frontend-reglementaire-bijlage/utils/type-utils';
 import type TemplateManagementEditRoute from 'frontend-reglementaire-bijlage/routes/template-management/edit';
-import type EditorDocumentModel from 'frontend-reglementaire-bijlage/models/editor-document';
+import EditorDocumentModel from 'frontend-reglementaire-bijlage/models/editor-document';
 import type SnippetList from 'frontend-reglementaire-bijlage/models/snippet-list';
 import type {
   TargetOptionGeneratorArgs,
@@ -615,8 +615,8 @@ export default class TemplateManagementEditController extends Controller {
   @action
   async handleRdfaEditorInit(editor: SayController) {
     this.editor = editor;
-    if (this.editorDocument.content) {
-      editor.initialize(this.editorDocument.content as string, {
+    if (this.editorDocument?.content) {
+      editor.initialize(this.editorDocument.content, {
         doNotClean: true,
         startsDirty: false,
       });
@@ -693,18 +693,21 @@ export default class TemplateManagementEditController extends Controller {
       try {
         const html = this.editor.htmlContent;
         const templateVersion = generateTemplate(this.editor);
-        const editorDocument = this.store.createRecord('editor-document', {
-          title: this.model.editorDocument.title,
-          content: html,
-          templateVersion: templateVersion,
-          createdOn: this.model.editorDocument.createdOn,
-          updatedOn: new Date(),
-          documentContainer: this.model.documentContainer,
-        }) as EditorDocumentModel;
+        const editorDocument = this.store.createRecord<EditorDocumentModel>(
+          'editor-document',
+          {
+            title: this.model.editorDocument?.title,
+            content: html,
+            templateVersion: templateVersion,
+            createdOn: this.model.editorDocument?.createdOn,
+            updatedOn: new Date(),
+            documentContainer: this.model.documentContainer,
+          },
+        );
         await editorDocument.save();
 
         const documentContainer = this.model.documentContainer;
-        documentContainer.currentVersion = editorDocument;
+        documentContainer.set('currentVersion', editorDocument);
 
         const snippetListUris = extractSnippetListUris(html);
         const snippetListObjects = await Promise.all(
@@ -713,7 +716,7 @@ export default class TemplateManagementEditController extends Controller {
               this.store.findByUri('snippet-list', uri) as Promise<SnippetList>,
           ),
         );
-        documentContainer.linkedSnippetLists = snippetListObjects;
+        documentContainer.set('linkedSnippetLists', snippetListObjects);
         await documentContainer.save();
 
         this._editorDocument = editorDocument;

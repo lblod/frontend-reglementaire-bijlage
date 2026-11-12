@@ -26,6 +26,6 @@ export function getTemplateTypes(intl: IntlService) {
  * @param type - uuid for the type of template
  * @param intl - ember intl service to translate the labels correctly
  */
-export function getTemplateType(type: string | undefined, intl: IntlService) {
+export function getTemplateType(type: string | null | undefined, intl: IntlService) {
   return getTemplateTypes(intl).find(({ folder }) => folder === type);
 }

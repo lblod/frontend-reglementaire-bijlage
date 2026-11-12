@@ -5,7 +5,12 @@ import { service } from '@ember/service';
 import type RouterService from '@ember/routing/router-service';
 import { tracked } from 'tracked-built-ins';
 import type IntlService from 'ember-intl/services/intl';
-import { NodeType, PNode, SayController, Schema } from '@lblod/ember-rdfa-editor';
+import {
+  NodeType,
+  PNode,
+  SayController,
+  Schema,
+} from '@lblod/ember-rdfa-editor';
 import {
   em,
   strikethrough,
@@ -49,7 +54,10 @@ import { blockquote } from '@lblod/ember-rdfa-editor/plugins/blockquote';
 import { code_block } from '@lblod/ember-rdfa-editor/plugins/code';
 import { image } from '@lblod/ember-rdfa-editor/plugins/image';
 import { linkPasteHandler } from '@lblod/ember-rdfa-editor/plugins/link';
-import { citationPlugin, type CitationPluginConfig } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/citation-plugin';
+import {
+  citationPlugin,
+  type CitationPluginConfig,
+} from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/citation-plugin';
 import { highlight } from '@lblod/ember-rdfa-editor/plugins/highlight/marks/highlight';
 import { color } from '@lblod/ember-rdfa-editor/plugins/color/marks/color';
 import { trackedFunction } from 'reactiveweb/function';
@@ -146,7 +154,10 @@ import {
 import FormatTextIcon from '@lblod/ember-rdfa-editor/components/icons/format-text';
 import { PlusIcon } from '@appuniversum/ember-appuniversum/components/icons/plus';
 import { ThreeDotsIcon } from '@appuniversum/ember-appuniversum/components/icons/three-dots';
-import { sayDataFactory, type SayTerm } from '@lblod/ember-rdfa-editor/core/say-data-factory';
+import {
+  sayDataFactory,
+  type SayTerm,
+} from '@lblod/ember-rdfa-editor/core/say-data-factory';
 import { getContextualActionGroups as locationActionsGroups } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin/contextual-actions';
 import { locationModalsPlugin } from '@lblod/ember-rdfa-editor-lblod-plugins/plugins/location-plugin';
 import type Store from 'frontend-reglementaire-bijlage/services/store';
@@ -316,7 +327,9 @@ export default class SnippetManagementEditSnippetController extends Controller {
             'structure_header|article_header',
           ],
           scrollContainer: () =>
-            document.getElementsByClassName('say-container__main')[0] as HTMLElement,
+            document.getElementsByClassName(
+              'say-container__main',
+            )[0] as HTMLElement,
         },
       ],
       date: {
@@ -457,7 +470,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
   }
 
   currentVersion = trackedFunction(this, async () => {
-    return await this.model.snippet.currentVersion;
+    return await this.model.snippet?.currentVersion;
   });
 
   get editorDocument() {
@@ -469,14 +482,19 @@ export default class SnippetManagementEditSnippetController extends Controller {
     try {
       const html = this.editor.htmlContent;
       const currentVersion = await this.currentVersion.promise;
+      if (!currentVersion) return;
       const snippet = this.model.snippet;
+      if (!snippet) return;
       const now = new Date();
-      const newVersion = this.store.createRecord('snippet-version', {
-        content: html,
-        createdOn: now,
-        title: currentVersion.title,
-        snippet,
-      }) as SnippetVersion;
+      const newVersion = this.store.createRecord<SnippetVersion>(
+        'snippet-version',
+        {
+          content: html,
+          createdOn: now,
+          title: currentVersion.title,
+          snippet,
+        },
+      );
       currentVersion.validThrough = new Date();
       await Promise.all([currentVersion.save(), newVersion.save()]);
       // @ts-expect-error Need to move to proper ED types
@@ -486,7 +504,7 @@ export default class SnippetManagementEditSnippetController extends Controller {
       const snippetListObjects = await Promise.all(
         snippetListUris.map((uri) => this.store.findByUri('snippet-list', uri)),
       );
-      snippet.linkedSnippetLists = snippetListObjects;
+      snippet.set('linkedSnippetLists', snippetListObjects);
       await snippet.save();
       this.editor?.setHtmlContent(html);
       this.editor?.markClean();
@@ -506,14 +524,14 @@ export default class SnippetManagementEditSnippetController extends Controller {
   updateImportedResourcesOnList = task(async () => {
     const snippetListId = this.model.snippetList.id;
     if (snippetListId) {
-      const list = await this.store.findRecord(
+      const list = await this.store.findRecord<SnippetList>(
         'snippet-list',
         snippetListId,
         {
-        reload: true,
-        include: 'snippets,snippets.current-version',
+          reload: true,
+          include: ['snippets', 'snippets.currentVersion'],
         },
-      ) as SnippetList;
+      );
       return saveCollatedImportedResources(list);
     }
   });
@@ -530,21 +548,28 @@ export default class SnippetManagementEditSnippetController extends Controller {
     }
   }
 
-  subjectOptionGeneratorTask = restartableTask(async (args: TargetOptionGeneratorArgs): Promise<TermOption<SayTerm>[]> => {
+  subjectOptionGeneratorTask = restartableTask(
+    async (args: TargetOptionGeneratorArgs): Promise<TermOption<SayTerm>[]> => {
       await timeout(200);
       const result = (await this.optionGeneratorConfig?.subjects?.(args)) ?? [];
       return result;
-  });
-  predicateOptionGeneratorTask = restartableTask(async (args: TargetOptionGeneratorArgs) => {
+    },
+  );
+  predicateOptionGeneratorTask = restartableTask(
+    async (args: TargetOptionGeneratorArgs) => {
       await timeout(200);
-    const result = (await this.optionGeneratorConfig?.predicates?.(args)) ?? [];
+      const result =
+        (await this.optionGeneratorConfig?.predicates?.(args)) ?? [];
       return result;
-  });
-  objectOptionGeneratorTask = restartableTask(async (args: TargetOptionGeneratorArgs): Promise<TermOption<SayTerm>[]> => {
+    },
+  );
+  objectOptionGeneratorTask = restartableTask(
+    async (args: TargetOptionGeneratorArgs): Promise<TermOption<SayTerm>[]> => {
       await timeout(200);
       const result = (await this.optionGeneratorConfig?.objects?.(args)) ?? [];
       return result;
-  });
+    },
+  );
 
   optionGeneratorConfigTaskified = {
     subjects: this.subjectOptionGeneratorTask.perform.bind(this),

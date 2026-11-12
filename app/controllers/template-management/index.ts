@@ -4,21 +4,40 @@ import { service } from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from 'tracked-built-ins';
 import { isBlank } from '../../utils/strings';
-import { getTemplateType, getTemplateTypes } from '../../utils/template-type';
+import {
+  getTemplateType,
+  getTemplateTypes,
+  type TemplateType,
+} from '../../utils/template-type';
 import { PublicationStatus } from 'frontend-reglementaire-bijlage/components/publication-status';
 import { getValidity } from 'frontend-reglementaire-bijlage/api/template';
+import type Store from 'frontend-reglementaire-bijlage/services/store';
+import type SessionService from 'frontend-reglementaire-bijlage/services/session';
+import type RouterService from '@ember/routing/router-service';
+import type CurrentSessionService from 'frontend-reglementaire-bijlage/services/current-session';
+import type MuTaskService from 'frontend-reglementaire-bijlage/services/mu-task';
+import type IntlService from 'ember-intl/services/intl';
+import type TagManager from 'frontend-reglementaire-bijlage/services/tag-manager';
+import DocumentContainerModel from 'frontend-reglementaire-bijlage/models/document-container';
+import EditorDocumentModel from 'frontend-reglementaire-bijlage/models/editor-document';
+import type Tag from 'frontend-reglementaire-bijlage/models/tag';
+import Template from 'frontend-reglementaire-bijlage/models/template';
+import EditorDocumentFolderModel from 'frontend-reglementaire-bijlage/models/editor-document-folder';
+import type { ModelFrom } from 'frontend-reglementaire-bijlage/utils/type-utils';
+import type TemplateManagementIndexRoute from 'frontend-reglementaire-bijlage/routes/template-management/index';
 
 const TITLE_SEARCH_DEBOUNCE_TIME = 300;
 
 export default class TemplateManagementIndexController extends Controller {
+  declare model: ModelFrom<TemplateManagementIndexRoute>;
   PublicationStatus = PublicationStatus;
-  @service store;
-  @service session;
-  @service router;
-  @service currentSession;
-  @service muTask;
-  @service intl;
-  @service tagManager;
+  @service declare store: Store;
+  @service declare session: SessionService;
+  @service declare router: RouterService;
+  @service declare currentSession: CurrentSessionService;
+  @service declare muTask: MuTaskService;
+  @service declare intl: IntlService;
+  @service declare tagManager: TagManager;
 
   // queryParams
   queryParams = ['title', 'page', 'size', 'sort', 'templateTags'];
@@ -26,29 +45,34 @@ export default class TemplateManagementIndexController extends Controller {
   @tracked size = 20;
   @tracked title = '';
   sort = '-current-version.created-on';
-
-  @tracked editorDocument;
-  @tracked documentContainer;
-  @tracked templateTypeToCreate = this.allTemplateTypes[0];
-  @tracked tagsToCreate = [];
-  @tracked createTemplateModalIsOpen;
-  @tracked removeTemplateModalIsOpen;
-  @tracked selectedTemplates = tracked(Set);
-  @tracked lastCheckedTemplate;
-
+  // @ts-expect-error The service is initialized by ember
   allTemplateTypes = getTemplateTypes(this.intl);
+  folder: TemplateType | null = null;
+  refresh: (() => unknown) | null = null;
 
-  @tracked templateTypes = [];
-  @tracked templateTags = [];
+  @tracked editorDocument: EditorDocumentModel | null = null;
+  @tracked documentContainer: DocumentContainerModel | null = null;
+  @tracked templateTypeToCreate = this.allTemplateTypes[0] ?? null;
+  @tracked tagsToCreate: Tag[] = [];
+  @tracked createTemplateModalIsOpen: boolean = false;
+  @tracked removeTemplateModalIsOpen: boolean = false;
+  @tracked selectedTemplates = tracked(Set);
+  @tracked lastCheckedTemplateUri: string | null = null;
+
+  @tracked templateTypes: TemplateType[] = [];
+  @tracked templateTags: string[] = [];
   @tracked isReadMode = true;
 
-  changeFilterTemplateTypes = (newTemplateTypes) => {
+  changeFilterTemplateTypes = (newTemplateTypes: TemplateType[]) => {
     this.templateTypes = newTemplateTypes;
     this.resetPagination();
   };
 
-  changeFilterTemplateTags = (newTemplateTags) => {
-    this.templateTags = newTemplateTags.map((templateTag) => templateTag.id);
+  changeFilterTemplateTags = (newTemplateTags: Tag[]) => {
+    // The tags will always already have an id since we don't allow creation in the filter
+    this.templateTags = newTemplateTags.map(
+      (templateTag) => templateTag.id,
+    ) as string[];
     this.resetPagination();
   };
 
@@ -60,7 +84,10 @@ export default class TemplateManagementIndexController extends Controller {
     this.isReadMode = true;
   };
 
-  changeTagsFor = async (documentContainer, tags) => {
+  changeTagsFor = async (
+    documentContainer: DocumentContainerModel,
+    tags: Tag[],
+  ) => {
     await this.tagManager.setTags(documentContainer, tags);
   };
 
@@ -72,21 +99,21 @@ export default class TemplateManagementIndexController extends Controller {
   };
 
   @action
-  updateTemplateType(templateType) {
+  updateTemplateType(templateType: TemplateType) {
     this.templateTypeToCreate = templateType;
   }
 
   @action
-  updateTemplateTags(newTags) {
+  updateTemplateTags(newTags: Tag[]) {
     this.tagsToCreate = newTags;
   }
 
-  getTemplateTypeLabel = async (documentContainer) => {
+  getTemplateTypeLabel = async (documentContainer: DocumentContainerModel) => {
     const type = await documentContainer.templateTypeId;
     return getTemplateType(type, this.intl)?.label;
   };
 
-  publishedTemplate = async (documentContainer) => {
+  publishedTemplate = async (documentContainer: DocumentContainerModel) => {
     // start of shenanigans
     /*
     The following query and subsequent relationship access are a horrible house of cards.
@@ -113,7 +140,7 @@ export default class TemplateManagementIndexController extends Controller {
     which the relationship access will load correctly.
      */
     const publishedTemplate = (
-      await this.store.query('template', {
+      await this.store.query<Template>('template', {
         filter: {
           'derived-from': {
             id: documentContainer.id,
@@ -122,7 +149,7 @@ export default class TemplateManagementIndexController extends Controller {
         // the abovementioned bogus query param
         avoid_cache: new Date().toISOString(),
         // as mentioned above, without this we still get stale data
-        include: 'current-version',
+        include: ['currentVersion'],
       })
     )[0];
     if (publishedTemplate) {
@@ -134,13 +161,19 @@ export default class TemplateManagementIndexController extends Controller {
 
   @action
   startCreateTemplateFlow() {
-    const documentContainer = this.store.createRecord('document-container');
-    const editorDocument = this.store.createRecord('editor-document', {
-      title: '',
-      content: '',
-      createdOn: new Date(),
-      updatedOn: new Date(),
-    });
+    const documentContainer = this.store.createRecord<DocumentContainerModel>(
+      'document-container',
+      {},
+    );
+    const editorDocument = this.store.createRecord<EditorDocumentModel>(
+      'editor-document',
+      {
+        title: '',
+        content: '',
+        createdOn: new Date(),
+        updatedOn: new Date(),
+      },
+    );
     this.editorDocument = editorDocument;
     this.documentContainer = documentContainer;
 
@@ -149,35 +182,46 @@ export default class TemplateManagementIndexController extends Controller {
 
   @action
   cancelCreateTemplate() {
-    this.editorDocument = undefined;
-    this.documentContainer = undefined;
-    this.folder = this.allTemplateTypes[0];
+    this.editorDocument = null;
+    this.documentContainer = null;
+    this.folder = this.allTemplateTypes[0] ?? null;
     this.createTemplateModalIsOpen = false;
     this.tagsToCreate = [];
   }
 
   get isInvalidTemplateTitle() {
-    return isBlank(this.editorDocument.title);
+    return isBlank(this.editorDocument?.title);
   }
 
-  saveTemplate = task(async (event) => {
+  saveTemplate = task(async (event: Event) => {
     event.preventDefault();
+
+    if (
+      !this.editorDocument ||
+      !this.documentContainer ||
+      !this.templateTypeToCreate?.folder
+    )
+      return;
 
     // Store all new tags
     await this.tagManager.saveTags(this.tagsToCreate);
 
     await this.editorDocument.save();
 
-    this.documentContainer.folder = await this.store.findRecord(
-      'editor-document-folder',
-      this.templateTypeToCreate.folder,
+    this.documentContainer.set(
+      'folder',
+      await this.store.findRecord<EditorDocumentFolderModel>(
+        'editor-document-folder',
+        this.templateTypeToCreate.folder,
+      ),
     );
-    this.documentContainer.currentVersion = this.editorDocument;
 
-    this.documentContainer.tags = this.tagsToCreate;
+    this.documentContainer.set('currentVersion', this.editorDocument);
+
+    this.documentContainer.set('tags', this.tagsToCreate);
     await this.documentContainer.save();
 
-    this.editorDocument.documentContainer = this.documentContainer;
+    this.editorDocument.set('documentContainer', this.documentContainer);
     await this.editorDocument.save();
 
     this.createTemplateModalIsOpen = false;
@@ -188,7 +232,7 @@ export default class TemplateManagementIndexController extends Controller {
   });
 
   @action
-  startRemoveTemplateFlow(documentContainer) {
+  startRemoveTemplateFlow(documentContainer: DocumentContainerModel) {
     this.removeTemplateModalIsOpen = true;
     this.documentContainer = documentContainer;
   }
@@ -200,16 +244,17 @@ export default class TemplateManagementIndexController extends Controller {
 
   @action
   cancelRemoveTemplate() {
-    this.editorDocument = undefined;
+    this.editorDocument = null;
   }
 
   submitRemoveTemplate = task(async () => {
+    if (!this.documentContainer) return;
     // this is currenlty a hard-delete of the container, but a soft-delete of the
     // publishedVersion, since GN filters on the validThrough date
     // if we'd want to soft-delete the container as well
     // we'd likely have to use RS_DELETED_FOLDER from utils/constants
     const publishedTemplate = (
-      await this.store.query('template', {
+      await this.store.query<Template>('template', {
         filter: {
           'derived-from': {
             id: this.documentContainer.id,
@@ -226,9 +271,8 @@ export default class TemplateManagementIndexController extends Controller {
       }
     }
 
-    await this.documentContainer.deleteRecord();
-    await this.documentContainer.save();
-    this.refresh();
+    await this.documentContainer.destroyRecord();
+    this.refresh?.();
   });
 
   @action
@@ -236,8 +280,7 @@ export default class TemplateManagementIndexController extends Controller {
     this.session.invalidate();
   }
 
-  changeFilterTitle = restartableTask(async (newTitle) => {
-    event.preventDefault();
+  changeFilterTitle = restartableTask(async (newTitle: string) => {
     await timeout(TITLE_SEARCH_DEBOUNCE_TIME);
 
     this.title = newTitle;
@@ -255,22 +298,24 @@ export default class TemplateManagementIndexController extends Controller {
   }
 
   @action
-  handleTitleUpdate(event) {
-    this.editorDocument.title = event.target.value;
+  handleTitleUpdate(event: InputEvent) {
+    if (!this.editorDocument) return;
+    this.editorDocument.title = (event.target as HTMLInputElement).value;
   }
 
-  isSelected = (uri) => {
+  isSelected = (uri: string) => {
     return this.selectedTemplates.has(uri);
   };
 
   @action
-  onTemplateSelectionChange(event) {
-    const value = event.target.value;
-    if (event.target.checked) {
-      if (event.shiftKey && this.lastCheckedTemplate) {
+  onTemplateSelectionChange(event: KeyboardEvent) {
+    const target = event.target as HTMLInputElement;
+    const value = target.value;
+    if (target.checked) {
+      if (event.shiftKey && this.lastCheckedTemplateUri) {
         const documentContainers = [...this.model.documentContainer];
         const index1 = documentContainers.findIndex(
-          (container) => container.uri === this.lastCheckedTemplate,
+          (container) => container.uri === this.lastCheckedTemplateUri,
         );
         const index2 = documentContainers.findIndex((container) => {
           return container.uri === value;
@@ -279,12 +324,12 @@ export default class TemplateManagementIndexController extends Controller {
         const endIndex = Math.max(index1, index2);
         for (let i = startIndex; i <= endIndex; i++) {
           const container = documentContainers[i];
-          this.selectedTemplates.add(container.uri);
+          this.selectedTemplates.add(container?.uri);
         }
       } else {
         this.selectedTemplates.add(value);
       }
-      this.lastCheckedTemplate = value;
+      this.lastCheckedTemplateUri = value;
     } else {
       this.selectedTemplates.delete(value);
     }
@@ -295,8 +340,8 @@ export default class TemplateManagementIndexController extends Controller {
   }
 
   @action
-  onSelectAllChange() {
-    if (event.target.checked) {
+  onSelectAllChange(event: Event) {
+    if ((event.target as HTMLInputElement).checked) {
       const documentContainers = [...this.model.documentContainer];
       this.selectedTemplates = tracked(
         new Set(documentContainers.map((container) => container.uri)),
