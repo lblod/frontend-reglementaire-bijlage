@@ -362,11 +362,12 @@ export default class TemplateManagementIndexController extends Controller {
   onSelectAllChange = (event: Event) => {
     if ((event.target as HTMLInputElement).checked) {
       const documentContainers = [...this.model.documentContainer];
-      this.selectedTemplates = tracked(
-        new Set(documentContainers.map((container) => container.uri)),
+      const containerUris = documentContainers.flatMap(
+        (container) => container.uri ?? [],
       );
+      this.selectedTemplates = tracked(new Set(containerUris));
     } else {
-      this.selectedTemplates = tracked(new Set());
+      this.selectedTemplates = tracked(new Set<string>());
     }
   };
 }
