@@ -51,24 +51,22 @@ export default class TemplateManagementIndexRoute extends Route {
       ? { tags: { ':id:': params.templateTags.join(',') } }
       : ({} as Record<string, never>);
 
-    const options = {
-      filter: {
-        folder: {
-          id: folders.join(','),
-        },
-        ...tagsFilter,
-        ...titleFilter,
-      },
-      sort: params.sort,
-      page: {
-        number: params.page,
-        size: params.size,
-      },
-      include: ['template', 'folder', 'currentVersion', 'tags'],
-    };
-
     const [documentContainer, selectedTags] = await Promise.all([
-      this.store.query<DocumentContainerModel>('document-container', options),
+      this.store.query<DocumentContainerModel>('document-container', {
+        filter: {
+          folder: {
+            id: folders.join(','),
+          },
+          ...tagsFilter,
+          ...titleFilter,
+        },
+        sort: params.sort,
+        page: {
+          number: params.page,
+          size: params.size,
+        },
+        include: ['template', 'folder', 'currentVersion', 'tags'],
+      }),
       Promise.all(
         params.templateTags?.map((id) => this.store.findRecord('tag', id)) ??
           [],
