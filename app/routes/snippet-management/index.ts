@@ -48,6 +48,7 @@ export default class SnippetManagementIndexRoute extends Route {
         ...labelFilter,
         ...tagsFilter,
       },
+      include: ['tags'],
     };
 
     const [snippetLists, allTags] = await Promise.all([
