@@ -1,16 +1,13 @@
-import AuModal from '@appuniversum/ember-appuniversum/components/au-modal';
 import AuFormRow from '@appuniversum/ember-appuniversum/components/au-form-row';
 import AuLabel from '@appuniversum/ember-appuniversum/components/au-label';
-import AuButtonGroup from '@appuniversum/ember-appuniversum/components/au-button-group';
-import AuButton from '@appuniversum/ember-appuniversum/components/au-button';
 import t from 'ember-intl/helpers/t';
-import { on } from '@ember/modifier';
 import TagSelector from '@lblod/ember-rdfa-editor-lblod-plugins/components/common/tags/tag-selector';
 import { service } from '@ember/service';
 import type TagManager from 'frontend-reglementaire-bijlage/services/tag-manager';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
+import ConfirmModal from 'frontend-reglementaire-bijlage/components/confirm-modal';
 
 type Args = {
   onSave: (changes: { add: Tag[]; remove: Tag[] }) => void;
@@ -43,13 +40,16 @@ export default class BulkEditTagsModal extends Component<Args> {
   }
 
   <template>
-    <AuModal
-      @title={{t 'tag-management.bulk-edit-title'}}
+    <ConfirmModal
       @modalOpen={{true}}
       @closeModal={{@onClose}}
-      as |Modal|
+      @onConfirm={{this.saveChanges}}
+      @onCancel={{@onClose}}
+      @confirmDisabled={{this.saveButtonDisabled}}
+      @confirmMessage={{t 'template-management.create-modal.save'}}
+      @title={{t 'tag-management.bulk-edit-title'}}
     >
-      <Modal.Body>
+      <:body>
         <form class='au-c-form' id='bulk-tag-edit-form'>
           <AuFormRow>
             {{t 'tag-management.bulk-edit-description'}}
@@ -81,21 +81,7 @@ export default class BulkEditTagsModal extends Component<Args> {
             />
           </AuFormRow>
         </form>
-      </Modal.Body>
-      <Modal.Footer>
-        <AuButtonGroup>
-          <AuButton
-            class='au-c-button'
-            @disabled={{this.saveButtonDisabled}}
-            {{on 'click' this.saveChanges}}
-          >
-            {{t 'template-management.create-modal.save'}}
-          </AuButton>
-          <AuButton {{on 'click' @onClose}} @skin='secondary'>
-            {{t 'template-management.create-modal.cancel'}}
-          </AuButton>
-        </AuButtonGroup>
-      </Modal.Footer>
-    </AuModal>
+      </:body>
+    </ConfirmModal>
   </template>
 }

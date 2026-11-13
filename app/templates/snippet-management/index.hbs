@@ -149,13 +149,20 @@
     </AuDataTable>
   </m.content>
 </AuMainContainer>
-<AuModal
+<ConfirmModal
   @title={{t "utility.confirmation.body"}}
   @modalOpen={{this.isRemoveModalOpen}}
   @closeModal={{this.closeRemoveModal}}
-  as |Modal|
+  @isAlert={{true}}
+  @isLoading={{this.removeSnippetList.isRunning}}
+  @loadingMessage={{t "utility.deleting"}}
+  @onConfirm={{this.removeSnippetList.perform}}
+  @confirmMessage={{t
+    "snippets.manage-snippet-lists.snippet-list-deletion.action.long"
+  }}
+  @onCancel={{this.closeRemoveModal}}
 >
-  <Modal.Body>
+  <:body>
     <p>
       {{t
         "snippets.manage-snippet-lists.snippet-list-deletion.confirm"
@@ -163,21 +170,8 @@
         htmlSafe=true
       }}
     </p>
-  </Modal.Body>
-  <Modal.Footer>
-    <AuButton
-      @alert={{true}}
-      @loading={{this.removeSnippetList.isRunning}}
-      @loadingMessage={{t "utility.deleting"}}
-      {{on "click" (perform this.removeSnippetList)}}
-    >
-      {{t "snippets.manage-snippet-lists.snippet-list-deletion.action.long"}}
-    </AuButton>
-    <AuButton @skin="secondary" {{on "click" this.closeRemoveModal}}>
-      {{t "utility.cancel"}}
-    </AuButton>
-  </Modal.Footer>
-</AuModal>
+  </:body>
+</ConfirmModal>
 {{#if this.bulkEditModalIsOpen}}
   <BulkEditTagsModal
     @onClose={{this.closeBulkEditModal}}
