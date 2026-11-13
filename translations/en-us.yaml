@@ -84,6 +84,8 @@ landing-page:
     title: Tag Management
     content: Manage tags that are used in for a template
     button: Go to tag management
+    add-tags: Tags toevoegen
+    remove-tags: Tags verwijderen
 legal:
   accessibility-statement: Accessibility statement
   cookie-statement: Cookie statement
@@ -107,6 +109,7 @@ template-management:
   edit-mode: Edit mode
   template-status: Status
   read-mode: Read mode
+  bulk-edit: Bulk Edit
   template-type:
     label: Template type
     decision: Decision
@@ -256,6 +259,10 @@ tag-management:
   error-loading-tags:
     title: Loading tags failed
     body: An error occurred while loading tags
+  add-tags: Add tags
+  remove-tags: Remove tags
+  bulk-edit-title: Bulk edit tags
+  bulk-edit-description: This bulk edit allows to add or remove tags to or from the selected templates.
 
 editor-document-title:
   placeholder: Untitled document

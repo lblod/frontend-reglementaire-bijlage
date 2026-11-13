@@ -14,6 +14,8 @@ export default class CodeListModel extends ConceptSchemeModel {
   //@ts-expect-error TS doesn't allow subclasses to redefine concrete types. We should try to remove the inheritance chain.
   declare [Type]: 'code-list';
 
+  @attr uri?: string;
+
   @attr('datetime') createdOn?: Date;
   @belongsTo<AdministrativeUnitModel>('administrative-unit', {
     inverse: null,

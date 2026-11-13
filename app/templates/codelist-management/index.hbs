@@ -31,6 +31,16 @@
               </AuHeading>
             </Group>
             <Group class="au-c-toolbar__group--center">
+              {{#unless this.isReadOnly}}
+                {{#if (gt this.selectedCodelists.size 0)}}
+                  <AuButton
+                    {{on "click" this.showBulkEditModal}}
+                    @skin="secondary"
+                    @icon="pencil"
+                    @disabled={{this.saveBulkEdit.isRunning}}
+                  >{{t "template-management.bulk-edit"}}</AuButton>
+                {{/if}}
+              {{/unless}}
               <AuLink
                 @route="codelist-management.new"
                 @icon="add"
@@ -57,6 +67,15 @@
       </s.menu>
       <s.content as |c|>
         <c.header>
+          <th>
+            {{#let (unique-id) as |id|}}
+              <AuCheckbox
+                id={{id}}
+                @checked={{this.selectAllChecked}}
+                {{on "click" this.toggleSelectAll}}
+              />
+            {{/let}}
+          </th>
           <AuDataTableThSortable
             @field=":no-case:label"
             @currentSorting={{this.sort}}
@@ -74,6 +93,16 @@
           <th></th>
         </c.header>
         <c.body as |codelist|>
+          <td>
+            {{#let (unique-id) as |id|}}
+              <AuCheckbox
+                id={{id}}
+                value={{codelist.uri}}
+                @checked={{this.isSelected codelist.uri}}
+                {{on "click" this.changeCodelistSelection}}
+              />
+            {{/let}}
+          </td>
           <td>
             <AuLink
               @skin="primary"
@@ -153,3 +182,9 @@
     </AuButton>
   </Modal.Footer>
 </AuModal>
+{{#if this.bulkEditModalIsOpen}}
+  <BulkEditTagsModal
+    @onClose={{this.closeBulkEditModal}}
+    @onSave={{this.saveBulkEdit.perform}}
+  />
+{{/if}}

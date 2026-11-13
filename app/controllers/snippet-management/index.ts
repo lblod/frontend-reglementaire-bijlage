@@ -1,8 +1,7 @@
 import Controller from '@ember/controller';
 import { service } from '@ember/service';
-import { restartableTask, task, timeout } from 'ember-concurrency';
-import { tracked } from 'tracked-built-ins';
-import { action } from '@ember/object';
+import { all, restartableTask, task, timeout } from 'ember-concurrency';
+import { tracked, TrackedSet } from 'tracked-built-ins';
 import { localCopy } from 'tracked-toolbox';
 import type Store from 'frontend-reglementaire-bijlage/services/store';
 import type Router from 'frontend-reglementaire-bijlage/router';
@@ -31,7 +30,7 @@ export default class SnippetManagementIndexController extends Controller {
 
   @localCopy('label', '') searchQuery = '';
 
-  @tracked selectedSnippetLists = tracked(Set);
+  @tracked selectedSnippetLists: TrackedSet<string> = tracked(Set);
   @tracked lastCheckedSnippetList: string | null = null;
 
   @tracked isRemoveModalOpen = false;
@@ -40,12 +39,12 @@ export default class SnippetManagementIndexController extends Controller {
   @tracked tags: (string | null)[] = [];
 
   @tracked isReadMode = true;
+  @tracked bulkEditModalIsOpen = false;
 
-  @action
-  updateSearchQuery(event: Event) {
+  updateSearchQuery = (event: Event) => {
     event.preventDefault();
     this.searchQuery = (event.target as HTMLInputElement).value;
-  }
+  };
 
   changeFilterLabel = restartableTask(async (label: string) => {
     await timeout(LABEL_SEARCH_DEBOUNCE_TIME);
@@ -87,24 +86,53 @@ export default class SnippetManagementIndexController extends Controller {
     this.closeRemoveModal();
   });
 
-  @action
-  openRemoveModal(snippet: SnippetList) {
+  openRemoveModal = (snippet: SnippetList) => {
     this.deletingSnippetList = snippet;
     this.isRemoveModalOpen = true;
-  }
+  };
 
-  @action
-  closeRemoveModal() {
+  closeRemoveModal = () => {
     this.deletingSnippetList = null;
     this.isRemoveModalOpen = false;
-  }
+  };
+
+  showBulkEditModal = () => {
+    this.bulkEditModalIsOpen = true;
+  };
+
+  closeBulkEditModal = () => {
+    this.bulkEditModalIsOpen = false;
+  };
+
+  saveBulkEdit = task(
+    async ({ add, remove }: { add: Tag[]; remove: Tag[] }) => {
+      // We need to save before, otherwise we get race conditions when saving the new tags
+      await this.tagManager.saveTags(add);
+      await all(
+        [...this.selectedSnippetLists.values()].map(
+          async (selectedSnippetList: string) => {
+            const snippetList = this.model.snippetLists.find(
+              (snippetList) => selectedSnippetList === snippetList.uri,
+            );
+            if (!snippetList) return;
+            const tags = await snippetList.tags;
+            const removed = tags.filter(
+              (tag: Tag) => !remove.find((tag2) => tag.id === tag2.id),
+            );
+            const newTags = [...removed, ...add];
+            await this.tagManager.setTags(snippetList, newTags);
+          },
+        ),
+      );
+      this.closeBulkEditModal();
+    },
+  );
 
   isSelected = (uri: string) => {
     return this.selectedSnippetLists.has(uri);
   };
 
-  @action
-  onSnippetListSelectionChange(event: Event) {
+  onSnippetListSelectionChange = (event: Event) => {
     const element = event.target as HTMLInputElement;
     const value = element.value;
     if (element.checked) {
@@ -120,6 +148,7 @@ export default class SnippetManagementIndexController extends Controller {
         const endIndex = Math.max(index1, index2);
         for (let i = startIndex; i <= endIndex; i++) {
           const snippetList = snippetLists[i] as SnippetList;
+          if (!snippetList.uri) continue;
           this.selectedSnippetLists.add(snippetList.uri);
         }
       } else {
@@ -129,7 +158,7 @@ export default class SnippetManagementIndexController extends Controller {
     } else {
       this.selectedSnippetLists.delete(value);
     }
-  }
+  };
 
   get selectAllChecked() {
     return this.selectedSnippetLists.size > 0;
@@ -139,17 +168,17 @@ export default class SnippetManagementIndexController extends Controller {
     await this.tagManager.setTags(snippetList, tags);
   };
 
-  @action
-  onSelectAllChange(event: Event) {
+  onSelectAllChange = (event: Event) => {
     if ((event.target as HTMLInputElement).checked) {
       const snippetLists = [...this.model.snippetLists];
-      this.selectedSnippetLists = tracked(
-        new Set(snippetLists.map((list) => list.uri)),
+      const snippetListUris = snippetLists.flatMap(
+        (snippetList) => snippetList.uri ?? [],
       );
+      this.selectedSnippetLists = tracked(new Set(snippetListUris));
     } else {
-      this.selectedSnippetLists = tracked(new Set());
+      this.selectedSnippetLists = tracked(new Set<string>());
     }
-  }
+  };
 
   reset() {
     this.resetPagination();

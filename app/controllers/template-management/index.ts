@@ -1,8 +1,7 @@
 import Controller from '@ember/controller';
-import { restartableTask, task, timeout } from 'ember-concurrency';
+import { all, restartableTask, task, timeout } from 'ember-concurrency';
 import { service } from '@ember/service';
-import { action } from '@ember/object';
-import { tracked } from 'tracked-built-ins';
+import { tracked, TrackedSet } from 'tracked-built-ins';
 import { isBlank } from '../../utils/strings';
 import {
   getTemplateType,
@@ -20,7 +19,7 @@ import type IntlService from 'ember-intl/services/intl';
 import type TagManager from 'frontend-reglementaire-bijlage/services/tag-manager';
 import DocumentContainerModel from 'frontend-reglementaire-bijlage/models/document-container';
 import EditorDocumentModel from 'frontend-reglementaire-bijlage/models/editor-document';
-import type Tag from 'frontend-reglementaire-bijlage/models/tag';
+import Tag from 'frontend-reglementaire-bijlage/models/tag';
 import Template from 'frontend-reglementaire-bijlage/models/template';
 import EditorDocumentFolderModel from 'frontend-reglementaire-bijlage/models/editor-document-folder';
 import type { ModelFrom } from 'frontend-reglementaire-bijlage/utils/type-utils';
@@ -54,14 +53,16 @@ export default class TemplateManagementIndexController extends Controller {
   @tracked documentContainer: DocumentContainerModel | null = null;
   @tracked templateTypeToCreate = this.allTemplateTypes[0] ?? null;
   @tracked tagsToCreate: Tag[] = [];
-  @tracked createTemplateModalIsOpen: boolean = false;
-  @tracked removeTemplateModalIsOpen: boolean = false;
-  @tracked selectedTemplates = tracked(Set);
+  @tracked selectedTemplates: TrackedSet<string> = tracked(Set);
   @tracked lastCheckedTemplateUri: string | null = null;
 
   @tracked templateTypes: TemplateType[] = [];
   @tracked templateTags: string[] = [];
   @tracked isReadMode = true;
+
+  @tracked createTemplateModalIsOpen = false;
+  @tracked removeTemplateModalIsOpen = false;
+  @tracked bulkEditModalIsOpen = false;
 
   changeFilterTemplateTypes = (newTemplateTypes: TemplateType[]) => {
     this.templateTypes = newTemplateTypes;
@@ -98,15 +99,17 @@ export default class TemplateManagementIndexController extends Controller {
     this.resetPagination();
   };
 
-  @action
-  updateTemplateType(templateType: TemplateType) {
+  updateTemplateType = (templateType: TemplateType) => {
     this.templateTypeToCreate = templateType;
-  }
+  };
 
-  @action
-  updateTemplateTags(newTags: Tag[]) {
+  updateTemplateTags = (newTags: Tag[]) => {
     this.tagsToCreate = newTags;
-  }
+  };
+
+  showBulkEditModal = () => {
+    this.bulkEditModalIsOpen = true;
+  };
 
   getTemplateTypeLabel = async (documentContainer: DocumentContainerModel) => {
     const type = await documentContainer.templateTypeId;
@@ -159,8 +162,7 @@ export default class TemplateManagementIndexController extends Controller {
     }
   };
 
-  @action
-  startCreateTemplateFlow() {
+  startCreateTemplateFlow = () => {
     const documentContainer = this.store.createRecord<DocumentContainerModel>(
       'document-container',
       {},
@@ -178,16 +180,15 @@ export default class TemplateManagementIndexController extends Controller {
     this.documentContainer = documentContainer;
 
     this.createTemplateModalIsOpen = true;
-  }
+  };
 
-  @action
-  cancelCreateTemplate() {
+  cancelCreateTemplate = () => {
     this.editorDocument = null;
     this.documentContainer = null;
     this.folder = this.allTemplateTypes[0] ?? null;
     this.createTemplateModalIsOpen = false;
     this.tagsToCreate = [];
-  }
+  };
 
   get isInvalidTemplateTitle() {
     return isBlank(this.editorDocument?.title);
@@ -231,21 +232,44 @@ export default class TemplateManagementIndexController extends Controller {
     );
   });
 
-  @action
-  startRemoveTemplateFlow(documentContainer: DocumentContainerModel) {
+  startRemoveTemplateFlow = (documentContainer: DocumentContainerModel) => {
     this.removeTemplateModalIsOpen = true;
     this.documentContainer = documentContainer;
-  }
+  };
 
-  @action
-  closeRemoveTemplateModal() {
+  closeRemoveTemplateModal = () => {
     this.removeTemplateModalIsOpen = false;
-  }
+  };
 
-  @action
-  cancelRemoveTemplate() {
+  cancelRemoveTemplate = () => {
     this.editorDocument = null;
-  }
+  };
+
+  closeBulkEditModal = () => {
+    this.bulkEditModalIsOpen = false;
+  };
+
+  saveBulkEdit = task(
+    async ({ add, remove }: { add: Tag[]; remove: Tag[] }) => {
+      // We need to save before, otherwise we get race conditions when saving the new tags
+      await this.tagManager.saveTags(add);
+      await all(
+        [...this.selectedTemplates.values()].map(async (template: string) => {
+          const documentContainer = this.model.documentContainer.find(
+            (documentContainer) => documentContainer.uri === template,
+          );
+          if (!documentContainer) return;
+          const tags = await documentContainer.tags;
+          const removed = tags.filter(
+            (tag: Tag) => !remove.find((tag2) => tag.id === tag2.id),
+          );
+          const newTags = [...removed, ...add];
+          await this.tagManager.setTags(documentContainer, newTags);
+        }),
+      );
+      this.closeBulkEditModal();
+    },
+  );
 
   submitRemoveTemplate = task(async () => {
     if (!this.documentContainer) return;
@@ -275,10 +299,9 @@ export default class TemplateManagementIndexController extends Controller {
     this.refresh?.();
   });
 
-  @action
-  logout() {
+  logout = () => {
     this.session.invalidate();
-  }
+  };
 
   changeFilterTitle = restartableTask(async (newTitle: string) => {
     await timeout(TITLE_SEARCH_DEBOUNCE_TIME);
@@ -297,18 +320,16 @@ export default class TemplateManagementIndexController extends Controller {
     this.isReadMode = true;
   }
 
-  @action
-  handleTitleUpdate(event: InputEvent) {
+  handleTitleUpdate = (event: InputEvent) => {
     if (!this.editorDocument) return;
     this.editorDocument.title = (event.target as HTMLInputElement).value;
-  }
+  };
 
   isSelected = (uri: string) => {
     return this.selectedTemplates.has(uri);
   };
 
-  @action
-  onTemplateSelectionChange(event: KeyboardEvent) {
+  onTemplateSelectionChange = (event: MouseEvent) => {
     const target = event.target as HTMLInputElement;
     const value = target.value;
     if (target.checked) {
@@ -324,7 +345,8 @@ export default class TemplateManagementIndexController extends Controller {
         const endIndex = Math.max(index1, index2);
         for (let i = startIndex; i <= endIndex; i++) {
           const container = documentContainers[i];
-          this.selectedTemplates.add(container?.uri);
+          if (!container?.uri) continue;
+          this.selectedTemplates.add(container.uri);
         }
       } else {
         this.selectedTemplates.add(value);
@@ -333,21 +355,21 @@ export default class TemplateManagementIndexController extends Controller {
     } else {
       this.selectedTemplates.delete(value);
     }
-  }
+  };
 
   get selectAllChecked() {
     return this.selectedTemplates.size > 0;
   }
 
-  @action
-  onSelectAllChange(event: Event) {
+  onSelectAllChange = (event: Event) => {
     if ((event.target as HTMLInputElement).checked) {
       const documentContainers = [...this.model.documentContainer];
-      this.selectedTemplates = tracked(
-        new Set(documentContainers.map((container) => container.uri)),
+      const containerUris = documentContainers.flatMap(
+        (container) => container.uri ?? [],
       );
+      this.selectedTemplates = tracked(new Set(containerUris));
     } else {
-      this.selectedTemplates = tracked(new Set());
+      this.selectedTemplates = tracked(new Set<string>());
     }
-  }
+  };
 }
