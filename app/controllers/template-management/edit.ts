@@ -785,6 +785,7 @@ export default class TemplateManagementEditController extends Controller {
       this.model.templateVersion.validThrough = new Date();
       await this.model.templateVersion.save();
     }
+    this.closeConfirmUnpublish();
   });
 
   df: SayDataFactory = new SayDataFactory();
