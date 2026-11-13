@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import { restartableTask, task, timeout } from 'ember-concurrency';
+import { all, restartableTask, task, timeout } from 'ember-concurrency';
 import { localCopy } from 'tracked-toolbox';
 import type CodeListModel from 'frontend-reglementaire-bijlage/models/code-list';
 import type RouterService from '@ember/routing/router-service';
@@ -72,6 +72,35 @@ export default class CodelistManagementIndexController extends Controller {
     this.modalCodelist = null;
     this.isRemoveModalOpen = false;
   }
+
+  showBulkEditModal = () => {
+    this.bulkEditModalIsOpen = true;
+  }
+
+  closeBulkEditModal = () => {
+    this.bulkEditModalIsOpen = false;
+  }
+
+  saveBulkEdit = task(
+    async ({ add, remove }: { add: Tag[]; remove: Tag[] }) => {
+      await this.tagManager.saveTags(add);
+      await all(
+        [...this.selectedCodelists.values()].map(async (selectedCodelistUri: string) => {
+          const selectedCodelist = this.model.codelists.find(
+            (codelist) => codelist.uri === selectedCodelistUri,
+          );
+          if (!selectedCodelist) return;
+          const tags = await selectedCodelist.tags;
+          const removed = tags.filter(
+            (tag: Tag) => !remove.find((tag2) => tag.id === tag2.id),
+          );
+          const newTags = [...removed, ...add];
+          await this.tagManager.setTags(selectedCodelist, newTags);
+        }),
+      );
+      this.closeBulkEditModal();
+    },
+  );
 
   removeCodelist = task(async () => {
     const concepts = await this.modalCodelist?.concepts;
