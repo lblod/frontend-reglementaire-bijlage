@@ -36,6 +36,7 @@ export default class ConfirmModalComponent extends Component<Sig> {
 
   onCancel = () => {
     this.args?.onCancel();
+    this.args?.closeModal();
   };
   <template>
     <AuModal
