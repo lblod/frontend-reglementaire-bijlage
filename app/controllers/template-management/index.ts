@@ -251,6 +251,7 @@ export default class TemplateManagementIndexController extends Controller {
 
   saveBulkEdit = task(
     async ({ add, remove }: { add: Tag[]; remove: Tag[] }) => {
+      await this.tagManager.saveTags(add);
       await all(
         [...this.selectedTemplates.values()].map(async (template: string) => {
           const documentContainer = this.model.documentContainer.find(

@@ -1,6 +1,4 @@
 import Controller from '@ember/controller';
-import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { restartableTask, task, timeout } from 'ember-concurrency';
 import { localCopy } from 'tracked-toolbox';
@@ -9,10 +7,14 @@ import type RouterService from '@ember/routing/router-service';
 import type Store from '@ember-data/store';
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
 import type TagManager from 'frontend-reglementaire-bijlage/services/tag-manager';
+import { type TrackedSet, tracked } from 'tracked-built-ins';
+import type CodelistManagementIndexRoute from 'frontend-reglementaire-bijlage/routes/codelist-management/index';
+import type { ModelFrom } from 'frontend-reglementaire-bijlage/utils/type-utils';
 
 const LABEL_SEARCH_DEBOUNCE_TIME = 300;
 
 export default class CodelistManagementIndexController extends Controller {
+  declare model: ModelFrom<CodelistManagementIndexRoute>;
   @service declare router: RouterService;
   @service declare store: Store;
   @service declare tagManager: TagManager;
@@ -28,11 +30,14 @@ export default class CodelistManagementIndexController extends Controller {
   @tracked isRemoveModalOpen = false;
   @tracked modalCodelist: CodeListModel | null = null;
 
+  @tracked selectedCodelists: TrackedSet<string> = tracked(Set);
+  @tracked lastSelectedCodelist: string | null = null;
+
   @tracked tags: (string | null)[] = [];
   @tracked isReadMode = true;
+  @tracked bulkEditModalIsOpen = false;
 
-  @action
-  updateSearchQuery(event: Event) {
+  updateSearchQuery = (event: Event) => {
     event.preventDefault();
     this.searchQuery = (event.target as HTMLInputElement).value;
   }
@@ -58,12 +63,12 @@ export default class CodelistManagementIndexController extends Controller {
     this.page = 0;
   }
 
-  @action openRemoveModal(codelist: CodeListModel) {
+  openRemoveModal = (codelist: CodeListModel) => {
     this.modalCodelist = codelist;
     this.isRemoveModalOpen = true;
   }
 
-  @action closeRemoveModal() {
+  closeRemoveModal = () => {
     this.modalCodelist = null;
     this.isRemoveModalOpen = false;
   }
@@ -97,4 +102,52 @@ export default class CodelistManagementIndexController extends Controller {
     this.resetFilters();
     this.isReadMode = true;
   }
+
+  get selectAllChecked() {
+    return this.selectedCodelists.size > 0;
+  }
+  
+  changeCodelistSelection = (event: Event) => {
+    const element = event.target as HTMLInputElement;
+    const value = element.value;
+    if (element.checked) {
+      if ((event as KeyboardEvent).shiftKey && this.lastSelectedCodelist) {
+        const snippetLists = [...this.model.codelists];
+        const index1 = snippetLists.findIndex(
+          (list) => list.uri === this.lastSelectedCodelist,
+        );
+        const index2 = snippetLists.findIndex((list) => {
+          return list.uri === value;
+        });
+        const startIndex = Math.min(index1, index2);
+        const endIndex = Math.max(index1, index2);
+        for (let i = startIndex; i <= endIndex; i++) {
+          const snippetList = snippetLists[i] as CodeListModel;
+          if (!snippetList.uri) continue;
+          this.selectedCodelists.add(snippetList.uri);
+        }
+      } else {
+        this.selectedCodelists.add(value);
+      }
+      this.lastSelectedCodelist = value;
+    } else {
+      this.selectedCodelists.delete(value);
+    }
+  };
+
+  isSelected = (uri: string) => {
+    return this.selectedCodelists.has(uri);
+  };
+
+  toggleSelectAll = (event: Event) => {
+    if ((event.target as HTMLInputElement).checked) {
+      const codelists = [...this.model.codelists];
+      const codelistUris = codelists.flatMap(
+        (codelist) => codelist.uri ?? [],
+      );
+      this.selectedCodelists = tracked(new Set(codelistUris));
+    } else {
+      this.selectedCodelists = tracked(new Set<string>());
+    }
+  };
 }
