@@ -153,13 +153,18 @@
   </m.content>
 </AuMainContainer>
 
-<AuModal
+<ConfirmModal
   @title={{t "utility.confirmation.body"}}
   @modalOpen={{this.isRemoveModalOpen}}
   @closeModal={{this.closeRemoveModal}}
-  as |Modal|
+  @isAlert={{true}}
+  @isLoading={{this.removeCodelist.isRunning}}
+  @loadingMessage={{t "utility.deleting"}}
+  @onConfirm={{perform this.removeCodelist}}
+  @onCancel={{this.closeRemoveModal}}
+  @confirmMessage={{t 'codelist.crud.delete'}}
 >
-  <Modal.Body>
+  <:body>
     <p>
       {{t
         "codelist.crud.confirm-deletion"
@@ -167,21 +172,8 @@
         htmlSafe=true
       }}
     </p>
-  </Modal.Body>
-  <Modal.Footer>
-    <AuButton
-      @alert={{true}}
-      @loading={{this.removeCodelist.isRunning}}
-      @loadingMessage={{t "utility.deleting"}}
-      {{on "click" (perform this.removeCodelist)}}
-    >
-      {{t "codelist.crud.delete"}}
-    </AuButton>
-    <AuButton @skin="secondary" {{on "click" this.closeRemoveModal}}>
-      {{t "utility.cancel"}}
-    </AuButton>
-  </Modal.Footer>
-</AuModal>
+  </:body>
+</ConfirmModal>
 {{#if this.bulkEditModalIsOpen}}
   <BulkEditTagsModal
     @onClose={{this.closeBulkEditModal}}
