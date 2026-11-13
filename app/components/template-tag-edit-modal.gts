@@ -1,10 +1,7 @@
 import Component from '@glimmer/component';
-import AuModal from '@appuniversum/ember-appuniversum/components/au-modal';
 import AuFormRow from '@appuniversum/ember-appuniversum/components/au-form-row';
 import AuLabel from '@appuniversum/ember-appuniversum/components/au-label';
 import AuInput from '@appuniversum/ember-appuniversum/components/au-input';
-import AuButtonGroup from '@appuniversum/ember-appuniversum/components/au-button-group';
-import AuButton from '@appuniversum/ember-appuniversum/components/au-button';
 import AuAlert from '@appuniversum/ember-appuniversum/components/au-alert';
 import { on } from '@ember/modifier';
 import t from 'ember-intl/helpers/t';
@@ -17,6 +14,7 @@ import { localCopy } from 'tracked-toolbox';
 import { restartableTask, timeout } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
 import { or, and } from 'ember-truth-helpers';
+import ConfirmModal from './confirm-modal';
 
 type Args = {
   tag?: Tag;
@@ -82,20 +80,26 @@ export default class TemplateTagEditModal extends Component<Args> {
   };
 
   <template>
-    <AuModal
+    <ConfirmModal
       @title={{t
         (if @tag.value 'tag-management.edit.title' 'tag-management.new.title')
       }}
       @modalOpen={{true}}
       @closeModal={{this.cancelEditTag}}
-      as |Modal|
+      @onCancel={{this.cancelEditTag}}
+      @onConfirm={{this.saveTag}}
+      @confirmDisabled={{this.saveIsDisabled}}
+      @isLoading={{or @isSaving this.checkTitle.isRunning}}
+      @loadingMessage={{if
+        this.checkTitle.isRunning
+        (t 'utility.checking')
+        undefined
+      }}
+      @confirmMessage={{t 'template-management.create-modal.save'}}
     >
-      <Modal.Body>
-        <form
-          class='au-c-form'
-          id='create-template-tag-form'
-          {{on 'submit' this.saveTag}}
-        >
+      <:body>
+
+        <form class='au-c-form'>
           <AuFormRow>
             <AuLabel @required={{true}} for='tag-name'>
               {{t 'utility.attr.name'}}
@@ -123,28 +127,8 @@ export default class TemplateTagEditModal extends Component<Args> {
             {{/if}}
           </AuFormRow>
         </form>
-      </Modal.Body>
-      <Modal.Footer>
-        <AuButtonGroup>
-          <AuButton {{on 'click' this.cancelEditTag}} @skin='secondary'>
-            {{t 'template-management.create-modal.cancel'}}
-          </AuButton>
-          <AuButton
-            class='au-c-button'
-            form='create-meeting-form'
-            @disabled={{this.saveIsDisabled}}
-            @loading={{or @isSaving this.checkTitle.isRunning}}
-            @loadingMessage={{if
-              this.checkTitle.isRunning
-              (t 'utility.checking')
-              undefined
-            }}
-            {{on 'click' this.saveTag}}
-          >
-            {{t 'template-management.create-modal.save'}}
-          </AuButton>
-        </AuButtonGroup>
-      </Modal.Footer>
-    </AuModal>
+
+      </:body>
+    </ConfirmModal>
   </template>
 }

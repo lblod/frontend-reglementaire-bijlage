@@ -168,18 +168,18 @@
     </AuDataTable>
   </m.content>
 </AuMainContainer>
-<AuModal
+<ConfirmModal
   @title={{t "template-management.create-modal.title"}}
   @modalOpen={{this.createTemplateModalIsOpen}}
   @closeModal={{this.cancelCreateTemplate}}
-  as |Modal|
+  @confirmDisabled={{this.isInvalidTemplateTitle}}
+  @confirmMessage={{t "template-management.create-modal.save"}}
+  @onCancel={{this.cancelCreateTemplate}}
+  @onConfirm={{this.saveTemplate.perform}}
+  @isLoading={{this.saveTemplate.isRunning}}
 >
-  <Modal.Body>
-    <form
-      class="au-c-form"
-      id="create-meeting-form"
-      {{on "submit" (perform this.saveTemplate)}}
-    >
+  <:body>
+    <form class="au-c-form">
       <AuFormRow>
         <AuLabel @required={{true}} for="template-title">
           {{t "template-management.title"}}
@@ -221,23 +221,8 @@
         />
       </AuFormRow>
     </form>
-  </Modal.Body>
-  <Modal.Footer>
-    <AuButtonGroup>
-      <AuButton
-        class="au-c-button"
-        form="create-meeting-form"
-        type="submit"
-        @disabled={{this.isInvalidTemplateTitle}}
-      >
-        {{t "template-management.create-modal.save"}}
-      </AuButton>
-      <AuButton {{on "click" this.cancelCreateTemplate}} @skin="secondary">
-        {{t "template-management.create-modal.cancel"}}
-      </AuButton>
-    </AuButtonGroup>
-  </Modal.Footer>
-</AuModal>
+  </:body>
+</ConfirmModal>
 <ConfirmModal
   @confirmMessage={{t "template-management.remove-modal.remove"}}
   @modalOpen={{this.removeTemplateModalIsOpen}}

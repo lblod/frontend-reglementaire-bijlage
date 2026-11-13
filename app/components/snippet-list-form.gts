@@ -28,7 +28,6 @@ import detailedDate from 'frontend-reglementaire-bijlage/helpers/detailed-date';
 import AuHeading from '@appuniversum/ember-appuniversum/components/au-heading';
 import AuDataTable from '@appuniversum/ember-appuniversum/components/au-data-table';
 import { or } from 'ember-truth-helpers';
-import AuModal from '@appuniversum/ember-appuniversum/components/au-modal';
 import sortableItem from 'ember-sortable/modifiers/sortable-item';
 import sortableGroup from 'ember-sortable/modifiers/sortable-group';
 import sortableHandle from 'ember-sortable/modifiers/sortable-handle';
@@ -38,6 +37,7 @@ import DocumentContainerModel from 'frontend-reglementaire-bijlage/models/docume
 import { getPromiseState } from 'reactiveweb/get-promise-state';
 import TagSelector from '@lblod/ember-rdfa-editor-lblod-plugins/components/common/tags/tag-selector';
 import type TagManager from 'frontend-reglementaire-bijlage/services/tag-manager';
+import ConfirmModal from 'frontend-reglementaire-bijlage/components/confirm-modal';
 
 const SHOW_SAVED_PILL = 'showSavedPill';
 
@@ -476,13 +476,20 @@ export default class SnippetListForm extends Component<Arguments> {
         </AuDataTable>
       </div>
     </div>
-    <AuModal
+    <ConfirmModal
       @title={{t 'utility.confirmation.body'}}
       @modalOpen={{this.isRemoveModalOpen}}
       @closeModal={{this.closeRemoveModal}}
-      as |Modal|
+      @isAlert={{true}}
+      @isLoading={{this.removeSnippet.isRunning}}
+      @loadingMessage={{t 'utility.deleting'}}
+      @onConfirm={{this.removeSnippet.perform}}
+      @onCancel={{this.closeRemoveModal}}
+      @confirmMessage={{t
+        'snippets.edit-snippet-list.snippet-deletion.action.long'
+      }}
     >
-      <Modal.Body>
+      <:body>
         <p>
           {{t
             'snippets.edit-snippet-list.snippet-deletion.confirm'
@@ -490,20 +497,7 @@ export default class SnippetListForm extends Component<Arguments> {
             htmlSafe=true
           }}
         </p>
-      </Modal.Body>
-      <Modal.Footer>
-        <AuButton
-          @alert={{true}}
-          @loading={{this.removeSnippet.isRunning}}
-          @loadingMessage={{t 'utility.deleting'}}
-          {{on 'click' this.removeSnippet.perform}}
-        >
-          {{t 'snippets.edit-snippet-list.snippet-deletion.action.long'}}
-        </AuButton>
-        <AuButton @skin='secondary' {{on 'click' this.closeRemoveModal}}>
-          {{t 'utility.cancel'}}
-        </AuButton>
-      </Modal.Footer>
-    </AuModal>
+      </:body>
+    </ConfirmModal>
   </template>
 }
