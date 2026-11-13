@@ -37,22 +37,21 @@ export default class SnippetManagementIndexRoute extends Route {
     const tagsFilter = params.tags?.length
       ? { tags: { ':id:': params.tags.join(',') } }
       : ({} as Record<string, never>);
-    const options = {
-      sort: params.sort,
-      page: {
-        number: params.page,
-        size: params.size,
-      },
-      filter: {
-        ...publisherFilter,
-        ...labelFilter,
-        ...tagsFilter,
-      },
-      include: ['tags'],
-    };
 
     const [snippetLists, allTags] = await Promise.all([
-      this.store.query<SnippetList>('snippet-list', options),
+      this.store.query<SnippetList>('snippet-list', {
+          sort: params.sort,
+          page: {
+            number: params.page,
+            size: params.size,
+          },
+          filter: {
+            ...publisherFilter,
+            ...labelFilter,
+            ...tagsFilter,
+          },
+          include: ['tags'],
+        }),
       this.store.countAndFetchAll<Tag>('tag', {}),
     ]);
 
