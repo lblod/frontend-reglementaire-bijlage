@@ -799,6 +799,26 @@ export default class TemplateManagementEditController extends Controller {
         'Specifieert dat het gekozen subject betrekking heeft op, of toewijsbaar is aan, de rekening met de gekozen MAR code',
       label: 'Heeft Marcode',
     },
+    {
+      term: this.df.namedNode(
+        'http://data.vlaanderen.be/ns/mandaat#bekrachtigtAanstellingVan',
+      ),
+      direction: 'property',
+      allowFreeTextTarget: false,
+      description:
+        'Specifieert dat het gekozen besluit de aanstelling van de gekozen mandataris bekrachtigt',
+      label: 'Bekrachtigt aanstelling',
+    },
+    {
+      term: this.df.namedNode(
+        'http://data.vlaanderen.be/ns/mandaat#bekrachtigtOntslagVan',
+      ),
+      direction: 'property',
+      allowFreeTextTarget: false,
+      description:
+        'Specifieert dat het gekozen besluit het ontslag/beindiging mandaat van de gekozen mandataris bekrachtigt',
+      label: 'Bekrachtigt ontslag',
+    },
   ];
 
   /**
