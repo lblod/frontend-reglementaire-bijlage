@@ -1,10 +1,17 @@
 <ConfirmModal
-  @title={{t 'utility.confirmation.body'}}
-  @message={{or @message (t 'utility.confirm-leave-without-saving')}}
-  @confirmMessage={{or @confirmMessage (t 'utility.discard-changes')}}
+  @confirmMessage={{or @confirmMessage (t "utility.discard-changes")}}
   @isAlert={{true}}
   @modalOpen={{and this.showConfirmModal @enabled}}
   @closeModal={{this.onCancel}}
   @onConfirm={{this.onConfirm}}
   @onCancel={{this.onCancel}}
-/>
+>
+  <:title>
+    {{t "utility.confirmation.body"}}
+  </:title>
+  <:body>
+    <p>
+      {{or @message (t "utility.confirm-leave-without-saving")}}
+    </p>
+  </:body>
+</ConfirmModal>

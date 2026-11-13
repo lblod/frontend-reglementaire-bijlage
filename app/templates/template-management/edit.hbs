@@ -37,7 +37,7 @@
           @controller={{this.editor}}
           @templateType={{this.internalTypeName}}
           @templateTags={{@model.templateTags}}
-          @besluitTypeOptions={{this.config.decisionType}} 
+          @besluitTypeOptions={{this.config.decisionType}}
           @besluitTargetGroupOptions={{this.config.decisionTargetGroup}}
           @onSave={{this.onTemplateInformationModalSave}}
         />
@@ -453,10 +453,13 @@
 {{/if}}
 <ConfirmRouteLeave @enabled={{this.dirty}} />
 <ConfirmModal
-  @title={{t "template-edit.unpublish-confirm"}}
   @confirmMessage={{t "template-edit.unpublish"}}
   @isAlert={{true}}
   @modalOpen={{this.isConfirmUnpublishOpen}}
   @closeModal={{this.closeConfirmUnpublish}}
   @onConfirm={{perform this.unpublishTemplate}}
-/>
+>
+  <:title>
+    {{t "template-edit.unpublish-confirm"}}
+  </:title>
+</ConfirmModal>

@@ -239,13 +239,17 @@
   </Modal.Footer>
 </AuModal>
 <ConfirmModal
-  @title={{t "template-management.remove-modal.title"}}
   @confirmMessage={{t "template-management.remove-modal.remove"}}
   @modalOpen={{this.removeTemplateModalIsOpen}}
   @closeModal={{this.closeRemoveTemplateModal}}
   @onConfirm={{perform this.submitRemoveTemplate}}
   @onCancel={{this.cancelRemoveTemplate}}
-/>
+  @isAlert={{true}}
+>
+  <:title>
+    {{t "template-management.remove-modal.title"}}
+  </:title>
+</ConfirmModal>
 {{#if this.bulkEditModalIsOpen}}
   <BulkEditTagsModal
     @onClose={{this.closeBulkEditModal}}
