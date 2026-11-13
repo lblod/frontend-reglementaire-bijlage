@@ -31,6 +31,16 @@
               </AuHeading>
             </Group>
             <Group class="au-c-toolbar__group--center">
+              {{#unless this.isReadOnly}}
+                {{#if (gt this.selectedSnippetLists.size 0)}}
+                  <AuButton
+                    {{on "click" this.showBulkEditModal}}
+                    @skin="secondary"
+                    @icon="pencil"
+                    @disabled={{this.saveBulkEdit.isRunning}}
+                  >{{t "template-management.bulk-edit"}}</AuButton>
+                {{/if}}
+              {{/unless}}
               <TemplateExporter
                 @snippetListUris={{this.selectedSnippetLists}}
               />
@@ -168,3 +178,9 @@
     </AuButton>
   </Modal.Footer>
 </AuModal>
+{{#if this.bulkEditModalIsOpen}}
+  <BulkEditTagsModal
+    @onClose={{this.closeBulkEditModal}}
+    @onSave={{this.saveBulkEdit.perform}}
+  />
+{{/if}}
