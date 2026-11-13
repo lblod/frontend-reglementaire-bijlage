@@ -245,11 +245,9 @@
   @onConfirm={{perform this.submitRemoveTemplate}}
   @onCancel={{this.cancelRemoveTemplate}}
   @isAlert={{true}}
->
-  <:title>
-    {{t "template-management.remove-modal.title"}}
-  </:title>
-</ConfirmModal>
+  @title={{t "template-management.remove-modal.title"}}
+  @isLoading={{this.submitRemoveTemplate.isRunning}}
+/>
 {{#if this.bulkEditModalIsOpen}}
   <BulkEditTagsModal
     @onClose={{this.closeBulkEditModal}}

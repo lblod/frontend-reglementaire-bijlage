@@ -458,8 +458,5 @@
   @modalOpen={{this.isConfirmUnpublishOpen}}
   @closeModal={{this.closeConfirmUnpublish}}
   @onConfirm={{perform this.unpublishTemplate}}
->
-  <:title>
-    {{t "template-edit.unpublish-confirm"}}
-  </:title>
-</ConfirmModal>
+  @title={{t "template-edit.unpublish-confirm"}}
+/>

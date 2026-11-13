@@ -47,10 +47,8 @@ export default class BulkEditTagsModal extends Component<Args> {
       @onCancel={{@onClose}}
       @confirmDisabled={{this.saveButtonDisabled}}
       @confirmMessage={{t 'template-management.create-modal.save'}}
+      @title={{t 'tag-management.bulk-edit-title'}}
     >
-      <:title>
-        {{t 'tag-management.bulk-edit-title'}}
-      </:title>
       <:body>
         <form class='au-c-form' id='bulk-tag-edit-form'>
           <AuFormRow>
