@@ -16,7 +16,7 @@ type Sig = {
     modalOpen?: boolean;
     confirmDisabled?: boolean;
     closeModal: () => void;
-    onConfirm: () => void;
+    onConfirm: (event: Event) => void;
     onCancel: () => void;
   };
   Blocks: {
@@ -30,8 +30,8 @@ type Sig = {
  * A generic 'confirmation' modal to avoid copy-pasting boilerplate and to keep a consistent style.
  */
 export default class ConfirmModalComponent extends Component<Sig> {
-  onConfirm = () => {
-    this.args.onConfirm?.();
+  onConfirm = (event: Event) => {
+    this.args.onConfirm?.(event);
   };
 
   onCancel = () => {
@@ -70,6 +70,7 @@ export default class ConfirmModalComponent extends Component<Sig> {
             @alert={{@isAlert}}
             @loading={{@isLoading}}
             @loadingMessage={{or @loadingMessage (t 'utility.loading')}}
+            @disabled={{@confirmDisabled}}
             {{on 'click' this.onConfirm}}
           >
             {{or @confirmMessage (t 'utility.confirm')}}
