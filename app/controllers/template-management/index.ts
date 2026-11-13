@@ -251,6 +251,7 @@ export default class TemplateManagementIndexController extends Controller {
 
   saveBulkEdit = task(
     async ({ add, remove }: { add: Tag[]; remove: Tag[] }) => {
+      // We need to save before, otherwise we get race conditions when saving the new tags
       await this.tagManager.saveTags(add);
       await all(
         [...this.selectedTemplates.values()].map(async (template: string) => {
