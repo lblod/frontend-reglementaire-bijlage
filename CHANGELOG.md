@@ -1,5 +1,11 @@
 # frontend-reglementaire-bijlage
 
+## 9.38.1
+
+### Patch Changes
+
+- [#372](https://github.com/lblod/frontend-reglementaire-bijlage/pull/372) [`19ba8f56934ac94d1a63c6b12a54cf94f5ee8087`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/19ba8f56934ac94d1a63c6b12a54cf94f5ee8087) Thanks [@abeforgit](https://github.com/abeforgit)! - Fix query param casing
+
 ## 9.38.0
 
 ### Minor Changes
