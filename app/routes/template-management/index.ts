@@ -45,7 +45,7 @@ export default class TemplateManagementIndexRoute extends Route {
         : [RS_STANDARD_FOLDER, DECISION_STANDARD_FOLDER];
 
     const titleFilter = params.title
-      ? { currentVersion: { title: params.title } }
+      ? { 'current-version': { title: params.title } }
       : ({} as Record<string, never>);
     const tagsFilter = params.templateTags?.length
       ? { tags: { ':id:': params.templateTags.join(',') } }
