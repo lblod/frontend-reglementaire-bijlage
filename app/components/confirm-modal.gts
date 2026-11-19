@@ -31,13 +31,14 @@ type Sig = {
  */
 export default class ConfirmModalComponent extends Component<Sig> {
   onConfirm = (event: Event) => {
-    this.args.onConfirm?.(event);
+    this.args.onConfirm(event);
   };
 
   onCancel = () => {
-    this.args?.onCancel();
-    this.args?.closeModal();
+    this.args.onCancel();
+    this.args.closeModal();
   };
+
   <template>
     <AuModal
       @modalOpen={{@modalOpen}}
