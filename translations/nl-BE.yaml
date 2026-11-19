@@ -108,6 +108,7 @@ template-management:
   edit-mode: Bewerkmodus
   template-status: Status
   read-mode: Leesmodus
+  bulk-edit: Bulk Bewerken
   template-information: Sjablooninformatie
   template-type:
     label: Sjabloontype
@@ -257,6 +258,10 @@ tag-management:
   error-loading-tags:
     title: Laden van tags mislukt
     body: Er is een probleem opgetreden bij het laden van tags
+  add-tags: Tags toevoegen
+  remove-tags: Tags verwijderen
+  bulk-edit-title: Bulkbewerking tags
+  bulk-edit-description: Deze bulkbewerking laat toe om aan de geselecteerde sjablonen dezelfde tags toe te voegen of verwijderen.
 
 editor-document-title:
   placeholder: Naamloos document
