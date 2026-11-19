@@ -32,7 +32,7 @@
             </Group>
             <Group class="au-c-toolbar__group--center">
               {{#unless this.isReadOnly}}
-                {{#if (gt this.selectedSnippetLists.size 0)}}
+                {{#if (gt this.selectedSnippetListUris.size 0)}}
                   <AuButton
                     {{on "click" this.showBulkEditModal}}
                     @skin="secondary"
@@ -42,7 +42,7 @@
                 {{/if}}
               {{/unless}}
               <TemplateExporter
-                @snippetListUris={{this.selectedSnippetLists}}
+                @snippetListUris={{this.selectedSnippetListUris}}
               />
               <TemplateImporter @onSuccess={{this.refresh}} />
               <AuLink
@@ -173,8 +173,11 @@
   </:body>
 </ConfirmModal>
 {{#if this.bulkEditModalIsOpen}}
-  <BulkEditTagsModal
-    @onClose={{this.closeBulkEditModal}}
-    @onSave={{this.saveBulkEdit.perform}}
-  />
+  {{#if this.selectedSnippetListTags.resolved}}
+    <BulkEditTagsModal
+      @onClose={{this.closeBulkEditModal}}
+      @onSave={{this.saveBulkEdit.perform}}
+      @availableRemoveTags={{this.selectedSnippetListTagsSet}}
+    />
+  {{/if}}
 {{/if}}

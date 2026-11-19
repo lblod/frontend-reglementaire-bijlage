@@ -10,6 +10,8 @@ import type TagManager from 'frontend-reglementaire-bijlage/services/tag-manager
 import { type TrackedSet, tracked } from 'tracked-built-ins';
 import type CodelistManagementIndexRoute from 'frontend-reglementaire-bijlage/routes/codelist-management/index';
 import type { ModelFrom } from 'frontend-reglementaire-bijlage/utils/type-utils';
+import { getPromiseState } from 'reactiveweb/get-promise-state';
+import { cached } from '@glimmer/tracking';
 
 const LABEL_SEARCH_DEBOUNCE_TIME = 300;
 
@@ -30,7 +32,7 @@ export default class CodelistManagementIndexController extends Controller {
   @tracked isRemoveModalOpen = false;
   @tracked modalCodelist: CodeListModel | null = null;
 
-  @tracked selectedCodelists: TrackedSet<string> = tracked(Set);
+  @tracked selectedCodelistUris: TrackedSet<string> = tracked(Set);
   @tracked lastSelectedCodelist: string | null = null;
 
   @tracked tags: (string | null)[] = [];
@@ -40,7 +42,7 @@ export default class CodelistManagementIndexController extends Controller {
   updateSearchQuery = (event: Event) => {
     event.preventDefault();
     this.searchQuery = (event.target as HTMLInputElement).value;
-  }
+  };
 
   changeFilterLabel = restartableTask(async (label: string) => {
     await timeout(LABEL_SEARCH_DEBOUNCE_TIME);
@@ -57,7 +59,7 @@ export default class CodelistManagementIndexController extends Controller {
     this.tags = [];
     this.label = '';
     this.resetPagination();
-  }
+  };
 
   resetPagination() {
     this.page = 0;
@@ -66,38 +68,40 @@ export default class CodelistManagementIndexController extends Controller {
   openRemoveModal = (codelist: CodeListModel) => {
     this.modalCodelist = codelist;
     this.isRemoveModalOpen = true;
-  }
+  };
 
   closeRemoveModal = () => {
     this.modalCodelist = null;
     this.isRemoveModalOpen = false;
-  }
+  };
 
   showBulkEditModal = () => {
     this.bulkEditModalIsOpen = true;
-  }
+  };
 
   closeBulkEditModal = () => {
     this.bulkEditModalIsOpen = false;
-  }
+  };
 
   saveBulkEdit = task(
     async ({ add, remove }: { add: Tag[]; remove: Tag[] }) => {
       // We need to save before, otherwise we get race conditions when saving the new tags
       await this.tagManager.saveTags(add);
       await all(
-        [...this.selectedCodelists.values()].map(async (selectedCodelistUri: string) => {
-          const selectedCodelist = this.model.codelists.find(
-            (codelist) => codelist.uri === selectedCodelistUri,
-          );
-          if (!selectedCodelist) return;
-          const tags = await selectedCodelist.tags;
-          const removed = tags.filter(
-            (tag: Tag) => !remove.find((tag2) => tag.id === tag2.id),
-          );
-          const newTags = [...removed, ...add];
-          await this.tagManager.setTags(selectedCodelist, newTags);
-        }),
+        [...this.selectedCodelistUris.values()].map(
+          async (selectedCodelistUri: string) => {
+            const selectedCodelist = this.model.codelists.find(
+              (codelist) => codelist.uri === selectedCodelistUri,
+            );
+            if (!selectedCodelist) return;
+            const tags = await selectedCodelist.tags;
+            const removed = tags.filter(
+              (tag: Tag) => !remove.find((tag2) => tag.id === tag2.id),
+            );
+            const newTags = [...removed, ...add];
+            await this.tagManager.setTags(selectedCodelist, newTags);
+          },
+        ),
       );
       this.closeBulkEditModal();
     },
@@ -134,9 +138,9 @@ export default class CodelistManagementIndexController extends Controller {
   }
 
   get selectAllChecked() {
-    return this.selectedCodelists.size > 0;
+    return this.selectedCodelistUris.size > 0;
   }
-  
+
   changeCodelistSelection = (event: Event) => {
     const element = event.target as HTMLInputElement;
     const value = element.value;
@@ -154,30 +158,58 @@ export default class CodelistManagementIndexController extends Controller {
         for (let i = startIndex; i <= endIndex; i++) {
           const snippetList = snippetLists[i] as CodeListModel;
           if (!snippetList.uri) continue;
-          this.selectedCodelists.add(snippetList.uri);
+          this.selectedCodelistUris.add(snippetList.uri);
         }
       } else {
-        this.selectedCodelists.add(value);
+        this.selectedCodelistUris.add(value);
       }
       this.lastSelectedCodelist = value;
     } else {
-      this.selectedCodelists.delete(value);
+      this.selectedCodelistUris.delete(value);
     }
   };
 
+  get selectedCodelists() {
+    return [...this.selectedCodelistUris].map(
+      (uri) =>
+        this.model.codelists.find(
+          (codelist) => codelist.uri === uri,
+        ) as CodeListModel, // this will never be undefined
+    );
+  }
+
+  @cached
+  get selectedCodelistsTags() {
+    return getPromiseState(
+      Promise.all(
+        this.selectedCodelists.map(async (codelist) => await codelist.tags),
+      ),
+    );
+  }
+
+  get selectedCodelistsTagsSet() {
+    if (!this.selectedCodelistsTags.resolved) return null;
+
+    const uniqueTags = [
+      ...new Map(
+        this.selectedCodelistsTags.resolved.flat().map((tag) => [tag?.id, tag]),
+      ).values(),
+    ];
+
+    return uniqueTags;
+  }
+
   isSelected = (uri: string) => {
-    return this.selectedCodelists.has(uri);
+    return this.selectedCodelistUris.has(uri);
   };
 
   toggleSelectAll = (event: Event) => {
     if ((event.target as HTMLInputElement).checked) {
       const codelists = [...this.model.codelists];
-      const codelistUris = codelists.flatMap(
-        (codelist) => codelist.uri ?? [],
-      );
-      this.selectedCodelists = tracked(new Set(codelistUris));
+      const codelistUris = codelists.flatMap((codelist) => codelist.uri ?? []);
+      this.selectedCodelistUris = tracked(new Set(codelistUris));
     } else {
-      this.selectedCodelists = tracked(new Set<string>());
+      this.selectedCodelistUris = tracked(new Set<string>());
     }
   };
 }

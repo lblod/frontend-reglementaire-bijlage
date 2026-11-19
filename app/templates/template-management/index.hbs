@@ -35,7 +35,7 @@
             </Group>
             <Group>
               {{#unless this.isReadOnly}}
-                {{#if (gt this.selectedTemplates.size 0)}}
+                {{#if (gt this.selectedTemplateUris.size 0)}}
                   <AuButton
                     {{on "click" this.showBulkEditModal}}
                     @skin="secondary"
@@ -44,7 +44,7 @@
                   >{{t "template-management.bulk-edit"}}</AuButton>
                 {{/if}}
               {{/unless}}
-              <TemplateExporter @templateUris={{this.selectedTemplates}} />
+              <TemplateExporter @templateUris={{this.selectedTemplateUris}} />
               <TemplateImporter @onSuccess={{this.refresh}} />
               {{#unless this.readOnly}}
                 <AuButton
@@ -234,8 +234,11 @@
   @isLoading={{this.submitRemoveTemplate.isRunning}}
 />
 {{#if this.bulkEditModalIsOpen}}
-  <BulkEditTagsModal
-    @onClose={{this.closeBulkEditModal}}
-    @onSave={{this.saveBulkEdit.perform}}
-  />
+  {{#if this.selectedTemplateTags.resolved}}
+    <BulkEditTagsModal
+      @onClose={{this.closeBulkEditModal}}
+      @onSave={{this.saveBulkEdit.perform}}
+      @availableRemoveTags={{this.selectedTemplateTagsSet}}
+    />
+  {{/if}}
 {{/if}}
