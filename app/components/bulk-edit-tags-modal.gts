@@ -11,11 +11,13 @@ import type TagManager from 'frontend-reglementaire-bijlage/services/tag-manager
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
+import { or } from 'ember-truth-helpers';
 
 type Sig = {
   Args: {
     onSave: (changes: { add: Tag[]; remove: Tag[] }) => void;
     onClose: () => void;
+    availableRemoveTags?: Tag[];
   };
 };
 
@@ -77,7 +79,7 @@ export default class BulkEditTagsModal extends Component<Sig> {
             <TagSelector
               id='bulk-tags-to-remove'
               class='au-u-1-1'
-              @tags={{this.tagManager.tags}}
+              @tags={{or @availableRemoveTags this.tagManager.tags}}
               @selectedTags={{this.tagsToRemove}}
               @onChange={{this.setTagsToRemove}}
             />
