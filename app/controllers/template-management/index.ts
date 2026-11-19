@@ -24,6 +24,8 @@ import Template from 'frontend-reglementaire-bijlage/models/template';
 import EditorDocumentFolderModel from 'frontend-reglementaire-bijlage/models/editor-document-folder';
 import type { ModelFrom } from 'frontend-reglementaire-bijlage/utils/type-utils';
 import type TemplateManagementIndexRoute from 'frontend-reglementaire-bijlage/routes/template-management/index';
+import { cached } from '@glimmer/tracking';
+import { getPromiseState } from 'reactiveweb/get-promise-state';
 
 const TITLE_SEARCH_DEBOUNCE_TIME = 300;
 
@@ -53,7 +55,7 @@ export default class TemplateManagementIndexController extends Controller {
   @tracked documentContainer: DocumentContainerModel | null = null;
   @tracked templateTypeToCreate = this.allTemplateTypes[0] ?? null;
   @tracked tagsToCreate: Tag[] = [];
-  @tracked selectedTemplates: TrackedSet<string> = tracked(Set);
+  @tracked selectedTemplateUris: TrackedSet<string> = tracked(Set);
   @tracked lastCheckedTemplateUri: string | null = null;
 
   @tracked templateTypes: TemplateType[] = [];
@@ -254,18 +256,20 @@ export default class TemplateManagementIndexController extends Controller {
       // We need to save before, otherwise we get race conditions when saving the new tags
       await this.tagManager.saveTags(add);
       await all(
-        [...this.selectedTemplates.values()].map(async (template: string) => {
-          const documentContainer = this.model.documentContainer.find(
-            (documentContainer) => documentContainer.uri === template,
-          );
-          if (!documentContainer) return;
-          const tags = await documentContainer.tags;
-          const removed = tags.filter(
-            (tag: Tag) => !remove.find((tag2) => tag.id === tag2.id),
-          );
-          const newTags = [...removed, ...add];
-          await this.tagManager.setTags(documentContainer, newTags);
-        }),
+        [...this.selectedTemplateUris.values()].map(
+          async (template: string) => {
+            const documentContainer = this.model.documentContainer.find(
+              (documentContainer) => documentContainer.uri === template,
+            );
+            if (!documentContainer) return;
+            const tags = await documentContainer.tags;
+            const removed = tags.filter(
+              (tag: Tag) => !remove.find((tag2) => tag.id === tag2.id),
+            );
+            const newTags = [...removed, ...add];
+            await this.tagManager.setTags(documentContainer, newTags);
+          },
+        ),
       );
       this.closeBulkEditModal();
     },
@@ -326,8 +330,38 @@ export default class TemplateManagementIndexController extends Controller {
   };
 
   isSelected = (uri: string) => {
-    return this.selectedTemplates.has(uri);
+    return this.selectedTemplateUris.has(uri);
   };
+
+  get selectedTemplates() {
+    return [...this.selectedTemplateUris].map(
+      (uri) =>
+        this.model.documentContainer.find(
+          (template) => template.uri === uri,
+        ) as DocumentContainerModel,
+    );
+  }
+
+  @cached
+  get selectedTemplateTags() {
+    return getPromiseState(
+      Promise.all(
+        this.selectedTemplates.map(async (template) => await template.tags),
+      ),
+    );
+  }
+
+  get selectedTemplateTagsSet() {
+    if (!this.selectedTemplateTags.resolved) return null;
+
+    const uniqueTags = [
+      ...new Map(
+        this.selectedTemplateTags.resolved.flat().map((tag) => [tag?.id, tag]),
+      ).values(),
+    ];
+
+    return uniqueTags;
+  }
 
   onTemplateSelectionChange = (event: MouseEvent) => {
     const target = event.target as HTMLInputElement;
@@ -346,19 +380,19 @@ export default class TemplateManagementIndexController extends Controller {
         for (let i = startIndex; i <= endIndex; i++) {
           const container = documentContainers[i];
           if (!container?.uri) continue;
-          this.selectedTemplates.add(container.uri);
+          this.selectedTemplateUris.add(container.uri);
         }
       } else {
-        this.selectedTemplates.add(value);
+        this.selectedTemplateUris.add(value);
       }
       this.lastCheckedTemplateUri = value;
     } else {
-      this.selectedTemplates.delete(value);
+      this.selectedTemplateUris.delete(value);
     }
   };
 
   get selectAllChecked() {
-    return this.selectedTemplates.size > 0;
+    return this.selectedTemplateUris.size > 0;
   }
 
   onSelectAllChange = (event: Event) => {
@@ -367,9 +401,9 @@ export default class TemplateManagementIndexController extends Controller {
       const containerUris = documentContainers.flatMap(
         (container) => container.uri ?? [],
       );
-      this.selectedTemplates = tracked(new Set(containerUris));
+      this.selectedTemplateUris = tracked(new Set(containerUris));
     } else {
-      this.selectedTemplates = tracked(new Set<string>());
+      this.selectedTemplateUris = tracked(new Set<string>());
     }
   };
 }

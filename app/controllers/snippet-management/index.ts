@@ -11,6 +11,8 @@ import type Tag from 'frontend-reglementaire-bijlage/models/tag';
 import type { ModelFrom } from 'frontend-reglementaire-bijlage/utils/type-utils';
 import type SnippetManagementIndexRoute from 'frontend-reglementaire-bijlage/routes/snippet-management/index';
 import type TagManager from 'frontend-reglementaire-bijlage/services/tag-manager';
+import { cached } from '@glimmer/tracking';
+import { getPromiseState } from 'reactiveweb/get-promise-state';
 
 const LABEL_SEARCH_DEBOUNCE_TIME = 300;
 
@@ -30,7 +32,7 @@ export default class SnippetManagementIndexController extends Controller {
 
   @localCopy('label', '') searchQuery = '';
 
-  @tracked selectedSnippetLists: TrackedSet<string> = tracked(Set);
+  @tracked selectedSnippetListUris: TrackedSet<string> = tracked(Set);
   @tracked lastCheckedSnippetList: string | null = null;
 
   @tracked isRemoveModalOpen = false;
@@ -109,7 +111,7 @@ export default class SnippetManagementIndexController extends Controller {
       // We need to save before, otherwise we get race conditions when saving the new tags
       await this.tagManager.saveTags(add);
       await all(
-        [...this.selectedSnippetLists.values()].map(
+        [...this.selectedSnippetListUris.values()].map(
           async (selectedSnippetList: string) => {
             const snippetList = this.model.snippetLists.find(
               (snippetList) => selectedSnippetList === snippetList.uri,
@@ -129,7 +131,7 @@ export default class SnippetManagementIndexController extends Controller {
   );
 
   isSelected = (uri: string) => {
-    return this.selectedSnippetLists.has(uri);
+    return this.selectedSnippetListUris.has(uri);
   };
 
   onSnippetListSelectionChange = (event: Event) => {
@@ -149,19 +151,19 @@ export default class SnippetManagementIndexController extends Controller {
         for (let i = startIndex; i <= endIndex; i++) {
           const snippetList = snippetLists[i] as SnippetList;
           if (!snippetList.uri) continue;
-          this.selectedSnippetLists.add(snippetList.uri);
+          this.selectedSnippetListUris.add(snippetList.uri);
         }
       } else {
-        this.selectedSnippetLists.add(value);
+        this.selectedSnippetListUris.add(value);
       }
       this.lastCheckedSnippetList = value;
     } else {
-      this.selectedSnippetLists.delete(value);
+      this.selectedSnippetListUris.delete(value);
     }
   };
 
   get selectAllChecked() {
-    return this.selectedSnippetLists.size > 0;
+    return this.selectedSnippetListUris.size > 0;
   }
 
   changeTagsFor = async (snippetList: SnippetList, tags: Tag[]) => {
@@ -174,11 +176,45 @@ export default class SnippetManagementIndexController extends Controller {
       const snippetListUris = snippetLists.flatMap(
         (snippetList) => snippetList.uri ?? [],
       );
-      this.selectedSnippetLists = tracked(new Set(snippetListUris));
+      this.selectedSnippetListUris = tracked(new Set(snippetListUris));
     } else {
-      this.selectedSnippetLists = tracked(new Set<string>());
+      this.selectedSnippetListUris = tracked(new Set<string>());
     }
   };
+
+  get selectedSnippetLists() {
+    return [...this.selectedSnippetListUris].map(
+      (uri) =>
+        this.model.snippetLists.find(
+          (snippetList) => snippetList.uri === uri,
+        ) as SnippetList,
+    );
+  }
+
+  @cached
+  get selectedSnippetListTags() {
+    return getPromiseState(
+      Promise.all(
+        this.selectedSnippetLists.map(
+          async (snippetList) => await snippetList.tags,
+        ),
+      ),
+    );
+  }
+
+  get selectedSnippetListTagsSet() {
+    if (!this.selectedSnippetListTags.resolved) return null;
+
+    const uniqueTags = [
+      ...new Map(
+        this.selectedSnippetListTags.resolved
+          .flat()
+          .map((tag) => [tag?.id, tag]),
+      ).values(),
+    ];
+
+    return uniqueTags;
+  }
 
   reset() {
     this.resetPagination();

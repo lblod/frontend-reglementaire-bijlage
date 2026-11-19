@@ -32,7 +32,7 @@
             </Group>
             <Group class="au-c-toolbar__group--center">
               {{#unless this.isReadOnly}}
-                {{#if (gt this.selectedCodelists.size 0)}}
+                {{#if (gt this.selectedCodelistUris.size 0)}}
                   <AuButton
                     {{on "click" this.showBulkEditModal}}
                     @skin="secondary"
@@ -183,8 +183,11 @@
   </Modal.Footer>
 </AuModal>
 {{#if this.bulkEditModalIsOpen}}
-  <BulkEditTagsModal
-    @onClose={{this.closeBulkEditModal}}
-    @onSave={{this.saveBulkEdit.perform}}
-  />
+  {{#if this.selectedCodelistsTags.resolved}}
+    <BulkEditTagsModal
+      @onClose={{this.closeBulkEditModal}}
+      @onSave={{this.saveBulkEdit.perform}}
+      @availableRemoveTags={{this.selectedCodelistsTagsSet}}
+    />
+  {{/if}}
 {{/if}}
