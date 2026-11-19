@@ -37,21 +37,21 @@ export default class CodelistManagementIndexRoute extends Route {
     const tagsFilter = params.tags?.length
       ? { tags: { ':id:': params.tags.join(',') } }
       : ({} as Record<string, never>);
-    const options = {
-      sort: params.sort,
-      page: {
-        number: params.page,
-        size: params.size,
-      },
-      filter: {
-        ...publisherFilter,
-        ...labelFilter,
-        ...tagsFilter,
-      },
-    };
 
     const [codelists, allTags] = await Promise.all([
-      this.store.query<CodeListModel>('code-list', options),
+      this.store.query<CodeListModel>('code-list', {
+          sort: params.sort,
+          page: {
+            number: params.page,
+            size: params.size,
+          },
+          filter: {
+            ...publisherFilter,
+            ...labelFilter,
+            ...tagsFilter,
+          },
+          include: ['tags'],
+        }),
       this.store.countAndFetchAll<Tag>('tag', {}),
     ]);
 
