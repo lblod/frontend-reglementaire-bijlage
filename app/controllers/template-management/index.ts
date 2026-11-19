@@ -301,6 +301,7 @@ export default class TemplateManagementIndexController extends Controller {
 
     await this.documentContainer.destroyRecord();
     this.refresh?.();
+    this.closeRemoveTemplateModal();
   });
 
   logout = () => {
