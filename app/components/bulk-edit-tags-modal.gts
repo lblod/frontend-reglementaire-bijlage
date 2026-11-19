@@ -12,12 +12,14 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
 
-type Args = {
-  onSave: (changes: { add: Tag[]; remove: Tag[] }) => void;
-  onClose: () => void;
+type Sig = {
+  Args: {
+    onSave: (changes: { add: Tag[]; remove: Tag[] }) => void;
+    onClose: () => void;
+  };
 };
 
-export default class BulkEditTagsModal extends Component<Args> {
+export default class BulkEditTagsModal extends Component<Sig> {
   @service declare tagManager: TagManager;
 
   @tracked tagsToRemove: Tag[] = [];
