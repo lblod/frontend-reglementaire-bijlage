@@ -1,6 +1,5 @@
 import { attr, hasMany, type AsyncHasMany } from '@ember-data/model';
 import type { Type } from '@warp-drive/core-types/symbols';
-import type DocumentContainer from './document-container';
 import SkosConcept from './skos-concept';
 import type SnippetList from './snippet-list';
 import type CodeListModel from './code-list';
@@ -13,12 +12,6 @@ export default class Tag extends SkosConcept {
 
   @attr declare value: string;
   
-  @hasMany('document-container', {
-    inverse: 'tags',
-    async: true,
-  })
-  declare documentContainers: AsyncHasMany<DocumentContainer>;
-
   @hasMany<SnippetList>('snippet-list', {
     inverse: 'tags',
     async: true,
