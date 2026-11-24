@@ -65,7 +65,7 @@ export default class TemplateManagementIndexRoute extends Route {
           number: params.page,
           size: params.size,
         },
-        include: ['template', 'folder', 'currentVersion', 'tags'],
+        include: ['template', 'folder', 'currentVersion','templateInfo.tags'],
       }),
       Promise.all(
         params.templateTags?.map((id) => this.store.findRecord('tag', id)) ??
