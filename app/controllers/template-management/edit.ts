@@ -895,7 +895,9 @@ export default class TemplateManagementEditController extends Controller {
 
   onTemplateInformationModalSave = async (templateTags?: Tag[]) => {
     if (templateTags && this.documentContainer) {
-      await this.tagManager.setTags(this.documentContainer, templateTags);
+      const templateInfo = await this.documentContainer.templateInfo;
+      if (!templateInfo) return;
+      await this.tagManager.setTags(templateInfo, templateTags);
     }
     await this.save.perform();
   };
