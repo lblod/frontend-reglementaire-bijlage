@@ -10,6 +10,8 @@ import type Tag from 'frontend-reglementaire-bijlage/models/tag';
 import type Store from 'frontend-reglementaire-bijlage/services/store';
 import { sortTags } from 'frontend-reglementaire-bijlage/utils/sort-tags';
 
+type Taggable = DocumentContainer | SnippetList | CodeListModel;
+
 export default class TagManager extends Service {
   @service declare store: Store;
   @service declare toaster: ToasterService;
@@ -51,12 +53,29 @@ export default class TagManager extends Service {
     await Promise.all(newTags.map((tag) => tag.save()));
   }
 
-  async setTags(
-    taggedThing: DocumentContainer | SnippetList | CodeListModel,
-    tags: Tag[],
-  ) {
+  async setTags(taggedThing: Taggable, tags: Tag[]) {
     await this.saveTags(tags);
     taggedThing.set('tags', tags);
     await taggedThing.save();
+  }
+
+  async applyBulkEdit(
+    taggedThings: Taggable[],
+    { add, remove }: { add: Tag[]; remove: Tag[] },
+  ) {
+    // We need to save before, otherwise we get race conditions when saving the new tags
+    await this.saveTags(add);
+    await Promise.all(
+      taggedThings.map(async (taggedThing) => {
+        if (!taggedThing) return;
+        const tags = await taggedThing.tags;
+        const removed = tags.filter(
+          (tag: Tag) => !remove.find((tag2) => tag.id === tag2.id),
+        );
+        const newTags = [...removed, ...add];
+        await this.setTags(taggedThing, newTags);
+      }),
+    );
+    return;
   }
 }

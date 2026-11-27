@@ -1,5 +1,5 @@
 import Controller from '@ember/controller';
-import { all, restartableTask, task, timeout } from 'ember-concurrency';
+import { restartableTask, task, timeout } from 'ember-concurrency';
 import { service } from '@ember/service';
 import { tracked, TrackedSet } from 'tracked-built-ins';
 import { isBlank } from '../../utils/strings';
@@ -252,25 +252,8 @@ export default class TemplateManagementIndexController extends Controller {
   };
 
   saveBulkEdit = task(
-    async ({ add, remove }: { add: Tag[]; remove: Tag[] }) => {
-      // We need to save before, otherwise we get race conditions when saving the new tags
-      await this.tagManager.saveTags(add);
-      await all(
-        [...this.selectedTemplateUris.values()].map(
-          async (template: string) => {
-            const documentContainer = this.model.documentContainer.find(
-              (documentContainer) => documentContainer.uri === template,
-            );
-            if (!documentContainer) return;
-            const tags = await documentContainer.tags;
-            const removed = tags.filter(
-              (tag: Tag) => !remove.find((tag2) => tag.id === tag2.id),
-            );
-            const newTags = [...removed, ...add];
-            await this.tagManager.setTags(documentContainer, newTags);
-          },
-        ),
-      );
+    async (changeset: { add: Tag[]; remove: Tag[] }) => {
+      await this.tagManager.applyBulkEdit(this.selectedTemplates, changeset);
       this.closeBulkEditModal();
     },
   );

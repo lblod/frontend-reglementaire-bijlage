@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import { all, restartableTask, task, timeout } from 'ember-concurrency';
+import { restartableTask, task, timeout } from 'ember-concurrency';
 import { localCopy } from 'tracked-toolbox';
 import type CodeListModel from 'frontend-reglementaire-bijlage/models/code-list';
 import type RouterService from '@ember/routing/router-service';
@@ -83,29 +83,10 @@ export default class CodelistManagementIndexController extends Controller {
     this.bulkEditModalIsOpen = false;
   };
 
-  saveBulkEdit = task(
-    async ({ add, remove }: { add: Tag[]; remove: Tag[] }) => {
-      // We need to save before, otherwise we get race conditions when saving the new tags
-      await this.tagManager.saveTags(add);
-      await all(
-        [...this.selectedCodelistUris.values()].map(
-          async (selectedCodelistUri: string) => {
-            const selectedCodelist = this.model.codelists.find(
-              (codelist) => codelist.uri === selectedCodelistUri,
-            );
-            if (!selectedCodelist) return;
-            const tags = await selectedCodelist.tags;
-            const removed = tags.filter(
-              (tag: Tag) => !remove.find((tag2) => tag.id === tag2.id),
-            );
-            const newTags = [...removed, ...add];
-            await this.tagManager.setTags(selectedCodelist, newTags);
-          },
-        ),
-      );
-      this.closeBulkEditModal();
-    },
-  );
+  saveBulkEdit = task(async (changeset: { add: Tag[]; remove: Tag[] }) => {
+    await this.tagManager.applyBulkEdit(this.selectedCodelists, changeset);
+    this.closeBulkEditModal();
+  });
 
   removeCodelist = task(async () => {
     const concepts = await this.modalCodelist?.concepts;

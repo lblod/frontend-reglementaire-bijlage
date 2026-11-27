@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
 import { service } from '@ember/service';
-import { all, restartableTask, task, timeout } from 'ember-concurrency';
+import { restartableTask, task, timeout } from 'ember-concurrency';
 import { tracked, TrackedSet } from 'tracked-built-ins';
 import { localCopy } from 'tracked-toolbox';
 import type Store from 'frontend-reglementaire-bijlage/services/store';
@@ -106,29 +106,10 @@ export default class SnippetManagementIndexController extends Controller {
     this.bulkEditModalIsOpen = false;
   };
 
-  saveBulkEdit = task(
-    async ({ add, remove }: { add: Tag[]; remove: Tag[] }) => {
-      // We need to save before, otherwise we get race conditions when saving the new tags
-      await this.tagManager.saveTags(add);
-      await all(
-        [...this.selectedSnippetListUris.values()].map(
-          async (selectedSnippetList: string) => {
-            const snippetList = this.model.snippetLists.find(
-              (snippetList) => selectedSnippetList === snippetList.uri,
-            );
-            if (!snippetList) return;
-            const tags = await snippetList.tags;
-            const removed = tags.filter(
-              (tag: Tag) => !remove.find((tag2) => tag.id === tag2.id),
-            );
-            const newTags = [...removed, ...add];
-            await this.tagManager.setTags(snippetList, newTags);
-          },
-        ),
-      );
-      this.closeBulkEditModal();
-    },
-  );
+  saveBulkEdit = task(async (changeset: { add: Tag[]; remove: Tag[] }) => {
+    await this.tagManager.applyBulkEdit(this.selectedSnippetLists, changeset);
+    this.closeBulkEditModal();
+  });
 
   isSelected = (uri: string) => {
     return this.selectedSnippetListUris.has(uri);
