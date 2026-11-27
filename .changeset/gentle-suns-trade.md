@@ -1,5 +1,0 @@
----
-"frontend-reglementaire-bijlage": patch
----
-
-bump plugins to [v39.3.0](https://github.com/lblod/ember-rdfa-editor-lblod-plugins/releases/tag/v39.3.0)

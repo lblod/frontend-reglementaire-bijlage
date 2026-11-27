@@ -1,5 +1,32 @@
 # frontend-reglementaire-bijlage
 
+## 9.38.1
+
+### Patch Changes
+
+- [#372](https://github.com/lblod/frontend-reglementaire-bijlage/pull/372) [`19ba8f56934ac94d1a63c6b12a54cf94f5ee8087`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/19ba8f56934ac94d1a63c6b12a54cf94f5ee8087) Thanks [@abeforgit](https://github.com/abeforgit)! - Fix query param casing
+
+## 9.38.0
+
+### Minor Changes
+
+- [#369](https://github.com/lblod/frontend-reglementaire-bijlage/pull/369) [`5b55fa593841d3c933b0d55c772777020c51cddf`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/5b55fa593841d3c933b0d55c772777020c51cddf) Thanks [@elpoelma](https://github.com/elpoelma)! - Introduce `template-information-modal` containing:
+  - a tag-selector
+  - a decision type selector
+  - a decision target-group selector
+
+- [#365](https://github.com/lblod/frontend-reglementaire-bijlage/pull/365) [`64bd5a9fffbd3363ce5ddf7b75be4cf330316f96`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/64bd5a9fffbd3363ce5ddf7b75be4cf330316f96) Thanks [@kobemertens](https://github.com/kobemertens)! - Convert store to typescript
+
+- [`0efe869109df4a74ab23517b5a97c9d12f7e765d`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/0efe869109df4a74ab23517b5a97c9d12f7e765d) Thanks [@abeforgit](https://github.com/abeforgit)! - Add mandate relationships to relationship pickerwq
+
+### Patch Changes
+
+- [#369](https://github.com/lblod/frontend-reglementaire-bijlage/pull/369) [`8cbc59e6873dea52c482f70b68c7da39f37659f0`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/8cbc59e6873dea52c482f70b68c7da39f37659f0) Thanks [@elpoelma](https://github.com/elpoelma)! - bump plugins to [v39.3.0](https://github.com/lblod/ember-rdfa-editor-lblod-plugins/releases/tag/v39.3.0)
+
+- [#366](https://github.com/lblod/frontend-reglementaire-bijlage/pull/366) [`be42aba303882e33bed0f06682b8a483d8483a5f`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/be42aba303882e33bed0f06682b8a483d8483a5f) Thanks [@elpoelma](https://github.com/elpoelma)! - Retrieve and display tags in a more reactive way
+
+- [#368](https://github.com/lblod/frontend-reglementaire-bijlage/pull/368) [`186db9c9f33b04ad0b04c47533e5c9e99dabb501`](https://github.com/lblod/frontend-reglementaire-bijlage/commit/186db9c9f33b04ad0b04c47533e5c9e99dabb501) Thanks [@abeforgit](https://github.com/abeforgit)! - Fix publication status logic in template overview
+
 ## 9.37.0
 
 ### Minor Changes
