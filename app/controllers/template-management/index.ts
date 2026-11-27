@@ -25,6 +25,7 @@ import Template from 'frontend-reglementaire-bijlage/models/template';
 import EditorDocumentFolderModel from 'frontend-reglementaire-bijlage/models/editor-document-folder';
 import type { ModelFrom } from 'frontend-reglementaire-bijlage/utils/type-utils';
 import type TemplateManagementIndexRoute from 'frontend-reglementaire-bijlage/routes/template-management/index';
+import TemplateInfoModel from 'frontend-reglementaire-bijlage/models/template-info';
 
 const TITLE_SEARCH_DEBOUNCE_TIME = 300;
 
@@ -63,6 +64,8 @@ export default class TemplateManagementIndexController extends Controller {
   @tracked templateTags: string[] = [];
   @tracked isReadMode = true;
 
+  templateInfo: TemplateInfoModel | null = null;
+
   changeFilterTemplateTypes = (newTemplateTypes: TemplateType[]) => {
     this.templateTypes = newTemplateTypes;
     this.resetPagination();
@@ -88,7 +91,9 @@ export default class TemplateManagementIndexController extends Controller {
     documentContainer: DocumentContainerModel,
     tags: Tag[],
   ) => {
-    await this.tagManager.setTags(documentContainer, tags);
+    const templateInfo = await documentContainer.templateInfo;
+    if (!templateInfo) return;
+    await this.tagManager.setTags(templateInfo, tags);
   };
 
   resetFilters = () => {
@@ -161,6 +166,10 @@ export default class TemplateManagementIndexController extends Controller {
 
   @action
   startCreateTemplateFlow() {
+    const templateInfo = this.store.createRecord<TemplateInfoModel>(
+      'template-info',
+      {},
+    );
     const documentContainer = this.store.createRecord<DocumentContainerModel>(
       'document-container',
       {},
@@ -176,6 +185,7 @@ export default class TemplateManagementIndexController extends Controller {
     );
     this.editorDocument = editorDocument;
     this.documentContainer = documentContainer;
+    this.templateInfo = templateInfo;
 
     this.createTemplateModalIsOpen = true;
   }
@@ -199,12 +209,10 @@ export default class TemplateManagementIndexController extends Controller {
     if (
       !this.editorDocument ||
       !this.documentContainer ||
+      !this.templateInfo ||
       !this.templateTypeToCreate?.folder
     )
       return;
-
-    // Store all new tags
-    await this.tagManager.saveTags(this.tagsToCreate);
 
     await this.editorDocument.save();
 
@@ -218,7 +226,10 @@ export default class TemplateManagementIndexController extends Controller {
 
     this.documentContainer.set('currentVersion', this.editorDocument);
 
-    this.documentContainer.set('tags', this.tagsToCreate);
+    await this.tagManager.setTags(this.templateInfo, this.tagsToCreate)
+    await this.templateInfo.save();
+
+    this.documentContainer.set('templateInfo', this.templateInfo);
     await this.documentContainer.save();
 
     this.editorDocument.set('documentContainer', this.documentContainer);

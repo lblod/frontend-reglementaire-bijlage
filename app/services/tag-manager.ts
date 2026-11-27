@@ -4,9 +4,9 @@ import Service from '@ember/service';
 import type { NewTag } from '@lblod/ember-rdfa-editor-lblod-plugins/components/common/tags/tag-selector';
 import type IntlService from 'ember-intl/services/intl';
 import type CodeListModel from 'frontend-reglementaire-bijlage/models/code-list';
-import type DocumentContainer from 'frontend-reglementaire-bijlage/models/document-container';
 import type SnippetList from 'frontend-reglementaire-bijlage/models/snippet-list';
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
+import type TemplateInfoModel from 'frontend-reglementaire-bijlage/models/template-info';
 import type Store from 'frontend-reglementaire-bijlage/services/store';
 import { sortTags } from 'frontend-reglementaire-bijlage/utils/sort-tags';
 
@@ -52,7 +52,7 @@ export default class TagManager extends Service {
   }
 
   async setTags(
-    taggedThing: DocumentContainer | SnippetList | CodeListModel,
+    taggedThing: TemplateInfoModel | SnippetList | CodeListModel,
     tags: Tag[],
   ) {
     await this.saveTags(tags);

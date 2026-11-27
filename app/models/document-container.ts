@@ -10,8 +10,8 @@ import type EditorDocumentFolderModel from './editor-document-folder';
 import type AdministrativeUnitModel from './administrative-unit';
 import type SnippetList from './snippet-list';
 import type Template from './template';
-import type Tag from './tag';
 import type { Type } from '@warp-drive/core-types/symbols';
+import type TemplateInfoModel from './template-info';
 
 export default class DocumentContainerModel extends Model {
   declare [Type]: 'document-container';
@@ -48,9 +48,13 @@ export default class DocumentContainerModel extends Model {
     as: 'document-container',
   })
   declare template: AsyncBelongsTo<Template>;
-  @hasMany<Tag>('tag', { inverse: 'documentContainers', async: true })
-  declare tags: AsyncHasMany<Tag>;
 
+  @belongsTo<TemplateInfoModel>('template-info', {
+    inverse: 'documentContainers',
+    async: true,
+  }) 
+  declare templateInfo: AsyncBelongsTo<TemplateInfoModel>;
+  
   get templateTypeId() {
     return this.folder.then((folder) => folder?.id);
   }

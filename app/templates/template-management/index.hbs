@@ -127,7 +127,7 @@
               documentContainer.currentVersion.updatedOn
             }}</td>
           <td>
-            {{#let (await documentContainer.tags) as |tags|}}
+            {{#let (await documentContainer.templateInfo.tags) as |tags|}}
               {{#if this.isReadMode}}
                 {{#if tags}}
                   <Common::Tags::CollapsibleTagList @tags={{sort-tags tags}} />

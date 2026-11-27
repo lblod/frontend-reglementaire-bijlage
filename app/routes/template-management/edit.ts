@@ -25,15 +25,18 @@ export default class TemplateManagementEditRoute extends Route {
             'currentVersion',
             'folder',
             'template',
-            'tags',
+            'templateInfo.tags',
             'template.currentVersion',
           ],
           reload: true,
         },
       );
+
     const templateContainer = await documentContainer.template;
     const templateVersion = await templateContainer?.currentVersion;
-    const templateTags = await documentContainer?.tags;
+    const templateInfo = await documentContainer.templateInfo;
+    const templateTags = await templateInfo?.tags;
+
     const templateTypeId = await documentContainer.templateTypeId;
 
     return hash({
