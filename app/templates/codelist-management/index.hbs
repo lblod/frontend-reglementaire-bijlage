@@ -31,6 +31,14 @@
               </AuHeading>
             </Group>
             <Group class="au-c-toolbar__group--center">
+              {{#unless this.isReadOnly}}
+                <AuButton
+                  {{on "click" this.showBulkEditModal}}
+                  @skin="secondary"
+                  @icon="pencil"
+                  @disabled={{this.bulkEditIsDisabled}}
+                >{{t "template-management.bulk-edit"}}</AuButton>
+              {{/unless}}
               <AuLink
                 @route="codelist-management.new"
                 @icon="add"
@@ -57,6 +65,15 @@
       </s.menu>
       <s.content as |c|>
         <c.header>
+          <th>
+            {{#let (unique-id) as |id|}}
+              <AuCheckbox
+                id={{id}}
+                @checked={{this.selectAllChecked}}
+                {{on "click" this.toggleSelectAll}}
+              />
+            {{/let}}
+          </th>
           <AuDataTableThSortable
             @field=":no-case:label"
             @currentSorting={{this.sort}}
@@ -74,6 +91,16 @@
           <th></th>
         </c.header>
         <c.body as |codelist|>
+          <td>
+            {{#let (unique-id) as |id|}}
+              <AuCheckbox
+                id={{id}}
+                value={{codelist.uri}}
+                @checked={{this.isSelected codelist.uri}}
+                {{on "click" this.changeCodelistSelection}}
+              />
+            {{/let}}
+          </td>
           <td>
             <AuLink
               @skin="primary"
@@ -124,13 +151,18 @@
   </m.content>
 </AuMainContainer>
 
-<AuModal
+<ConfirmModal
   @title={{t "utility.confirmation.body"}}
   @modalOpen={{this.isRemoveModalOpen}}
   @closeModal={{this.closeRemoveModal}}
-  as |Modal|
+  @isAlert={{true}}
+  @isLoading={{this.removeCodelist.isRunning}}
+  @loadingMessage={{t "utility.deleting"}}
+  @onConfirm={{perform this.removeCodelist}}
+  @onCancel={{this.closeRemoveModal}}
+  @confirmMessage={{t "codelist.crud.delete"}}
 >
-  <Modal.Body>
+  <:body>
     <p>
       {{t
         "codelist.crud.confirm-deletion"
@@ -138,18 +170,14 @@
         htmlSafe=true
       }}
     </p>
-  </Modal.Body>
-  <Modal.Footer>
-    <AuButton
-      @alert={{true}}
-      @loading={{this.removeCodelist.isRunning}}
-      @loadingMessage={{t "utility.deleting"}}
-      {{on "click" (perform this.removeCodelist)}}
-    >
-      {{t "codelist.crud.delete"}}
-    </AuButton>
-    <AuButton @skin="secondary" {{on "click" this.closeRemoveModal}}>
-      {{t "utility.cancel"}}
-    </AuButton>
-  </Modal.Footer>
-</AuModal>
+  </:body>
+</ConfirmModal>
+{{#if this.bulkEditModalIsOpen}}
+  {{#if this.selectedCodelistsTags.resolved}}
+    <BulkEditTagsModal
+      @onClose={{this.closeBulkEditModal}}
+      @onSave={{this.saveBulkEdit.perform}}
+      @availableRemoveTags={{this.selectedCodelistsTagsSet}}
+    />
+  {{/if}}
+{{/if}}

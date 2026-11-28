@@ -31,8 +31,16 @@
               </AuHeading>
             </Group>
             <Group class="au-c-toolbar__group--center">
+              {{#unless this.isReadOnly}}
+                <AuButton
+                  {{on "click" this.showBulkEditModal}}
+                  @skin="secondary"
+                  @icon="pencil"
+                  @disabled={{this.bulkEditIsDisabled}}
+                >{{t "template-management.bulk-edit"}}</AuButton>
+              {{/unless}}
               <TemplateExporter
-                @snippetListUris={{this.selectedSnippetLists}}
+                @snippetListUris={{this.selectedSnippetListUris}}
               />
               <TemplateImporter @onSuccess={{this.refresh}} />
               <AuLink
@@ -139,13 +147,20 @@
     </AuDataTable>
   </m.content>
 </AuMainContainer>
-<AuModal
+<ConfirmModal
   @title={{t "utility.confirmation.body"}}
   @modalOpen={{this.isRemoveModalOpen}}
   @closeModal={{this.closeRemoveModal}}
-  as |Modal|
+  @isAlert={{true}}
+  @isLoading={{this.removeSnippetList.isRunning}}
+  @loadingMessage={{t "utility.deleting"}}
+  @onConfirm={{this.removeSnippetList.perform}}
+  @confirmMessage={{t
+    "snippets.manage-snippet-lists.snippet-list-deletion.action.long"
+  }}
+  @onCancel={{this.closeRemoveModal}}
 >
-  <Modal.Body>
+  <:body>
     <p>
       {{t
         "snippets.manage-snippet-lists.snippet-list-deletion.confirm"
@@ -153,18 +168,14 @@
         htmlSafe=true
       }}
     </p>
-  </Modal.Body>
-  <Modal.Footer>
-    <AuButton
-      @alert={{true}}
-      @loading={{this.removeSnippetList.isRunning}}
-      @loadingMessage={{t "utility.deleting"}}
-      {{on "click" (perform this.removeSnippetList)}}
-    >
-      {{t "snippets.manage-snippet-lists.snippet-list-deletion.action.long"}}
-    </AuButton>
-    <AuButton @skin="secondary" {{on "click" this.closeRemoveModal}}>
-      {{t "utility.cancel"}}
-    </AuButton>
-  </Modal.Footer>
-</AuModal>
+  </:body>
+</ConfirmModal>
+{{#if this.bulkEditModalIsOpen}}
+  {{#if this.selectedSnippetListTags.resolved}}
+    <BulkEditTagsModal
+      @onClose={{this.closeBulkEditModal}}
+      @onSave={{this.saveBulkEdit.perform}}
+      @availableRemoveTags={{this.selectedSnippetListTagsSet}}
+    />
+  {{/if}}
+{{/if}}

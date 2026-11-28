@@ -1,8 +1,8 @@
 {{! @glint-nocheck }}
-{{page-title (t 'tag-management.manage-tags.title')}}
+{{page-title (t "tag-management.manage-tags.title")}}
 <BreadcrumbsItem as |linkClass|>
-  <AuLink @route='snippet-management' class={{linkClass}}>
-    {{t 'tag-management.title'}}
+  <AuLink @route="snippet-management" class={{linkClass}}>
+    {{t "tag-management.title"}}
   </AuLink>
 </BreadcrumbsItem>
 <AuDataTable
@@ -56,11 +56,7 @@
     </c.header>
     <c.body as |tag|>
       <td>
-        <AuLink
-          @skin="primary"
-          @route="tag-management.edit"
-          @model={{tag.id}}
-        >
+        <AuLink @skin="primary" @route="tag-management.edit" @model={{tag.id}}>
           {{tag.value}}
         </AuLink>
       </td>
@@ -88,13 +84,18 @@
   </s.content>
 </AuDataTable>
 
-<AuModal
+<ConfirmModal
   @title={{t "utility.confirmation.body"}}
   @modalOpen={{this.isRemoveModalOpen}}
   @closeModal={{this.closeRemoveModal}}
-  as |Modal|
+  @isAlert={{true}}
+  @isLoading={{this.removeTag.isRunning}}
+  @loadingMessage={{t "utility.deleting"}}
+  @onConfirm={{this.removeTag.perform}}
+  @confirmMessage={{t "tag-management.crud.delete"}}
+  @onCancel={{this.clodeRemoveModal}}
 >
-  <Modal.Body>
+  <:body>
     <p>
       {{t
         "tag-management.crud.confirm-deletion"
@@ -102,19 +103,6 @@
         htmlSafe=true
       }}
     </p>
-  </Modal.Body>
-  <Modal.Footer>
-    <AuButton
-      @alert={{true}}
-      @loading={{this.removeTag.isRunning}}
-      @loadingMessage={{t "utility.deleting"}}
-      {{on "click" (perform this.removeTag)}}
-    >
-      {{t "tag-management.crud.delete"}}
-    </AuButton>
-    <AuButton @skin="secondary" {{on "click" this.closeRemoveModal}}>
-      {{t "utility.cancel"}}
-    </AuButton>
-  </Modal.Footer>
-</AuModal>
+  </:body>
+</ConfirmModal>
 {{outlet}}

@@ -1,6 +1,4 @@
 import Controller from '@ember/controller';
-import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { restartableTask, task, timeout } from 'ember-concurrency';
 import { localCopy } from 'tracked-toolbox';
@@ -9,10 +7,16 @@ import type RouterService from '@ember/routing/router-service';
 import type Store from '@ember-data/store';
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
 import type TagManager from 'frontend-reglementaire-bijlage/services/tag-manager';
+import { type TrackedSet, tracked } from 'tracked-built-ins';
+import type CodelistManagementIndexRoute from 'frontend-reglementaire-bijlage/routes/codelist-management/index';
+import type { ModelFrom } from 'frontend-reglementaire-bijlage/utils/type-utils';
+import { getPromiseState } from 'reactiveweb/get-promise-state';
+import { cached } from '@glimmer/tracking';
 
 const LABEL_SEARCH_DEBOUNCE_TIME = 300;
 
 export default class CodelistManagementIndexController extends Controller {
+  declare model: ModelFrom<CodelistManagementIndexRoute>;
   @service declare router: RouterService;
   @service declare store: Store;
   @service declare tagManager: TagManager;
@@ -28,14 +32,17 @@ export default class CodelistManagementIndexController extends Controller {
   @tracked isRemoveModalOpen = false;
   @tracked modalCodelist: CodeListModel | null = null;
 
+  @tracked selectedCodelistUris: TrackedSet<string> = tracked(Set);
+  @tracked lastSelectedCodelist: string | null = null;
+
   @tracked tags: (string | null)[] = [];
   @tracked isReadMode = true;
+  @tracked bulkEditModalIsOpen = false;
 
-  @action
-  updateSearchQuery(event: Event) {
+  updateSearchQuery = (event: Event) => {
     event.preventDefault();
     this.searchQuery = (event.target as HTMLInputElement).value;
-  }
+  };
 
   changeFilterLabel = restartableTask(async (label: string) => {
     await timeout(LABEL_SEARCH_DEBOUNCE_TIME);
@@ -52,21 +59,34 @@ export default class CodelistManagementIndexController extends Controller {
     this.tags = [];
     this.label = '';
     this.resetPagination();
-  }
+  };
 
   resetPagination() {
     this.page = 0;
   }
 
-  @action openRemoveModal(codelist: CodeListModel) {
+  openRemoveModal = (codelist: CodeListModel) => {
     this.modalCodelist = codelist;
     this.isRemoveModalOpen = true;
-  }
+  };
 
-  @action closeRemoveModal() {
+  closeRemoveModal = () => {
     this.modalCodelist = null;
     this.isRemoveModalOpen = false;
-  }
+  };
+
+  showBulkEditModal = () => {
+    this.bulkEditModalIsOpen = true;
+  };
+
+  closeBulkEditModal = () => {
+    this.bulkEditModalIsOpen = false;
+  };
+
+  saveBulkEdit = task(async (changeset: { add: Tag[]; remove: Tag[] }) => {
+    await this.tagManager.applyBulkEdit(this.selectedCodelists, changeset);
+    this.closeBulkEditModal();
+  });
 
   removeCodelist = task(async () => {
     const concepts = await this.modalCodelist?.concepts;
@@ -96,5 +116,85 @@ export default class CodelistManagementIndexController extends Controller {
     this.resetPagination();
     this.resetFilters();
     this.isReadMode = true;
+  }
+
+  get selectAllChecked() {
+    return this.selectedCodelistUris.size > 0;
+  }
+
+  changeCodelistSelection = (event: Event) => {
+    const element = event.target as HTMLInputElement;
+    const value = element.value;
+    if (element.checked) {
+      if ((event as KeyboardEvent).shiftKey && this.lastSelectedCodelist) {
+        const snippetLists = [...this.model.codelists];
+        const index1 = snippetLists.findIndex(
+          (list) => list.uri === this.lastSelectedCodelist,
+        );
+        const index2 = snippetLists.findIndex((list) => {
+          return list.uri === value;
+        });
+        const startIndex = Math.min(index1, index2);
+        const endIndex = Math.max(index1, index2);
+        for (let i = startIndex; i <= endIndex; i++) {
+          const snippetList = snippetLists[i] as CodeListModel;
+          if (!snippetList.uri) continue;
+          this.selectedCodelistUris.add(snippetList.uri);
+        }
+      } else {
+        this.selectedCodelistUris.add(value);
+      }
+      this.lastSelectedCodelist = value;
+    } else {
+      this.selectedCodelistUris.delete(value);
+    }
+  };
+
+  get selectedCodelists() {
+    return [...this.selectedCodelistUris].map(
+      (uri) =>
+        this.model.codelists.find(
+          (codelist) => codelist.uri === uri,
+        ) as CodeListModel, // this will never be undefined
+    );
+  }
+
+  @cached
+  get selectedCodelistsTags() {
+    return getPromiseState(
+      Promise.all(
+        this.selectedCodelists.map(async (codelist) => await codelist.tags),
+      ),
+    );
+  }
+
+  get selectedCodelistsTagsSet() {
+    if (!this.selectedCodelistsTags.resolved) return null;
+
+    const uniqueTags = [
+      ...new Map(
+        this.selectedCodelistsTags.resolved.flat().map((tag) => [tag?.id, tag]),
+      ).values(),
+    ];
+
+    return uniqueTags;
+  }
+
+  isSelected = (uri: string) => {
+    return this.selectedCodelistUris.has(uri);
+  };
+
+  toggleSelectAll = (event: Event) => {
+    if ((event.target as HTMLInputElement).checked) {
+      const codelists = [...this.model.codelists];
+      const codelistUris = codelists.flatMap((codelist) => codelist.uri ?? []);
+      this.selectedCodelistUris = tracked(new Set(codelistUris));
+    } else {
+      this.selectedCodelistUris = tracked(new Set<string>());
+    }
+  };
+
+  get bulkEditIsDisabled() {
+    return this.selectedCodelistUris.size <= 0 || this.saveBulkEdit.isRunning;
   }
 }
