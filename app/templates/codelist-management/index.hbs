@@ -32,14 +32,12 @@
             </Group>
             <Group class="au-c-toolbar__group--center">
               {{#unless this.isReadOnly}}
-                {{#if (gt this.selectedCodelistUris.size 0)}}
-                  <AuButton
-                    {{on "click" this.showBulkEditModal}}
-                    @skin="secondary"
-                    @icon="pencil"
-                    @disabled={{this.saveBulkEdit.isRunning}}
-                  >{{t "template-management.bulk-edit"}}</AuButton>
-                {{/if}}
+                <AuButton
+                  {{on "click" this.showBulkEditModal}}
+                  @skin="secondary"
+                  @icon="pencil"
+                  @disabled={{this.bulkEditIsDisabled}}
+                >{{t "template-management.bulk-edit"}}</AuButton>
               {{/unless}}
               <AuLink
                 @route="codelist-management.new"
@@ -162,7 +160,7 @@
   @loadingMessage={{t "utility.deleting"}}
   @onConfirm={{perform this.removeCodelist}}
   @onCancel={{this.closeRemoveModal}}
-  @confirmMessage={{t 'codelist.crud.delete'}}
+  @confirmMessage={{t "codelist.crud.delete"}}
 >
   <:body>
     <p>

@@ -251,12 +251,10 @@ export default class TemplateManagementIndexController extends Controller {
     this.bulkEditModalIsOpen = false;
   };
 
-  saveBulkEdit = task(
-    async (changeset: { add: Tag[]; remove: Tag[] }) => {
-      await this.tagManager.applyBulkEdit(this.selectedTemplates, changeset);
-      this.closeBulkEditModal();
-    },
-  );
+  saveBulkEdit = task(async (changeset: { add: Tag[]; remove: Tag[] }) => {
+    await this.tagManager.applyBulkEdit(this.selectedTemplates, changeset);
+    this.closeBulkEditModal();
+  });
 
   submitRemoveTemplate = task(async () => {
     if (!this.documentContainer) return;
@@ -390,4 +388,8 @@ export default class TemplateManagementIndexController extends Controller {
       this.selectedTemplateUris = tracked(new Set<string>());
     }
   };
+
+  get bulkEditIsDisabled() {
+    return this.selectedTemplateUris.size <= 0 || this.saveBulkEdit.isRunning;
+  }
 }

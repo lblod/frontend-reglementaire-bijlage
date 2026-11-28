@@ -35,14 +35,12 @@
             </Group>
             <Group>
               {{#unless this.isReadOnly}}
-                {{#if (gt this.selectedTemplateUris.size 0)}}
-                  <AuButton
-                    {{on "click" this.showBulkEditModal}}
-                    @skin="secondary"
-                    @icon="pencil"
-                    @disabled={{this.saveBulkEdit.isRunning}}
-                  >{{t "template-management.bulk-edit"}}</AuButton>
-                {{/if}}
+                <AuButton
+                  {{on "click" this.showBulkEditModal}}
+                  @skin="secondary"
+                  @icon="pencil"
+                  @disabled={{this.bulkEditIsDisabled}}
+                >{{t "template-management.bulk-edit"}}</AuButton>
               {{/unless}}
               <TemplateExporter @templateUris={{this.selectedTemplateUris}} />
               <TemplateImporter @onSuccess={{this.refresh}} />

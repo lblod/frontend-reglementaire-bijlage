@@ -32,14 +32,12 @@
             </Group>
             <Group class="au-c-toolbar__group--center">
               {{#unless this.isReadOnly}}
-                {{#if (gt this.selectedSnippetListUris.size 0)}}
-                  <AuButton
-                    {{on "click" this.showBulkEditModal}}
-                    @skin="secondary"
-                    @icon="pencil"
-                    @disabled={{this.saveBulkEdit.isRunning}}
-                  >{{t "template-management.bulk-edit"}}</AuButton>
-                {{/if}}
+                <AuButton
+                  {{on "click" this.showBulkEditModal}}
+                  @skin="secondary"
+                  @icon="pencil"
+                  @disabled={{this.bulkEditIsDisabled}}
+                >{{t "template-management.bulk-edit"}}</AuButton>
               {{/unless}}
               <TemplateExporter
                 @snippetListUris={{this.selectedSnippetListUris}}

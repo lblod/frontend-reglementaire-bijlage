@@ -197,6 +197,10 @@ export default class SnippetManagementIndexController extends Controller {
     return uniqueTags;
   }
 
+  get bulkEditIsDisabled() {
+    return this.selectedSnippetListUris.size <= 0 || this.saveBulkEdit.isRunning;
+  }
+
   reset() {
     this.resetPagination();
     this.resetFilters();

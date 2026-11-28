@@ -193,4 +193,8 @@ export default class CodelistManagementIndexController extends Controller {
       this.selectedCodelistUris = tracked(new Set<string>());
     }
   };
+
+  get bulkEditIsDisabled() {
+    return this.selectedCodelistUris.size <= 0 || this.saveBulkEdit.isRunning;
+  }
 }
