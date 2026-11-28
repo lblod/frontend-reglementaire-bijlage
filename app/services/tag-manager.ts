@@ -69,10 +69,10 @@ export default class TagManager extends Service {
       taggedThings.map(async (taggedThing) => {
         if (!taggedThing) return;
         const tags = await taggedThing.tags;
-        const removed = tags.filter(
+        const remainingTags = tags.filter(
           (tag: Tag) => !remove.find((tag2) => tag.id === tag2.id),
         );
-        const newTags = [...removed, ...add];
+        const newTags = [...remainingTags, ...add];
         await this.setTags(taggedThing, newTags);
       }),
     );
