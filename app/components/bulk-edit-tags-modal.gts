@@ -8,7 +8,8 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import type Tag from 'frontend-reglementaire-bijlage/models/tag';
 import ConfirmModal from 'frontend-reglementaire-bijlage/components/confirm-modal';
-import { or } from 'ember-truth-helpers';
+import AuPill from '@appuniversum/ember-appuniversum/components/au-pill';
+import { gt } from 'ember-truth-helpers';
 
 type Sig = {
   Args: {
@@ -41,6 +42,9 @@ export default class BulkEditTagsModal extends Component<Sig> {
 
   get saveButtonDisabled() {
     return this.tagsToAdd.length + this.tagsToRemove.length === 0;
+  }
+  get availableRemoveTags() {
+    return this.args.availableRemoveTags ?? [];
   }
 
   <template>
@@ -76,13 +80,19 @@ export default class BulkEditTagsModal extends Component<Sig> {
             <AuLabel for='bulk-tags-to-remove'>
               {{t 'tag-management.remove-tags'}}
             </AuLabel>
-            <TagSelector
-              id='bulk-tags-to-remove'
-              class='au-u-1-1'
-              @tags={{or @availableRemoveTags this.tagManager.tags}}
-              @selectedTags={{this.tagsToRemove}}
-              @onChange={{this.setTagsToRemove}}
-            />
+            {{#if (gt this.availableRemoveTags.length 0)}}
+              <TagSelector
+                id='bulk-tags-to-remove'
+                class='au-u-1-1'
+                @tags={{this.availableRemoveTags}}
+                @selectedTags={{this.tagsToRemove}}
+                @onChange={{this.setTagsToRemove}}
+              />
+            {{else}}
+              <AuPill @icon='info-circle'>
+                {{t 'tag-management.no-tags-to-remove'}}
+              </AuPill>
+            {{/if}}
           </AuFormRow>
         </form>
       </:body>

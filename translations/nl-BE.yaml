@@ -262,6 +262,7 @@ tag-management:
   remove-tags: Tags verwijderen
   bulk-edit-title: Bulkbewerking tags
   bulk-edit-description: Deze bulkbewerking laat toe om aan de geselecteerde sjablonen dezelfde tags toe te voegen of verwijderen.
+  no-tags-to-remove: De geselecteerde items bevatten geen tags om te verwijderen.
 
 editor-document-title:
   placeholder: Naamloos document
